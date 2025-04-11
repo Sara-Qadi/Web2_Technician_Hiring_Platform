@@ -5,10 +5,16 @@
 
     <ul class="nav nav-tabs mb-3">
       <li class="nav-item">
-        <a class="nav-link" [class.active]="filter === 'all'" (click)="filter = 'all'" href="#">All</a>
+        <a class="nav-link"
+        [class.active]="filter === 'all'"
+        href="#"
+        (click)="setFilter($event, 'all')">All</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [class.active]="filter === 'unread'" (click)="filter = 'unread'" href="#">Unread</a>
+        <a class="nav-link"
+        [class.active]="filter === 'unread'"
+        href="#"
+        (click)="setFilter($event, 'unread')">Unread</a>
       </li>
     </ul>
     <span class="earlier">Earlier</span>

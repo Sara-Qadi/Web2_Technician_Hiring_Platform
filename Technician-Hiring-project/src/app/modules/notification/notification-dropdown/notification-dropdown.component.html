@@ -1,7 +1,6 @@
-<!-- Dropdown Wrapper with Template Reference -->
+
 <div #dropdownRef class="dropdown-wrapper">
 
-  <!-- Notification Bell Icon -->
   <div class="position-relative" (click)="toggleDropdown()" style="cursor: pointer;">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
          class="bi bi-bell-fill text-dark" viewBox="0 0 16 16">
@@ -14,14 +13,12 @@
     </span>
   </div>
 
-  <!-- Dropdown -->
   <div *ngIf="dropdownOpen" class="dropdown-menu dropdown-menu-end show mt-2"
        style="width: 420px; max-height: 600px; overflow-y: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); background-color: #e8dcd2;">
 
     <div class="p-3">
       <h5 class="fw-bold mb-3">Notifications</h5>
 
-      <!-- Tabs -->
       <ul class="nav nav-tabs mb-3">
         <li class="nav-item">
           <a class="nav-link" [class.active]="filter === 'all'" (click)="filter = 'all'" href="#">All</a>
@@ -34,7 +31,6 @@
       <span class="text-muted small">Earlier</span>
       <br><br>
 
-      <!-- Notifications List -->
       <div *ngFor="let notification of filteredNotifications(); let last = last; let i = index">
         <div class="notification-item d-flex align-items-center mb-3">
           <div class="me-3">

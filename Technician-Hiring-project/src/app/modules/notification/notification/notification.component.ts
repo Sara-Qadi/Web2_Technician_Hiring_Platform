@@ -76,6 +76,12 @@ export class NotificationComponent {
     return this.notifications.filter(n => n.unread);
   }
   deleteNotification(index: number) {
-    this.notifications.splice(index, 1);  // Removes the notification from the array
+    this.notifications.splice(index, 1);
   }
+
+  setFilter(event: Event, value: 'all' | 'unread') {
+    event.preventDefault();
+    this.filter = value;
+  }
+
 }
