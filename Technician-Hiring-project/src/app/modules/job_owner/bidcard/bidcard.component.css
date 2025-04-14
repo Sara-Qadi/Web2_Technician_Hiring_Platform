@@ -1,0 +1,40 @@
+.card{
+  transition: all 0.7s;
+}
+span,button,p{
+  font-family: "Manrope", sans-serif;
+}
+.card:hover{
+  box-shadow: #54152f 4px 4px 10px;
+}
+.accept,.reject,.message{
+  transition: all 0.5s;
+}
+.reject{
+  color: #b30a0ac0;
+  background-color: white;
+  border: #b30a0ac0 1px solid;
+}
+.reject:hover{
+  background-color: #b30a0ac0;
+  color: white;
+}
+.accept{
+  border: 1px solid #475451;
+  color: #475451;
+}
+.accept:hover{
+  background-color: #475451;
+  color: white;
+}
+/*.message{
+  border: 1px solid #BBABA3;
+  color: #BBABA3;
+}
+.message:hover{
+  background-color: #BBABA3;
+  color: white;
+}*/
+.bidname{
+  font-family: "poppins", sans-serif;
+}
