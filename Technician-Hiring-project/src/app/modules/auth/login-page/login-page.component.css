@@ -1,0 +1,21 @@
+.login-page {
+  /* عشان ياخد ارتفاع الشاشة كله */
+  min-height: 100vh;
+
+  .welcome-title {
+    font-weight: 600;
+    font-size: 2rem; 
+  }
+
+  @media (max-width: 767px) {
+    /* شاشة صغيرة (موبايل) */
+    .welcome-title {
+      font-size: 1.75rem;
+    }
+  }
+}
+
+/* عشان الصورة تكون على قد حجم الفورم */
+.full-height {
+  height: 100%;
+}
