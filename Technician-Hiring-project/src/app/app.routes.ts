@@ -1,3 +1,5 @@
+import { SearchComponent } from './modules/technician/search/search.component';
+import { SubmitBidesComponent } from './modules/technician/submit-bides/submit.bides.component';
 import { Routes } from '@angular/router';
 import { NotificationComponent } from './modules/notification/notification/notification.component';
 import {CraftsmenRegistrationsComponent} from './modules/admin/admin/craftsmen-registrations/craftsmen-registrations.component';
@@ -27,7 +29,6 @@ export const routes: Routes = [
   {path:'updatejob',component:AddjobComponent},
   {path:'reviewbids',component:BidlistComponent},
   {path: 'login',component: LoginPageComponent},
-  {path: '',component: LoginPageComponent},
   { path: 'role-selection', component: RoleSelectionComponent }, // المسار لصفحة اختيار الدور
   { path: 'sign-up', component: SignUpComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
@@ -37,6 +38,13 @@ export const routes: Routes = [
   //   pathMatch: 'full',
   // },
   { path: 'notifications', component: NotificationComponent },
-
+  {
+    path: '',
+    component: SearchComponent
+  },
+  {
+    path: 'submit-bid',
+    component: SubmitBidesComponent
+  }
 ];
 
