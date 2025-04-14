@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark px-3">
   <a class="navbar-brand d-flex align-items-center" routerLink="/admin/dashboard">
-    <img src="#" alt="Logo" width="30" height="30" class="me-2" />
-    Craftsmen Hub Admin
+    <img src="assets/technician-icon.png" alt="Logo" width="30" height="30" class="me-2 rounded-5"  />
+    Craftsmen Hub
   </a>
 
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -42,8 +42,17 @@
           routerLink="/admin/delete-craftsman"
           routerLinkActive="active"
           class="nav-link position-relative">
-          Usersii
+          Users
           <span class="active-underline" *ngIf="isActive('/admin/delete-craftsman')"></span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          routerLink="/reports/analytics"
+          routerLinkActive="active"
+          class="nav-link position-relative">
+          Reports
+          <span class="active-underline" *ngIf="isActive('/reports/analytics')"></span>
         </a>
       </li>
     </ul>
@@ -66,6 +75,6 @@
     <button class="icon-btn me-3">
       <i class="bi bi-bell"></i>
     </button>
-    <img src="#" alt="User" class="rounded-circle" width="30" height="30" />
+    <img src="assets/person1.jpg" alt="User" class="rounded-circle rounded-5" width="30" height="30" />
   </div>
 </nav>

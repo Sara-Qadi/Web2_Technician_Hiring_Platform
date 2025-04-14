@@ -15,6 +15,7 @@ import { LoginPageComponent } from './modules/auth/login-page/login-page.compone
 import { RoleSelectionComponent } from './modules/auth/role-selection/role-selection.component';
 import { SignUpComponent } from './modules/auth/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './modules/auth/forgot-password/forgot-password.component';
+import { AnalyticsComponent } from './modules/reports/analytics.component';
 
 
 export const routes: Routes = [
@@ -29,6 +30,7 @@ export const routes: Routes = [
   {path:'updatejob',component:AddjobComponent},
   {path:'reviewbids',component:BidlistComponent},
   {path: 'login',component: LoginPageComponent},
+  {path: 'reports/analytics',component: AnalyticsComponent},
   { path: 'role-selection', component: RoleSelectionComponent }, // المسار لصفحة اختيار الدور
   { path: 'sign-up', component: SignUpComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },

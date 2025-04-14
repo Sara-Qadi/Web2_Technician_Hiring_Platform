@@ -8,6 +8,8 @@ import { NotificationDropdownComponent } from './modules/notification/notificati
 import { ProfileComponent } from './modules/technician/profile/profile.component';
 import { ProfileEditComponent } from './modules/technician/profile-edit/profile-edit.component';
 import { JobListComponent } from './modules/job_owner/joblist/joblist.component';
+import { NavbarAdminComponent } from './modules/admin/admin/navbar-admin/navbar-admin.component';
+import { FooterAdminComponent } from './modules/admin/admin/footer-admin/footer-admin.component';
 import { AnalyticsComponent } from './modules/reports/analytics.component';
 
 
@@ -15,7 +17,7 @@ import { AnalyticsComponent } from './modules/reports/analytics.component';
   selector: 'app-root',
 
   imports: [RouterOutlet, NotificationComponent, NotificationDropdownComponent, ProfileComponent, ProfileEditComponent,JobListComponent,AnalyticsComponent,
-            CommonModule , SearchComponent , SubmitBidesComponent , RouterOutlet ],
+            CommonModule , SearchComponent , SubmitBidesComponent , RouterOutlet , NavbarAdminComponent , FooterAdminComponent ],
 
 
   templateUrl: './app.component.html',
