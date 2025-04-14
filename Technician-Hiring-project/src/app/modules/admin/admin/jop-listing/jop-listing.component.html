@@ -1,0 +1,22 @@
+<app-navbar-admin></app-navbar-admin>
+<div class="container py-5">
+  <h2 class="text-center text-color-primary fw-bold mb-4">Job Postings</h2>
+
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-6 col-lg-4 mb-4" *ngFor="let job of jobs">
+      <div class="card h-100 shadow-sm">
+        <img src="{{ job.imageUrl }}" class="card-img-top" alt="{{ job.title }}">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{ job.title }}</h5>
+          <p class="card-text">{{ job.description }}</p>
+          <a href="#" class="btn btn-delete mt-auto">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-end mt-3">
+    <button class="btn view-more-button">View more</button>
+  </div>
+</div>
+<app-footer-admin></app-footer-admin>

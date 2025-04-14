@@ -1,0 +1,65 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: #e8e0da;
+  overflow-x: hidden;
+}
+
+.text-color-primary {
+  color: #641739;
+}
+
+.view-more-button {
+  background-color: #641739;
+  color: white;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.view-more-button:hover {
+  background-color: #4a112c;
+}
+
+.card {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-title {
+  color: #333;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.card-text {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.btn-delete {
+  background-color: #641739;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 8px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.btn-delete:hover {
+  background-color: #4a112c;
+}
