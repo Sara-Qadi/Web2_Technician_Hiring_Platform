@@ -1,0 +1,38 @@
+.card{
+  box-shadow: #641739 5px 5px ;
+  border: 2px solid #B8A59B !important;
+}
+h5{
+  font-family: "poppins", sans-serif;
+  font-weight: bold;
+  text-transform: capitalize;
+  color: black !important;
+}
+.role {
+  text-decoration: none !important;
+  background-color: #B8A59B;
+  color: #641739;
+  color: white ;
+  transition: all 0.5s ease;
+}
+.role:hover {
+  background-color: #641739;
+  color: white ;
+}
+.attachments{
+  color: #641739;
+}
+span,p,h6{
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+}
+.text-body{
+  font-size: 14px;
+}
+.update-delete button:active{
+  border: #641739 1px solid;
+}
+.card-item {
+ 
+  margin-bottom: 20px; /* المسافة بين الكروت */
+}

@@ -1,0 +1,96 @@
+<div style="background-color: #f3f2f1; min-height: 100vh;">
+
+  <div class="container pt-3">
+    <div class="row align-items-center">
+      <div class="col-auto">
+        <p class="fs-1 m-0" style="color: #641739;">Filter</p>
+      </div>
+
+      <div class="col d-flex justify-content-center align-items-center gap-2">
+        <input
+          type="text"
+          [(ngModel)]="termInput"
+          placeholder="Search for job title"
+          class="form-control w-25"
+        />
+        <button (click)="applySearch()" class="btn" style="background-color: #641739; color: white; ">Search</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid py-4">
+    <div class="row">
+
+      <aside class="col-md-3 p-4 rounded shadow-sm" style="background-color: #f8f9fa;">
+        <h4 class="mb-4 fw-bold border-bottom pb-2" style="color: #641739;">Category</h4>
+
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="checkbox" id="Electrician-Category">
+          <label class="form-check-label" for="Electrician-Category">Electrician</label>
+        </div>
+
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="checkbox" id="Plumber-Category">
+          <label class="form-check-label" for="Plumber-Category">Plumber</label>
+        </div>
+
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="checkbox" id="Painter-Category">
+          <label class="form-check-label" for="Painter-Category">Painter</label>
+        </div>
+
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="checkbox" id="Carpenter-Category">
+          <label class="form-check-label" for="Carpenter-Category">Carpenter</label>
+        </div>
+
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="checkbox" id="Mechanic-Category">
+          <label class="form-check-label" for="Mechanic-Category">Mechanic</label>
+        </div>
+
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="checkbox" id="Tiler-Category">
+          <label class="form-check-label" for="Tiler-Category">Tiler</label>
+        </div>
+
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="checkbox" id="Welder-Category">
+          <label class="form-check-label" for="Welder-Category">Welder</label>
+        </div>
+
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="checkbox" id="Roofing-Specialist-Category">
+          <label class="form-check-label" for="Roofing-Specialist-Category">Roofing Specialist</label>
+        </div>
+
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="checkbox" id="Mason-Category">
+          <label class="form-check-label" for="Mason-Category">Mason</label>
+        </div>
+
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="checkbox" id="AC-Technician-Category">
+          <label class="form-check-label" for="AC-Technician-Category">AC Technician</label>
+        </div>
+
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="checkbox" id="Security-Camera-Installer-Category">
+          <label class="form-check-label" for="Security-Camera-Installer-Category">Security Camera Installer</label>
+        </div>
+
+        <h4 class="mb-4 fw-bold border-bottom pb-2 mt-4" style="color: #641739;">Budget</h4>
+        <input [(ngModel)]="minInput" class="form-control rounded-5 fs-5 mb-3" type="text" placeholder="Min">
+        <input [(ngModel)]="maxInput" class="form-control rounded-5 fs-5 mb-3" type="text" placeholder="Max">
+
+        <h4 class="mb-4 fw-bold border-bottom pb-2 mt-4" style="color: #641739;">Location</h4>
+        <input [(ngModel)]="locationInput" class="form-control rounded-5 fs-5" type="text" placeholder="e.g. Jerusalem">
+      </aside>
+
+      <div class="col-md-9">
+        <app-cardlist [jobs]="jobs | search: term"></app-cardlist>
+      </div>
+
+    </div>
+  </div>
+</div>

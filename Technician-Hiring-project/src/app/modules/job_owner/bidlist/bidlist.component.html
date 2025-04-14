@@ -1,0 +1,7 @@
+<a href="/jobowner" (click)="tojobowner()">back to jobowner page</a>
+<div class="container w-75 my-4">
+  <app-jobsummary></app-jobsummary>
+  <h4 class="mt-5 mb-4 fw-bold">Proposals</h4>
+  <app-bidcard *ngFor="let bid of bids" [bid]="bid"></app-bidcard>
+</div>
+
