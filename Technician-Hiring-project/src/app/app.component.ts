@@ -5,11 +5,14 @@ import { NotificationDropdownComponent } from './modules/notification/notificati
 import { ProfileComponent } from './modules/technician/profile/profile.component';
 import { ProfileEditComponent } from './modules/technician/profile-edit/profile-edit.component';
 import { JobListComponent } from './modules/job_owner/joblist/joblist.component';
-
+import { AnalyticsComponent } from './modules/reports/analytics.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NotificationComponent, NotificationDropdownComponent, ProfileComponent, ProfileEditComponent,JobListComponent],
+
+  imports: [RouterOutlet, NotificationComponent, NotificationDropdownComponent, ProfileComponent, ProfileEditComponent,JobListComponent,AnalyticsComponent ],
+
+
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
