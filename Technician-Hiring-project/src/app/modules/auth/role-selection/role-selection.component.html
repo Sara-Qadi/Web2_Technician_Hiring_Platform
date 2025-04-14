@@ -1,0 +1,51 @@
+<div class="container role-selection">
+  <h1 class="text-center mb-4 mt-5 mb-5">Choose Your Role</h1>
+  <div class="row justify-content-center">
+    <!-- Job Owner Option -->
+    <div
+      class="col-12 col-md-5 role-option mx-3"
+      [ngClass]="{ selected: selectedRole === 'jobOwner' }"
+      (click)="selectRole('jobOwner')"
+    >
+      <div class="role-card">
+        <img
+          src="/assets/job-owner-icon.png"
+          alt="Job Owner"
+          class="img-fluid"
+          style="width: 122px; height: auto"
+        />
+        <h3>Job Owner</h3>
+        <p>For those looking to post jobs</p>
+      </div>
+    </div>
+
+    <!-- Technician Option -->
+    <div
+      class="col-12 col-md-5 role-option mx-3"
+      [ngClass]="{ selected: selectedRole === 'technician' }"
+      (click)="selectRole('technician')"
+    >
+      <div class="role-card">
+        <img
+          src="/assets/technician-icon.png"
+          alt="Technician"
+          class="img-fluid"
+          style="width: 122px; height: auto"
+        />
+        <h3>Technician</h3>
+        <p>For those looking to work on jobs</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Continue Button -->
+  <div class="text-center mt-4">
+    <button
+      class="btn btn-primary"
+      [disabled]="!selectedRole"
+      (click)="onContinue()"
+    >
+      Continue
+    </button>
+  </div>
+</div>
