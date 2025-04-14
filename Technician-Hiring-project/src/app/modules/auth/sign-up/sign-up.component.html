@@ -1,0 +1,195 @@
+<div class="container-fluid login-page vh-100">
+  <div class="row h-100">
+    <!-- Left side (form) -->
+    <div
+      class="col-12 col-md-7 col-lg-6 d-flex flex-column justify-content-center align-items-center px-5 py-4 full-height"
+    >
+      <div class="w-100" style="max-width: 400px">
+        <!-- Title / Subtitle -->
+        <h1 class="mb-1 welcome-title">Create your account</h1>
+        <p class="text-muted mb-4">Join us by filling in the details below</p>
+
+        <!-- Form -->
+        <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+          <!-- First Name -->
+          <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input
+              type="text"
+              formControlName="firstName"
+              id="firstName"
+              class="form-control"
+              placeholder="First name"
+            />
+            <div
+              class="text-danger mt-1"
+              *ngIf="
+                signUpForm.get('firstName')?.invalid &&
+                signUpForm.get('firstName')?.touched
+              "
+            >
+              First name is required and must be valid.
+            </div>
+          </div>
+
+          <!-- Last Name -->
+          <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input
+              type="text"
+              formControlName="lastName"
+              id="lastName"
+              class="form-control"
+              placeholder="Last name"
+            />
+            <div
+              class="text-danger mt-1"
+              *ngIf="
+                signUpForm.get('lastName')?.invalid &&
+                signUpForm.get('lastName')?.touched
+              "
+            >
+              Last name is required and must be valid.
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input
+              type="email"
+              formControlName="email"
+              id="email"
+              class="form-control"
+              placeholder="you@example.com"
+            />
+            <div
+              class="text-danger mt-1"
+              *ngIf="
+                signUpForm.get('email')?.invalid &&
+                signUpForm.get('email')?.touched
+              "
+            >
+              Please enter a valid email.
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              formControlName="password"
+              id="password"
+              class="form-control"
+              placeholder="••••••••"
+            />
+            <div
+              class="text-danger mt-1"
+              *ngIf="
+                signUpForm.get('password')?.invalid &&
+                signUpForm.get('password')?.touched
+              "
+            >
+              Password must be at least 8 characters.
+            </div>
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="mb-3">
+            <label for="confirmPassword" class="form-label"
+              >Confirm Password</label
+            >
+            <input
+              type="password"
+              formControlName="confirmPassword"
+              id="confirmPassword"
+              class="form-control"
+              placeholder="••••••••"
+            />
+            <div
+              class="text-danger mt-1"
+              *ngIf="signUpForm.get('confirmPassword')?.touched && signUpForm.errors?.['passwordMismatch']
+"
+            >
+              Passwords do not match.
+            </div>
+          </div>
+
+          <!-- Country -->
+          <div class="mb-3">
+            <label for="country" class="form-label">Country</label>
+            <select formControlName="country" id="country" class="form-select">
+              <option value="">Select Country</option>
+              <option>Palestine</option>
+              <option>Jordan</option>
+              <option>UK</option>
+              <option>Australia</option>
+            </select>
+            <div
+              class="text-danger mt-1"
+              *ngIf="
+                signUpForm.get('country')?.invalid &&
+                signUpForm.get('country')?.touched
+              "
+            >
+              Country is required.
+            </div>
+          </div>
+
+          <!-- Accept Terms -->
+          <div class="form-check mb-3">
+            <input
+              type="checkbox"
+              formControlName="terms"
+              id="terms"
+              class="form-check-input"
+            />
+            <label class="form-check-label" for="terms"
+              >I accept the terms and conditions</label
+            >
+            <div
+              class="text-danger mt-1"
+              *ngIf="
+                signUpForm.get('terms')?.invalid &&
+                signUpForm.get('terms')?.touched
+              "
+            >
+              You must accept the terms.
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <a routerLink="/login" class="ms-1 text-decoration-none fw-semibold">
+            <button
+              type="submit"
+              class="btn btn-primary w-100 mb-3"
+              [disabled]="signUpForm.invalid"
+            >
+              Sign Up
+            </button></a
+          >
+        </form>
+
+        <!-- Already have account -->
+        <div class="text-center">
+          <span class="text-muted">Already have an account?</span>
+          <a routerLink="/login" class="ms-1 text-decoration-none fw-semibold"
+            >Login</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Right side (image) -->
+    <div
+      class="col-12 col-md-5 col-lg-6 bg-light d-none d-md-block p-0 full-height"
+    >
+      <img
+        src="/assets/login-illustration.png"
+        alt="Sign Up Illustration"
+        class="img-fluid w-100 h-100 object-fit-cover"
+      />
+    </div>
+  </div>
+</div>
