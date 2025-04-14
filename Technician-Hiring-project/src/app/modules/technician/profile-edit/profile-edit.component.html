@@ -1,0 +1,22 @@
+
+<img src="/assets/person1.jpg" alt="profile" class="profile-pic" (click)="openProfileModal()" />
+
+<div *ngIf="showProfileModal" class="modal-overlay">
+  <div class="modal-content">
+    <button class="close-btn" (click)="closeProfileModal()">x</button>
+
+    <img [src]="editableProfile.imageUrl" class="modal-img" />
+
+    <input type="file" accept="image/*" (change)="onImageChange($event)" />
+
+    <input type="text" [(ngModel)]="editableProfile.name" placeholder="Technician Name" />
+
+    <input type="text" [(ngModel)]="editableProfile.specialty" placeholder="Specialty" />
+
+    <p><strong>Rating:</strong> ⭐⭐⭐⭐☆ (4/5)</p>
+
+    <textarea [(ngModel)]="editableProfile.description" placeholder="Description or contact info"></textarea>
+
+    <button class="update" (click)="saveProfileChanges()">Update</button>
+  </div>
+</div>
