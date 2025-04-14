@@ -1,0 +1,73 @@
+.container{
+  border: 2px solid #B8A59B;
+}
+h3{
+  font-family: "poppins", sans-serif;
+  font-weight: bold;
+}
+button{
+  font-family: "Manrope", sans-serif;
+
+}
+label ,#Attachments p{
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+}
+input, select, textarea{
+  font-family: "Manrope", sans-serif;
+  font-size: 14px;
+  font-weight: light;
+  box-shadow: #641739 3px 3px ;
+  border: #BBABA3 2px solid;
+  color: #826382;
+}
+input::placeholder, textarea::placeholder,.Attachmentcontent{
+  color: #826382;
+}
+button{
+  background-color: #641739;
+  border: none;
+}
+button:hover{
+  background-color: #611837;
+}
+button:active{
+  background-color: #54152f !important;
+}
+button:disabled{
+  background-color: #BBABA3 !important;
+}
+input:focus,select:focus,textarea:focus{
+  border: #BBABA3 2px solid;
+  box-shadow: #54152f 4px 4px 10px;
+}
+option:hover{
+  background-color: #475451 !important;
+}
+#AttachmentsLabel{
+  border: 2px dashed #BBABA3;
+  padding: 20px; 
+  text-align: center; 
+  display: block; 
+  cursor: pointer;
+}
+#AttachmentsLabel input{
+  display: none;
+}
+#AttachmentsLabel .icon{
+  font-size: 50px;
+  color: #826382;
+  margin: 15px 0;
+}
+.Attachmentcontent p{
+  font-size: 14px;
+  margin: 0;
+}
+.Attachmentcontent span{
+  font-size: 13px;
+}
+.warning span{
+  font-size: 13px;
+  padding: 5px 0;
+  font-family: "Manrope", sans-serif;
+}

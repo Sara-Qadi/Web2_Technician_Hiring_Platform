@@ -1,0 +1,107 @@
+import { CommonModule } from '@angular/common';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-notification-dropdown',
+  templateUrl: './notification-dropdown.component.html',
+  styleUrl: './notification-dropdown.component.css',
+  standalone: true,
+  imports: [CommonModule],
+})
+export class NotificationDropdownComponent {
+  @ViewChild('dropdownRef', { static: true }) dropdownRef!: ElementRef;
+  dropdownOpen = false;
+  filter: 'all' | 'unread' = 'all';
+
+  constructor(private router: Router) {}
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: MouseEvent): void {
+    if (this.dropdownRef && !this.dropdownRef.nativeElement.contains(event.target)) {
+      this.dropdownOpen = false;
+    }
+  }
+
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  goToNotifications(): void {
+    this.router.navigate(['/notifications']);
+  }
+
+  getUnreadCount() {
+    return this.notifications.filter(n => n.unread).length;
+  }
+
+  filteredNotifications() {
+    return this.filter === 'all'
+      ? this.notifications
+      : this.notifications.filter(n => n.unread);
+  }
+
+  deleteNotification(index: number) {
+    this.notifications.splice(index, 1);
+  }
+
+  notifications = [
+    {
+      image: 'assets/person1.jpg',
+      name: 'Sara',
+      message: ' Made an offer',
+      time: '1h',
+      unread: true
+    },
+    {
+      image: 'assets/person1.jpg',
+      name: 'Alaa',
+      message: ' Made an offer',
+      time: '3h',
+      unread: true
+    },
+    {
+      image: 'assets/person1.jpg',
+      name: 'Izzat',
+      message: ' Made an offer',
+      time: '8h',
+      unread: true
+    },
+    {
+      image: 'assets/person1.jpg',
+      name: 'Omar',
+      message: ' Made an offer',
+      time: '1d',
+      unread: false
+    },
+    {
+      image: 'assets/person1.jpg',
+      name: 'Leen',
+      message: ' Made an offer',
+      time: '1d',
+      unread: true
+    },
+    {
+      image: 'assets/person1.jpg',
+      name: 'Basel',
+      message: ' Made an offer',
+      time: '10d',
+      unread: false
+    },
+    {
+      image: 'assets/person1.jpg',
+      name: 'Lian',
+      message: ' Made an offer',
+      time: '10d',
+      unread: true
+    },
+    {
+      image: 'assets/person1.jpg',
+      name: 'John',
+      message: ' Made an offer',
+      time: '10d',
+      unread: false
+    }
+  ];
+
+}
