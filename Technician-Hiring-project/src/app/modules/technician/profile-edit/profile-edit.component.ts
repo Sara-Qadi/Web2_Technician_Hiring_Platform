@@ -1,15 +1,19 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ProfileModalService } from '../../../services/profile-modal.service';
 
 @Component({
   selector: 'app-profile-edit',
-  imports: [CommonModule,  FormsModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './profile-edit.component.html',
   styleUrl: './profile-edit.component.css'
 })
-export class ProfileEditComponent {
+export class ProfileEditComponent implements OnInit, OnDestroy {
   showProfileModal = false;
+  private sub!: Subscription;
 
   editableProfile = {
     imageUrl: '/assets/person1.jpg',
@@ -19,12 +23,21 @@ export class ProfileEditComponent {
     description: 'Some quick description or contact info here.'
   };
 
-  openProfileModal() {
-    this.showProfileModal = true;
+
+  constructor(private modalService: ProfileModalService) {}
+
+  ngOnInit() {
+    this.sub = this.modalService.editModalOpen$.subscribe(isOpen => {
+      this.showProfileModal = isOpen;
+    });
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
   closeProfileModal() {
-    this.showProfileModal = false;
+    this.modalService.closeEditModal();
   }
 
   onImageChange(event: any) {
@@ -41,6 +54,9 @@ export class ProfileEditComponent {
   saveProfileChanges() {
     console.log('Updated profile:', this.editableProfile);
     this.closeProfileModal();
+  }
+  openProfileModal() {
+    this.modalService.openEditModal();
   }
 
 }
