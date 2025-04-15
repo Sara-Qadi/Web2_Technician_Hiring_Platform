@@ -1,8 +1,9 @@
-<div style="background-color: #e8e0DA; min-height: 100vh;">
-  
+<app-navbar-admin></app-navbar-admin>
+<div style="background-color: #f3f2f1; min-height: 100vh;">
+
     <div class="container py-5">
       <div class="row justify-content-center g-4">
-  
+
         <div class="col-12 col-md-6 col-lg-4">
           <div class="card h-100 shadow-sm" style="background-color: #ffffff;">
             <div class="card-header text-white" style="background-color: #641739;">koko wawa</div>
@@ -16,30 +17,30 @@
             </div>
           </div>
         </div>
-  
+
         <div class="col-12 col-md-6 col-lg-7">
           <form (ngSubmit)="submitForm()" #myForm="ngForm" class="p-4 rounded shadow mb-4" style="background-color: #ffffff;">
             <div class="mb-3">
               <label for="min" class="form-label text-dark">Min Value</label>
               <input type="number" id="min" class="form-control" [(ngModel)]="min" name="min" required>
             </div>
-  
+
             <div class="mb-3">
               <label for="max" class="form-label text-dark">Max Value</label>
               <input type="number" id="max" class="form-control" [(ngModel)]="max" name="max" required>
             </div>
-  
+
             <div class="mb-3">
               <label for="comment" class="form-label text-dark">Comment</label>
               <textarea id="comment" rows="4" class="form-control" [(ngModel)]="comment" name="comment"></textarea>
             </div>
-  
-            
+
+
             <button type="submit" class="btn w-100" style="background-color: #641739; color: white;">Submit</button>
           </form>
         </div>
       </div>
-  
+
       <div *ngIf="submissions.length > 0" class="mt-4">
         <h5 class="mb-3 text-center text-dark">Submissions</h5>
         <div *ngFor="let entry of submissions" class="card mb-3 shadow-sm">
@@ -52,4 +53,4 @@
       </div>
     </div>
   </div>
-  
+  <app-footer-admin></app-footer-admin>

@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { NavbarAdminComponent } from '../../admin/admin/navbar-admin/navbar-admin.component';
+import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admin.component';
 
 @Component({
   selector: 'app-submit-bides',
   standalone: true,
-  imports: [FormsModule , CommonModule],
+  imports: [FormsModule , CommonModule, NavbarAdminComponent, FooterAdminComponent],
   templateUrl: './submit.bides.component.html',
   styleUrls: ['./submit.bides.component.css']
 })

@@ -1,6 +1,7 @@
 .card{
   box-shadow: #641739 5px 5px ;
   border: 2px solid #B8A59B !important;
+  background-color: rgb(243, 240, 240);
 }
 h5{
   font-family: "poppins", sans-serif;

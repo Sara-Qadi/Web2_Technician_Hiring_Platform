@@ -15,7 +15,9 @@ export class RoleSelectionComponent {
 
   selectRole(role: string): void {
     this.selectedRole = role;
+
   }
+
 
   onContinue(): void {
     // توجيه المستخدم إلى صفحة التسجيل بناءً على اختياره
