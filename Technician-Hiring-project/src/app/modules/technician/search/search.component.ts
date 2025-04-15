@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { SearchPipe } from './search.pip';  
+import { SearchPipe } from './search.pip';
 import { CardListComponent } from '../cardlist/cardlist.component';
 import { DataService } from '../data.service';
+import { NavbarAdminComponent } from '../../admin/admin/navbar-admin/navbar-admin.component';
+import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admin.component';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [CommonModule, FormsModule, SearchPipe, CardListComponent],
+  imports: [CommonModule, FormsModule, SearchPipe, CardListComponent,NavbarAdminComponent,FooterAdminComponent],
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })

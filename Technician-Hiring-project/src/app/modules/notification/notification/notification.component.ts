@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { NavbarAdminComponent } from '../../admin/admin/navbar-admin/navbar-admin.component';
+import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admin.component';
 
 
 @Component({
@@ -7,7 +9,7 @@ import { Component } from '@angular/core';
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.css',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NavbarAdminComponent,FooterAdminComponent],
 })
 export class NotificationComponent {
   filter: 'all' | 'unread' = 'all';

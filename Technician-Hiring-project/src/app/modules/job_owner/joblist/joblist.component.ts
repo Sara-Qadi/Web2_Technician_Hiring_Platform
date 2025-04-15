@@ -4,12 +4,14 @@ import { JobblockComponent } from '../jobblock/jobblock.component';
 import { CommonModule } from '@angular/common';
 import { AddjobComponent } from '../addjob/addjob.component';
 import { Router,RouterLink } from '@angular/router';
+import { NavbarAdminComponent } from '../../admin/admin/navbar-admin/navbar-admin.component';
+import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admin.component';
 
 
 @Component({
   selector: 'app-joblist',
   standalone: true,
-  imports: [JobblockComponent,CommonModule,AddjobComponent],
+  imports: [JobblockComponent,CommonModule,AddjobComponent, NavbarAdminComponent, FooterAdminComponent],
   templateUrl: './joblist.component.html',
   styleUrls: ['./joblist.component.css'],
 })
@@ -54,22 +56,22 @@ export class JobListComponent {
   //جبت السيرفس و عملتله انجكت
   private dataService = inject(JobDataService);
   selectedJob: any = null;
-  
+
   //جبت الجوبس كلهم و خزنتهم هون
   jobs = this.dataService.getJobs();
   //فلاغ عشان الديليت بوب اب
   showPopup = false;
   //يا نل يا رقم
   deleteIndex: number | null = null;
-  
+
   // لما اكبس على الايكون تاعت الابديت بجيب الداتا تبعت هاي الكارد عشان اعدل عليها
   requestEdit(index: number)
   {
     this.selectedJob = { ...this.jobs[index] };  // تخزين نسخة من الوظيفة للتعديل
   }
-  
+
   // لما اكبس على الايقونة تبعت الديليت بخلي الفلاغ ترو عشان تظهر البوب اب و بخزن رقم الاندكس في حال اكدت على عملية الحذف
-  requestDelete(index: number) 
+  requestDelete(index: number)
   {
     this.showPopup = true;
     this.deleteIndex = index;
@@ -78,13 +80,13 @@ export class JobListComponent {
   // بحدث الجوبس سواء بعد ما حذفت او عدلت عليهم
   refreshJobs()
   {
-   this.jobs = this.dataService.getJobs();  
+   this.jobs = this.dataService.getJobs();
   }
-  
+
   // لما اكبس على ديليت تاعت البوب اب بحذف الكارد
-  confirmDelete() 
+  confirmDelete()
   {
-    if (this.deleteIndex !== null) 
+    if (this.deleteIndex !== null)
       {
         this.dataService.removeJob(this.deleteIndex);
         this.showPopup = false;//رجعناها فولس عشان خلصنا حذف
@@ -92,9 +94,9 @@ export class JobListComponent {
         this.refreshJobs();  // عشان احدث الجوبس
       }
   }
-  
+
     // بعد ما عدلت على الداتا و كبست ابديت
-  jobUpdated(newJob: any) 
+  jobUpdated(newJob: any)
   {
     // البيانات الجديدة بتحل محل القديمة
     this.dataService.updateJob(this.selectedJob, newJob);
@@ -102,6 +104,6 @@ export class JobListComponent {
     this.refreshJobs();  // حدثت الجوبس بعد ما عدلت عليهم
   }
 
-  
-  
+
+
 }

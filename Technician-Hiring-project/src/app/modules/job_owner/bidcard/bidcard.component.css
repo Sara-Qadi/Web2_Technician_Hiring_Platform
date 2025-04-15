@@ -1,5 +1,6 @@
 .card{
   transition: all 0.7s;
+  border: #475451 2px solid;
 }
 span,button,p{
   font-family: "Manrope", sans-serif;

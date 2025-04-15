@@ -1,3 +1,4 @@
+<app-navbar-admin></app-navbar-admin>
 <div class="container w-50 my-5 p-5 rounded-2">
   <form class="row g-3" [formGroup]="addJobForm " (ngSubmit)="onSubmit()">
     <h3>Post a New Job</h3>
@@ -114,7 +115,7 @@
           <span>Supports: Images (JPG, PNG) and PDF files</span>
           <input type="file" formControlName="attachments" class="form-control" id="inputAttachments" (change)="onFileChange($event)" multiple>
         </div>
-      </label> 
+      </label>
     </div>
 
     <div class="col-12 d-grid " *ngIf="!job">
@@ -128,6 +129,7 @@
         <button type="submit" class="btn btn-secondary w-100" (click)="cancelEdit()" (click)="tojobowner()">Cancel</button>
       </div>
     </div>
-    
+
   </form>
 </div>
+<app-footer-admin></app-footer-admin>

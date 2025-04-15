@@ -27,10 +27,10 @@ export class LoginPageComponent {
       const password = this.loginForm.value.password;
 
       console.log('Login successful! Email:', email);
-      // هون بس تحققت انه الفورم صحيح 
+      // هون بس تحققت انه الفورم صحيح
       //عملية التوجيه  للداشبورد رح تتم لاحقا لما نربط مع الباك اند
 
-      console.log('Form is valid, but no navigation yet');
+      this.router.navigate(['']);
     }
   }
 

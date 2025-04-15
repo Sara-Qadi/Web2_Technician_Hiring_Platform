@@ -1,12 +1,9 @@
-
-<img src="/assets/person1.jpg" alt="profile" class="profile-pic" (click)="openProfileModal()" />
-
 <div *ngIf="showProfileModal" class="modal-overlay">
   <div class="modal-content">
     <button class="close-btn" (click)="closeProfileModal()">×</button>
 
+    <img src="/assets/person1.jpg" class="modal-img" (click)="openEditProfileModal()" />
 
-    <img src="/assets/person1.jpg" class="modal-img" />
     <h3>Technician Name</h3>
     <p><strong>Specialty:</strong> Electrician</p>
     <p><strong>Rating:</strong> ⭐⭐⭐⭐☆ (4/5)</p>

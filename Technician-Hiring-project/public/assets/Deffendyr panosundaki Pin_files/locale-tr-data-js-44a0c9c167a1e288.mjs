@@ -1,0 +1,2 @@
+(self.__LOADABLE_LOADED_CHUNKS__=self.__LOADABLE_LOADED_CHUNKS__||[]).push([["81640"],{883053:function(_,n,r){var t={locale:"tr",i18nStrings:void 0,plural:r(669731)};_.exports=t},669731:function(_){_.exports=function(_){return 1!=+_}}}]);
+//# sourceMappingURL=https://sm.pinimg.com/webapp/locale-tr-data-js-44a0c9c167a1e288.mjs.map

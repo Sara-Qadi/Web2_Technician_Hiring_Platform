@@ -1,20 +1,12 @@
 
 <div #dropdownRef class="dropdown-wrapper">
 
-  <div class="position-relative" (click)="toggleDropdown()" style="cursor: pointer;">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-         class="bi bi-bell-fill text-dark" viewBox="0 0 16 16">
-      <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901"/>
-    </svg>
 
-    <span *ngIf="getUnreadCount() > 0"
-          class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-      {{ getUnreadCount() }}
-    </span>
-  </div>
+
+
 
   <div *ngIf="dropdownOpen" class="dropdown-menu dropdown-menu-end show mt-2"
-       style="width: 420px; max-height: 600px; overflow-y: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); background-color: #e8dcd2;">
+       style="width: 420px; max-height: 600px; overflow-y: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); background-color: rgb(243, 240, 240)">
 
     <div class="p-3">
       <h5 class="fw-bold mb-3">Notifications</h5>
@@ -34,8 +26,15 @@
       <div *ngFor="let notification of filteredNotifications(); let last = last; let i = index">
         <div class="notification-item d-flex align-items-center mb-3">
           <div class="me-3">
-            <img [src]="notification.image" class="rounded-circle" width="45" height="45" alt="User">
+            <img [src]="notification.image" class="rounded-circle"
+            width="45" height="45" alt="User"
+            (click)="onProfileImageClick()" />
+
+            <app-profile></app-profile>
+
+
           </div>
+
           <div class="flex-grow-1">
             <p class="mb-1">
               <span [ngClass]="{'fw-bold': notification.unread}">

@@ -1,20 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { ProfileComponent } from '../../technician/profile/profile.component';
+import { ProfileModalService } from '../../../services/profile-modal.service';
 
 @Component({
   selector: 'app-notification-dropdown',
   templateUrl: './notification-dropdown.component.html',
   styleUrl: './notification-dropdown.component.css',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ProfileComponent],
 })
 export class NotificationDropdownComponent {
   @ViewChild('dropdownRef', { static: true }) dropdownRef!: ElementRef;
-  dropdownOpen = false;
+  @Input() dropdownOpen = false;
   filter: 'all' | 'unread' = 'all';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private modalService: ProfileModalService) {}
 
   @HostListener('document:click', ['$event'])
   onClickOutside(event: MouseEvent): void {
@@ -22,6 +24,12 @@ export class NotificationDropdownComponent {
       this.dropdownOpen = false;
     }
   }
+
+
+  onProfileImageClick() {
+    this.modalService.openModal();
+  }
+
 
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;

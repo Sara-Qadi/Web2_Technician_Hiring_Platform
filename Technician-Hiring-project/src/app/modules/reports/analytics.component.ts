@@ -7,12 +7,14 @@ import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { NgClass, NgForOf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NavbarAdminComponent } from '../admin/admin/navbar-admin/navbar-admin.component';
+import { FooterAdminComponent } from '../admin/admin/footer-admin/footer-admin.component';
 
 @Component({
   selector: 'app-analytics',
   templateUrl: './analytics.component.html',
   standalone: true,
-  imports: [NgForOf, FormsModule, NgClass],
+  imports: [NgForOf, FormsModule, NgClass, NavbarAdminComponent, FooterAdminComponent],
 
   styleUrls: ['./analytics.component.css']
 })
