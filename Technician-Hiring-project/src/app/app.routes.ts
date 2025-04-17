@@ -18,7 +18,7 @@ export const routes: Routes = [
   //   redirectTo: 'login',
   //   pathMatch: 'full',
   // },
-  { path: 'role-selection', component: RoleSelectionComponent }, // المسار لصفحة اختيار الدور
+  { path: 'role-selection', component: RoleSelectionComponent }, 
 
   { path: 'sign-up', component: SignUpComponent },
 
