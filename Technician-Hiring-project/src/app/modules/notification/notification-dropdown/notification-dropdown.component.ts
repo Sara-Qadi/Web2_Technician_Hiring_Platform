@@ -17,17 +17,14 @@ export class NotificationDropdownComponent {
   filter: 'all' | 'unread' = 'all';
 
   constructor(private router: Router, private modalService: ProfileModalService) {}
-
   @HostListener('document:click', ['$event'])
-  onClickOutside(event: MouseEvent): void {
-    if (this.dropdownRef && !this.dropdownRef.nativeElement.contains(event.target)) {
+  onClickOutside(event: MouseEvent) {
+    const dropdown = document.querySelector('.dropdown-wrapper');
+    const clickedInsideDropdown = dropdown?.contains(event.target as Node);
+
+    if (!clickedInsideDropdown && this.dropdownOpen) {
       this.dropdownOpen = false;
     }
-  }
-
-
-  onProfileImageClick() {
-    this.modalService.openModal();
   }
 
 

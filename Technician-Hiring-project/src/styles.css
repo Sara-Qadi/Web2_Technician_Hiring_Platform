@@ -4,3 +4,6 @@ html, body {
     background-color: #f3f2f1 ;
     overflow-x: hidden;
   }
+  body.with-navbar {
+    padding-top: 140px;
+  }

@@ -1,12 +1,12 @@
 
-<div #dropdownRef class="dropdown-wrapper">
+<div #dropdownRef class="dropdown-wrapper" tabindex="-1">
 
 
 
 
 
   <div *ngIf="dropdownOpen" class="dropdown-menu dropdown-menu-end show mt-2"
-       style="width: 420px; max-height: 600px; overflow-y: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); background-color: rgb(243, 240, 240)">
+       style="width: 420px; max-height: 500px; overflow-y: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); background-color: rgb(243, 240, 240)">
 
     <div class="p-3">
       <h5 class="fw-bold mb-3">Notifications</h5>
@@ -28,9 +28,8 @@
           <div class="me-3">
             <img [src]="notification.image" class="rounded-circle"
             width="45" height="45" alt="User"
-            (click)="onProfileImageClick()" />
+        />
 
-            <app-profile></app-profile>
 
 
           </div>

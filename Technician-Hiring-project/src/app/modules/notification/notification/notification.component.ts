@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
 import { NavbarAdminComponent } from '../../admin/admin/navbar-admin/navbar-admin.component';
 import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admin.component';
+import { Router } from '@angular/router';
+import { ProfileModalService } from '../../../services/profile-modal.service';
+import { ProfileComponent } from '../../technician/profile/profile.component';
 
 
 @Component({
@@ -9,7 +12,7 @@ import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admi
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.css',
   standalone: true,
-  imports: [CommonModule, NavbarAdminComponent,FooterAdminComponent],
+  imports: [CommonModule, NavbarAdminComponent,FooterAdminComponent, ProfileComponent],
 })
 export class NotificationComponent {
   filter: 'all' | 'unread' = 'all';
@@ -85,5 +88,22 @@ export class NotificationComponent {
     event.preventDefault();
     this.filter = value;
   }
+  @ViewChild('dropdownRef', { static: true }) dropdownRef!: ElementRef;
+  @Input() dropdownOpen = false;
+
+  constructor(private router: Router, private modalService: ProfileModalService) {}
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: MouseEvent): void {
+    if (this.dropdownRef && !this.dropdownRef.nativeElement.contains(event.target)) {
+      this.dropdownOpen = false;
+    }
+  }
+
+
+  onProfileImageClick() {
+    this.modalService.openModal();
+  }
+
 
 }
