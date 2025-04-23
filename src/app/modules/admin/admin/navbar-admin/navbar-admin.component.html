@@ -1,0 +1,85 @@
+<nav class="navbar navbar-expand-lg navbar-dark px-3">
+  <a class="navbar-brand d-flex align-items-center" routerLink="">
+    <img src="assets/technician-icon.png" alt="Logo" width="30" height="30" class="me-2 rounded-5"  />
+    Craftsmen Hub
+  </a>
+
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ms-3">
+      <li class="nav-item">
+        <a routerLink="/admin/dashboard" routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-link position-relative">
+          Dashboard
+          <span class="active-underline" *ngIf="isActive('/admin/dashboard')"></span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          routerLink="/admin/craftsmen-registrations"
+          routerLinkActive="active"
+          class="nav-link position-relative">
+          Registration
+          <span class="active-underline" *ngIf="isActive('/admin/craftsmen-registrations')"></span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          routerLink="/admin/jop-listing"
+          routerLinkActive="active"
+          class="nav-link position-relative">
+          Jobs
+          <span class="active-underline" *ngIf="isActive('/admin/jop-listing')"></span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          routerLink="/admin/delete-craftsman"
+          routerLinkActive="active"
+          class="nav-link position-relative">
+          Users
+          <span class="active-underline" *ngIf="isActive('/admin/delete-craftsman')"></span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          routerLink="/reports/analytics"
+          routerLinkActive="active"
+          class="nav-link position-relative">
+          Reports
+          <span class="active-underline" *ngIf="isActive('/reports/analytics')"></span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="d-lg-none d-flex align-items-center ms-auto">
+      <button class="icon-btn me-3">
+        <i class="bi bi-search"></i>
+      </button>
+      <button class="icon-btn me-3">
+        <i class="bi bi-bell"></i>
+      </button>
+
+    </div>
+  </div>
+
+  <div class="ms-auto d-none d-lg-flex align-items-center">
+    <button class="icon-btn me-3">
+      <i class="bi bi-search"></i>
+    </button>
+    <button class="icon-btn" (click)="toggleDropdown()">
+      <i class="bi bi-bell"></i>
+    </button>
+    <app-notification-dropdown [dropdownOpen]="dropdownOpen"></app-notification-dropdown>
+    <a routerLink="/login" class="d-inline-block" title="Login">
+      <img src="assets/person1.jpg" alt="User" class="rounded-circle rounded-5" width="30" height="30" />
+    </a>
+
+
+  </div>
+</nav>
