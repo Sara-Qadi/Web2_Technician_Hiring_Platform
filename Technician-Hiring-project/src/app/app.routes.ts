@@ -18,21 +18,7 @@ import { ForgotPasswordComponent } from './modules/auth/forgot-password/forgot-p
 import { AnalyticsComponent } from './modules/reports/analytics.component';
 import { HomepageComponent } from './modules/homepage/homepage.component';
 
-
 export const routes: Routes = [
-  {path:'admin/dashboard', component:AdminComponent},
-  {path: 'admin/craftsmen-registrations', component:CraftsmenRegistrationsComponent},
-  {path: 'admin/delete-craftsman', component:DeleteCraftsmanComponent},
-  {path: 'admin/jop-listing', component:JopListingComponent},
-  {path: 'navbar-admin', component: NavbarAdminComponent},
-  {path: 'footer-admin', component:FooterAdminComponent},
-  {path:'postjob',component:AddjobComponent},
-  {path:'jobowner',component:JobListComponent},
-  {path:'updatejob',component:AddjobComponent},
-  {path:'reviewbids',component:BidlistComponent},
-  {path: 'login',component: LoginPageComponent},
-  {path: 'reports/analytics',component: AnalyticsComponent},
-  { path: 'role-selection', component: RoleSelectionComponent },
   { path: 'admin/dashboard', component: AdminComponent },
   {
     path: 'admin/craftsmen-registrations',
@@ -48,28 +34,13 @@ export const routes: Routes = [
   { path: 'reviewbids', component: BidlistComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'reports/analytics', component: AnalyticsComponent },
-  { path: 'role-selection', component: RoleSelectionComponent }, // المسار لصفحة اختيار الدور
+  { path: 'role-selection', component: RoleSelectionComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: '', component: HomepageComponent },
-   // {
-  // {
-  //   path: '',
-  //   redirectTo: 'login',
-  //   pathMatch: 'full',
-  // },
-
-  // { path: 'role-selection', component: RoleSelectionComponent },
-
-  // { path: 'sign-up', component: SignUpComponent },
-
-  // { path: 'forgot-password', component: ForgotPasswordComponent },
-
   { path: 'notifications', component: NotificationComponent },
   {
     path: 'home',
-    component: SearchComponent
-    path: '',
     component: SearchComponent,
   },
   {
