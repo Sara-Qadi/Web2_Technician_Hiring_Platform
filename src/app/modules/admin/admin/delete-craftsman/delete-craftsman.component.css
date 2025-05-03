@@ -6,15 +6,15 @@ html, body {
 }
 
 .text-color-primary {
-  color: #641739;
+  color: black;
 }
 
 .custom-thead {
-  background-color: #475451 !important;
+  background-color: black !important;
 }
 
 .custom-thead th {
-  background-color: #475451 !important;
+  background-color: rebeccapurple !important;
   color: white;
   text-align: center;
 }
@@ -32,7 +32,7 @@ html, body {
 }
 
 .search-input:focus {
-  border-color: #641739 !important;
+  border-color: rebeccapurple !important;
   box-shadow: 0 0 0 0.25rem rgba(100, 23, 57, 0.25);
   outline: none;
 }
@@ -46,12 +46,16 @@ html, body {
 }
 
 .btn-reject {
-  background-color: #641739;
+  background-color: #E93445;
+  color: white;
+}
+.btn-edit {
+  background-color: rebeccapurple;
   color: white;
 }
 
 .add-user-btn {
-  background-color: #641739;
+  background-color: rebeccapurple;
   color: white;
   padding: 0.5rem 2rem;
   font-weight: 600;
@@ -65,6 +69,6 @@ html, body {
 }
 
 .add-user-btn:hover {
-  background-color: #81214d;
+  background-color: mediumpurple;
   transform: scale(1.05);
 }
