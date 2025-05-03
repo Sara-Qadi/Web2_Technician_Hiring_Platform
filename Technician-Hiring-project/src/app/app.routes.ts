@@ -16,10 +16,11 @@ import { RoleSelectionComponent } from './modules/auth/role-selection/role-selec
 import { SignUpComponent } from './modules/auth/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './modules/auth/forgot-password/forgot-password.component';
 import { AnalyticsComponent } from './modules/reports/analytics.component';
-
+import { MessagingComponent } from './modules/technician/messaging/messaging.component';
 
 export const routes: Routes = [
   {path:'admin/dashboard', component:AdminComponent},
+  { path: 'messages', component: MessagingComponent },
   {path: 'admin/craftsmen-registrations', component:CraftsmenRegistrationsComponent},
   {path: 'admin/delete-craftsman', component:DeleteCraftsmanComponent},
   {path: 'admin/jop-listing', component:JopListingComponent},
