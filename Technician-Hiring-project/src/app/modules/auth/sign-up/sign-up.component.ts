@@ -8,7 +8,7 @@ import {
   ValidationErrors,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up-page',
@@ -22,7 +22,11 @@ export class SignUpComponent implements OnInit {
   submitted = false;
   role: string | null = null;
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute) {}
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     // استقبال الرول من صفحة role-selection
@@ -69,8 +73,14 @@ export class SignUpComponent implements OnInit {
       };
 
       console.log('✅ Form Submitted:', data);
+      this.router.navigate(['/login']);
     } else {
       console.warn('❌ Form is invalid');
     }
   }
+
+  get emailHasValue(): boolean {
+    return this.signUpForm.get('email')?.value?.trim()?.length > 0;
+  }
 }
+
