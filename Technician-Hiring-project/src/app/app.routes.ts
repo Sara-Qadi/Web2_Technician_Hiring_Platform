@@ -20,7 +20,6 @@ import { MessagingComponent } from './modules/technician/messaging/messaging.com
 import { HomepageComponent } from './modules/homepage/homepage.component';
 
 export const routes: Routes = [
-<<<<<<< HEAD
   {path:'admin/dashboard', component:AdminComponent},
   { path: 'messages', component: MessagingComponent },
   {path: 'admin/craftsmen-registrations', component:CraftsmenRegistrationsComponent},
@@ -34,7 +33,6 @@ export const routes: Routes = [
   {path:'reviewbids',component:BidlistComponent},
   {path: 'login',component: LoginPageComponent},
   {path: 'reports/analytics',component: AnalyticsComponent},
-=======
   { path: 'admin/dashboard', component: AdminComponent },
   {
     path: 'admin/craftsmen-registrations',
@@ -50,7 +48,6 @@ export const routes: Routes = [
   { path: 'reviewbids', component: BidlistComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'reports/analytics', component: AnalyticsComponent },
->>>>>>> 81ba1d8e9edfc1554debd8776fcf22205c19fd37
   { path: 'role-selection', component: RoleSelectionComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
