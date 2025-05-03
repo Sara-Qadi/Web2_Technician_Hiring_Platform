@@ -1,6 +1,8 @@
 .dropdown-menu {
   z-index: 1050;
   background-color: white;
+  top: -60%;
+  outline: none;
 }
 
 .notification-item {
@@ -27,9 +29,8 @@
   right: 0;
   z-index: 1050;
 
-
   padding: 10px;
-  margin-right: 30rem;
+  margin-right: 25rem;
 }
 
 .dropdown-list {

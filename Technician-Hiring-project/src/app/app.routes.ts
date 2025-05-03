@@ -17,6 +17,8 @@ import { SignUpComponent } from './modules/auth/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './modules/auth/forgot-password/forgot-password.component';
 import { AnalyticsComponent } from './modules/reports/analytics.component';
 import { MessagingComponent } from './modules/technician/messaging/messaging.component';
+import { HomepageComponent } from './modules/homepage/homepage.component';
+
 
 export const routes: Routes = [
   {path:'admin/dashboard', component:AdminComponent},
@@ -32,9 +34,10 @@ export const routes: Routes = [
   {path:'reviewbids',component:BidlistComponent},
   {path: 'login',component: LoginPageComponent},
   {path: 'reports/analytics',component: AnalyticsComponent},
-  { path: 'role-selection', component: RoleSelectionComponent }, // المسار لصفحة اختيار الدور
+  { path: 'role-selection', component: RoleSelectionComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: '', component: HomepageComponent },
    // {
   //   path: '',
   //   redirectTo: 'login',
@@ -42,7 +45,7 @@ export const routes: Routes = [
   // },
   { path: 'notifications', component: NotificationComponent },
   {
-    path: '',
+    path: 'home',
     component: SearchComponent
   },
   {

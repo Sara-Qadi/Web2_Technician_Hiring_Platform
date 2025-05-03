@@ -1,9 +1,9 @@
 html, body {
-    height: 100%;
-    margin: 0;
-    background-color: #f3f2f1 ;
-    overflow-x: hidden;
-  }
+  height: 100%;
+  margin: 0;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+  overflow-x: hidden;
+}
+body.with-navbar {
+  padding-top: 119px;
+}

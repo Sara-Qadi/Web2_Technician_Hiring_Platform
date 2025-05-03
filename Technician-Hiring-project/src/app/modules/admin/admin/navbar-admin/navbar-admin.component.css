@@ -1,31 +1,47 @@
-html, body {
-  height: 100%;
-  margin: 0;
-  background-color: #e8e0da;
-  overflow-x: hidden;
+/* Keyframes for rotating the element */
+@keyframes rotateTest {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+}
 }
 
-.navbar {
-  background-color: #475451;
-}
-
-.nav-link.active {
-  font-weight: bold;
-  position: relative;
-  color: white !important;
-}
-
-.active-underline {
-  content: '';
+.logo-section svg {
   display: block;
-  width: 30px;
-  height: 2px;
-  background-color: white;
-  position: absolute;
-  bottom: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 5px;
+  margin: 0 auto;
+  animation: rotateTest 4s linear infinite;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.top-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background-color: black;
+  z-index: 1000;
+  width: calc(100% - 17px);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.bottom-navbar {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  z-index: 10;
+  width: calc(100% - 17px);
+  box-sizing: border-box;
 }
 
 .icon-btn {
@@ -38,29 +54,42 @@ html, body {
 }
 
 .icon-btn:hover {
-  color: #641739;
+  color: #c988a4;
   transform: scale(1.2);
   cursor: pointer;
 }
 
-.d-lg-none {
-  display: none;
+.top-navbar .nav-link {
+  text-decoration: none;
+  color: white;
+  font-size: small;
 }
 
-.d-lg-flex {
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
+.top-navbar .nav-link.active {
+  color: white;
+  font-weight: bold;
 }
 
-@media (max-width: 991px) {
-  .d-lg-none {
-    display: flex;
-  }
+.logo-section img {
+  display: block;
+  margin: 0 auto;
 }
 
-@media (min-width: 992px) {
-  .d-lg-flex {
-    display: flex;
-  }
+.brand-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+}
+
+.bottom-navbar .nav-link {
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 6px 12px;
+  transition: border-bottom 0.3s ease;
+}
+
+.bottom-navbar .nav-link:hover,
+.bottom-navbar .nav-link.active {
+  border-bottom: 2px solid white;
 }
