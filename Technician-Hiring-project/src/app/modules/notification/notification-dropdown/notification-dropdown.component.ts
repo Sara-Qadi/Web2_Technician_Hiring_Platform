@@ -49,6 +49,13 @@ export class NotificationDropdownComponent {
   deleteNotification(index: number) {
     this.notifications.splice(index, 1);
   }
+  confirmDelete(index: number): void {
+    const confirmed = confirm("Are you sure you want to delete this?");
+    if (confirmed) {
+      this.deleteNotification(index);
+    }
+  }
+
 
   notifications = [
     {
