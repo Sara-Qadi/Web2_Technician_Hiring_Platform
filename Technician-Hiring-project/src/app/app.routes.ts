@@ -16,9 +16,23 @@ import { RoleSelectionComponent } from './modules/auth/role-selection/role-selec
 import { SignUpComponent } from './modules/auth/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './modules/auth/forgot-password/forgot-password.component';
 import { AnalyticsComponent } from './modules/reports/analytics.component';
+import { MessagingComponent } from './modules/technician/messaging/messaging.component';
 import { HomepageComponent } from './modules/homepage/homepage.component';
 
 export const routes: Routes = [
+  {path:'admin/dashboard', component:AdminComponent},
+  { path: 'messages', component: MessagingComponent },
+  {path: 'admin/craftsmen-registrations', component:CraftsmenRegistrationsComponent},
+  {path: 'admin/delete-craftsman', component:DeleteCraftsmanComponent},
+  {path: 'admin/jop-listing', component:JopListingComponent},
+  {path: 'navbar-admin', component: NavbarAdminComponent},
+  {path: 'footer-admin', component:FooterAdminComponent},
+  {path:'postjob',component:AddjobComponent},
+  {path:'jobowner',component:JobListComponent},
+  {path:'updatejob',component:AddjobComponent},
+  {path:'reviewbids',component:BidlistComponent},
+  {path: 'login',component: LoginPageComponent},
+  {path: 'reports/analytics',component: AnalyticsComponent},
   { path: 'admin/dashboard', component: AdminComponent },
   {
     path: 'admin/craftsmen-registrations',
