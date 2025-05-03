@@ -1,3 +1,4 @@
+
 .role-option {
   cursor: pointer;
   border: 2px solid transparent;
@@ -7,14 +8,9 @@
   text-align: center;
 }
 
-.role-option.selected {
-  border-color: #007bff; 
-}
-
 .role-card img {
   width: 50px;
   height: 50px;
-  
 }
 
 .role-card h3 {
@@ -37,16 +33,16 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 0 40px rgba(88, 14, 141, 0.353);
 }
 
 .role-option.selected {
-  border-color: #007bff; 
-  box-shadow: 0 0 15px rgba(0, 123, 255, 0.5); 
+  border-color: #9055ff;
+  box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
 }
 
 .role-card img {
-  width: 80px; 
+  width: 80px;
   height: 80px;
   margin-bottom: 15px;
   transition: transform 0.3s ease;
@@ -60,12 +56,12 @@
 
 .role-card p {
   font-size: 1rem;
-  color: #6c757d;
+  color: rgba(244, 237, 254, 0.691);
 }
 
 button {
   width: 15%;
-  background-color: #007bff;
+  background-color: #6e33dc;
   color: white;
   border: none;
   border-radius: 5px;
@@ -76,11 +72,11 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3; 
+  background-color: #7f3ff2;
 }
 
 button:disabled {
-  background-color: #ccc; 
+  background-color: #ab7eff83;
 }
 /* شاشة التلفون الصغيرة */
 @media (max-width: 767px) {
@@ -96,9 +92,19 @@ button:disabled {
   .role-card h3 {
     font-size: 1.5rem;
   }
-    button {
-    padding: 15px;  
-    font-size: 1.1rem; 
+  button {
+    padding: 15px;
+    font-size: 1.1rem;
   }
 }
 
+:host {
+  display: block;
+  min-height: 100vh; /* يمـلأ ارتفاع النافذة */
+  background-color: #101010;
+}
+
+
+.input-color{
+  color:#f6f0ff
+}

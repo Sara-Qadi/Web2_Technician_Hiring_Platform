@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 
 @Component({
@@ -30,11 +35,16 @@ export class LoginPageComponent {
       // هون بس تحققت انه الفورم صحيح
       //عملية التوجيه  للداشبورد رح تتم لاحقا لما نربط مع الباك اند
 
-      this.router.navigate(['']);
+      console.log('Form is valid, but no navigation yet');
+      //this.router.navigate(['/']);
     }
   }
 
   onGoogleSignIn() {
     console.log('Google Sign In clicked!');
+  }
+
+  get emailHasValue(): boolean {
+    return this.loginForm.get('email')?.value?.trim()?.length > 0;
   }
 }
