@@ -1,0 +1,17 @@
+span,a{
+  font-family: "Manrope", sans-serif;
+}
+.bidnum{
+  animation: changecol 3s infinite;
+}
+@keyframes changecol{
+  0%{
+    color:#475451;
+  }
+  50%{
+    color: rgb(102, 185, 20);
+  }
+  100%{
+    color: green;
+  }
+}
