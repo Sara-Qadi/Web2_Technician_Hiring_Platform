@@ -1,11 +1,10 @@
-<div class="card rounded-4 border-0 mb-4" style="width: 100%; max-width: 22rem;">
+<!--<div class="card rounded-4 border-0 mb-4" style="width: 100%; max-width: 22rem;">
   <div class="card-body">
-    <h4 id="job-status" class="card-header text-white text-center rounded-top" style="background-color: #475451;" (click)="openStatusModal(job)">{{job.status}}</h4>
-    <h5 class="card-title text-primary fw-bold d-flex justify-content-between align-items-center pt-3">
+    <h5 class="card-title text-primary fw-bold d-flex justify-content-between align-items-center">
        {{job.jobTitle}} 
        @if(role=='jobowner'){
         <span class="d-flex gap-2 update-delete">
-          <button class="btn btn-sm" (click)="onEditClick()">
+          <button class="btn btn-sm" (click)="onEditClick()" (click)="toupdate()">
             <i class="fa-solid fa-pen text-secondary"></i>
           </button>
           <button class="btn btn-sm " (click)="onDeleteClick()" data-bs-toggle="modal" data-bs-target="#deleteModal">
@@ -104,18 +103,112 @@
     </div>
     @if(role=='artisan'){
       <div class="mb-3">
-        <a href="/submit-bid" class="btn w-100 rounded-pill role" style="background-color: #641739;">Apply</a>
+      <a href="#" class="btn w-100 rounded-pill role">Apply</a>
+      </div>
+      <div class="mb-3">
+        <button class="btn w-100 rounded-pill report" data-bs-toggle="modal" data-bs-target="#reportModal">
+          <i class="fa-solid fa-flag me-2"></i> Report Job
+        </button>
       </div>
     }
     @if(role=='jobowner'){
       <div class="mb-3">
-        <a  href="#" class="btn w-100 rounded-pill role"> Reviews</a>
+        <a routerLink="/reviewbids" class="btn w-100 rounded-pill role" (click)="toreview()"> Reviews</a>
       </div>
     }
     
   </div>
-</div>
+</div>-->
 
+<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+  
+  
+<div class="card position-relative">
+  <div class="before-effect">
+     <p class="card-title d-flex justify-content-between align-items-center">{{job.jobTitle}}
+     </p>
+  <div class="small-desc d-flex flex-column gap-3">
+    <div class="categ-loc d-flex justify-content-between">
+      <div class="category d-flex align-items-center gap-2">
+        @switch(job.category){
+          @case('Carpenter')
+          {
+            <i class="fa-solid fa-hammer" style="color:#b4b5bb;"></i>
+          }
+          @case('Plumber')
+          {
+            <i class="fa-solid fa-droplet" style="color:#6293c8;"></i> 
+          }
+          @case('Electrician')
+          {
+            <i class="fa-solid fa-bolt" style="color:#b0b008;"></i>
+          }
+          @case('Painter')
+          {
+            <i class="fa-solid fa-brush" style="color:#779977; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+          }
+          @case('Mason')
+          {
+            <i class="fa-solid fa-trowel-bricks" style="color:#3e4043; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>             
+          }
+          @case('Roofing')
+          {
+            <i class="fa-solid fa-people-roof" style="color:#781d1d; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>             
+          }
+          @case('Mechanic')
+          {
+            <i class="fa-solid fa-screwdriver-wrench" style="color:teal; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+          }
+          @case('Welder')
+          {
+            <i class="fa-solid fa-weight-hanging" style="color:#323940; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+          } 
+          @case('Tiler')
+          {
+            <i class="fa-solid fa-trowel-bricks" style="color:#491313; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+          }
+          @case('Mason')
+          {
+            <i class="fa-solid fa-trowel-bricks" style="color:#691b0a; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>           
+          }
+          @case('ACTechnician')
+          {
+            <i class="fa-solid fa-wind" style="color:#9fb3c8; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+          }
+          @case('SecurityCameraInstaller')
+          {
+            <i class="fa-solid fa-shield-halved" style="color:#505153; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+          }
+        }
+        <span>{{job.category}}</span>
+      </div>
+      <div class="location d-flex align-items-center gap-2">
+        <i class="fa-solid fa-location-dot" style="color:#ea4335 ; box-shadow: rgba(234, 68, 53, 0.467)  0px 7px 29px 0px;"></i>
+        <span>{{job.location}}</span>
+      </div>
+    </div>
+    <div class="budget d-flex align-items-center gap-2">
+      <i class="fa-solid fa-money-check-dollar" style="color:#3e9c35; box-shadow: rgb(62, 156, 53, 0.467) 0px 7px 29px 0px;"></i>
+      <span>{{job.minBudget}}$ - {{job.maxBudget}}$</span>
+    </div>
+    <div class="desc">
+      <p>{{job.jobDescription}}</p>
+    </div>
+  </div>
+  </div>
+ 
+  <div class="after-effect">
+    <div class="encourage">
+      <h6>Wanna know more?</h6>
+    </div>
+    <div class="veiw-more">
+      <button (click)="goToDetails()">View More</button>
+    </div>
+  </div>
+  <div class="go-corner">
+    <div class="go-arrow"><i class="fa-solid fa-arrow-right fa-fade" style="color: #ffffff;"></i></div>
+  </div>
+</div>
 
 <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
   <div class="modal-dialog">

@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class JobDataService {
 
   private jobsList: any[] = [];  // ليست للجوبس اللي رح ادخلهم لما اعمل بوست من الفورم
-
+  private selectedJob: any=null;
   // في حال بدي اضيف جوب جديدة
   addJob(job: any) 
   {
@@ -33,5 +33,14 @@ export class JobDataService {
       {
         this.jobsList[index] = newJob;
       }
+  }
+  // تخزين الجوب المختارة لعرض التفاصيل
+  setSelectedJob(job: any) {
+    this.selectedJob = job;
+  }
+
+  // استرجاع الجوب المختارة
+  getSelectedJob() {
+    return this.selectedJob;
   }
 }
