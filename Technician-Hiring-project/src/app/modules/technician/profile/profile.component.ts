@@ -23,8 +23,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
   }
   openEditProfileModal() {
-    this.modalService.closeModal();        // optional: close current modal
-    this.modalService.openEditModal();     // open the edit modal
+    this.modalService.closeModal();
+    this.modalService.openEditModal();
   }
 
   ngOnDestroy() {
