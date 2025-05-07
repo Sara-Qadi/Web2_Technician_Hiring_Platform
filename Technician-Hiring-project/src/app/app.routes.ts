@@ -17,6 +17,8 @@ import { SignUpComponent } from './modules/auth/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './modules/auth/forgot-password/forgot-password.component';
 import { AnalyticsComponent } from './modules/reports/analytics.component';
 import { HomepageComponent } from './modules/homepage/homepage.component';
+import { JobdetailsComponent } from './modules/job_owner/jobdetails/jobdetails.component';
+import { JobownerprofileComponent } from './modules/job_owner/jobownerprofile/jobownerprofile.component';
 
 
 export const routes: Routes = [
@@ -27,7 +29,8 @@ export const routes: Routes = [
   {path: 'navbar-admin', component: NavbarAdminComponent},
   {path: 'footer-admin', component:FooterAdminComponent},
   {path:'postjob',component:AddjobComponent},
-  {path:'jobowner',component:JobListComponent},
+  {path:'jobdetails',component:JobdetailsComponent},
+  {path:'jobowner',component:JobownerprofileComponent},
   {path:'updatejob',component:AddjobComponent},
   {path:'reviewbids',component:BidlistComponent},
   {path: 'login',component: LoginPageComponent},
