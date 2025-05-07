@@ -1,38 +1,155 @@
-.card{
-  box-shadow: #641739 5px 5px ;
-  border: 2px solid #B8A59B !important;
+.card-title {
+  color: #262626;
+  font-size: 20px;
+  line-height: normal;
+  font-weight: 700;
+  margin-bottom: 0.5em;
 }
-h5{
+
+.small-desc {
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.5em;
+  color: #452c2c;
+}
+
+.small-desc {
+  font-size: 1em;
+}
+.desc{
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.go-corner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 2em;
+  height: 2em;
+  overflow: hidden;
+  top: 0;
+  right: 0;
+  background: linear-gradient(135deg, #7b00ff, #17031b);/*linear-gradient(135deg, #6293c8, #384c6c);*/
+  border-radius: 0 4px 0 32px;
+}
+
+.go-arrow {
+  margin-top: -4px;
+  margin-right: -4px;
+  color: white;
+}
+
+.card {
+  display: block;
+  width: 300px;
+  height: 280px;
+  /*background-color: #f2f8f9;*/
+  border-radius: 10px;
+  padding: 2em 1.2em;
+  margin: 12px;
+  text-decoration: none;
+  z-index: 0;
+  overflow: hidden;
+  background-color: white;
+  /*background: linear-gradient(to bottom, #c3e6ec, #a7d1d9);*/
+  font-family: "Manrope", sans-serif;
+  box-shadow: 10px 10px 30px #bebebe, -10px -10px 30px #ffffff;
+}
+
+.card:before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: -16px;
+  right: -16px;
+  background:black; /*linear-gradient(135deg, #364a60, #384c6c);*/
+  height: 32px;
+  width: 32px;
+  border-radius: 32px;
+  transform: scale(1);
+  transform-origin: 50% 50%;
+  transition: transform 0.35s ease-out;
+}
+.card-title{
   font-family: "poppins", sans-serif;
-  font-weight: bold;
-  text-transform: capitalize;
-  color: black !important;
 }
-.role {
-  text-decoration: none !important;
-  background-color: #B8A59B;
-  color: #641739;
-  color: white ;
+.card:hover:before {
+  transform: scale(28);
+}
+
+.card:hover .small-desc {
+  transition: all 0.5s ease-out;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.card:hover .card-title {
+  transition: all 0.5s ease-out;
+  color: #ffffff;
+}
+
+.before-effect{
+  transition: all 1s ease-out;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.after-effect{
+  transition: all 1s ease-out;
+  display:none;
+}
+
+.card:hover .after-effect{
+  transition: all 1s ease-out;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  gap: 10px;
+  height: 100%;
+}
+.card:hover .before-effect{
+  transition: all 1s ease-out;
+  display:none;
+}
+.review,.veiw-more button {
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  border: 0;
+  letter-spacing: 1.5px;
+  font-size: 15px;
   transition: all 0.5s ease;
 }
-.role:hover {
-  background-color: #641739;
-  color: white ;
+.veiw-more button{
+  background-color: white;
 }
-.attachments{
-  color: #641739;
+.review{
+  background-color: #7b00ff;
+  text-align: center;
+  color: white;
 }
-span,p,h6{
-  font-family: "Manrope", sans-serif;
-  font-weight: 500;
+.review:hover, .veiw-more button:hover {
+  letter-spacing: 3px;
+  background-color: #7b00ff;/*#6293c8*/
+  color:white;
+  box-shadow:  #7b00ff 0px 7px 29px 0px;/*#6293c8*/
 }
-.text-body{
-  font-size: 14px;
+
+.review:active,.veiw-more button:active {
+  letter-spacing: 3px;
+  background-color: #7b00ff;/*#6293c8*/
+  color: white;
+  box-shadow:  #7b00ff 0px 0px 0px 0px;/*#6293c8*/
+  transform: translateY(10px);
+  transition: 100ms;
 }
-.update-delete button:active{
-  border: #641739 1px solid;
-}
-#job-status:hover{
-  cursor: pointer;
-  background-color : #475451;
+.location i,.budget i,.category i{
+  background-color: rgba(56, 76, 108, 0.101); 
+  border-radius: 50%; 
+  font-size: large;
+  box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;
 }

@@ -18,6 +18,8 @@ import { ForgotPasswordComponent } from './modules/auth/forgot-password/forgot-p
 import { AnalyticsComponent } from './modules/reports/analytics.component';
 import { MessagingComponent } from './modules/technician/messaging/messaging.component';
 import { HomepageComponent } from './modules/homepage/homepage.component';
+import { JobdetailsComponent } from './modules/job_owner/jobdetails/jobdetails.component';
+import { JobownerprofileComponent } from './modules/job_owner/jobownerprofile/jobownerprofile.component';
 
 export const routes: Routes = [
   {path:'admin/dashboard', component:AdminComponent},
@@ -28,7 +30,8 @@ export const routes: Routes = [
   {path: 'navbar-admin', component: NavbarAdminComponent},
   {path: 'footer-admin', component:FooterAdminComponent},
   {path:'postjob',component:AddjobComponent},
-  {path:'jobowner',component:JobListComponent},
+  {path:'jobdetails',component:JobdetailsComponent},
+  {path:'jobowner',component:JobownerprofileComponent},
   {path:'updatejob',component:AddjobComponent},
   {path:'reviewbids',component:BidlistComponent},
   {path: 'login',component: LoginPageComponent},

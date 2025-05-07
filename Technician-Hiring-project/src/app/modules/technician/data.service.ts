@@ -70,4 +70,13 @@ export class DataService {
       this.jobs[index] = updatedJob;
     }
   }
+  // تخزين الجوب المختارة لعرض التفاصيل
+  setSelectedJob(job: any) {
+    this.jobs = job;
+  }
+
+  // استرجاع الجوب المختارة
+  getSelectedJob() {
+    return this.jobs;
+  }
 }

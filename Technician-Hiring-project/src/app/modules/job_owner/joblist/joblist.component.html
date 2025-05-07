@@ -1,15 +1,15 @@
-<app-navbar-admin></app-navbar-admin>
 <!-- <div *ngIf="jobs.length===0" class="text-center">no jobs </div> -->
-<div class="container w-75 my-5">
+<div class="container my-5 p-0"><!-- w-75 -->
   <div class="row gy-4 d-flex justify-content-between">
     <div class="col-md-4" *ngFor="let job of JOBS; let i = index">
-      <app-jobblock [job]="job" (deleteRequest)="requestDelete(i)" (editRequest)="requestEdit(i)"></app-jobblock>
+      <app-jobblock [job]="job " (deleteRequest)="requestDelete(i)" (editRequest)="requestEdit(i)"></app-jobblock>
     </div>
   </div>
 </div>
-<!-- بشيلها لما اعمل راوتر -->
-<app-addjob *ngIf="selectedJob" [job]="selectedJob" RouterLink="/updatejob"></app-addjob>
-<!-- عشان الديليت بوب اب-->
+<!-- بشيلها لما اعمل راوتر 
+<app-addjob *ngIf="selectedJob" [job]="selectedJob" RouterLink="/updatejob"></app-addjob>-->
+
+<!-- عشان الديليت بوب اب -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -27,4 +27,3 @@
     </div>
   </div>
 </div>
-<app-footer-admin></app-footer-admin>

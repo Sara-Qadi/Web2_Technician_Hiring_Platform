@@ -115,7 +115,7 @@
           <span>Supports: Images (JPG, PNG) and PDF files</span>
           <input type="file" formControlName="attachments" class="form-control" id="inputAttachments" (change)="onFileChange($event)" multiple>
         </div>
-      </label>
+      </label> 
     </div>
 
     <div class="col-12 d-grid " *ngIf="!job">
@@ -129,7 +129,8 @@
         <button type="submit" class="btn btn-secondary w-100" (click)="cancelEdit()" (click)="tojobowner()">Cancel</button>
       </div>
     </div>
-
+    
   </form>
 </div>
+
 <app-footer-admin></app-footer-admin>
