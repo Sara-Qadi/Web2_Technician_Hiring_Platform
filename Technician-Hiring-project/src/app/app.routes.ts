@@ -20,6 +20,7 @@ import { MessagingComponent } from './modules/technician/messaging/messaging.com
 import { HomepageComponent } from './modules/homepage/homepage.component';
 import { JobdetailsComponent } from './modules/job_owner/jobdetails/jobdetails.component';
 import { JobownerprofileComponent } from './modules/job_owner/jobownerprofile/jobownerprofile.component';
+import { RatingComponent } from './modules/rating/rating/rating.component';
 
 export const routes: Routes = [
   {path:'admin/dashboard', component:AdminComponent},
@@ -56,6 +57,8 @@ export const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: '', component: HomepageComponent },
   { path: 'notifications', component: NotificationComponent },
+  { path: 'rating/rating', component: RatingComponent },
+  
   {
     path: 'home',
     component: SearchComponent,

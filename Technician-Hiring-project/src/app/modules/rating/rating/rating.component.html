@@ -1,1 +1,148 @@
-<p>rating works!</p>
+<app-navbar-admin></app-navbar-admin>
+<div class="container my-4">
+
+    <div class="row mb-4">
+      <div *ngFor="let m of metrics" class="col-md-4 mb-3">
+        <div [ngClass]="{'text-end': !m.ltr, 'text-start': m.ltr}" class="bg-light p-3 rounded shadow-sm">
+          <div class="d-flex justify-content-between mb-1">
+            <span>{{m.title}}</span>
+            <span>{{m.value}}%</span>
+  
+  
+  
+          </div>
+          <div class="progress" style="height:12px;">
+            <div class="progress-bar bg-primary" [style.width.%]="m.value"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
+  
+      <div class="mb-2">
+      <div class="text-end mb-4" >
+        <div class="dropdown text-end mb-4">
+          <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            {{ selectedRating ? selectedRating + ' Stars' : 'All Reviews' }}
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" (click)="setRatingFilter(null)">All Ratings</a>
+            </li>
+            <li *ngFor="let star of [5, 4, 3, 2, 1]">
+              <a class="dropdown-item" (click)="setRatingFilter(star)">
+          <span *ngFor="let _ of [].constructor(star)">
+            <i class="fas fa-star text-warning"></i>
+          </span>
+                ({{ star }})
+              </a>
+            </li>
+          </ul>
+        </div>
+  
+        <span class="me-2">({{ averageRating | number: '1.1-2' }})</span>
+        <span>
+    <ng-container *ngFor="let _ of filledStars">
+      <i class="fas fa-star text-warning"></i>
+    </ng-container>
+    <ng-container *ngFor="let _ of emptyStars">
+      <i class="far fa-star text-warning"></i>
+    </ng-container>
+  </span>
+      </div>
+    </div>
+  
+  
+    <div class="mb-4">
+      <div *ngFor="let r of filteredComments; let i = index"
+           class="card mb-3"
+           [ngClass]="{'text-end': r.rtl}">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <div>
+            <span>
+              <ng-container *ngFor="let s of [1,2,3,4,5]">
+                <i class="fa-star"
+                   [ngClass]="{
+                     'fas text-warning': s <= r.stars,
+                     'far text-secondary': s > r.stars
+                   }"></i>
+              </ng-container>
+            </span>
+              <span class="text-muted small ms-2">{{r.color}} {{r.item}}</span>
+            </div>
+            <div [innerHTML]="r.avatar"
+                 class="rounded-circle bg-light d-flex align-items-center justify-content-center"
+                 style="width:40px; height:40px; font-weight:bold;"></div>
+          </div>
+          <div class="d-flex">
+            <div class="me-3" *ngIf="r.img">
+              <img [src]="r.img" class="rounded" width="80" height="60" alt="review image" />
+            </div>
+            <div class="flex-grow-1">
+              <p class="mb-2">{{r.text}}</p>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mt-3">
+            <button class="btn btn-sm btn-link text-secondary" (click)="markHelpful(r)">
+              <i class="far fa-thumbs-up me-1"></i> Helpful ({{r.helpful}})
+            </button>
+            <span class="text-muted small">{{18-i}} | {{r.user}} {{r.date}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
+    <!-- Add Review Button -->
+    <div class="text-center my-4">
+      <button class="btn btn-primary px-4 py-2" (click)="openModal()">
+        <i class="fas fa-pen-to-square me-2"></i> Add Review
+      </button>
+    </div>
+  
+    <!-- Modal -->
+    <div class="modal fade show" tabindex="-1" [ngStyle]="{'display': showModal?'block':'none', 'background':'rgba(0,0,0,0.3)'}" style="transition:none;" *ngIf="showModal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Review</h5>
+            <button type="button" class="btn-close" (click)="closeModal()"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <div class="mb-2">rate</div>
+              <span
+                *ngFor="let s of [1, 2, 3, 4, 5]"
+                (mouseenter)="hoverStars(s)"
+                (mouseleave)="clearHover()"
+                (click)="setStars(s)"
+                style="cursor: pointer; font-size: 30px; display: inline-block; transition: transform 0.2s;">
+  
+        <i
+          class="fas fa-star"
+          [ngStyle]="{
+            'color': s <= (starHover || newReviewStars) ? '#ffc107' : '#e0e0e0',
+            'transform': s === starHover ? 'scale(1.3)' : 'scale(1)'
+          }">
+        </i>
+      </span>
+            </div>
+            <div class="mb-3">
+              <label for="reviewText" class="form-label">write your review</label>
+              <textarea id="reviewText" class="form-control" [(ngModel)]="newReviewText" rows="4"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button [disabled]="submitting" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+            <button [disabled]="!newReviewStars || !newReviewText.trim() || submitting" class="btn btn-primary" (click)="submitReview()">
+              {{submitting ? 'Submitting...' : 'Submit'}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="showModal" class="modal-backdrop fade show"></div>
+  </div>
+  <app-footer-admin></app-footer-admin>

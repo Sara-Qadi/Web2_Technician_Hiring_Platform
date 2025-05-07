@@ -2,182 +2,136 @@
 <div class="container-fluid">
   <div class="row">
 
-    <button class="btn btn-outline-primary d-md-none my-2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-expanded="false" aria-controls="sidebarCollapse">
-      ☰ Menu
-    </button>
-    <nav id="sidebarCollapse" class="collapse d-md-block  col-sm-1 col-md-3 col-lg-2 bg-white sidebar shadow vh-100 position-sticky">
-
-      <div class="sidebar-sticky">
-        <div class="sidebar-header p-3 border-bottom">
-          <div class="d-flex align-items-center">
-            <span class="navbar-brand fw-bold">Artisan Analytics</span>
-          </div>
-        </div>
-
-        <div class="sidebar-content p-3">
-          <div class="mb-4">
-            <label class="form-label small text-muted">View as:</label>
-            <select class="form-select mb-3" [(ngModel)]="currentRole" (change)="onRoleChange(currentRole)">
-              <option value="admin">Admin</option>
-              <option value="jobOwner">Job Owner</option>
-            </select>
-
-            <label class="form-label small text-muted">Period:</label>
-            <select class="form-select" [(ngModel)]="currentPeriod" (change)="onPeriodChange(currentPeriod)">
-              <option value="thisMonth">This Month</option>
-              <option value="lastMonth">Last Month</option>
-              <option value="last3Months">Last 3 Months</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </nav>
+<button class="btn btn-outline-primary d-md-none my-2" type="button"
+        data-bs-toggle="collapse" data-bs-target="#sidebarCollapse"
+        aria-expanded="false" aria-controls="sidebarCollapse">
+  ☰ sidebar
+</button>
 
 
-    <main class="col-md-9 col-lg-10 ms-sm-auto px-md-4 pt-3">
-
-      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-4">
-        <div class="col" *ngFor="let stat of stats">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title">{{ stat.title }}</h5>
-                <div [innerHTML]="stat.icon"></div>
-              </div>
-              <h3 class="display-6">{{ stat.value }}</h3>
-              <small [ngClass]="{ 'text-success': stat.change > 0, 'text-danger': stat.change < 0 }">
-                {{ stat.change }}%
-              </small>
-            </div>
-          </div>
-        </div>
-      </div>
+<nav id="sidebarCollapse" class="collapse d-md-block col-md-3 col-lg-2 bg-white sidebar shadow vh-100 position-sticky ">
+  <div class="p-4">
+    <h2 class="h4 text-primary mb-4">reports</h2>
+    <!-- Sidebar content -->
 
 
-      <div class="row g-4 mb-4">
-        <div class="col-lg-8">
-          <div class="card shadow-sm">
-            <div class="card-body">
-              <h5 class="card-title">Monthly Jobs</h5>
-              <div class="chart-container">
-                <canvas #monthlyChartCanvas></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div class="d-flex flex-column gap-3">
+      <select [(ngModel)]="selectedTable"  class="form-select">
+        <option value="jobCompletion">Job Completion Report</option>
+        <option value="earnings">Earnings Report</option>
+        <option value="topRatedArtisans">Top Rated Artisans Report</option>
+        <option value="lowPerformanceUsers">Low Performance Users Report</option>
+        <option value="monthlyActivity">Monthly Activity Report</option>
+        <option value="locationBasedDemand">Location Based Demand Report</option>
+        <option value="paymentTransaction">Payment Transaction Report</option>
+      </select>
 
-        <div class="col-lg-4">
-          <div class="card shadow-sm">
-            <div class="card-body">
-              <h5 class="card-title">Earnings Breakdown</h5>
-              <div class="chart-container">
-                <canvas #breakdownChartCanvas></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="card shadow-sm mb-4">
-        <div class="card-header">
-          <h5 class="card-title mb-0">Top-Rated Artisans</h5>
-        </div>
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
-            <tr>
-              <th>Artisan</th>
-              <th>Category</th>
-              <th>Jobs Completed</th>
-              <th>Rating</th>
-              <th>Earnings</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let artisan of topArtisans">
-              <td>{{ artisan.name }}</td>
-              <td>{{ artisan.category }}</td>
-              <td>{{ artisan.jobs }}</td>
-              <td><span class="badge bg-success">{{ artisan.rating }}</span></td>
-              <td>${{ artisan.earnings }}</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-
-      <div class="card shadow-sm p-4 mb-4">
-        <div class="d-flex justify-content-between align-items-start mb-4">
-          <div>
-            <h5 class="mb-1 fw-semibold">Monthly Reports</h5>
-            <p class="text-muted small mb-0">Generate detailed reports for the selected period</p>
-          </div>
-          <button class="btn btn-primary d-flex align-items-center gap-2" (click)="generateReport()">
-            <i class="bi bi-plus-circle"></i> Generate Report
-          </button>
-        </div>
-
-        <div class="row gy-3">
-          <div class="col-md-4">
-            <div class="bg-light rounded p-3">
-              <h6 class="text-muted fw-semibold mb-3">Financial Summary</h6>
-              <div class="d-flex justify-content-between small mb-2">
-                <span>Total Revenue</span>
-                <span class="fw-bold">${{ reportData.financialSummary.totalRevenue }}</span>
-              </div>
-              <div class="d-flex justify-content-between small mb-2">
-                <span>Platform Fees</span>
-                <span class="fw-bold">${{ reportData.financialSummary.platformFees }}</span>
-              </div>
-              <div class="d-flex justify-content-between small">
-                <span>Net Earnings</span>
-                <span class="fw-bold">${{ reportData.financialSummary.netEarnings }}</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="bg-light rounded p-3">
-              <h6 class="text-muted fw-semibold mb-3">Job Summary</h6>
-              <div class="d-flex justify-content-between small mb-2">
-                <span>Posted Jobs</span>
-                <span class="fw-bold">{{ reportData.jobSummary.postedJobs }}</span>
-              </div>
-              <div class="d-flex justify-content-between small mb-2">
-                <span>Completed Jobs</span>
-                <span class="fw-bold">{{ reportData.jobSummary.completedJobs }}</span>
-              </div>
-              <div class="d-flex justify-content-between small">
-                <span>Completion Rate</span>
-                <span class="fw-bold">{{ reportData.jobSummary.completionRate }}%</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="bg-light rounded p-3">
-              <h6 class="text-muted fw-semibold mb-3">Performance Metrics</h6>
-              <div class="d-flex justify-content-between small mb-2">
-                <span>Avg. Job Rating</span>
-                <span class="fw-bold">{{ reportData.performanceMetrics.avgRating }}</span>
-              </div>
-              <div class="d-flex justify-content-between small mb-2">
-                <span>Avg. Completion Time</span>
-                <span class="fw-bold">{{ reportData.performanceMetrics.avgTime }}</span>
-              </div>
-              <div class="d-flex justify-content-between small">
-                <span>Client Retention</span>
-                <span class="fw-bold">{{ reportData.performanceMetrics.retention }}%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
-
+      <button id="export-btn" class="btn btn-primary d-flex align-items-center gap-2">
+        <i class="fas fa-download"></i>
+        <span>Export</span>
+      </button>
+    </div>
   </div>
-</div>
+</nav>
+  <div class="container col-md-9 col-lg-10 px-md-4">
+<!-- Main content -->
+<main class="col-md-9 col-lg-10 px-md-4" style="min-height: 100vh;">
 
+  <div class="bg-light p-4 rounded mb-4">
+    <div class="row g-3">
+      <div class="col-12 col-md-3">
+        <label for="date-range" class="form-label">Date Range</label>
+        <select id="date-range" class="form-select">
+          <option value="last7">Last 7 Days</option>
+          <option value="last30" selected>Last 30 Days</option>
+          <option value="last90">Last 90 Days</option>
+          <option value="ytd">Year to Date</option>
+        </select>
+      </div>
+
+      <div class="col-12 col-md-3">
+        <label for="category-filter" class="form-label">Category</label>
+        <select id="category-filter" class="form-select" [(ngModel)]="selectedCategory">
+          <option value="all">All Categories</option>
+          <option value="furniture">Furniture</option>
+          <option value="plumbing">Plumbing</option>
+          <option value="electrician">Electrician</option>
+          <option value="carpenter">Carpenter</option>
+          <option value="home repair">Home Repair</option>
+        </select>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <label for="search" class="form-label">Search</label>
+        <div class="input-group" >
+                    <span class="input-group-text">
+                        <i class="fas fa-search"></i>
+                    </span>
+          <input type="text"  [(ngModel)]="searchTerm"  id="search" class="form-control" placeholder="Search reports...">
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <!-- Report section -->
+  <div  *ngIf=" tables[selectedTable]" class="card mb-4 ">
+    <div class="card-header bg-light d-flex justify-content-between align-items-center">
+      <h2  class="h5 mb-0"> {{ selectedTable }}</h2>
+      <div class="d-flex align-items-center gap-2">
+        <span class="text-muted">Last 30 Days</span>
+        <button class="btn btn-link text-primary p-0">
+          <i class="fas fa-sync-alt"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table *ngIf="tables[selectedTable]?.data?.length" class="table table-hover mb-0">
+          <thead class="table-light">
+
+          <tr>
+            <th *ngFor="let header of tables[selectedTable].headers">
+              {{ header }}
+            </th>
+
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let row of paginatedData">
+            <td *ngFor="let key of getKeys(selectedTable)">
+              {{ row[key] }}
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card-footer d-flex flex-column flex-sm-row justify-content-between align-items-center">
+      <div class="text-muted mb-2 mb-sm-0">
+        Showing <span id="start-record">{{ currentPage }}</span> to <span id="end-record">10</span> of <span id="total-records">{{ totalPages }}</span> entries
+
+      </div>
+      <nav>
+        <ul class="pagination mb-0">
+          <li class="page-item">
+            <button  (click)="changePage('prev')" [disabled]="currentPage === 1" class="page-link" >Previous</button>
+          </li>
+          <li class="page-item">
+            <button  (click)="changePage('next')" [disabled]="currentPage === totalPages" class="page-link" >Next</button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+<app-reportcard></app-reportcard>
+  
+</main>
+</div>
+</div>
+</div>
 <app-footer-admin></app-footer-admin>

@@ -3,11 +3,12 @@ import { Subscription } from 'rxjs';
 
 import { CommonModule } from '@angular/common';
 import { ProfileModalService } from '../../../services/profile-modal.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterModule ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })
