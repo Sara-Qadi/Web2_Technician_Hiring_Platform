@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { JobDataService } from '../../../services/jobdata.service';
+import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admin.component';
+import { NavbarAdminComponent } from '../../admin/admin/navbar-admin/navbar-admin.component';
 
 @Component({
   selector: 'app-jobdetails',
-  imports: [CommonModule],
+  imports: [CommonModule,NavbarAdminComponent,FooterAdminComponent],
   templateUrl: './jobdetails.component.html',
   styleUrl: './jobdetails.component.css'
 })
