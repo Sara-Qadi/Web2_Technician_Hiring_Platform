@@ -5,6 +5,10 @@
 span,a{
   font-family: "Manrope", sans-serif;
 }
+.heading{
+  font-family: "poppins", sans-serif;
+  font-size: 20px;
+}
 .bidnum{
   animation: changecol 3s infinite;
 }
