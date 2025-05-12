@@ -4,8 +4,8 @@
       <div class="user-img">
         <img [src]="profileImageUrl" alt="Profile Image" class="img-fluid rounded-circle profile-img mb-2">
       </div>
-      <div class="edit-img">
-          <input type="file" id="imageInput" (change)="onImageSelected($event)" hidden>
+      <div class="edit-img" *ngIf="showowner">
+          <input type="file" id="imageInput"  (change)="onImageSelected($event)" hidden>
           <label for="imageInput" class="b">
             <i class="fa-solid fa-camera me-1"></i>Change Photo
           </label>
@@ -16,7 +16,7 @@
     <div class="col-7" >
       <div class="user-info d-flex flex-column gap-4 justify-content-center mt-4" *ngIf="!editMode">
         <h2 class="d-flex justify-content-between">User Info:
-          <button class="b edit" (click)="toggleEdit()"><i class="fa-solid fa-pen"></i>Edit</button>
+          <button class="b edit" *ngIf="showowner" (click)="toggleEdit()"><i class="fa-solid fa-pen"></i>Edit</button>
         </h2>
         <div class="info d-flex flex-column gap-3">
           <div class="sec name">
@@ -36,8 +36,8 @@
             <span class="value">Palestine</span>
           </div>
           <div class="only-artisan d-flex gap-3 justify-content-end">
-            <button class="b report" data-bs-toggle="modal" data-bs-target="#ReportModal"><i class="fa-solid fa-flag"></i>Report</button>
-            <button class="b messages"><i class="fa-solid fa-message"></i>Message</button>
+            <button class="b report" *ngIf="showartisan" data-bs-toggle="modal" data-bs-target="#ReportModal"><i class="fa-solid fa-flag"></i>Report</button>
+            <button class="b messages" (click)="gotomessage()"><i class="fa-solid fa-message"></i>Message</button>
           </div>
         </div>
       </div>
@@ -85,10 +85,14 @@
       </div>
       <div class="modal-body">
         Are you sure you want to report this user? This action cannot be undone.
+        <div class="reason mt-2">
+          <label for="reasonInput">reason:</label>
+          <textarea class="form-control" id="reasonInput" required></textarea>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Report</button>
+        <button type="button" class="b edit" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="b report" data-bs-dismiss="modal" >Report</button>
       </div>
     </div>
   </div>

@@ -1,7 +1,3 @@
-.card{
-  box-shadow: #641739 5px 5px ;
-  border: 2px solid #B8A59B !important;
-}
 h5{
   font-family: "poppins", sans-serif;
   font-weight: bold;
@@ -35,4 +31,22 @@ span,p,h6{
 .card-item {
  
   margin-bottom: 20px; /* المسافة بين الكروت */
+}
+/*********************/
+@media (max-width: 992px) {
+  .row {
+    gap: 10px;
+    justify-content: space-evenly;
+  }
+}
+@media (max-width: 992px) and (min-width: 768px) {
+  .row {
+    gap: 100px;
+    justify-content: flex-start;
+  }
+}
+@media (max-width: 768px) {
+  .row {
+    justify-content:flex-start;
+  }
 }

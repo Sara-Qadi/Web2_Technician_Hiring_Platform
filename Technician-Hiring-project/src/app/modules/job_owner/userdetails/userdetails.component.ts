@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -44,4 +44,9 @@ export class UserdetailsComponent {
       this.editMode = false;
     }
   }
+  gotomessage(){
+    this.router.navigate(['/messages']);
+  }
+  @Input() showowner:boolean | undefined;
+  @Input() showartisan:boolean | undefined;
 }

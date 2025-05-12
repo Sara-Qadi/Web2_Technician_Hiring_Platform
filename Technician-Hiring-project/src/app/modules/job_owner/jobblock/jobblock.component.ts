@@ -16,7 +16,7 @@ export class JobblockComponent {
   private jobService = inject(JobDataService);
   selectedJob: any = null;
   //عملت متغير مؤقتا عشان اشوف شكل الكارد للجوب اونر و للارتيزن
-  role="jobowner";
+  @Input() role:string | undefined;
   //عشان استقبل الداتا من الكارد ليست
   @Input() job: any;
   //لما اليوزر او الجوب اونر يكبس على الايكونز الموجودة عالكارد عشان توصل للكارد ليست
@@ -66,5 +66,6 @@ export class JobblockComponent {
   goToDetails() {
     this.jobService.setSelectedJob(this.job);  // احفظ الجوب في الخدمة
     this.router.navigate(['/jobdetails']);       // انتقل للصفحة
+    localStorage.setItem('selectedJob', JSON.stringify(this.job));//عشان تضل حتى لما اعمل ريفرش
     }
 }

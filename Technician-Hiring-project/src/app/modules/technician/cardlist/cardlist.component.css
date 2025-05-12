@@ -36,3 +36,42 @@ span,p,h6{
  
   margin-bottom: 20px; /* المسافة بين الكروت */
 }
+@media (max-width: 1262px) and (min-width: 1001px) {
+  .row {
+    gap: 10px;
+    justify-content: space-evenly;
+  }
+}
+@media (max-width: 1001px) and (min-width: 861px) {
+  .row {
+    column-gap: 100px;
+    row-gap: 10px;
+    justify-content: flex-start;
+  }
+}
+/*@media (max-width: 1001px) and (min-width: 900px) {
+  .row {
+    gap: 100px;
+    justify-content: flex-start;
+  }
+}
+@media (max-width: 900px) and (min-width: 861px) {
+  .row {
+    gap: 100px;
+    justify-content:flex-start;
+  }
+}*/
+@media (max-width: 861px) and (min-width: 767px) {
+  .row {
+    column-gap: 300px;
+    row-gap: 10px;
+    justify-content:flex-start;
+  }
+}
+@media (max-width: 767px) and (min-width: 500px) {
+  .row {
+    column-gap: 10px;
+    row-gap: 10px;
+    justify-content:flex-start;
+  }
+}

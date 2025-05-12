@@ -6,7 +6,19 @@
 span,button,p{
   font-family: "Manrope", sans-serif;
 }
-
+h6 {
+  font-family: "poppins", sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+}
+.amount{
+  font-family: "poppins", sans-serif;
+}
+.proposal{
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+}
 .accept,.reject,.message{
   transition: all 0.5s;
 }
