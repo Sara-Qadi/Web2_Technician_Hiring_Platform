@@ -18,7 +18,7 @@ export class JobListComponent {
     {
       jobTitle: 'Fix Kitchen Sink',
       category: 'Plumber',
-      location: 'Jeddah',
+      location: 'Asira al-Shamaliya',
       minBudget: 100,
       maxBudget: 200,
       jobDescription: 'The kitchen sink is leaking and needs urgent repair.',
@@ -31,7 +31,7 @@ export class JobListComponent {
     {
       jobTitle: 'Paint Living Room',
       category: 'Painter',
-      location: 'Riyadh',
+      location: 'Nablus',
       minBudget: 300,
       maxBudget: 500,
       jobDescription: 'Need to paint a 6x6m living room. Light colors only.',
@@ -41,10 +41,10 @@ export class JobListComponent {
     {
       jobTitle: 'Install New Light Fixtures',
       category: 'Electrician',
-      location: 'Dammam',
+      location: 'Ramallah',
       minBudget: 150,
       maxBudget: 250,
-      jobDescription: 'Install 4 new ceiling light fixtures.',
+      jobDescription: 'lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       attachments: ['https://example.com/uploads/light-layout.pdf'],
       deadline: '2025-04-22'
     }
@@ -54,7 +54,7 @@ export class JobListComponent {
   //جبت السيرفس و عملتله انجكت
   private dataService = inject(JobDataService);
   selectedJob: any = null;
-
+  role="jobowner";
   //جبت الجوبس كلهم و خزنتهم هون
   jobs = this.dataService.getJobs();
   //فلاغ عشان الديليت بوب اب
@@ -101,7 +101,5 @@ export class JobListComponent {
     this.selectedJob = null;
     this.refreshJobs();  // حدثت الجوبس بعد ما عدلت عليهم
   }
-
-
-
+  
 }
