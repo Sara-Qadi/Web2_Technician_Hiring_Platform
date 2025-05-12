@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SearchPipe } from './search.pip';
 import { CardListComponent } from '../cardlist/cardlist.component';
-import { DataService } from '../data.service';
+import { DataService } from '../../../services/data.service';
 import { NavbarAdminComponent } from '../../admin/admin/navbar-admin/navbar-admin.component';
 import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admin.component';
 

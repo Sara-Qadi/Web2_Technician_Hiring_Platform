@@ -1,5 +1,6 @@
 .container{
-  border: 2px solid #B8A59B;
+  border: 2px solid rgb(200, 200, 200);
+  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
   background-color: white;
 }
 h3{
@@ -18,51 +19,64 @@ input, select, textarea{
   font-family: "Manrope", sans-serif;
   font-size: 14px;
   font-weight: light;
-  box-shadow: #641739 3px 3px ;
-  border: #BBABA3 2px solid;
-  color: #826382;
+  border: 2px solid rgb(200, 200, 200);
+  color: #444344;
 }
+/*option:hover{
+  background-color: #7b00ff !important;
+}*/
 input::placeholder, textarea::placeholder,.Attachmentcontent{
-  color: #826382;
+  color: #444344;
 }
 button{
-  background-color: #641739;
+  color: #000;
+  background-color: #fff;
   border: none;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
 }
 button:hover{
-  background-color: #611837;
+  box-shadow:#7b00ff5c 0px 7px 29px 0px;
+  color: #fff;
+  background-color: #7b00ff;
+  transform: translateY(-7px);
 }
 button:active{
-  background-color: #54152f !important;
+  transform: translateY(-1px);
+  background-color: #7b00ff !important;
 }
 button:disabled{
   background-color: #BBABA3 !important;
 }
 input:focus,select:focus,textarea:focus{
-  border: #BBABA3 2px solid;
-  box-shadow: #54152f 4px 4px 10px;
+  border:#8c2fee79 2px solid;
+  box-shadow: #7b00ff5c 0px 7px 29px 0px;
 }
 option:hover{
   background-color: #475451 !important;
 }
 #AttachmentsLabel{
-  border: 2px dashed #BBABA3;
-  padding: 20px;
-  text-align: center;
-  display: block;
+  border: 2px dashed rgb(200, 200, 200);
+  padding: 20px; 
+  text-align: center; 
+  display: block; 
   cursor: pointer;
+  color: #444344;
 }
 #AttachmentsLabel input{
   display: none;
 }
 #AttachmentsLabel .icon{
   font-size: 50px;
-  color: #826382;
+  color: #444344;
   margin: 15px 0;
 }
 .Attachmentcontent p{
   font-size: 14px;
   margin: 0;
+  
 }
 .Attachmentcontent span{
   font-size: 13px;

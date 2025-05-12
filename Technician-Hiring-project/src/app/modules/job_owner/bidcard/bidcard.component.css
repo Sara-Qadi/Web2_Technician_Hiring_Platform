@@ -1,13 +1,12 @@
 .card{
   transition: all 0.7s;
-  border: #475451 2px solid;
+  background-color: white;
+  box-shadow: 10px 10px 60px #edeaea;
 }
 span,button,p{
   font-family: "Manrope", sans-serif;
 }
-.card:hover{
-  box-shadow: #54152f 4px 4px 10px;
-}
+
 .accept,.reject,.message{
   transition: all 0.5s;
 }
@@ -27,6 +26,10 @@ span,button,p{
 .accept:hover{
   background-color: #475451;
   color: white;
+}
+.reject:active, .accept:active{
+  transform: translateY(4px);
+  transition: 100ms;
 }
 /*.message{
   border: 1px solid #BBABA3;

@@ -4,14 +4,12 @@ import { JobblockComponent } from '../jobblock/jobblock.component';
 import { CommonModule } from '@angular/common';
 import { AddjobComponent } from '../addjob/addjob.component';
 import { Router,RouterLink } from '@angular/router';
-import { NavbarAdminComponent } from '../../admin/admin/navbar-admin/navbar-admin.component';
-import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admin.component';
 
 
 @Component({
   selector: 'app-joblist',
   standalone: true,
-  imports: [JobblockComponent,CommonModule,AddjobComponent, NavbarAdminComponent, FooterAdminComponent],
+  imports: [JobblockComponent,CommonModule,AddjobComponent],
   templateUrl: './joblist.component.html',
   styleUrls: ['./joblist.component.css'],
 })

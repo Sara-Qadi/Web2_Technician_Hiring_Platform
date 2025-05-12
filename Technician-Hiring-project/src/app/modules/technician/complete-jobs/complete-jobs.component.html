@@ -1,0 +1,28 @@
+<app-navbar-admin></app-navbar-admin>
+
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Completed Jobs</h1>
+
+  <div *ngIf="completedJobs.length === 0" class="text-center text-muted empty-message">
+    You have not completed any jobs yet.
+  </div>
+
+  <div class="row" *ngIf="completedJobs.length > 0">
+    <div class="col-md-3" *ngFor="let job of completedJobs">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">{{ job.title }}</h5>
+          <p><strong>Location:</strong> {{ job.location }}</p>
+          <p><strong>Budget:</strong> ${{ job.budget }}</p>
+          <p><strong>Completed on:</strong> {{ job.completedAt | date:'shortDate' }}</p>
+          <p><strong>Feedback:</strong> {{ job.review || 'No review yet.' }}</p>
+          <p class="clickable-rating" [routerLink]="['/rating/rating']">
+            <strong>Rating:</strong> ⭐⭐⭐⭐☆ (4/5)
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer-admin></app-footer-admin>
+

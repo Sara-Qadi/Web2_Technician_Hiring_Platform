@@ -1,0 +1,95 @@
+<div class="container my-5 p-5">
+  <div class="row d-flex justify-content-between">
+    <div class="col-4 d-flex flex-column align-items-center justify-content-center text-center gap-3">
+      <div class="user-img">
+        <img [src]="profileImageUrl" alt="Profile Image" class="img-fluid rounded-circle profile-img mb-2">
+      </div>
+      <div class="edit-img">
+          <input type="file" id="imageInput" (change)="onImageSelected($event)" hidden>
+          <label for="imageInput" class="b">
+            <i class="fa-solid fa-camera me-1"></i>Change Photo
+          </label>
+      </div>
+    </div>
+    <div class="col-1 vl">
+      </div>
+    <div class="col-7" >
+      <div class="user-info d-flex flex-column gap-4 justify-content-center mt-4" *ngIf="!editMode">
+        <h2 class="d-flex justify-content-between">User Info:
+          <button class="b edit" (click)="toggleEdit()"><i class="fa-solid fa-pen"></i>Edit</button>
+        </h2>
+        <div class="info d-flex flex-column gap-3">
+          <div class="sec name">
+            <h5 class="shine">Name:</h5>
+            <span class="value">Lian B. Sawa</span>
+          </div>
+          <div class="sec email">
+            <h5 class="shine">Email:</h5>
+            <span class="value">madre&#64;example.com</span>
+          </div>
+          <div class="sec phone">
+            <h5 class="shine">Phone:</h5>
+            <span class="value">0508995643</span>
+          </div>
+          <div class="sec country">
+            <h5 class="shine">Country:</h5>
+            <span class="value">Palestine</span>
+          </div>
+          <div class="only-artisan d-flex gap-3 justify-content-end">
+            <button class="b report" data-bs-toggle="modal" data-bs-target="#ReportModal"><i class="fa-solid fa-flag"></i>Report</button>
+            <button class="b messages"><i class="fa-solid fa-message"></i>Message</button>
+          </div>
+        </div>
+      </div>
+
+      <form *ngIf="editMode" [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="d-flex flex-column gap-4 mt-4">
+        <div class="row g-3 text-start">
+          <h2>Edit Info</h2>
+          <div class="col-md-6">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-control" formControlName="name">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" formControlName="email">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Phone</label>
+            <input type="text" class="form-control" formControlName="phone">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Country</label>
+            <input type="text" class="form-control" formControlName="city">
+          </div>
+          <!-- <div class="col-12">
+            <label class="form-label">About</label>
+            <textarea class="form-control" formControlName="about" rows="3"></textarea>
+          </div> -->
+        </div>
+  
+        <div class="d-flex justify-content-end gap-2 mt-4">
+          <button class="b cancel" type="button" (click)="toggleEdit()">Cancel</button>
+          <button class="b save" type="submit" [disabled]="!profileForm.valid">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- عشان الريبورت -->
+<div class="modal fade" id="ReportModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Report This User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to report this user? This action cannot be undone.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Report</button>
+      </div>
+    </div>
+  </div>
+</div>
