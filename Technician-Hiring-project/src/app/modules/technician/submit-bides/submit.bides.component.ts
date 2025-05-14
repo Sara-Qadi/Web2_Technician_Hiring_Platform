@@ -17,11 +17,10 @@ export class SubmitBidesComponent implements OnInit {
   toggleApply() {
     this.showForm = true;
   }
-  min: number | null = null;
-  max: number | null = null;
+  Price: number | null = null;
   comment: string = '';
 
-  submissions: { min: number | null, max: number | null, comment: string }[] = [];
+  submissions: { Price: number | null, comment: string }[] = [];
 
   ngOnInit(): void {
     // عند تحميل الصفحة: نقرأ من التخزين
@@ -33,8 +32,7 @@ export class SubmitBidesComponent implements OnInit {
 
   submitForm() {
     const newEntry = {
-      min: this.min,
-      max: this.max,
+      Price: this.Price,
       comment: this.comment
     };
 
@@ -43,6 +41,7 @@ export class SubmitBidesComponent implements OnInit {
 
     // خزّن البيانات في المتصفح
     localStorage.setItem('bids', JSON.stringify(this.submissions));
-
+    this.Price = null;
+    this.comment = '';
   }
 }

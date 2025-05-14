@@ -1,6 +1,5 @@
 .sidebar {
   transition: transform 0.3s ease-in-out;
-  z-index: 0;
 }
 
 @media (max-width: 767px) {
@@ -8,7 +7,7 @@
     position: fixed !important;
     top: 0;
     left: 0;
-    z-index: -200;
+    z-index: 1000;
     width: 250px;
     transform: translateX(-100%);
   }
@@ -21,4 +20,3 @@
     margin-left: 0 !important;
   }
 }
-
