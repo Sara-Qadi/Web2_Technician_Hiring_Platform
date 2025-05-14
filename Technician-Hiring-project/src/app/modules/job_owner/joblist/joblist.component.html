@@ -1,8 +1,8 @@
 <!-- <div *ngIf="jobs.length===0" class="text-center">no jobs </div> -->
 <div class="container my-5 p-0"><!-- w-75 -->
-  <div class="row gy-4 d-flex justify-content-between">
-    <div class="col-md-4" *ngFor="let job of JOBS; let i = index">
-      <app-jobblock [job]="job " (deleteRequest)="requestDelete(i)" (editRequest)="requestEdit(i)"></app-jobblock>
+  <div class="row gy-4 d-flex "><!-- justify-content-between -->
+    <div class="col-6 col-md-4" *ngFor="let job of JOBS; let i = index">
+      <app-jobblock [job]="job " (deleteRequest)="requestDelete(i)" (editRequest)="requestEdit(i)" [role]="role"></app-jobblock>
     </div>
   </div>
 </div>

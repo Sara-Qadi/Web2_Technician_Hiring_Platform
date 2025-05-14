@@ -14,15 +14,16 @@
 
 }
 .container{
-  border: #B8A59B 2px solid;
+  border: navy 2px solid;/*#B8A59B*/
   border-radius: 10px;
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.199);
-
 }
 h2{
   font-family: "Poppins", sans-serif;
   font-weight: 600;
+  font-size: 25px;
 }
+
 .sec{
   display: flex;
   align-items: center;
@@ -31,6 +32,7 @@ h2{
 .sec h5{
   width: 120px;
   font-family: "Poppins", sans-serif;
+  font-size: 18px;
   font-weight: 600;
   margin: 0;
   padding: 0;
@@ -135,4 +137,21 @@ input{
 input:focus{
   border:#8c2fee79 2px solid;
   box-shadow: #7b00ff5c 0px 7px 29px 0px;
+}
+/******************report modal***************/
+.modal-title{
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  margin: 0;
+}
+.modal-body{
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+}
+.modal-footer{
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 17px;
 }

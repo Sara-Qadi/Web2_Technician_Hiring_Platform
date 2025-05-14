@@ -1,9 +1,9 @@
-<app-navbar-admin></app-navbar-admin>
-<div class="detail mb-5" *ngIf="job">
-  <div class="heading">
-    <h2>Job Info</h2>
+
+<div class="detail mb-5" *ngIf="job" >
+  <div class="heading" *ngIf="showTitle">
+    <p>Job Info</p>
   </div>
-<div class="detail-card">
+<div class="detail-card mx-auto">
   <div class="content">
     <div class="title-report">
       <div class="sec title">
@@ -13,11 +13,11 @@
         </div>
         <span class="value">{{job.jobTitle}}</span>
       </div>
-      <button class="Btn">
+      <button *ngIf="showButtons" class="Btn" data-bs-toggle="modal" data-bs-target="#reportModal">
         <div class="sign">
           <i class="fa-solid fa-flag fa-fade" style="color:#ffffff;"></i>
         </div>
-        <div class="text">Report</div>
+        <div class="text" >Report</div>
       </button>
     </div>
     <div class="sec location">
@@ -52,23 +52,36 @@
       <div class="icon-feild">
         <i class="fa-solid fa-file"></i>
         <h5 class="shine">Attachments:</h5>
-      </div>  
-      <a href="" class="value">{{job.attachments}}</a>
+      </div>
+      @if(job.attachments == null || job.attachments == '')
+      {
+        <span class="value" style="width: 200px;">no file was attached</span>
+      }
+      @else{
+      <a href="#" class="value">{{job.attachments}}</a>
+      }
     </div>
     <div class="sec description">
       <div class="icon-feild">
         <i class="fa-solid fa-circle-info"></i>
         <h5 class="shine">Description:</h5>
       </div> 
-      <p class="value desc">{{job.jobDescription}}</p>
+      <p class="value">{{job.jobDescription}}</p>
+    </div>
+    <div class="sec postowner desc">
+      <div class="icon-feild">
+        <i class="fa-solid fa-circle-user"></i>
+        <h5 class="shine">Posted by:</h5>
+      </div> 
+      <a href="/jobowner" class="value text-decoration-none">JOEY DOESN'T SHARE HIS FOOOOD</a>
     </div>
   </div>
-  <button class="apply-btn">Apply Job</button>
+  <button *ngIf="showButtons" class="apply-btn" (click)="gotosubmitbid()">Apply Job</button>
   <div class="move"></div>
 </div>
 </div>
 
-<!-- مودال الإبلاغ 
+<!-- مودال الإبلاغ -->
 <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content rounded-4 border-0 shadow">
@@ -79,14 +92,16 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Are you sure you want to report this job?
+        Are you sure you want to report this user? This action cannot be undone.
+        <div class="reason mt-2">
+          <label for="reasonInput">reason:</label>
+          <textarea class="form-control" id="reasonInput" required></textarea>
+        </div>
       </div>
       <div class="modal-footer border-0">
         <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger rounded-pill px-4" (click)="confirmReport()" data-bs-dismiss="modal">Report</button>
+        <button type="button" class="btn btn-danger rounded-pill px-4"  data-bs-dismiss="modal">Report</button><!-- (click)="confirmReport()" -->
       </div>
     </div>
   </div>
 </div>
--->
-<app-footer-admin></app-footer-admin>
