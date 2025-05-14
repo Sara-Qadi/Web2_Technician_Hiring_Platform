@@ -31,21 +31,21 @@ export class JobblockComponent {
   //ارسل الايفنت اللي صار للكارد ليست
   onEditClick()
   {
-  this.editRequest.emit();  
+  this.editRequest.emit();
   }
 
-  onDeleteClick() 
+  onDeleteClick()
   {
     this.deleteRequest.emit();
   }
-  
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['job']) {
       // سيتم تحديث البيانات المعروضة على الكارد عندما تتغير
       this.job = changes['job'].currentValue;
     }
   }
-  
+
   //شكل الكارد للجوباونر
   jobowner()
   {

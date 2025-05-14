@@ -55,5 +55,34 @@
   background: transparent;
   font-size: 24px;
   cursor: pointer;
-  color: #641739;
+  color: #642eda;
+}
+.view-jobs-btn {
+  margin-top: 15px;
+  padding: 10px 16px;
+  background-color: #642eda;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.view-jobs-btn:hover {
+  background-color: #7553bf;
+}
+
+.cv-link {
+  display: inline-block;
+  margin: 12px 0;
+  color: #642eda;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.cv-link:hover {
+  color: #7553bf;
+  text-decoration: underline;
 }
