@@ -57,3 +57,32 @@
   cursor: pointer;
   color: #641739;
 }
+.view-jobs-btn {
+  margin-top: 15px;
+  padding: 10px 16px;
+  background-color: #641739;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.view-jobs-btn:hover {
+  background-color: #811d4a;
+}
+
+.cv-link {
+  display: inline-block;
+  margin: 12px 0;
+  color: #641739;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.cv-link:hover {
+  color: #811d4a;
+  text-decoration: underline;
+}

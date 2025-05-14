@@ -1,8 +1,8 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges,inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataService } from '../data.service';
+import { DataService } from '../../../services/data.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
 declare var bootstrap: any;
 
 @Component({
@@ -50,8 +50,8 @@ export class CardblockComponent {
     this.role = 'artisan';
   }
   goToDetails() {
-    this.dataService.setSelectedJob(this.job);  // احفظ الجوب في الخدمة
-    this.router.navigate(['/jobdetails']);       // انتقل للصفحة
+    this.dataService.setSelectedJob(this.job);
+    this.router.navigate(['/jobdetails']);
     }
 
   openStatusModal(job: any) {

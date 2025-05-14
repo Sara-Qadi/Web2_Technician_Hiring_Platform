@@ -1,6 +1,6 @@
 .sidebar {
-  transition: transform 0.3s ease-in-out; 
-  z-index: -200;
+  transition: transform 0.3s ease-in-out;
+  z-index: 0;
 }
 
 @media (max-width: 767px) {

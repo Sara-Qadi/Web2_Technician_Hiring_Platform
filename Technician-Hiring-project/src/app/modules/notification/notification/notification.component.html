@@ -2,6 +2,7 @@
 <div class="container mt-4" style="max-width: 60%;">
   <div class="contain p-4 rounded shadow">
     <h3 class="fw-bold mb-3">Notifications</h3>
+    <div class="d-flex justify-content-between align-items-center mb-3">
 
     <ul class="nav nav-tabs mb-3">
       <li class="nav-item">
@@ -17,6 +18,11 @@
         (click)="setFilter($event, 'unread')">Unread</a>
       </li>
     </ul>
+    <button class="btn btn-sm mark-read-btn rounded-pill px-3"
+        (click)="markAllAsRead()">
+  <i class="bi bi-check2-circle me-1"></i> Mark all as read
+</button>
+    </div>
     <span class="earlier">Earlier</span>
     <br>
     <br>
