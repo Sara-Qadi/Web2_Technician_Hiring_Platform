@@ -42,7 +42,7 @@ body.modal-open {
   background: transparent;
   font-size: 24px;
   cursor: pointer;
-  color: #641739;
+  color: #642eda;
 }
 
 
@@ -60,6 +60,6 @@ input, textarea {
   margin-top: 1rem;
   margin-left: 5rem;
   border-radius: 5px;
-  background-color: #641739;
+  background-color: #642eda;
   color: white;
 }
