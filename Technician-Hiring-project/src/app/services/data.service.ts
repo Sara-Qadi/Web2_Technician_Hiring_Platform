@@ -50,6 +50,73 @@ export class DataService {
       attachments: ['https://www.lorempixel.com/965/693'],
       status: 'pending'
     },
+    {
+      jobTitle: 'Sports coach',
+      category: 'Mechanic',
+      jobDescription: 'Lose anyone effect lead receive dog magazine call. Not fill light money company air act. Season fly return to probably heart teach economy.',
+      minBudget: 71,
+      maxBudget: 264,
+      location: 'Tulkarem',
+      deadline: '2025-04-30',
+      attachments: ['https://www.lorempixel.com/965/693'],
+      status: 'pending'
+    },
+    {
+      jobTitle: 'Sports coach',
+      category: 'Mechanic',
+      jobDescription: 'Lose anyone effect lead receive dog magazine call. Not fill light money company air act. Season fly return to probably heart teach economy.',
+      minBudget: 71,
+      maxBudget: 264,
+      location: 'Tulkarem',
+      deadline: '2025-04-30',
+      attachments: ['https://www.lorempixel.com/965/693'],
+      status: 'pending'
+    },
+    {
+      jobTitle: 'Sports coach',
+      category: 'Mechanic',
+      jobDescription: 'Lose anyone effect lead receive dog magazine call. Not fill light money company air act. Season fly return to probably heart teach economy.',
+      minBudget: 71,
+      maxBudget: 264,
+      location: 'Tulkarem',
+      deadline: '2025-04-30',
+      attachments: ['https://www.lorempixel.com/965/693'],
+      status: 'pending'
+    },
+    {
+      jobTitle: 'Sports coach',
+      category: 'Mechanic',
+      jobDescription: 'Lose anyone effect lead receive dog magazine call. Not fill light money company air act. Season fly return to probably heart teach economy.',
+      minBudget: 71,
+      maxBudget: 264,
+      location: 'Tulkarem',
+      deadline: '2025-04-30',
+      attachments: ['https://www.lorempixel.com/965/693'],
+      status: 'pending'
+    },
+    {
+      jobTitle: 'Sports coach',
+      category: 'Mechanic',
+      jobDescription: 'Lose anyone effect lead receive dog magazine call. Not fill light money company air act. Season fly return to probably heart teach economy.',
+      minBudget: 71,
+      maxBudget: 264,
+      location: 'Tulkarem',
+      deadline: '2025-04-30',
+      attachments: ['https://www.lorempixel.com/965/693'],
+      status: 'pending'
+    },
+
+    {
+      jobTitle: 'Sports coach',
+      category: 'Mechanic',
+      jobDescription: 'Lose anyone effect lead receive dog magazine call. Not fill light money company air act. Season fly return to probably heart teach economy.',
+      minBudget: 71,
+      maxBudget: 264,
+      location: 'Tulkarem',
+      deadline: '2025-04-30',
+      attachments: ['https://www.lorempixel.com/965/693'],
+      status: 'pending'
+    },
 
 
   ];
