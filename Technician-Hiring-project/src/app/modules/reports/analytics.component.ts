@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { NavbarAdminComponent } from '../admin/admin/navbar-admin/navbar-admin.component';
 import { FooterAdminComponent } from '../admin/admin/footer-admin/footer-admin.component';
 import { ReportcardComponent } from './reportcard/reportcard.component';
+
 @Component({
   selector: 'app-analytics',
   templateUrl: './analytics.component.html',
@@ -19,11 +20,12 @@ import { ReportcardComponent } from './reportcard/reportcard.component';
   styleUrls: ['./analytics.component.css']
 })
 export class AnalyticsComponent {
-  selectedTable=' jobCompletion';
+  selectedTable :string =' ';
   pageSize = 5;
   currentPage = 1;
   searchTerm='';
   selectedCategory: string = 'all';
+  
 
   tables:any= {
     jobCompletion: {

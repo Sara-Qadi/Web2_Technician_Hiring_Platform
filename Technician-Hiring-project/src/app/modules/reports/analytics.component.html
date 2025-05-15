@@ -13,18 +13,23 @@
   <div class="p-4">
     <h2 class="h4 text-primary mb-4">reports</h2>
     <!-- Sidebar content -->
+<div class="d-flex flex-column gap-2 position-relative md-2" >
+  
+<small class="text-muted">Choose a report from the list below:</small>
+
+  <select [(ngModel)]="selectedTable" class="form-select">
+    <option [ngValue]="''" disabled hidden>Select a report</option>
+    <option [ngValue]="'jobCompletion'">Job Completion Report</option>
+    <option [ngValue]="'earnings'">Earnings Report</option>
+    <option [ngValue]="'topRatedArtisans'">Top Rated Artisans Report</option>
+    <option [ngValue]="'lowPerformanceUsers'">Low Performance Users Report</option>
+    <option [ngValue]="'monthlyActivity'">Monthly Activity Report</option>
+    <option [ngValue]="'locationBasedDemand'">Location Based Demand Report</option>
+    <option [ngValue]="'paymentTransaction'">Payment Transaction Report</option>
+  </select>
 
 
-    <div class="d-flex flex-column gap-3">
-      <select [(ngModel)]="selectedTable" class="form-select">
-        <option value="jobCompletion">Job Completion Report</option>
-        <option value="earnings">Earnings Report</option>
-        <option value="topRatedArtisans">Top Rated Artisans Report</option>
-        <option value="lowPerformanceUsers">Low Performance Users Report</option>
-        <option value="monthlyActivity">Monthly Activity Report</option>
-        <option value="locationBasedDemand">Location Based Demand Report</option>
-        <option value="paymentTransaction">Payment Transaction Report</option>
-      </select>
+
 
       <button id="export-btn" class="btn btn-primary d-flex align-items-center gap-2">
         <i class="fas fa-download"></i>
