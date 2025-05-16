@@ -1,0 +1,24 @@
+.sidebar {
+  transition: transform 0.3s ease-in-out; 
+  z-index: -200;
+}
+
+@media (max-width: 767px) {
+  .sidebar {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    z-index: -200;
+    width: 250px;
+    transform: translateX(-100%);
+  }
+
+  .sidebar.collapse.show {
+    transform: translateX(0);
+  }
+
+  .sidebar ~ main {
+    margin-left: 0 !important;
+  }
+}
+
