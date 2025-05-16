@@ -1,0 +1,11 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: #e8e0da;
+  overflow-x: hidden;
+}
+
+.text-color-primary {
+  color: #642eda;
+}
+

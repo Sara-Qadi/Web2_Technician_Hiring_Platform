@@ -1,0 +1,44 @@
+
+.contain{
+  background-color:white;
+  color:black;
+}
+
+.nav-tabs .nav-link {
+  color: #641739;
+}
+.nav-tabs .nav-link.active {
+  color: white;
+  background-color: #641739;
+  border: none;
+}
+
+img {
+  object-fit: cover;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.notification-divider {
+  border: none;
+  height: 2px;
+  background-color: #641739;
+  margin: 8px 0;
+}
+
+.earlier{
+  font-size: 20px;
+}
+
+.notification-item {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.notification-item:hover {
+  background-color: rgba(100, 23, 57, 0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
