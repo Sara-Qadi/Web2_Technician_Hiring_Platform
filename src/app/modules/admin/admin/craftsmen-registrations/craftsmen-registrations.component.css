@@ -10,11 +10,11 @@ html, body {
 }
 
 .custom-thead {
-  background-color: rebeccapurple !important;
+  background-color: #642eda !important;
 }
 
 .custom-thead th {
-  background-color: rebeccapurple !important;
+  background-color: #642eda !important;
   color: white;
   text-align: center;
 }
