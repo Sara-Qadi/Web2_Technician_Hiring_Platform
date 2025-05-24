@@ -100,7 +100,7 @@ button:disabled {
 
 :host {
   display: block;
-  min-height: 100vh; /* يمـلأ ارتفاع النافذة */
+  min-height: 100vh; /* يمـلأ ارتفاع الشاشة */
   background-color: #101010;
 }
 

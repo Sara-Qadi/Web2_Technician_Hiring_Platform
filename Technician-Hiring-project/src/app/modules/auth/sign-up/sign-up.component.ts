@@ -9,6 +9,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-sign-up-page',
@@ -25,7 +26,8 @@ export class SignUpComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -37,18 +39,28 @@ export class SignUpComponent implements OnInit {
     // Reactive Form
     this.signUpForm = this.fb.group(
       {
-        firstName: [
+        userName: [
           '',
-          [Validators.required, Validators.pattern('^[A-Za-z]{2,20}$')],
+          [
+            Validators.required,
+            Validators.pattern('^[A-Za-z]{2,20}$'),
+            Validators.maxLength(50),
+          ],
         ],
-        lastName: [
+        phone: [
           '',
-          [Validators.required, Validators.pattern('^[A-Za-z]{2,20}$')],
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.maxLength(25),
+            Validators.pattern('^[0-9\\-\\+\\(\\)\\s]*$'),
+          ],
         ],
+
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(8)]],
         confirmPassword: [''],
-        country: ['', Validators.required],
+        country: ['', [Validators.required, Validators.maxLength(50)]],
         terms: [false, Validators.requiredTrue],
       },
       { validators: this.passwordMatchValidator }
@@ -63,19 +75,57 @@ export class SignUpComponent implements OnInit {
   }
 
   // On Submit
+  // onSubmit(): void {
+  //   this.submitted = true;
+
+  //   if (this.signUpForm.valid) {
+  //     const data = {
+  //       ...this.signUpForm.value,
+  //       role: this.role,
+  //     };
+
+  //     console.log('✅ Form Submitted:', data);
+  //     this.router.navigate(['/login']);
+  //   } else {
+  //     console.warn('❌ Form is invalid');
+  //   }
+  // }
+
+  registerError: string | null = null;
+  backendErrors: any = {};
+
   onSubmit(): void {
     this.submitted = true;
+    this.backendErrors = {};
 
-    if (this.signUpForm.valid) {
+    if (this.signUpForm.valid && this.role) {
+      const formValue = this.signUpForm.value;
+
       const data = {
-        ...this.signUpForm.value,
-        role: this.role,
+        user_name: formValue.userName,
+        email: formValue.email,
+        phone: formValue.phone,
+        password: formValue.password,
+        country: formValue.country,
+        role_id: this.role === 'technician' ? 3 : 2,
       };
 
-      console.log('✅ Form Submitted:', data);
-      this.router.navigate(['/login']);
-    } else {
-      console.warn('❌ Form is invalid');
+      this.authService.register(data).subscribe({
+        next: (res) => {
+          localStorage.setItem('token', res.token);
+          console.log('Registered successfully! Token:', res.token); // 💥 هذا السطر يطبع التوكن
+          this.router.navigate(['/']);
+        },
+
+        error: (err) => {
+          console.error('Registration failed!');
+          if (err.status === 422) {
+            this.backendErrors = err.error.errors;
+          } else {
+            this.registerError = 'Something went wrong. Please try again.';
+          }
+        },
+      });
     }
   }
 
@@ -83,4 +133,3 @@ export class SignUpComponent implements OnInit {
     return this.signUpForm.get('email')?.value?.trim()?.length > 0;
   }
 }
-
