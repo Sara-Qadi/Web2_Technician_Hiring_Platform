@@ -1,0 +1,107 @@
+
+<div class="detail mb-5" *ngIf="job" >
+  <div class="heading" *ngIf="showTitle">
+    <p>Job Info</p>
+  </div>
+<div class="detail-card mx-auto">
+  <div class="content">
+    <div class="title-report">
+      <div class="sec title">
+        <div class="icon-feild">
+          <i class="fa-solid fa-heading"></i>
+          <h5 class="shine">Title:</h5>
+        </div>
+        <span class="value">{{job.jobTitle}}</span>
+      </div>
+      <button *ngIf="showButtons" class="Btn" data-bs-toggle="modal" data-bs-target="#reportModal">
+        <div class="sign">
+          <i class="fa-solid fa-flag fa-fade" style="color:#ffffff;"></i>
+        </div>
+        <div class="text" >Report</div>
+      </button>
+    </div>
+    <div class="sec location">
+      <div class="icon-feild">
+        <i class="fa-solid fa-question"></i>
+        <h5 class="shine">Category:</h5>
+      </div>
+      <span class="value">{{job.category}}</span>
+    </div>
+    <div class="sec location">
+      <div class="icon-feild">
+        <i class="fa-solid fa-location-dot"></i>
+        <h5 class="shine">Location:</h5>
+      </div>
+      <span class="value">{{job.location}}</span>
+    </div>
+    <div class="sec budget">
+      <div class="icon-feild">
+        <i class="fa-solid fa-money-bill"></i>
+        <h5 class="shine">Budget:</h5>
+      </div>
+      <span class="value">{{job.minBudget}}$ - {{job.maxBudget}}$</span>
+    </div>
+    <div class="sec deadline">
+      <div class="icon-feild">
+        <i class="fa-solid fa-calendar-days"></i>
+        <h5 class="shine">Deadline:</h5>
+      </div>  
+      <span class="value">{{job.deadline}}</span>
+    </div>
+    <div class="sec attachments">
+      <div class="icon-feild">
+        <i class="fa-solid fa-file"></i>
+        <h5 class="shine">Attachments:</h5>
+      </div>
+      @if(job.attachments == null || job.attachments == '')
+      {
+        <span class="value" style="width: 200px;">no file was attached</span>
+      }
+      @else{
+      <a href="#" class="value">{{job.attachments}}</a>
+      }
+    </div>
+    <div class="sec description">
+      <div class="icon-feild">
+        <i class="fa-solid fa-circle-info"></i>
+        <h5 class="shine">Description:</h5>
+      </div> 
+      <p class="value">{{job.jobDescription}}</p>
+    </div>
+    <div class="sec postowner desc">
+      <div class="icon-feild">
+        <i class="fa-solid fa-circle-user"></i>
+        <h5 class="shine">Posted by:</h5>
+      </div> 
+      <a href="/jobowner" class="value text-decoration-none">JOEY DOESN'T SHARE HIS FOOOOD</a>
+    </div>
+  </div>
+  <button *ngIf="showButtons" class="apply-btn" (click)="gotosubmitbid()">Apply Job</button>
+  <div class="move"></div>
+</div>
+</div>
+
+<!-- مودال الإبلاغ -->
+<div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 border-0 shadow">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reportModalLabel">
+          <i class="fa-solid fa-flag text-danger me-2"></i> Report Job
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to report this user? This action cannot be undone.
+        <div class="reason mt-2">
+          <label for="reasonInput">reason:</label>
+          <textarea class="form-control" id="reasonInput" required></textarea>
+        </div>
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger rounded-pill px-4"  data-bs-dismiss="modal">Report</button><!-- (click)="confirmReport()" -->
+      </div>
+    </div>
+  </div>
+</div>
