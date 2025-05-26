@@ -55,6 +55,9 @@ export class NotificationDropdownComponent {
       this.deleteNotification(index);
     }
   }
+markAllAsRead(): void {
+  this.notifications = this.notifications.map(n => ({ ...n, unread: false }));
+}
 
 
   notifications = [

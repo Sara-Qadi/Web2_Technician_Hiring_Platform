@@ -1,27 +1,29 @@
 <app-navbar-admin></app-navbar-admin>
-<div style="background-color: #f3f2f1; min-height: 100vh;">
+<div style="background-color: #ffffff; min-height: 100vh;">
 
-  <div class="container pt-3">
-    <div class="row align-items-center">
-      <div class="col-auto">
-        <p class="fs-1 m-0" style="color: #641739;">Filter</p>
-      </div>
-  
-      <div class="col d-flex justify-content-center align-items-center gap-2">
-        <label class="custom-search-wrapper">
-          <input
-            type="text"
-            [(ngModel)]="termInput"
-            placeholder="Search for something..."
-            class="form-control custom-search-input"
-          />
-        </label>
-        <button (click)="applySearch()" class="btn fs-5" style="background-color: #641739; color: white;">
-          Search
-        </button>
-      </div>
+ <div class="container py-4">
+  <div class="row align-items-center">
+    <div class="col-auto ps-5">
+      <p class="fs-1 m-0" style="color: linear-gradient(135deg, #7b00ff, #17031b);">Filter</p>
+    </div>
+
+    <div class="col d-flex justify-content-center align-items-center gap-2 ">
+      <label class="custom-search-wrapper">
+        <input
+          type="text"
+          [(ngModel)]="termInput"
+          placeholder="Search for something..."
+          class="form-control custom-search-input"
+        />
+      </label>
+      <button (click)="applySearch()" class="btn" style="background: linear-gradient(135deg, #7b00ff, #17031b); 
+      color: white; font-size: medium;">
+        Search
+      </button>
     </div>
   </div>
+</div>
+
 
   
 
@@ -29,7 +31,7 @@
     <div class="row">
       
       <aside class="col-md-3 p-4 rounded shadow-sm" style="background-color: #f8f9fa;">
-        <h4 class="mb-4 fw-bold border-bottom pb-2" style="color: #641739;">Category</h4>
+        <h4 class="mb-4 fw-bold border-bottom pb-2" style="color: #1a000b;">Category</h4>
 
         <!-- --------------------------------------------              ---------------------             -------------         -->
         <div class="mb-3 d-flex align-items-center gap-2">
@@ -466,7 +468,7 @@
           <label class="form-check-label" for="Other">Other</label>
         </div>
 
-        <h4 class="mb-4 fw-bold border-bottom pb-2 mt-4" style="color: #641739;">Budget</h4>
+        <h4 class="mb-4 fw-bold border-bottom pb-2 mt-4" style="color: #1a000b;">Budget</h4>
         <label class="custom-search-wrapper mb-3">
           <input
           type="text"
@@ -486,7 +488,7 @@
         />
         </label>
 
-        <h4 class="mb-4 fw-bold border-bottom pb-2 mt-4" style="color: #641739;">Location</h4>
+        <h4 class="mb-4 fw-bold border-bottom pb-2 mt-4" style="color: #1a000b;">Location</h4>
         <label class="custom-search-wrapper mb-3">
           <input
           type="text"

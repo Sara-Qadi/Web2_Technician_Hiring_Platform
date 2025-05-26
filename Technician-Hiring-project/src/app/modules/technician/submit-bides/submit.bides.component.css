@@ -1,3 +1,6 @@
-body{
-    background-color: #E8E0DA;
+
+
+.custom-search-wrapper:focus-within {
+  box-shadow:
+    0 0 12px #9e43ff; /* Your custom purple glow only */
 }

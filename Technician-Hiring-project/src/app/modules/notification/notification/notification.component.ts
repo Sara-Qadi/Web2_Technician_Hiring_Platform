@@ -89,7 +89,9 @@ export class NotificationComponent {
       this.deleteNotification(index);
     }
   }
-
+markAllAsRead(): void {
+  this.notifications = this.notifications.map(n => ({ ...n, unread: false }));
+}
 
   setFilter(event: Event, value: 'all' | 'unread') {
     event.preventDefault();

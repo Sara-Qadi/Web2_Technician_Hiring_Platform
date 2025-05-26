@@ -3,20 +3,24 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NavbarAdminComponent } from '../../admin/admin/navbar-admin/navbar-admin.component';
 import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admin.component';
+import { JobdetailsComponent } from '../../job_owner/jobdetails/jobdetails.component';
 
 @Component({
   selector: 'app-submit-bides',
   standalone: true,
-  imports: [FormsModule , CommonModule, NavbarAdminComponent, FooterAdminComponent],
+  imports: [FormsModule , CommonModule, NavbarAdminComponent, FooterAdminComponent,JobdetailsComponent],
   templateUrl: './submit.bides.component.html',
   styleUrls: ['./submit.bides.component.css']
 })
 export class SubmitBidesComponent implements OnInit {
-  min: number | null = null;
-  max: number | null = null;
+  showForm = false;
+  toggleApply() {
+    this.showForm = true;
+  }
+  Price: number | null = null;
   comment: string = '';
 
-  submissions: { min: number | null, max: number | null, comment: string }[] = [];
+  submissions: { Price: number | null, comment: string }[] = [];
 
   ngOnInit(): void {
     // عند تحميل الصفحة: نقرأ من التخزين
@@ -28,8 +32,7 @@ export class SubmitBidesComponent implements OnInit {
 
   submitForm() {
     const newEntry = {
-      min: this.min,
-      max: this.max,
+      Price: this.Price,
       comment: this.comment
     };
 
@@ -38,6 +41,7 @@ export class SubmitBidesComponent implements OnInit {
 
     // خزّن البيانات في المتصفح
     localStorage.setItem('bids', JSON.stringify(this.submissions));
-
+    this.Price = null;
+    this.comment = '';
   }
 }

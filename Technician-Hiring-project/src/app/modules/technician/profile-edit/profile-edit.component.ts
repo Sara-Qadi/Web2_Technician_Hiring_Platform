@@ -20,7 +20,8 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     name: 'Technician Name',
     specialty: 'Electrician',
     rating: 4,
-    description: 'Some quick description or contact info here.'
+    description: 'Some quick description or contact info here.',
+      cvUrl: '',
   };
 
 
@@ -50,6 +51,19 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       reader.readAsDataURL(file);
     }
   }
+  onCvChange(event: any) {
+  const file = event.target.files[0];
+  if (file && file.type === 'application/pdf') {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.editableProfile.cvUrl = e.target.result; // base64 for preview or mock
+    };
+    reader.readAsDataURL(file);
+  } else {
+    alert('Please select a valid PDF file.');
+  }
+}
+
 
   saveProfileChanges() {
     console.log('Updated profile:', this.editableProfile);

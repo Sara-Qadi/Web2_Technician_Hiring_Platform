@@ -1,6 +1,8 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges,inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { DataService } from '../../../services/data.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
 declare var bootstrap: any;
 
 @Component({
@@ -12,7 +14,8 @@ declare var bootstrap: any;
 })
 export class CardblockComponent {
   role = "artisan";
-
+  constructor(private router:Router){}
+  private dataService = inject(DataService);
   @Input() job: any;
   @Output() deleteRequest = new EventEmitter<void>();
   @Output() editRequest = new EventEmitter<void>();
@@ -46,6 +49,10 @@ export class CardblockComponent {
   artisan() {
     this.role = 'artisan';
   }
+  goToDetails() {
+    this.dataService.setSelectedJob(this.job);
+    this.router.navigate(['/jobdetails']);
+    }
 
   openStatusModal(job: any) {
     this.selectedStatus = job.status;

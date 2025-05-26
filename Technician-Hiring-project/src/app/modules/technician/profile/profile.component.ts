@@ -3,11 +3,12 @@ import { Subscription } from 'rxjs';
 
 import { CommonModule } from '@angular/common';
 import { ProfileModalService } from '../../../services/profile-modal.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterModule ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })
@@ -23,8 +24,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
   }
   openEditProfileModal() {
-    this.modalService.closeModal();        // optional: close current modal
-    this.modalService.openEditModal();     // open the edit modal
+    this.modalService.closeModal();
+    this.modalService.openEditModal();
   }
 
   ngOnDestroy() {
