@@ -12,11 +12,9 @@
 
     <textarea [(ngModel)]="editableProfile.description" placeholder="Description or contact info"></textarea>
 
-    <!-- CV Upload -->
     <label><strong>Upload CV (PDF):</strong></label>
     <input type="file" accept=".pdf" (change)="onCvChange($event)" />
 
-    <!-- Show existing CV download link if available -->
     <div *ngIf="editableProfile.cvUrl" class="cv-preview">
       📄 <a [href]="editableProfile.cvUrl" target="_blank" download>View Current CV</a>
     </div>
