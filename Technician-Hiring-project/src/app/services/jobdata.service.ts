@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -7,11 +8,29 @@ export class JobDataService {
 
   private jobsList: any[] = [];  // ليست للجوبس اللي رح ادخلهم لما اعمل بوست من الفورم
   private selectedJob: any=null;
+
+  constructor(private http: HttpClient) {
+    this.loadJobs().subscribe({
+      next: (res: any) => {
+        this.jobsList = res; 
+        console.log('Jobs loaded:', this.jobsList);
+      },
+      error: (err) => {
+        console.error('Error fetching jobs:', err);
+        console.log('error:', this.jobsList);
+      }
+    });
+  }
+
+  loadJobs() {
+    return this.http.get<any>('http://127.0.0.1:8000/api/jobpost/all');
+  }
+
   // في حال بدي اضيف جوب جديدة
   addJob(job: any) 
   {
     this.jobsList.push(job);
-  }
+  } 
 
   // جيتر عشان ارجع داتا الجوبس كلها ز حسب الاندكس بختار الجوب اللي بدي اياه
   getJobs() 
@@ -43,4 +62,6 @@ export class JobDataService {
   getSelectedJob() {
     return this.selectedJob;
   }
+
+  
 }

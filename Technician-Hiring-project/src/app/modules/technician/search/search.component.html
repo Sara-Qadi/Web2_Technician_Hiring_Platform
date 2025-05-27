@@ -11,7 +11,7 @@
       <label class="custom-search-wrapper">
         <input
           type="text"
-          [(ngModel)]="termInput"
+          [(ngModel)]="searchInput"
           placeholder="Search for something..."
           class="form-control custom-search-input"
         />
@@ -36,7 +36,8 @@
         <!-- --------------------------------------------              ---------------------             -------------         -->
         <div class="mb-3 d-flex align-items-center gap-2">
           <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="Electrician" />      
+            <input type="checkbox" name="agree" id="Electrician" value="electrician"   [checked]="selectedCategory.includes('Electrician')"
+            (change)="onCategoryChange($event)" />      
             <div class="neon-checkbox__frame">
               <div class="neon-checkbox__box">
                 <div class="neon-checkbox__check-container">
@@ -72,7 +73,8 @@
 
         <div class="mb-3 d-flex align-items-center gap-2">
           <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="Plumber" />      
+            <input type="checkbox" name="agree" id="Plumber" value="plumber"   [checked]="selectedCategory.includes('Plumber')"
+            (change)="onCategoryChange($event)"/>      
             <div class="neon-checkbox__frame">
               <div class="neon-checkbox__box">
                 <div class="neon-checkbox__check-container">
@@ -109,7 +111,8 @@
 
         <div class="mb-3 d-flex align-items-center gap-2">
           <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="Painter" />      
+            <input type="checkbox" name="agree" id="Painter" value="painter"   [checked]="selectedCategory.includes('Painter')"
+            (change)="onCategoryChange($event)"/>      
             <div class="neon-checkbox__frame">
               <div class="neon-checkbox__box">
                 <div class="neon-checkbox__check-container">
@@ -146,7 +149,8 @@
 
         <div class="mb-3 d-flex align-items-center gap-2">
           <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="Carpenter" />      
+            <input type="checkbox" name="agree" id="Carpenter" value="carpenter"   [checked]="selectedCategory.includes('Carpenter')"
+            (change)="onCategoryChange($event)" />      
             <div class="neon-checkbox__frame">
               <div class="neon-checkbox__box">
                 <div class="neon-checkbox__check-container">
@@ -183,7 +187,8 @@
 
         <div class="mb-3 d-flex align-items-center gap-2">
           <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="Mechanic" />      
+            <input type="checkbox" name="agree" id="Mechanic" value="mechanic"   [checked]="selectedCategory.includes('Mechanic')"
+            (change)="onCategoryChange($event)"/>      
             <div class="neon-checkbox__frame">
               <div class="neon-checkbox__box">
                 <div class="neon-checkbox__check-container">
@@ -219,7 +224,8 @@
 
         <div class="mb-3 d-flex align-items-center gap-2">
           <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="Tiler" />      
+            <input type="checkbox" name="agree" id="Tiler" value="tiler"   [checked]="selectedCategory.includes('Tiler')"
+            (change)="onCategoryChange($event)" />      
             <div class="neon-checkbox__frame">
               <div class="neon-checkbox__box">
                 <div class="neon-checkbox__check-container">
@@ -255,7 +261,8 @@
 
         <div class="mb-3 d-flex align-items-center gap-2">
           <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="Welder" />      
+            <input type="checkbox" name="agree" id="Welder" value="welder"   [checked]="selectedCategory.includes('Welder')"
+            (change)="onCategoryChange($event)"/>      
             <div class="neon-checkbox__frame">
               <div class="neon-checkbox__box">
                 <div class="neon-checkbox__check-container">
@@ -292,7 +299,8 @@
 
         <div class="mb-3 d-flex align-items-center gap-2">
           <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="Roofing-Specialist" />      
+            <input type="checkbox" name="agree" id="Roofing-Specialist" value="roofing-specialist"   [checked]="selectedCategory.includes('Roofing-Specialist')"
+            (change)="onCategoryChange($event)" />      
             <div class="neon-checkbox__frame">
               <div class="neon-checkbox__box">
                 <div class="neon-checkbox__check-container">
@@ -328,7 +336,8 @@
 
         <div class="mb-3 d-flex align-items-center gap-2">
           <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="Mason" />      
+            <input type="checkbox" name="agree" id="Mason" value="mason"   [checked]="selectedCategory.includes('Mason')" 
+            (change)="onCategoryChange($event)" />      
             <div class="neon-checkbox__frame">
               <div class="neon-checkbox__box">
                 <div class="neon-checkbox__check-container">
@@ -364,7 +373,8 @@
 
         <div class="mb-3 d-flex align-items-center gap-2">
           <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="AC-Technician" />      
+            <input type="checkbox" name="agree" id="AC-Technician" value="ac-technician"   [checked]="selectedCategory.includes('AC-Technician')" 
+            (change)="onCategoryChange($event)"  />      
             <div class="neon-checkbox__frame">
               <div class="neon-checkbox__box">
                 <div class="neon-checkbox__check-container">
@@ -400,7 +410,8 @@
 
         <div class="mb-3 d-flex align-items-center gap-2">
           <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="Security-Camera-Installer" />      
+            <input type="checkbox" name="agree" id="Security-Camera-Installer" value="security-camera-installer"   [checked]="selectedCategory.includes('Security-Camera-Installer')" 
+            (change)="onCategoryChange($event)"/>      
             <div class="neon-checkbox__frame">
               <div class="neon-checkbox__box">
                 <div class="neon-checkbox__check-container">
@@ -435,7 +446,8 @@
 
         <div class="mb-3 d-flex align-items-center gap-2">
           <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="Other" />      
+            <input type="checkbox" name="agree" id="Other"  value="other"  [checked]="selectedCategory.includes('Other')" 
+            (change)="onCategoryChange($event)"/>      
             <div class="neon-checkbox__frame">
               <div class="neon-checkbox__box">
                 <div class="neon-checkbox__check-container">
@@ -471,19 +483,18 @@
         <h4 class="mb-4 fw-bold border-bottom pb-2 mt-4" style="color: #1a000b;">Budget</h4>
         <label class="custom-search-wrapper mb-3">
           <input
-          type="text"
+          type="number"
           [(ngModel)]="minInput"
           placeholder="Min Budget"
           class="form-control custom-search-input"
-          
         />
         </label>
 
         <label class="custom-search-wrapper mb-3">
           <input
-          type="text"
+          type="number"
           [(ngModel)]="maxInput"
-          placeholder="max-width Budget"
+          placeholder="Max Budget"
           class="form-control custom-search-input"
         />
         </label>
@@ -499,8 +510,20 @@
         </label>
       </aside>
 
+     <!--<div *ngIf="selectedCategory.length > 0 || locationInput || maxInput || minInput">
+        <p>
+          You selected: {{ selectedCategory.join(', ') }} 
+          You selected: {{ locationInput}}
+          You selected: {{ maxInput}}
+          You selected: {{ minInput}}          
+        </p>
+      </div>
+      <div *ngIf="selectedCategory.length === 0">
+        <p>No category selected ❌</p>
+      </div>-->   <!--we check if the category is selected or not -->
+
       <div class="col-md-9">
-        <app-cardlist [jobs]="jobs | search: term"></app-cardlist>
+        <app-cardlist [jobs]="jobs | filterBy: selectedCategory : locationInput : maxInput : minInput"></app-cardlist>
       </div>
 
     </div>
