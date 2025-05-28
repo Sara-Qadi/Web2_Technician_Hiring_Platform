@@ -18,7 +18,7 @@ export class JobdetailsComponent {
   @Input() showButtons = true;
   @Input() showTitle = true;
   ngOnInit() {
-    this.job = this.dataService.getSelectedJob();
+    //this.job = this.dataService.getSelectedJob();
     console.log('Loaded job:', this.job); // للتأكد من أنه ليس undefined
     const storedJob = localStorage.getItem('selectedJob');
     if (storedJob) {

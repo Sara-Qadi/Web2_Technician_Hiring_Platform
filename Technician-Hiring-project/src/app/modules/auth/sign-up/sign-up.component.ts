@@ -121,8 +121,10 @@ export class SignUpComponent implements OnInit {
           console.error('Registration failed!');
           if (err.status === 422) {
             this.backendErrors = err.error.errors;
+            console.log("yay");
           } else {
             this.registerError = 'Something went wrong. Please try again.';
+            console.log("nay");
           }
         },
       });
