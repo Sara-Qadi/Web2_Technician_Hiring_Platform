@@ -1,0 +1,64 @@
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { NavbarAdminComponent } from '../../admin/admin/navbar-admin/navbar-admin.component';
+import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admin.component';
+import { JobdetailsComponent } from '../../job_owner/jobdetails/jobdetails.component';
+import { JobDataService } from '../../../services/jobdata.service';
+import { ProposalService } from '../../../services/proposal.service';
+@Component({
+  selector: 'app-submit-bides',
+  standalone: true,
+  imports: [FormsModule , CommonModule, NavbarAdminComponent, FooterAdminComponent,JobdetailsComponent],
+  templateUrl: './submit.bides.component.html',
+  styleUrls: ['./submit.bides.component.css']
+})
+export class SubmitBidesComponent implements OnInit {
+
+  constructor(private jobDataService: JobDataService, private proposalService: ProposalService) {}
+
+  showForm = false;
+  toggleApply() {
+    this.showForm = true;
+  }
+  job : any;
+  Price: number | null = null;
+  comment: string = '';
+
+  ngOnInit(): void {
+    this.job = this.jobDataService.getSelectedJob();
+    if (!this.job || !this.job.jobpost_id) {
+      console.error('Job data is missing or invalid');
+    }
+  }
+
+  submitForm() {
+
+    const proposalData = {
+      price : this.Price,
+      status_agreed : false,
+      description_proposal : this.comment,
+      tech_id: '3', // temp till we get the user that has logged in
+      jobpost_id: this.job.jobpost_id
+    };
+
+    console.log("i am koko waswa" , proposalData);
+
+  
+    this.proposalService.addProposal(proposalData).subscribe({
+  next: (res) => {
+    console.log('Proposal submitted successfully:', res);
+    this.Price = null;
+    this.comment = '';  
+    this.showForm = false;
+  },
+  error: (err) => {
+    console.error('Error submitting proposal:', err);
+    // ممكن تعرض رسالة خطأ
+  }
+});
+
+  }
+    
+}
+
