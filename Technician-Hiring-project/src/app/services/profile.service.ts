@@ -18,8 +18,10 @@ getUser(): Observable<any> {
     'Authorization': `Bearer ${token}`
   });
 
-return this.http.get<{ id: number, name: string, email: string }>('http://localhost:8000/api/profile', { headers });
-
+ return this.http.get<{ id: number; name: string; email: string; role_id: number }>(
+    this.apiUrl,
+    { headers }
+  );
 }
   getProfile(): Observable<any> {
 

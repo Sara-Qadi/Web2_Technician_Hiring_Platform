@@ -61,7 +61,7 @@ export class NotificationComponent implements OnInit {
 loadUserNames() {
   const userIds = Array.from(new Set(this.notifications.map(n => n.user_id)));
   userIds.forEach(id => {
-    if (!this.userNames[id]) {  // only fetch if not cached
+    if (!this.userNames[id]) {
       this.profileService.getUserById(id).subscribe({
         next: (user) => {
           this.userNames[id] = user.user_name;
