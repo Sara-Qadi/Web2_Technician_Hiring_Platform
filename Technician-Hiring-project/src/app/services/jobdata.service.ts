@@ -27,7 +27,7 @@ export class JobDataService {
   }
 
   loadJobs() {
-    return this.http.get<any>('http://127.0.0.1:8000/api/jobpost/all');
+    return this.http.get<any>('http://127.0.0.1:8000/api/jobpost/allposts');
   }
 
   // في حال بدي اضيف جوب جديدة
