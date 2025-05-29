@@ -48,5 +48,13 @@ return this.http.get<{ id: number, name: string, email: string }>('http://localh
 }
 
 
+getUserById(userId: number) {
+  const token = localStorage.getItem('token') || '';
+  return this.http.get<any>(`http://localhost:8000/api/users/${userId}`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+}
+
+
 
 }

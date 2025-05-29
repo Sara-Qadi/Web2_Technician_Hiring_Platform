@@ -23,10 +23,9 @@
   right: 0;
   height: 70px;
   background-color: black;
-  z-index: 1000;
-  width: calc(100% - 17px);
-  box-sizing: border-box;
-  overflow: hidden;
+  z-index: 100;
+  width: 100%;
+
 }
 
 .bottom-navbar {
@@ -40,8 +39,9 @@
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   color: white;
   z-index: 10;
-  width: calc(100% - 17px);
-  box-sizing: border-box;
+width: 100%;
+
+
 }
 
 .icon-btn {

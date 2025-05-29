@@ -22,6 +22,10 @@ export class ProposalService {
   deleteproposal(id:number):Observable<any>{
     return this.http.delete(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/proposal/deleteproposal/${id}`);
   }
+  getProposalById(id: number): Observable<Proposal> {
+  return this.http.get<Proposal>(`/api/proposals/${id}`);
+}
+
 
 
 }
