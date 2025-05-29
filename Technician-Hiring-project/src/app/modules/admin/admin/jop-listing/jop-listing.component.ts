@@ -16,7 +16,7 @@ import { JobListComponent } from '../../../job_owner/joblist/joblist.component';
   styleUrls: ['./jop-listing.component.css']
 })
 export class JopListingComponent {
-  /*jobs = [
+  jobs = [
     {
       title: 'Blacksmith',
       image: 'assets/blacksmith.jpg',
@@ -47,6 +47,6 @@ export class JopListingComponent {
       image: 'assets/Electrical Technician.jpg',
       description: 'Skilled in wiring, repair, and installation of electrical systems.'
     }
-  ];*/
-  
+  ];
+
 }

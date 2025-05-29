@@ -38,7 +38,7 @@ export const routes: Routes = [
   {path: 'navbar-admin', component: NavbarAdminComponent},
   {path: 'footer-admin', component:FooterAdminComponent},
   {path:'postjob/:id',component:AddjobComponent},
-  {path:'jobdetails',component:JobInfoPageComponent},
+  {path:'jobdetails/:id',component:JobInfoPageComponent},
   {path:'jobowner/:id',component:JobownerprofileComponent},
   //{path:'updatejob/:id',component:AddjobComponent},
   {
@@ -62,7 +62,7 @@ export const routes: Routes = [
   { path: 'postjob', component: AddjobComponent },
   { path: 'jobowner', component: JobListComponent },
   { path: 'updatejob/:id', component: AddjobComponent },
-  { path: 'reviewbids', component: BidlistComponent },
+  { path: 'reviewbids/:id', component: BidlistComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'reports/analytics', component: AnalyticsComponent },
   { path: 'role-selection', component: RoleSelectionComponent },
@@ -78,7 +78,7 @@ export const routes: Routes = [
     component: SearchComponent,
   },
   {
-    path: 'submit-bid',
+    path: 'submit-bid/:id',
     component: SubmitBidesComponent,
   },
 ];

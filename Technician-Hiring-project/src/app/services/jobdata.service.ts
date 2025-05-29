@@ -11,7 +11,7 @@ export class JobDataService {
 
 //<<<<<<< Updated upstream
   private jobsList: any[] = [];  // ليست للجوبس اللي رح ادخلهم لما اعمل بوست من الفورم
-  private selectedJob: any=null;
+  //private selectedJob: any=null;
 
   constructor(private http: HttpClient){} /*{
     this.loadJobs().subscribe({
@@ -59,8 +59,8 @@ export class JobDataService {
   deletethisjobpost(id:Number):Observable<any>{
     return this.http.delete(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/deletepost/${id}`);
   }
-  countjobposts():Observable<Jobpost[]>{
-    return this.http.get<Jobpost[]>('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/countposts');
+  countjobposts():Observable<number>{
+    return this.http.get<number>('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/countposts');
   }
   getjobpostsfortech():Observable<Jobpost[]>{
     return this.http.get<Jobpost[]>('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/allPostsforTech');
@@ -70,7 +70,7 @@ export class JobDataService {
   setUserId(id: number) { this.userId = id; }
   getUserId() { return this.userId; }
   
-  //private selectedJob: Jobpost | null = null;
+  private selectedJob: Jobpost | null = null;
 
   setSelectedJob(job: Jobpost) {
     this.selectedJob = job;

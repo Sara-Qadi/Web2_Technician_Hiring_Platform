@@ -20,18 +20,18 @@ export class JobListComponent implements OnInit {
   constructor(private jobpostservice:JobDataService,private route: ActivatedRoute) { }
   
   @Input() userId!: number;
-jobsarray: any[] = [];
+jobsarray: Jobpost[] = [];
 
 ngOnInit(): void {
     const updatedJob = history.state.updatedJob;
-    if (updatedJob) {
+    /*if (updatedJob) {
       const index = this.jobsarray.findIndex(job => job.id === updatedJob.id);
       if (index !== -1) {
         this.jobsarray[index] = updatedJob;
       } else {
         this.jobsarray.unshift(updatedJob);
       }
-    }
+    }*/
   }
 
   ngOnChanges(changes: SimpleChanges): void {

@@ -61,7 +61,7 @@ export class JobblockComponent {
   }
 
   toreview(){
-    this.router.navigate(['/reviewbids']);
+    this.router.navigate(['/reviewbids',this.job.jobpost_id]);
   }
   /*toupdate(){
     this.router.navigate(['/updatejob']);
@@ -76,9 +76,6 @@ export class JobblockComponent {
     this.editJob.emit(this.job);
   }*/
 goToDetails() {
-    //this.jobService.setSelectedJob(this.job);  // احفظ الجوب في الخدمة
-    this.router.navigate(['/jobdetails']);       // انتقل للصفحة
-    localStorage.setItem('selectedJob', JSON.stringify(this.job));//عشان تضل حتى لما اعمل ريفرش
-    }
-    
+    this.router.navigate(['/jobdetails', this.job.jobpost_id]); 
+}
 }
