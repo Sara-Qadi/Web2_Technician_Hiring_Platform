@@ -1,9 +1,10 @@
-import { Component, inject , Input } from '@angular/core';
+import { Component, inject , Input, OnInit } from '@angular/core';
 
 import { CardblockComponent } from '../cardblock/cardblock.component';
 import { CommonModule } from '@angular/common';
 import { JobblockComponent } from '../../job_owner/jobblock/jobblock.component';
 import { JobDataService } from '../../../services/jobdata.service';//lian
+import { Jobpost } from '../../../models/jobpost.model';
 
 
 
@@ -14,7 +15,22 @@ import { JobDataService } from '../../../services/jobdata.service';//lian
   templateUrl: './cardlist.component.html',
   styleUrls: ['./cardlist.component.css'],
 })
-export class CardListComponent {
+export class CardListComponent implements OnInit {
+  jobarray: Jobpost[] = [];
+
+  constructor(private jobpostService: JobDataService) {}
+
+  ngOnInit(): void {
+    this.jobpostService.getjobpostsfortech().subscribe({
+      next: (data) => {
+        this.jobarray = data;
+        console.log('Received job posts:', data);
+      },
+      error: (err) => {
+        console.error('Error fetching job posts:', err);
+      }
+    });
+  }
   role="technician";
   //اول شي بدي اجيب الداتا من السيرفس عشان اعمل عمليات حذف او تعديل وهيك
   //جبت السيرفس و عملتله انجكت
@@ -50,10 +66,10 @@ export class CardListComponent {
   refreshJobs()
   {
 
-   this.jobs = this.dataService.getJobs();
+   //this.jobs = this.dataService.getJobs();
 
    //this.jobs = this.dataService.getJobs();  //omar
-    this.jobs = this.ldataService.getJobs(); //lian
+    //this.jobs = this.ldataService.getJobs(); //lian
 
   }
 
@@ -62,8 +78,8 @@ export class CardListComponent {
   {
     if (this.deleteIndex !== null)
       {
-        //this.dataService.removeJob(this.deleteIndex); //omar
-        this.ldataService.removeJob(this.deleteIndex); //lian
+       // this.dataService.removeJob(this.deleteIndex); //omar
+        //this.ldataService.removeJob(this.deleteIndex); //lian
         this.showPopup = false;//رجعناها فولس عشان خلصنا حذف
         this.deleteIndex = null;
         this.refreshJobs();  // عشان احدث الجوبس
@@ -71,13 +87,10 @@ export class CardListComponent {
   }
 
     // بعد ما عدلت على الداتا و كبست ابديت
-  jobUpdated(newJob: any)
-  {
-    // البيانات الجديدة بتحل محل القديمة
-    //this.dataService.updateJob(this.selectedJob, newJob); //omar
-    this.ldataService.updateJob(this.selectedJob, newJob); //lian
+  jobUpdated(newJob: any) {
+    //this.ldataService.updateJob(this.selectedJob, newJob);
     this.selectedJob = null;
-    this.refreshJobs();  // حدثت الجوبس بعد ما عدلت عليهم
+    this.refreshJobs();
   }
   onStatusChange(index: number, newStatus: string) {
     this.jobs[index].status = newStatus;
