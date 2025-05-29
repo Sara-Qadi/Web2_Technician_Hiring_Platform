@@ -1,7 +1,5 @@
 import { Component, inject , Input } from '@angular/core';
 
-import { DataService } from '../../../services/data.service';
-
 import { CardblockComponent } from '../cardblock/cardblock.component';
 import { CommonModule } from '@angular/common';
 import { JobblockComponent } from '../../job_owner/jobblock/jobblock.component';
@@ -21,7 +19,7 @@ export class CardListComponent {
   //اول شي بدي اجيب الداتا من السيرفس عشان اعمل عمليات حذف او تعديل وهيك
   //جبت السيرفس و عملتله انجكت
 
-  private dataService = inject(DataService);
+  private dataService = inject(JobDataService);
 
  // private dataService = inject(DataService);  //omar
    private ldataService = inject(JobDataService);//lian

@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges,inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataService } from '../../../services/data.service';
+import { JobDataService } from '../../../services/jobdata.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 declare var bootstrap: any;
@@ -15,7 +15,7 @@ declare var bootstrap: any;
 export class CardblockComponent {
   role = "artisan";
   constructor(private router:Router){}
-  private dataService = inject(DataService);
+  private dataService = inject(JobDataService);
   @Input() job: any;
   @Output() deleteRequest = new EventEmitter<void>();
   @Output() editRequest = new EventEmitter<void>();

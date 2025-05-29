@@ -1,0 +1,64 @@
+<app-navbar-admin></app-navbar-admin>
+<div class="messaging-container">
+
+  <div class="sidebar shadow-sm bg-light p-3">
+    <div class="mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search to message user..."
+        [formControl]="searchControl">
+    </div>
+
+    <div class="user-list">
+      <div
+        *ngFor="let user of filteredUsers"
+        class="user-item border-bottom py-2 px-2 hover-bg"
+        (click)="selectUser(user)">
+        <img
+        src="assets/person1.jpg"
+        alt="User Image"
+        class="rounded-circle me-3"
+        style="width: 30px; height: 30px; object-fit: cover;" />
+        <strong>{{ user.name }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-box shadow-sm bg-white" *ngIf="selectedUser">
+    <div class="chat-header border-bottom p-3">
+      <h5 class="m-0">{{ selectedUser.name }}</h5>
+    </div>
+
+    <div class="chat-messages p-2" #chatMessages>
+      <div *ngFor="let msg of messages"
+           class="mb-2 text-white p-2"
+           [ngClass]="{
+             'bg-primary ms-auto text-end': msg.senderId === currentUserId,
+             'bg-secondary me-auto text-start': msg.senderId !== currentUserId
+           }"
+           style="
+             border-radius: 20px;
+             max-width: 25%;
+             width: fit-content;
+             word-wrap: break-word;
+             overflow-wrap: break-word;
+             white-space: pre-wrap;">
+        {{ msg.messageText }}
+      </div>
+    </div>
+    
+
+    <div class="chat-input d-flex border-top p-3 align-items-center">
+      <input
+        type="text"
+        class="form-control me-2"
+        placeholder="Type a message..."
+        [(ngModel)]="newMessage"
+        (keyup.enter)="sendMessage()">
+      <button class="btn btn-primary" (click)="sendMessage()">
+        <i class="bi bi-send"></i>
+      </button>
+    </div>
+  </div>
+</div>

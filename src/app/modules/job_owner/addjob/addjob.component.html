@@ -1,0 +1,136 @@
+<app-navbar-admin></app-navbar-admin>
+<div class="container w-50 my-5 p-5 rounded-2">
+  <form class="row g-3" [formGroup]="addJobForm " (ngSubmit)="onSubmit()">
+    <h3>Post a New Job</h3>
+    <div class="col-12 mb-2">
+      <label for="inputJobTitle" class="form-label mb-3">Job Title</label>
+      <input type="text" formControlName="jobTitle" class="form-control" id="inputJobTitle" placeholder="e.g., Kitchen Renovation Project">
+      <div class="text-danger warning">
+        @if(addJobForm.controls['jobTitle'].errors?.['required'] && addJobForm.controls['jobTitle'].touched){
+          <span>This field is Required</span>
+        }
+      </div>
+    </div>
+
+    <div class="col-12 mb-2">
+      <label for="inputCategory" class="form-label mb-3">Category</label>
+      <select id="inputCategory" class="form-select" aria-label="Default select example" formControlName="category">
+        <option selected>Open this select menu</option>
+        <option value="Carpenter">Carpenter</option>
+        <option value="Plumber">Plumber</option>
+        <option value="Electrician">Electrician</option>
+        <option value="Painter">Painter</option>
+        <option value="Mason">Mason</option>
+        <option value="Roofing">Roofing Specialist</option>
+        <option value="Mechanic">Mechanic</option>
+        <option value="Welder">Welder</option>
+        <option value="Tiler">Tiler</option>
+        <option value="ACTechnician">AC Technician</option>
+        <option value="SecurityCameraInstaller">Security Camera Installer</option>
+      </select>
+      <div class="text-danger warning">
+        @if(addJobForm.controls['category'].errors?.['required']&& addJobForm.controls['category'].touched){
+          <span>This field is Required</span>
+        }
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-2">
+      <label for="inputMinBudget" class="form-label mb-3">Minimum Budget ($)</label>
+      <input type="number" formControlName="minBudget" class="form-control" id="inputMinBudget" placeholder="e.g., 10" required>
+      <div class="text-danger warning">
+        @if(addJobForm.controls['minBudget'].errors?.['required']&& addJobForm.controls['minBudget'].touched){
+          <span>This field is Required</span>
+        }
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-2">
+      <label for="inputMaxBudget" class="form-label mb-3">Maximum Budget ($)</label>
+      <input type="number" formControlName="maxBudget" class="form-control" id="inputMaxBudget" placeholder="e.g., 1000" required>
+      <div class="text-danger warning">
+        @if(addJobForm.controls['maxBudget'].errors?.['required']&& addJobForm.controls['maxBudget'].touched){
+          <span>This field is Required</span>
+        }
+      </div>
+    </div>
+
+    <div class="col-12 mb-2">
+      <label for="inputLocation" class="form-label mb-3">Location</label>
+      <select id="inputLocation" class="form-select" aria-label="Default select example" formControlName="location">
+        <option selected>Open this select menu</option>
+        <option value="Nablus">Nablus</option>
+        <option value="Tulkarm">Tulkarm</option>
+        <option value="Jerusalem">Jerusalem</option>
+        <option value="Jenin">Jenin</option>
+        <option value="Qalqilya">Qalqilya</option>
+        <option value="Tubas">Tubas</option>
+        <option value="Jéricho">Jéricho</option>
+        <option value="Hebron">Hebron</option>
+        <option value="Bethlehem">Bethlehem</option>
+        <option value="Ramallah">Ramallah</option>
+        <option value="Gaza">Gaza</option>
+      </select>
+      <div class="text-danger warning">
+        @if(addJobForm.controls['location'].errors?.['required']&& addJobForm.controls['location'].touched){
+          <span>This field is Required</span>
+        }
+      </div>
+    </div>
+
+    <div class="col-12 mb-2">
+      <label for="inputDeadline" class="form-label mb-3">Deadline</label>
+      <input type="date" formControlName="deadline" class="form-control" id="inputDeadline" >
+      <div class="text-danger warning">
+        @if(addJobForm.controls['deadline'].errors?.['required']&& addJobForm.controls['deadline'].touched){
+          <span>This field is Required</span>
+        }
+      </div>
+    </div>
+
+    <div class="col-12 mb-2">
+      <label for="inputJobDescription" class="form-label mb-3">Job Description</label>
+      <textarea class="form-control" formControlName="jobDescription" id="inputJobDescription" rows="3" placeholder="Describe the job in detail..."></textarea>
+      <div class="text-danger warning">
+        @if(addJobForm.controls['jobDescription'].errors?.['required']&& addJobForm.controls['jobDescription'].touched){
+          <span>This field is Required</span>
+        }@else if(addJobForm.controls['jobDescription'].errors?.['minlength']&& addJobForm.controls['jobDescription'].touched){
+          <span> Minimum 20 characters required</span>
+        }
+      </div>
+    </div>
+
+    <!-- <div class="col-12 mb-2">
+    <label for="inputAttachments" class="form-label mb-3">Attachments (Optional)</label>
+    <input type="file" class="form-control" id="inputAttachments" >
+  </div> -->
+    <div class="col-12 mb-2" id="Attachments">
+      <p>Attachments (Optional)</p>
+      <label for="inputAttachments" class="form-label mb-3" id="AttachmentsLabel">
+        <div class="icon">
+          <i class="fa-solid fa-file-arrow-up fa-xl"></i>
+        </div>
+        <div class="Attachmentcontent mt-3" >
+          <p>Drag & drop files here, or click to select files</p>
+          <span>Supports: Images (JPG, PNG) and PDF files</span>
+          <input type="file" formControlName="attachments" class="form-control" id="inputAttachments" (change)="onFileChange($event)" multiple>
+        </div>
+      </label> 
+    </div>
+
+    <div class="col-12 d-grid " *ngIf="!job">
+      <button type="submit" (click)="onSubmit()" class="btn btn-primary"  (click)="tojobowner()">Post Job</button><!-- [disabled]="addJobForm.invalid" -->
+    </div>
+    <div class="row" *ngIf="job">
+      <div  class="col-md-6 mb-2">
+        <button type="submit" class="btn btn-primary w-100" (click)="onSubmit()" (click)="tojobowner()">Update Job</button>
+      </div>
+      <div class="col-md-6 mb-2">
+        <button type="submit" class="btn btn-secondary w-100" (click)="cancelEdit()" (click)="tojobowner()">Cancel</button>
+      </div>
+    </div>
+    
+  </form>
+</div>
+
+<app-footer-admin></app-footer-admin>

@@ -28,8 +28,9 @@ import { JobInfoPageComponent } from './modules/job_owner/job-info-page/job-info
 
 
 export const routes: Routes = [
-  {path:'admin/dashboard', component:AdminComponent},
+  { path: 'admin/dashboard', component: AdminComponent },
   { path: 'messages', component: MessagingComponent },
+
   {path: 'admin/craftsmen-registrations', component:CraftsmenRegistrationsComponent},
   {path: 'admin/delete-craftsman', component:DeleteCraftsmanComponent},
   {path: 'admin/jop-listing', component:JopListingComponent},
@@ -42,6 +43,7 @@ export const routes: Routes = [
   {path:'reviewbids',component:BidlistComponent},
   {path: 'login',component: LoginPageComponent},
   {path: 'reports/analytics',component: AnalyticsComponent},
+
   { path: 'admin/dashboard', component: AdminComponent },
   {
     path: 'admin/craftsmen-registrations',

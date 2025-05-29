@@ -2,10 +2,13 @@
 <div class="container my-5">
   <div class="row d-flex flex-wrap align-items-center"><!-- justify-content-between -->
     <div class="col-md-4" *ngFor="let job of jobs; let i = index">
-      <app-jobblock [job]="job" [role]="role"></app-jobblock><!-- (deleteRequest)="requestDelete(i)" (editRequest)="requestEdit(i)"  (statusChange)="onStatusChange(i, $event)"-->
+      <app-jobblock [job]="job" [role] = "'technician'"></app-jobblock><!-- (deleteRequest)="requestDelete(i)" (editRequest)="requestEdit(i)"  (statusChange)="onStatusChange(i, $event)"-->
     </div>
   </div>
 </div>
+
+
+
 
 <!-- عشان الديليت بوب اب
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
