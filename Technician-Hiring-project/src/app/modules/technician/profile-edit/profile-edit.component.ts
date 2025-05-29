@@ -56,7 +56,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   if (file && file.type === 'application/pdf') {
     const reader = new FileReader();
     reader.onload = (e: any) => {
-      this.editableProfile.cvUrl = e.target.result; // base64 for preview or mock
+      this.editableProfile.cvUrl = e.target.result;
     };
     reader.readAsDataURL(file);
   } else {

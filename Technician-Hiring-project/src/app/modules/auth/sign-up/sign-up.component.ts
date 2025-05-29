@@ -114,10 +114,13 @@ export class SignUpComponent implements OnInit {
         next: (res) => {
           localStorage.setItem('token', res.token);
           console.log('Registered successfully! Token:', res.token); // 💥 هذا السطر يطبع التوكن
-          this.router.navigate(['/']);
+           this.router.navigate(['/']);
+
         },
 
         error: (err) => {
+            console.log('Error status:', err.status);
+  console.log('Error body:', err.error);
           console.error('Registration failed!');
           if (err.status === 422) {
             this.backendErrors = err.error.errors;
@@ -125,6 +128,7 @@ export class SignUpComponent implements OnInit {
           } else {
             this.registerError = 'Something went wrong. Please try again.';
             console.log("nay");
+
           }
         },
       });

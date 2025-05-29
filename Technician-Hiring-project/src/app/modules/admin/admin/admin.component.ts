@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart } from 'chart.js';  // Import Chart.js
+import Chart from 'chart.js/auto';
+
 import { NavbarAdminComponent } from './navbar-admin/navbar-admin.component';
 import { FooterAdminComponent } from './footer-admin/footer-admin.component';
 

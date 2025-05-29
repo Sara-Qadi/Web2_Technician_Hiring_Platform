@@ -1,7 +1,7 @@
 <div class="top-navbar d-flex justify-content-between align-items-center px-4 py-1">
 
   <div class="d-flex gap-3 small-text  align-items-center " style="color: white;">
-    
+
   </div>
 
   <a class="navbar-brand d-flex align-items-center" routerLink="">
@@ -15,11 +15,15 @@
 
 
   <div class="d-flex gap-3 align-items-center small-text">
+<a class="d-inline-block" title="Profile" (click)="openProfileOrLogin()">
+  <img src="assets/person1.jpg" alt="User" class="rounded-circle" width="24" height="24" />
+</a>
+</div>
+ <!-- <div class="d-flex gap-3 align-items-center small-text">
     <a routerLink="/login" class="d-inline-block" title="Login">
       <img src="assets/person1.jpg" alt="User" class="rounded-circle" width="24" height="24" />
     </a>
-  </div>
-</div>
+  </div> -->
 
 <nav class="bottom-navbar d-flex justify-content-center gap-5 py-2">
   <a routerLink="/admin/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link">
