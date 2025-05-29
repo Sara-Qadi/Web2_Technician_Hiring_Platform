@@ -1,6 +1,6 @@
 
 <div class="detail mb-5" *ngIf="job" >
-  <div class="heading" *ngIf="showTitle">
+  <div class="heading mb-2" *ngIf="showTitle">
     <p>Job Info</p>
   </div>
 <div class="detail-card mx-auto">
@@ -11,7 +11,7 @@
           <i class="fa-solid fa-heading"></i>
           <h5 class="shine">Title:</h5>
         </div>
-        <span class="value">{{job.jobTitle}}</span>
+        <span class="value">{{job.title}}</span>
       </div>
       <button *ngIf="showButtons" class="Btn" data-bs-toggle="modal" data-bs-target="#reportModal">
         <div class="sign">
@@ -39,7 +39,7 @@
         <i class="fa-solid fa-money-bill"></i>
         <h5 class="shine">Budget:</h5>
       </div>
-      <span class="value">{{job.minBudget}}$ - {{job.maxBudget}}$</span>
+      <span class="value">{{job.minimum_budget}}$ - {{job.maximum_budget}}$</span>
     </div>
     <div class="sec deadline">
       <div class="icon-feild">
@@ -66,14 +66,14 @@
         <i class="fa-solid fa-circle-info"></i>
         <h5 class="shine">Description:</h5>
       </div> 
-      <p class="value">{{job.jobDescription}}</p>
+      <p class="value">{{job.description}}</p>
     </div>
     <div class="sec postowner desc">
       <div class="icon-feild">
         <i class="fa-solid fa-circle-user"></i>
         <h5 class="shine">Posted by:</h5>
       </div> 
-      <a href="/jobowner" class="value text-decoration-none">JOEY DOESN'T SHARE HIS FOOOOD</a>
+      <a [routerLink]="['/jobowner', job.user_id]" class="value text-decoration-none">{{job.user_name}}</a>
     </div>
   </div>
   <button *ngIf="showButtons" class="apply-btn" (click)="gotosubmitbid()">Apply Job</button>

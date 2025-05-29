@@ -57,7 +57,7 @@ input:focus,select:focus,textarea:focus{
 option:hover{
   background-color: #475451 !important;
 }
-#AttachmentsLabel{
+/*#AttachmentsLabel{
   border: 2px dashed rgb(200, 200, 200);
   padding: 20px; 
   text-align: center; 
@@ -77,7 +77,7 @@ option:hover{
   font-size: 14px;
   margin: 0;
   
-}
+}*/
 .Attachmentcontent span{
   font-size: 13px;
 }

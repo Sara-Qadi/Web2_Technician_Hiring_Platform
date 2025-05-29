@@ -1,9 +1,9 @@
 @if(role == 'jobowner' || role == 'admin'){
 <div class="card position-relative col-6 col-md-4">
   <div class="obefore-effect">
-     <p class="card-title d-flex justify-content-between align-items-center">{{job.title}}
+     <p class="card-title d-flex justify-content-between align-items-center text-capitalize">{{job.title}}
       <span class="d-flex gap-2 update-delete">
-        <button class="btn btn-sm" (click)="onEditClick()" (click)="toupdate()">
+        <button class="btn btn-sm" (click)="emitEditJob()"><!-- (click)="toupdate(job.jobpost_id)" -->          
           <i class="fa-solid fa-pen text-secondary"></i>
         </button>
         <button class="btn btn-sm " (click)="onDeleteClick()" data-bs-toggle="modal" data-bs-target="#deleteModal">
@@ -59,12 +59,12 @@
           {
             <i class="fa-solid fa-wind" style="color:#9fb3c8; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
           }
-          @case('SecurityCameraInstaller')
+          @case('CameraInstaller')
           {
             <i class="fa-solid fa-shield-halved" style="color:#505153; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
           }
         }
-        <span>{{job.category}}</span>
+        <span class="text-capitalize">{{job.category}}</span>
       </div>
       <div class="location d-flex align-items-center gap-2">
         <i class="fa-solid fa-location-dot" style="color:#ea4335 ; box-shadow: rgba(234, 68, 53, 0.467)  0px 7px 29px 0px;"></i>
@@ -75,7 +75,11 @@
       <i class="fa-solid fa-money-check-dollar" style="color:#3e9c35; box-shadow: rgb(62, 156, 53, 0.467) 0px 7px 29px 0px;"></i>
       <span>{{job.minimum_budget}}$ - {{job.maximum_budget}}$</span>
     </div>
-    <div class="desc">
+    <div class="budget d-flex align-items-center gap-2">
+      <span>status</span>
+      <span>{{job.status}}</span>
+    </div>
+    <div class="desc mb-2 mt-1">
       <p>{{job.description}}</p>
     </div>
   </div>
@@ -94,7 +98,7 @@
 @else if(role == 'technician'){
 <div class="card position-relative" style="width: 300px;height: 280px;">
   <div class="before-effect">
-     <p class="card-title d-flex justify-content-between align-items-center">{{job.title}}
+     <p class="card-title d-flex justify-content-between align-items-center text-capitalize">{{job.title}}
      </p>
   <div class="small-desc d-flex flex-column gap-4">
     <div class="categ-loc d-flex justify-content-between">
@@ -144,7 +148,7 @@
           {
             <i class="fa-solid fa-wind" style="color:#9fb3c8; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
           }
-          @case('SecurityCameraInstaller')
+          @case('CameraInstaller')
           {
             <i class="fa-solid fa-shield-halved" style="color:#505153; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
           }
@@ -158,7 +162,7 @@
     </div>
     <div class="budget d-flex align-items-center gap-2">
       <i class="fa-solid fa-money-check-dollar" style="color:#3e9c35; box-shadow: rgb(62, 156, 53, 0.467) 0px 7px 29px 0px;"></i>
-      <span>{{job.maximum_budget}}$ - {{job.minimum_budget}}$</span>
+      <span>{{job.minimum_budget}}$ - {{job.maximum_budget}}$</span>
     </div>
     <div class="desc">
       <p>{{job.description}}</p>

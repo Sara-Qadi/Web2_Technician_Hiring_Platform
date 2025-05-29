@@ -1,12 +1,12 @@
 <app-navbar-admin></app-navbar-admin>
 <div class="container w-50 my-5 p-5 rounded-2">
-  <form class="row g-3" [formGroup]="addJobForm " (ngSubmit)="onSubmit()">
+  <form class="row g-3" [formGroup]="addJobForm" (ngSubmit)="onSubmit()">
     <h3>Post a New Job</h3>
     <div class="col-12 mb-2">
       <label for="inputJobTitle" class="form-label mb-3">Job Title</label>
-      <input type="text" formControlName="jobTitle" class="form-control" id="inputJobTitle" placeholder="e.g., Kitchen Renovation Project">
+      <input type="text" formControlName="title" class="form-control" id="inputJobTitle" placeholder="e.g., Kitchen Renovation Project">
       <div class="text-danger warning">
-        @if(addJobForm.controls['jobTitle'].errors?.['required'] && addJobForm.controls['jobTitle'].touched){
+        @if(addJobForm.controls['title'].errors?.['required'] && addJobForm.controls['title'].touched){
           <span>This field is Required</span>
         }
       </div>
@@ -15,7 +15,7 @@
     <div class="col-12 mb-2">
       <label for="inputCategory" class="form-label mb-3">Category</label>
       <select id="inputCategory" class="form-select" aria-label="Default select example" formControlName="category">
-        <option selected>Open this select menu</option>
+        <option disabled selected>Open this select menu</option>
         <option value="Carpenter">Carpenter</option>
         <option value="Plumber">Plumber</option>
         <option value="Electrician">Electrician</option>
@@ -37,9 +37,9 @@
 
     <div class="col-md-6 mb-2">
       <label for="inputMinBudget" class="form-label mb-3">Minimum Budget ($)</label>
-      <input type="number" formControlName="minBudget" class="form-control" id="inputMinBudget" placeholder="e.g., 10" required>
+      <input type="number" formControlName="minimum_budget" class="form-control" id="inputMinBudget" placeholder="e.g., 10" required>
       <div class="text-danger warning">
-        @if(addJobForm.controls['minBudget'].errors?.['required']&& addJobForm.controls['minBudget'].touched){
+        @if(addJobForm.controls['minimum_budget'].errors?.['required']&& addJobForm.controls['minimum_budget'].touched){
           <span>This field is Required</span>
         }
       </div>
@@ -47,9 +47,9 @@
 
     <div class="col-md-6 mb-2">
       <label for="inputMaxBudget" class="form-label mb-3">Maximum Budget ($)</label>
-      <input type="number" formControlName="maxBudget" class="form-control" id="inputMaxBudget" placeholder="e.g., 1000" required>
+      <input type="number" formControlName="maximum_budget" class="form-control" id="inputMaxBudget" placeholder="e.g., 1000" required>
       <div class="text-danger warning">
-        @if(addJobForm.controls['maxBudget'].errors?.['required']&& addJobForm.controls['maxBudget'].touched){
+        @if(addJobForm.controls['maximum_budget'].errors?.['required']&& addJobForm.controls['maximum_budget'].touched){
           <span>This field is Required</span>
         }
       </div>
@@ -58,7 +58,7 @@
     <div class="col-12 mb-2">
       <label for="inputLocation" class="form-label mb-3">Location</label>
       <select id="inputLocation" class="form-select" aria-label="Default select example" formControlName="location">
-        <option selected>Open this select menu</option>
+        <option disabled selected>Open this select menu</option>
         <option value="Nablus">Nablus</option>
         <option value="Tulkarm">Tulkarm</option>
         <option value="Jerusalem">Jerusalem</option>
@@ -90,12 +90,12 @@
 
     <div class="col-12 mb-2">
       <label for="inputJobDescription" class="form-label mb-3">Job Description</label>
-      <textarea class="form-control" formControlName="jobDescription" id="inputJobDescription" rows="3" placeholder="Describe the job in detail..."></textarea>
+      <textarea class="form-control" formControlName="description" id="inputJobDescription" rows="3" placeholder="Describe the job in detail..."></textarea>
       <div class="text-danger warning">
-        @if(addJobForm.controls['jobDescription'].errors?.['required']&& addJobForm.controls['jobDescription'].touched){
+        @if(addJobForm.controls['description'].errors?.['required']&& addJobForm.controls['description'].touched){
           <span>This field is Required</span>
-        }@else if(addJobForm.controls['jobDescription'].errors?.['minlength']&& addJobForm.controls['jobDescription'].touched){
-          <span> Minimum 20 characters required</span>
+        }@else if(addJobForm.controls['description'].errors?.['minlength']&& addJobForm.controls['description'].touched){
+          <span> Minimum 50 characters required</span>
         }
       </div>
     </div>
@@ -104,6 +104,7 @@
     <label for="inputAttachments" class="form-label mb-3">Attachments (Optional)</label>
     <input type="file" class="form-control" id="inputAttachments" >
   </div> -->
+  <!-- 
     <div class="col-12 mb-2" id="Attachments">
       <p>Attachments (Optional)</p>
       <label for="inputAttachments" class="form-label mb-3" id="AttachmentsLabel">
@@ -116,17 +117,18 @@
           <input type="file" formControlName="attachments" class="form-control" id="inputAttachments" (change)="onFileChange($event)" multiple>
         </div>
       </label> 
-    </div>
+    </div> -->
 
-    <div class="col-12 d-grid " *ngIf="!job">
-      <button type="submit" (click)="onSubmit()" class="btn btn-primary"  (click)="tojobowner()">Post Job</button><!-- [disabled]="addJobForm.invalid" -->
+    <div class="col-12 d-grid " *ngIf="!jobId">
+      <button type="submit"  class="btn btn-primary"[disabled]="addJobForm.invalid">Post Job</button><!-- (click)="onSubmit()" (click)="tojobowner()" -->
     </div>
-    <div class="row" *ngIf="job">
+    <div class="row" *ngIf="jobId">
       <div  class="col-md-6 mb-2">
-        <button type="submit" class="btn btn-primary w-100" (click)="onSubmit()" (click)="tojobowner()">Update Job</button>
+        <button type="submit" class="btn btn-primary w-100" >Update Job</button><!-- (click)="onSubmit()" (click)="tojobowner()" -->
       </div>
       <div class="col-md-6 mb-2">
-        <button type="submit" class="btn btn-secondary w-100" (click)="cancelEdit()" (click)="tojobowner()">Cancel</button>
+        <button type="button" class="btn btn-secondary w-100" (click)="cancelEdit()" >Cancel</button><!-- (click)="tojobowner()" -->
+
       </div>
     </div>
     
