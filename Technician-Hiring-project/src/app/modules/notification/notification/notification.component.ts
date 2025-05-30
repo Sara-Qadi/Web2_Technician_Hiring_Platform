@@ -7,39 +7,73 @@ import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admi
 import { Router } from '@angular/router';
 import { ProfileModalService } from '../../../services/profile-modal.service';
 import { ProfileComponent } from '../../technician/profile/profile.component';
+import { ProfileService } from '../../../services/profile.service';
 import { NotificationService, Notification } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
-  styleUrl: './notification.component.css',
+  styleUrls: ['./notification.component.css'],
   standalone: true,
   imports: [CommonModule, NavbarAdminComponent, FooterAdminComponent, ProfileComponent],
 })
 export class NotificationComponent implements OnInit {
   filter: 'all' | 'unread' = 'all';
   notifications: Notification[] = [];
-  userId: number = 1; // Replace with real user ID from AuthService or localStorage
+  userId!: number;
+  userNames: { [id: number]: string } = {};
+
 
   @ViewChild('dropdownRef', { static: true }) dropdownRef!: ElementRef;
   @Input() dropdownOpen = false;
 
   constructor(
     private router: Router,
+   private profileService: ProfileService,
     private modalService: ProfileModalService,
     private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
-    this.loadNotifications();
+    this.profileService.getUser().subscribe({
+      next: (user) => {
+   this.userId = user.user_id;
+
+        this.loadNotifications();
+      },
+      error: (err) => {
+        console.error('Error fetching user data', err);
+      },
+    });
   }
 
   loadNotifications(): void {
+    if (!this.userId) return;
     this.notificationService.getNotifications(this.userId).subscribe({
-      next: (data) => this.notifications = data,
-      error: (err) => console.error('Failed to load notifications', err)
+      next: (data) => {
+        this.notifications = data;
+             this.loadUserNames();
+      },
+      error: (err) => console.error('Failed to load notifications', err),
     });
   }
+
+loadUserNames() {
+  const userIds = Array.from(new Set(this.notifications.map(n => n.user_id)));
+  userIds.forEach(id => {
+    if (!this.userNames[id]) {
+      this.profileService.getUserById(id).subscribe({
+        next: (user) => {
+          this.userNames[id] = user.user_name;
+        },
+        error: () => {
+          this.userNames[id] = 'Unknown User';
+        }
+      });
+    }
+  });
+}
+
 
   filteredNotifications(): Notification[] {
     return this.filter === 'all'

@@ -18,8 +18,10 @@ getUser(): Observable<any> {
     'Authorization': `Bearer ${token}`
   });
 
-return this.http.get<{ id: number, name: string, email: string }>('http://localhost:8000/api/profile', { headers });
-
+ return this.http.get<{ id: number; name: string; email: string; role_id: number }>(
+    this.apiUrl,
+    { headers }
+  );
 }
   getProfile(): Observable<any> {
 
@@ -45,6 +47,14 @@ return this.http.get<{ id: number, name: string, email: string }>('http://localh
   }
   getSelectedFile(): File | null {
   return this.selectedFile;
+}
+
+
+getUserById(userId: number) {
+  const token = localStorage.getItem('token') || '';
+  return this.http.get<any>(`http://localhost:8000/api/users/${userId}`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
 }
 
 

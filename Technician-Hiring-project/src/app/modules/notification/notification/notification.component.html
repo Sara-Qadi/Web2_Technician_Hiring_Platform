@@ -37,9 +37,10 @@
     </div>
     <div class="flex-grow-1">
       <p class="mb-1">
-        <span [ngClass]="{'fw-bold': notification.read_status === 'unread'}">
-          User {{ notification.user_id }}
-        </span>
+   <span [ngClass]="{'fw-bold': notification.read_status === 'unread'}">
+  {{ userNames[notification.user_id] || ('User #' + notification.user_id) }}
+</span>
+
         <span>{{ notification.message }}</span>
       </p>
       <small>Just now</small> <!-- Ideally use a date formatter -->

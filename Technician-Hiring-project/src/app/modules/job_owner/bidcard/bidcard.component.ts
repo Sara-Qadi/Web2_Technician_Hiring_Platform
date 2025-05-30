@@ -1,45 +1,82 @@
-import { Component,Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Proposal } from '../../../models/proposal.model';
 import { SubmissionService } from '../../../services/submission.service';
 import { ProposalService } from '../../../services/proposal.service';
 import { ActivatedRoute } from '@angular/router';
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-bidcard',
-  imports: [],
   templateUrl: './bidcard.component.html',
-  styleUrl: './bidcard.component.css'
+  styleUrls: ['./bidcard.component.css']
 })
 export class BidcardComponent {
-  constructor(private subservice:SubmissionService,private proposalservice:ProposalService,private route:ActivatedRoute){}
   @Input() bid!: Proposal;
-  jobid!:number;
-  
-  acceptProposal(id: number) {
-  this.subservice.acceptproposal(id).subscribe({
-    next: () => alert('تم قبول العرض بنجاح ✅'),
-    error: err => console.error('خطأ أثناء قبول العرض:', err)
-  });
-  }
-  rejectProposal(id: number) {
-  this.subservice.rejectproposal(id).subscribe({
-    next: (response) => {
-      alert('تم رفض العرض ❌');
+  jobid!: number;
 
-      // إذا status_agreed = false، نحذفه باستخدام دالة الحذف
-      if (!response.status_agreed) {
-        this.proposalservice.deleteproposal(id).subscribe({
-          next: () => {
-//مدري
+  constructor(
+    private subservice: SubmissionService,
+    private proposalService: ProposalService,
+    private route: ActivatedRoute,
+    private notificationService: NotificationService
+  ) {}
+
+  acceptProposal(id: number): void {
+    this.subservice.acceptproposal(id).subscribe({
+      next: () => {
+        alert('تم قبول العرض بنجاح ✅');
+
+        this.proposalService.getProposalById(id).subscribe({
+          next: (proposal) => {
+            const notification = {
+              user_id: proposal.tech_id,
+              type: 'proposal-response',
+              message: 'تم قبول عرضك من قبل صاحب العمل.',
+              read_status: 'unread'
+            };
+
+            this.notificationService.sendNotification(notification).subscribe({
+              next: () => console.log('🔔 Notification sent for acceptance'),
+              error: (err) => console.error('❌ Failed to send notification:', err)
+            });
           },
-          error: err => console.error('خطأ أثناء حذف العرض:', err)
+          error: (err) => console.error('❌ Failed to fetch proposal:', err)
         });
-      }
-    },
-    error: err => console.error('خطأ أثناء رفض العرض:', err)
-  });
-}
+      },
+      error: (err) => console.error('خطأ أثناء قبول العرض:', err)
+    });
+  }
 
+  rejectProposal(id: number): void {
+    this.subservice.rejectproposal(id).subscribe({
+      next: (response) => {
+        alert('تم رفض العرض ❌');
 
+        this.proposalService.getProposalById(id).subscribe({
+          next: (proposal) => {
+            const notification = {
+              user_id: proposal.tech_id,
+              type: 'proposal-response',
+              message: 'تم رفض عرضك من قبل صاحب العمل.',
+              read_status: 'unread'
+            };
 
+            this.notificationService.sendNotification(notification).subscribe({
+              next: () => console.log('🔔 Notification sent for rejection'),
+              error: (err) => console.error('❌ Failed to send notification:', err)
+            });
+          },
+          error: (err) => console.error('❌ Failed to fetch proposal:', err)
+        });
+
+        if (!response.status_agreed) {
+          this.proposalService.deleteproposal(id).subscribe({
+            next: () => console.log('✅ Proposal deleted after rejection'),
+            error: (err) => console.error('خطأ أثناء حذف العرض:', err)
+          });
+        }
+      },
+      error: (err) => console.error('خطأ أثناء رفض العرض:', err)
+    });
+  }
 }

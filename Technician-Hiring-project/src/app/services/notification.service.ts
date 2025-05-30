@@ -14,25 +14,24 @@ export interface Notification {
   providedIn: 'root'
 })
 export class NotificationService {
-   private baseUrl = 'http://localhost/BackEnd-Technician-Hiring-Platform/public/notifications/{userId}';
-  //private baseUrl = 'http://localhost:3000';
-
+  private baseUrl = 'http://localhost:8000/api/notifications';
 
   constructor(private http: HttpClient) {}
 
-  getNotifications(userId: number): Observable<Notification[]> {
-    return this.http.get<Notification[]>(`${this.baseUrl}/notifications/${userId}`);
-  }
-//   getNotifications(): Observable<Notification[]> {
-//   return this.http.get<Notification[]>(`${this.baseUrl}/notifications`);
-// }
+getNotifications(userId: number): Observable<Notification[]> {
+  return this.http.get<Notification[]>(`http://localhost:8000/api/notifications/${userId}`);
+}
 
+
+  sendNotification(notification: Partial<Notification>): Observable<Notification> {
+    return this.http.post<Notification>(`${this.baseUrl}`, notification);
+  }
 
   markAsRead(notificationId: number): Observable<any> {
-    return this.http.put(`${this.baseUrl}/notifications/mark-as-read/${notificationId}`, {});
+    return this.http.put(`${this.baseUrl}/mark-as-read/${notificationId}`, {});
   }
 
   deleteNotification(notificationId: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/notifications/${notificationId}`);
+    return this.http.delete(`${this.baseUrl}/${notificationId}`);
   }
 }

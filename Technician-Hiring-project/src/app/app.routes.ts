@@ -60,7 +60,7 @@ export const routes: Routes = [
   { path: 'navbar-admin', component: NavbarAdminComponent },
   { path: 'footer-admin', component: FooterAdminComponent },
   { path: 'postjob', component: AddjobComponent },
-  { path: 'jobowner', component: JobListComponent },
+  { path: 'jobowner/:id', component: JobListComponent },
   { path: 'updatejob/:id', component: AddjobComponent },
   { path: 'reviewbids/:id', component: BidlistComponent },
   { path: 'login', component: LoginPageComponent },
