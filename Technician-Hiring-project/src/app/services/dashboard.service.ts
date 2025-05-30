@@ -19,4 +19,9 @@ getTotalPosts(): Observable<{ total_posts: number }> {
   getTotalSubmissions(): Observable<{ total_submissions: number }> {
     return this.http.get<{ total_submissions: number }>(`${this.baseUrl}/dashboard/total-submissions`);
   }
+
+  getJobPostsByMonth(): Observable<any> {
+  return this.http.get(`${this.baseUrl}/dashboard/jobposts-per-month`);
+}
+
 }
