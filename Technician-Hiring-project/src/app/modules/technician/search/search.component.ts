@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -7,6 +7,7 @@ import { CardListComponent } from '../cardlist/cardlist.component';
 import { JobDataService } from '../../../services/jobdata.service';
 import { NavbarAdminComponent } from '../../admin/admin/navbar-admin/navbar-admin.component';
 import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admin.component';
+import { Jobpost } from '../../../models/jobpost.model';
 
 @Component({
   selector: 'app-search',
@@ -38,7 +39,14 @@ export class SearchComponent {
   constructor(private JobDataService: JobDataService, private http : HttpClient) {}
 
   ngOnInit(): void {
-    //this.jobs = this.JobDataService.getJobs();
+    this.JobDataService.getjobposts().subscribe({
+      next: (res) => {
+        this.jobs = res.filter(job => job.status === 'pending');;
+      },
+      error: (err) => { 
+        console.error('Error during search:', err); 
+      }
+    });
   }
 
   applySearch() {
@@ -50,12 +58,11 @@ export class SearchComponent {
       //this.jobs = this.JobDataService.getJobs();
       return;  
     }
-
-    this.http.get<any[]>(`http://127.0.0.1:8000/api/jobpost/filterJobs/${this.searchInput}`)
+    
+    this.http.get<Jobpost[]>(`http://127.0.0.1:8000/api/jobpost/filterJobs/${this.searchInput}`)
     .subscribe({
       next: (res) => {
         this.jobs = res;
-        console.log('Search results:', this.jobs);
       },
       error: (err) => { 
         console.error('Error during search:', err);
@@ -64,12 +71,13 @@ export class SearchComponent {
   }
 
   onCategoryChange(event: any) {
-    const category = event.target.value;
+  const category = event.target.value.toLowerCase();
 
-    if (event.target.checked) {
-      this.selectedCategory = [...this.selectedCategory, category];
-    } else {
-      this.selectedCategory = this.selectedCategory.filter(c => c !== category);
-    }
+  if (event.target.checked) {
+    this.selectedCategory = [...this.selectedCategory, category];
+  } 
+  else {
+    this.selectedCategory = this.selectedCategory.filter(c => c !== category);
   }
+}
 }

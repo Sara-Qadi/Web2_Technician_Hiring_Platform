@@ -1,7 +1,7 @@
 <div *ngIf="jobarray.length===0" class="text-center">no jobs </div>
 <div class="container my-5">
   <div class="row d-flex flex-wrap align-items-center"><!-- justify-content-between -->
-    <div class="col-md-4" *ngFor="let job of jobarray; let i = index">
+    <div class="col-md-4" *ngFor="let job of jobs; let i = index">
       <app-jobblock [job]="job" [role] = "'technician'"></app-jobblock><!-- (deleteRequest)="requestDelete(i)" (editRequest)="requestEdit(i)"  (statusChange)="onStatusChange(i, $event)"-->
     </div>
   </div>
