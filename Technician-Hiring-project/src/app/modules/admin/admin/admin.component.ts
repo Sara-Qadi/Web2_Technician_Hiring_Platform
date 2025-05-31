@@ -16,26 +16,39 @@ export class AdminComponent implements OnInit {
   totalSubmissions: number = 0;
   monthlyJobPosts: any[] = [];
   barChart: Chart | null = null;
+  pendingApprovalsCount: number = 0;
+
 
 
 
   constructor(private dashboardService: DashboardService) { }
+ngOnInit(): void {
+  this.loadTotalJobPosts();
+  this.loadTotalSubmissions();
+  this.loadPendingApprovals();
 
-  ngOnInit(): void {
-    this.loadTotalJobPosts();
-    this.loadTotalSubmissions();
+  this.createPieChart();
 
-    this.createPieChart();
+  this.dashboardService.getJobPostsByMonth().subscribe({
+    next: (res) => {
+      this.monthlyJobPosts = res;
+      this.createBarChart();
+    },
+    error: (err) => console.error('Failed to load monthly job data', err)
+  });
+}
 
-    this.dashboardService.getJobPostsByMonth().subscribe({
-  next: (res) => {
-    this.monthlyJobPosts = res;
-    this.createBarChart();
-  },
-  error: (err) => console.error('Failed to load monthly job data', err)
-});
+loadPendingApprovals(): void {
+  this.dashboardService.getPendingApprovals().subscribe({
+    next: (count) => {
+      this.pendingApprovalsCount = count;
+    },
+    error: (err) => {
+      console.error('Error loading pending approvals', err);
+    }
+  });
+}
 
-  }
 
 loadTotalJobPosts(): void {
   this.dashboardService.getTotalPosts().subscribe({
