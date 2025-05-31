@@ -11,6 +11,7 @@ import { JobListComponent } from './modules/job_owner/joblist/joblist.component'
 import { AnalyticsComponent } from './modules/reports/analytics.component';
 
 
+
 @Component({
   selector: 'app-root',
 

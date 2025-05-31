@@ -107,6 +107,7 @@
   font-size: large;
   font-family: "Manrope", sans-serif;
   margin: 0;
+  text-transform: capitalize;
 }
 .desc{
   margin-bottom: 45px;

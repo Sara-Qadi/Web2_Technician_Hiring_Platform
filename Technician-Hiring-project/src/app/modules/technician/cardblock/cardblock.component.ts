@@ -50,9 +50,8 @@ export class CardblockComponent {
     this.role = 'artisan';
   }
   goToDetails() {
-    this.dataService.setSelectedJob(this.job);
-    this.router.navigate(['/jobdetails']);
-    }
+  this.router.navigate(['/jobdetails', this.job.jobpost_id]);
+}
 
   openStatusModal(job: any) {
     this.selectedStatus = job.status;

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart } from 'chart.js';  // Import Chart.js
+import Chart from 'chart.js/auto';
+
 import { NavbarAdminComponent } from './navbar-admin/navbar-admin.component';
 import { FooterAdminComponent } from './footer-admin/footer-admin.component';
+import { DashboardService } from '../../../services/dashboard.service'; // Adjust path as needed
 
 @Component({
   selector: 'app-admin',
@@ -10,13 +12,54 @@ import { FooterAdminComponent } from './footer-admin/footer-admin.component';
   imports: [NavbarAdminComponent, FooterAdminComponent]
 })
 export class AdminComponent implements OnInit {
+  totalJobPosts: number = 0;
+  totalSubmissions: number = 0;
 
-  constructor() { }
+  constructor(private dashboardService: DashboardService) { }
 
   ngOnInit(): void {
+    this.loadTotalJobPosts();
+    this.loadTotalSubmissions();
     this.createBarChart();
     this.createPieChart();
   }
+
+loadTotalJobPosts(): void {
+  this.dashboardService.getTotalPosts().subscribe({
+    next: (res) => {
+      console.log('API response for total posts:', res);
+      if (typeof res === 'number') {
+        this.totalJobPosts = res;
+      }
+      else if (res && 'total_posts' in res) {
+        this.totalJobPosts = res.total_posts;
+      } else {
+        this.totalJobPosts = 0;
+      }
+    },
+    error: (err) => {
+      console.error('Error loading total job posts', err);
+    }
+  });
+}
+
+  loadTotalSubmissions(): void {
+    this.dashboardService.getTotalSubmissions().subscribe({
+      next: (res) => {
+        if (typeof res === 'number') {
+          this.totalSubmissions = res;
+        } else if (res && 'total_submissions' in res) {
+          this.totalSubmissions = res.total_submissions;
+        } else {
+          this.totalSubmissions = 0;
+        }
+      },
+      error: (err) => {
+        console.error('Error loading total submissions', err);
+      }
+    });
+  }
+
 
   createBarChart(): void {
     new Chart('jobOverviewChart', {
@@ -45,7 +88,6 @@ export class AdminComponent implements OnInit {
     });
   }
 
-
   createPieChart(): void {
     new Chart('jobProgressPieChart', {
       type: 'pie',
@@ -69,7 +111,7 @@ export class AdminComponent implements OnInit {
           },
           tooltip: {
             callbacks: {
-              label: function(tooltipItem) {
+              label: function (tooltipItem) {
                 return tooltipItem.label + ': ' + tooltipItem.raw + ' Jobs';
               }
             }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {NgForOf} from '@angular/common';
 import {NavbarAdminComponent} from '../navbar-admin/navbar-admin.component';
 import {FooterAdminComponent} from '../footer-admin/footer-admin.component';
+import { JobListComponent } from '../../../job_owner/joblist/joblist.component';
 
 @Component({
   selector: 'app-jop-listing',
@@ -9,7 +10,8 @@ import {FooterAdminComponent} from '../footer-admin/footer-admin.component';
   imports: [
     NgForOf,
     NavbarAdminComponent,
-    FooterAdminComponent
+    FooterAdminComponent,
+    JobListComponent
   ],
   styleUrls: ['./jop-listing.component.css']
 })
@@ -46,4 +48,5 @@ export class JopListingComponent {
       description: 'Skilled in wiring, repair, and installation of electrical systems.'
     }
   ];
+
 }

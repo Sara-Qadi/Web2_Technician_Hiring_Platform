@@ -69,7 +69,7 @@ export class LoginPageComponent {
   get emailHasValue(): boolean {
     return this.loginForm.get('email')?.value?.trim()?.length > 0;
   }
-  
+
   onInputChange() {
     this.loginError = null; // تمسح رسالة الخطأ لما المستخدم يبدأ يكتب
   }
