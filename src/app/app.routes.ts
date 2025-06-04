@@ -22,7 +22,6 @@ import { JobdetailsComponent } from './modules/job_owner/jobdetails/jobdetails.c
 import { JobownerprofileComponent } from './modules/job_owner/jobownerprofile/jobownerprofile.component';
 import { RatingComponent } from './modules/rating/rating/rating.component';
 import { JobInfoPageComponent } from './modules/job_owner/job-info-page/job-info-page.component';
-import {EditUserComponent} from './modules/admin/admin/edit-user/edit-user.component';
 
 export const routes: Routes = [
   {path:'admin/dashboard', component:AdminComponent},
@@ -44,9 +43,7 @@ export const routes: Routes = [
     path: 'admin/craftsmen-registrations',
     component: CraftsmenRegistrationsComponent,
   },
-
   { path: 'admin/delete-craftsman', component: DeleteCraftsmanComponent },
-  { path: 'admin/edit-user/:user_id', component: EditUserComponent },
   { path: 'admin/jop-listing', component: JopListingComponent },
   { path: 'navbar-admin', component: NavbarAdminComponent },
   { path: 'footer-admin', component: FooterAdminComponent },
@@ -62,7 +59,7 @@ export const routes: Routes = [
   { path: '', component: HomepageComponent },
   { path: 'notifications', component: NotificationComponent },
   { path: 'rating/rating', component: RatingComponent },
-
+  
   {
     path: 'home',
     component: SearchComponent,

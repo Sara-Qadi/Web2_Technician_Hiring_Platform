@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditUserComponent } from './edit-user.component';
+import { RoleSelectionComponent } from './role-selection.component';
 
-describe('EditUserComponent', () => {
-  let component: EditUserComponent;
-  let fixture: ComponentFixture<EditUserComponent>;
+describe('RoleSelectionComponent', () => {
+  let component: RoleSelectionComponent;
+  let fixture: ComponentFixture<RoleSelectionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EditUserComponent]
+      imports: [RoleSelectionComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(EditUserComponent);
+    fixture = TestBed.createComponent(RoleSelectionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

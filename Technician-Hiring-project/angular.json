@@ -93,13 +93,7 @@
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ],
-<<<<<<< HEAD:angular.json
-            "styles": [
-              "@angular/material/prebuilt-themes/azure-blue.css"
-            ]
-=======
             "styles": ["@angular/material/prebuilt-themes/azure-blue.css"]
->>>>>>> ee3567e771da3d95c43070d7326defa373f7a2e3:Technician-Hiring-project/angular.json
           }
         }
       }
