@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "technician-hiring-project",
   "version": "0.0.0",
   "scripts": {
@@ -16,11 +15,9 @@
     "@angular/compiler": "^19.2.0",
     "@angular/core": "^19.2.0",
     "@angular/forms": "^19.2.0",
-<<<<<<<< HEAD:package.json
     "@angular/material": "^19.2.15",
-========
+
     "@angular/material": "^19.2.9",
->>>>>>>> ee3567e771da3d95c43070d7326defa373f7a2e3:Technician-Hiring-project/package.json
     "@angular/platform-browser": "^19.2.0",
     "@angular/platform-browser-dynamic": "^19.2.0",
     "@angular/router": "^19.2.0",
@@ -45,10 +42,8 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.7.2"
-=======
-  "dependencies": {
-    "@angular/material": "^19.2.14"
->>>>>>> ee3567e771da3d95c43070d7326defa373f7a2e3
-  }
-}
+    "typescript": "~5.7.2",
+    "dependencies": {
+      "@angular/material": "^19.2.14"
+    }
+  }}
