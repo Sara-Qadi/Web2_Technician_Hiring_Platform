@@ -1,10 +1,12 @@
-<app-navbar-admin></app-navbar-admin>
-<!-- <a href="/jobowner" (click)="tojobowner()">back to jobowner page</a> -->
-<div class="container w-75 my-4">
-  <app-jobsummary></app-jobsummary>
-  <h4 class="mt-5 mb-4 fw-semibold heading">Proposals</h4>
-  <app-bidcard *ngFor="let bid of bids" [bid]="bid"></app-bidcard>
+<div class="page-wrapper">
+  <app-navbar-admin></app-navbar-admin>
+
+  <div class="container w-75 my-4 flex-grow-1">
+    <app-jobsummary></app-jobsummary>
+    <h4 class="mt-5 mb-4 fw-semibold heading">Proposals</h4>
+    <div *ngIf="bidarray.length===0" class="text-center"> no proposal </div>
+    <app-bidcard *ngFor="let bid of bidarray" [bid]="bid"></app-bidcard>
+  </div>
+
+  <app-footer-admin></app-footer-admin>
 </div>
-<br>
-<br>
-<app-footer-admin></app-footer-admin>

@@ -1,6 +1,6 @@
 
 <div class="detail mb-5" *ngIf="job" >
-  <div class="heading" *ngIf="showTitle">
+  <div class="heading mb-2" *ngIf="showTitle">
     <p>Job Info</p>
   </div>
 <div class="detail-card mx-auto">
@@ -73,7 +73,7 @@
         <i class="fa-solid fa-circle-user"></i>
         <h5 class="shine">Posted by:</h5>
       </div> 
-      <a href="/jobowner" class="value text-decoration-none">JOEY DOESN'T SHARE HIS FOOOOD</a>
+      <a [routerLink]="['/jobowner', job.user_id]" class="value text-decoration-none">{{job.user_name}}</a>
     </div>
   </div>
   <button *ngIf="showButtons" class="apply-btn" (click)="gotosubmitbid()">Apply Job</button>

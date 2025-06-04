@@ -7,3 +7,17 @@ html, body {
 body.with-navbar {
   padding-top: 119px;
 }
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  flex-grow: 1;
+}

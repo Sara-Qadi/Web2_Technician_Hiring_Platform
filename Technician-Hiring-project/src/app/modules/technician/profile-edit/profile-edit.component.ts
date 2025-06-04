@@ -1,76 +1,104 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ProfileService } from '../../../services/profile.service';
 import { ProfileModalService } from '../../../services/profile-modal.service';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-profile-edit',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './profile-edit.component.html',
-  styleUrl: './profile-edit.component.css'
+  styleUrls: ['./profile-edit.component.css']
 })
 export class ProfileEditComponent implements OnInit, OnDestroy {
   showProfileModal = false;
-  private sub!: Subscription;
+  private modalSub!: Subscription;
 
-  editableProfile = {
-    imageUrl: '/assets/person1.jpg',
-    name: 'Technician Name',
-    specialty: 'Electrician',
-    rating: 4,
-    description: 'Some quick description or contact info here.',
-      cvUrl: '',
+  editableProfile: any = {
+    name: '',
+    specialty: '',
+    description: '',
+    imageUrl: '',
+    cvUrl: ''
   };
+  profilePhotoFile: File | null = null;
+  cvFile: File | null = null;
 
-
-  constructor(private modalService: ProfileModalService) {}
+  constructor(
+    private profileService: ProfileService,
+    private modalService: ProfileModalService
+  ) {}
 
   ngOnInit() {
-    this.sub = this.modalService.editModalOpen$.subscribe(isOpen => {
+    // Subscribe to edit modal open/close state
+    this.modalSub = this.modalService.editModalOpen$.subscribe(isOpen => {
       this.showProfileModal = isOpen;
+      if (isOpen) {
+        // Load profile each time modal opens
+        this.loadProfile();
+      }
     });
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    this.modalSub.unsubscribe();
   }
+
+  loadProfile() {
+    this.profileService.getProfile().subscribe({
+      next: (profile) => {
+        this.editableProfile = {
+          name: profile.user_name,
+          specialty: profile.specialty,
+          description: profile.description,
+          imageUrl: profile.photo ? `http://localhost:8000/storage/${profile.photo}` : 'assets/person1.jpg',
+          cvUrl: profile.cv ? `http://localhost:8000/storage/${profile.cv}` : ''
+        };
+      },
+      error: (err) => console.error('Failed to load profile:', err)
+    });
+  }
+
+  onImageChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.profilePhotoFile = input.files[0];
+    }
+  }
+
+  onCvChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.cvFile = input.files[0];
+    }
+  }
+
+
+   saveProfileChanges() {
+    this.profileService.updateProfile(this.editableProfile, this.profilePhotoFile, this.cvFile).subscribe({
+      next: () => {
+        alert('Profile updated successfully!');
+        this.modalService.closeModal();
+        this.profileService.getProfile().subscribe(profile => {
+          this.editableProfile = {
+            name: profile.user_name,
+            specialty: profile.specialty,
+            description: profile.description,
+            imageUrl: profile.photo ? `http://localhost:8000/storage/${profile.photo}` : 'assets/person1.jpg',
+            cvUrl: profile.cv ? `http://localhost:8000/storage/${profile.cv}` : ''
+          };
+               this.modalService.closeEditModal();
+        });
+      },
+      error: (err) => console.error('Update failed:', err)
+    });
+  }
+
 
   closeProfileModal() {
     this.modalService.closeEditModal();
   }
-
-  onImageChange(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.editableProfile.imageUrl = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-  }
-  onCvChange(event: any) {
-  const file = event.target.files[0];
-  if (file && file.type === 'application/pdf') {
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      this.editableProfile.cvUrl = e.target.result; // base64 for preview or mock
-    };
-    reader.readAsDataURL(file);
-  } else {
-    alert('Please select a valid PDF file.');
-  }
-}
-
-
-  saveProfileChanges() {
-    console.log('Updated profile:', this.editableProfile);
-    this.closeProfileModal();
-  }
-  openProfileModal() {
-    this.modalService.openEditModal();
-  }
-
 }

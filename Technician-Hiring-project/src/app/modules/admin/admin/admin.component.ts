@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart } from 'chart.js';  // Import Chart.js
+import Chart from 'chart.js/auto';
+
 import { NavbarAdminComponent } from './navbar-admin/navbar-admin.component';
 import { FooterAdminComponent } from './footer-admin/footer-admin.component';
+import { DashboardService } from '../../../services/dashboard.service'; // Adjust path as needed
 
 @Component({
   selector: 'app-admin',
@@ -10,40 +12,133 @@ import { FooterAdminComponent } from './footer-admin/footer-admin.component';
   imports: [NavbarAdminComponent, FooterAdminComponent]
 })
 export class AdminComponent implements OnInit {
+  totalJobPosts: number = 0;
+  totalSubmissions: number = 0;
+  monthlyJobPosts: any[] = [];
+  barChart: Chart | null = null;
+  pendingApprovalsCount: number = 0;
 
-  constructor() { }
 
-  ngOnInit(): void {
-    this.createBarChart();
-    this.createPieChart();
-  }
 
-  createBarChart(): void {
-    new Chart('jobOverviewChart', {
-      type: 'bar',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr'],
-        datasets: [
-          {
-            label: 'Jobs Posted',
-            data: [20, 35, 40, 15],
-            backgroundColor: '#641739',
-            borderColor: '#641739',
-            borderWidth: 1
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            display: true,
-            position: 'top'
-          }
+
+  constructor(private dashboardService: DashboardService) { }
+ngOnInit(): void {
+  this.loadTotalJobPosts();
+  this.loadTotalSubmissions();
+  this.loadPendingApprovals();
+
+  this.createPieChart();
+
+  this.dashboardService.getJobPostsByMonth().subscribe({
+    next: (res) => {
+      this.monthlyJobPosts = res;
+      this.createBarChart();
+    },
+    error: (err) => console.error('Failed to load monthly job data', err)
+  });
+}
+
+loadPendingApprovals(): void {
+  this.dashboardService.getPendingApprovals().subscribe({
+    next: (count) => {
+      this.pendingApprovalsCount = count;
+    },
+    error: (err) => {
+      console.error('Error loading pending approvals', err);
+    }
+  });
+}
+
+
+loadTotalJobPosts(): void {
+  this.dashboardService.getTotalPosts().subscribe({
+    next: (res) => {
+      console.log('API response for total posts:', res);
+      if (typeof res === 'number') {
+        this.totalJobPosts = res;
+      }
+      else if (res && 'total_posts' in res) {
+        this.totalJobPosts = res.total_posts;
+      } else {
+        this.totalJobPosts = 0;
+      }
+    },
+    error: (err) => {
+      console.error('Error loading total job posts', err);
+    }
+  });
+}
+
+  loadTotalSubmissions(): void {
+    this.dashboardService.getTotalSubmissions().subscribe({
+      next: (res) => {
+        if (typeof res === 'number') {
+          this.totalSubmissions = res;
+        } else if (res && 'total_submissions' in res) {
+          this.totalSubmissions = res.total_submissions;
+        } else {
+          this.totalSubmissions = 0;
         }
+      },
+      error: (err) => {
+        console.error('Error loading total submissions', err);
       }
     });
   }
+
+
+createBarChart(): void {
+
+  if (this.barChart) {
+    this.barChart.destroy();
+  }
+
+  const monthNames = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+
+  const jobCountMap = new Map<number, number>();
+  this.monthlyJobPosts.forEach(item => {
+    jobCountMap.set(item.month, item.total);
+  });
+
+
+  const labels = monthNames;
+  const data = monthNames.map((_, index) => {
+    const monthNumber = index + 1;
+    return jobCountMap.get(monthNumber) || 0;
+  });
+
+  this.barChart = new Chart('jobOverviewChart', {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Jobs Posted',
+        data: data,
+        backgroundColor: '#641739',
+        borderColor: '#641739',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top'
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+}
+
 
 
   createPieChart(): void {
@@ -69,7 +164,7 @@ export class AdminComponent implements OnInit {
           },
           tooltip: {
             callbacks: {
-              label: function(tooltipItem) {
+              label: function (tooltipItem) {
                 return tooltipItem.label + ': ' + tooltipItem.raw + ' Jobs';
               }
             }

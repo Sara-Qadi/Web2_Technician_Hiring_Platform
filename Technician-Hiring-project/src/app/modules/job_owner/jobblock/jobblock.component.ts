@@ -1,9 +1,10 @@
 import { Component, Input,Output,EventEmitter,OnChanges, SimpleChanges,inject } from '@angular/core';
 
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { JobDataService } from '../../../services/jobdata.service';
+import { Jobpost } from '../../../models/jobpost.model'; 
 @Component({
   selector: 'app-jobblock',
   standalone:true,
@@ -12,31 +13,33 @@ import { JobDataService } from '../../../services/jobdata.service';
   styleUrls: ['./jobblock.component.css']
 })
 export class JobblockComponent {
-  constructor(private router:Router){}
+  constructor(private router:Router,private route:ActivatedRoute){}
   private jobService = inject(JobDataService);
   selectedJob: any = null;
+  //@Output() editJob = new EventEmitter<Jobpost>();
+
   //عملت متغير مؤقتا عشان اشوف شكل الكارد للجوب اونر و للارتيزن
   @Input() role:string | undefined;
   //عشان استقبل الداتا من الكارد ليست
-  @Input() job: any;
+  @Input() job!: Jobpost;
+  @Input() userId!: number;
+  //@Input() index: number = 0;
   //لما اليوزر او الجوب اونر يكبس على الايكونز الموجودة عالكارد عشان توصل للكارد ليست
-  @Output() deleteRequest = new EventEmitter<void>();
-  @Output() editRequest = new EventEmitter<void>(); // أضف حدث التعديل
-
+  @Output() deleteRequest = new EventEmitter<number>();
+  //@Output() editRequest = new EventEmitter<void>(); // أضف حدث التعديل
+ @Output() editJob = new EventEmitter<Jobpost>();
   //للفايل(بدي اشتغل عليه مرة ثانية)
   extractFileName(url: string): string {
     return url.split('/').pop() || 'Attachment';
   }
 
   //ارسل الايفنت اللي صار للكارد ليست
-  onEditClick()
-  {
-  this.editRequest.emit();
-  }
-
+ 
   onDeleteClick()
   {
-    this.deleteRequest.emit();
+    //this.deleteRequest.emit({ jobId: this.job.id, index: this.job.index });
+    this.deleteRequest.emit(this.job.jobpost_id); // أو job.id حسب التسمية
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -58,14 +61,21 @@ export class JobblockComponent {
   }
 
   toreview(){
-    this.router.navigate(['/reviewbids']);
+    this.router.navigate(['/reviewbids',this.job.jobpost_id]);
   }
-  toupdate(){
+  /*toupdate(){
     this.router.navigate(['/updatejob']);
   }
-  goToDetails() {
-    this.jobService.setSelectedJob(this.job);  // احفظ الجوب في الخدمة
-    this.router.navigate(['/jobdetails']);       // انتقل للصفحة
-    localStorage.setItem('selectedJob', JSON.stringify(this.job));//عشان تضل حتى لما اعمل ريفرش
-    }
+  onEditClick() {
+  
+}*/
+ emitEditJob() {
+    this.editJob.emit(this.job);
+  }
+  /*onEditClick() {
+    this.editJob.emit(this.job);
+  }*/
+goToDetails() {
+    this.router.navigate(['/jobdetails', this.job.jobpost_id]); 
+}
 }

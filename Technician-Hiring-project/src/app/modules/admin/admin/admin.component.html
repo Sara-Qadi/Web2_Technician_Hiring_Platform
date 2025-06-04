@@ -2,7 +2,6 @@
 <br>
 <div class="container mt-4">
 
-  <!-- Quick Stats Section -->
   <div class="row mt-4 justify-content-center">
     <div class="col-md-3">
       <div class="card shadow-sm hover-effect" style="border-color: #475451; min-height: 180px;">
@@ -10,27 +9,29 @@
           <strong>Total Jobs Posted</strong>
         </div>
         <div class="card-body text-center d-flex align-items-center justify-content-center">
-          <h4 class="m-0">150 <br>Posts</h4>
+<h4 class="m-0" style="font-weight: bold;">{{ totalJobPosts }} <br> Job Posts</h4>
+
         </div>
       </div>
     </div>
-    <div class="col-md-3">
-      <div class="card shadow-sm hover-effect" style="border-color: #475451; min-height: 180px;">
-        <div class="card-header card-header-custom">
-          <strong>Active Bids</strong>
-        </div>
-        <div class="card-body text-center d-flex align-items-center justify-content-center">
-          <h4 class="m-0">45<br> Bids</h4>
-        </div>
-      </div>
+ <div class="col-md-3">
+  <div class="card shadow-sm hover-effect" style="border-color: #475451; min-height: 180px;">
+    <div class="card-header card-header-custom">
+      <strong>Total Submissions</strong>
     </div>
+    <div class="card-body text-center d-flex align-items-center justify-content-center">
+      <h4 class="m-0" style="font-weight: bold;">{{ totalSubmissions }} <br>Submissions</h4>
+    </div>
+  </div>
+</div>
+
     <div class="col-md-3">
       <div class="card shadow-sm hover-effect" style="border-color: #475451; min-height: 180px;">
         <div class="card-header card-header-custom">
           <strong>Pending Approvals</strong>
         </div>
         <div class="card-body text-center d-flex align-items-center justify-content-center">
-          <h4 class="m-0">12 <br> Pending Approvals</h4>
+        <h4 class="m-0" style="font-weight: bold;">{{ pendingApprovalsCount }}<br> Pending Approvals </h4>
         </div>
       </div>
     </div>

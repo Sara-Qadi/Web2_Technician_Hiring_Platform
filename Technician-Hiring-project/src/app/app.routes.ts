@@ -25,6 +25,7 @@ import { RatingComponent } from './modules/rating/rating/rating.component';
 import { CompleteJobsComponent } from './modules/technician/complete-jobs/complete-jobs.component';
 
 import { JobInfoPageComponent } from './modules/job_owner/job-info-page/job-info-page.component';
+import { EditJobComponent } from './modules/job_owner/editform/editform.component';
 
 
 export const routes: Routes = [
@@ -36,9 +37,14 @@ export const routes: Routes = [
   {path: 'admin/jop-listing', component:JopListingComponent},
   {path: 'navbar-admin', component: NavbarAdminComponent},
   {path: 'footer-admin', component:FooterAdminComponent},
-  {path:'postjob',component:AddjobComponent},
-  {path:'jobdetails',component:JobInfoPageComponent},
-  {path:'jobowner',component:JobownerprofileComponent},
+  {path:'postjob/:id',component:AddjobComponent},
+  {path:'jobdetails/:id',component:JobInfoPageComponent},
+  {path:'jobowner/:id',component:JobownerprofileComponent},
+  //{path:'updatejob/:id',component:AddjobComponent},
+  {
+  path: 'updatejob/:id',
+  component: EditJobComponent
+},
   {path:'updatejob',component:AddjobComponent},
   {path:'reviewbids',component:BidlistComponent},
   {path: 'login',component: LoginPageComponent},
@@ -54,9 +60,9 @@ export const routes: Routes = [
   { path: 'navbar-admin', component: NavbarAdminComponent },
   { path: 'footer-admin', component: FooterAdminComponent },
   { path: 'postjob', component: AddjobComponent },
-  { path: 'jobowner', component: JobListComponent },
-  { path: 'updatejob', component: AddjobComponent },
-  { path: 'reviewbids', component: BidlistComponent },
+  { path: 'jobowner/:id', component: JobListComponent },
+  { path: 'updatejob/:id', component: AddjobComponent },
+  { path: 'reviewbids/:id', component: BidlistComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'reports/analytics', component: AnalyticsComponent },
   { path: 'role-selection', component: RoleSelectionComponent },
@@ -72,7 +78,7 @@ export const routes: Routes = [
     component: SearchComponent,
   },
   {
-    path: 'submit-bid',
+    path: 'submit-bid/:id',
     component: SubmitBidesComponent,
   },
 ];

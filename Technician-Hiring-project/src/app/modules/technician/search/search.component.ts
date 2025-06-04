@@ -38,7 +38,7 @@ export class SearchComponent {
   constructor(private JobDataService: JobDataService, private http : HttpClient) {}
 
   ngOnInit(): void {
-    this.jobs = this.JobDataService.getJobs();
+    //this.jobs = this.JobDataService.getJobs();
   }
 
   applySearch() {
@@ -47,7 +47,7 @@ export class SearchComponent {
 
     if (!this.searchInput)
     {
-      this.jobs = this.JobDataService.getJobs();
+      //this.jobs = this.JobDataService.getJobs();
       return;  
     }
 
