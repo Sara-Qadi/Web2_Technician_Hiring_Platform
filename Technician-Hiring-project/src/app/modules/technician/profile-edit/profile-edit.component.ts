@@ -33,11 +33,9 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // Subscribe to edit modal open/close state
     this.modalSub = this.modalService.editModalOpen$.subscribe(isOpen => {
       this.showProfileModal = isOpen;
       if (isOpen) {
-        // Load profile each time modal opens
         this.loadProfile();
       }
     });
