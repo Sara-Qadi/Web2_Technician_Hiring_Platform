@@ -1,10 +1,17 @@
 <app-navbar-admin></app-navbar-admin>
+
 <div class="container my-5">
   <h2 class="text-center mb-4 text-color-primary fw-bold">Craftsmen Registrations</h2>
 
   <div class="d-flex justify-content-center mb-4">
     <div class="position-relative w-50">
-      <input type="text" class="form-control search-input" placeholder="Search" [(ngModel)]="searchQuery">
+      <input
+        type="text"
+        class="form-control search-input"
+        placeholder="Search"
+        [(ngModel)]="searchQuery"
+        (ngModelChange)="onSearchChange()"
+      />
       <i class="bi bi-search search-icon"></i>
     </div>
   </div>
@@ -13,26 +20,27 @@
     <table class="table table-bordered bg-white custom-table">
       <thead class="custom-thead">
       <tr class="text-white text-center">
-        <th>ID</th>
-        <th>Contact Information</th>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
         <th>Registration Date</th>
-        <th>Status</th>
         <th>Action</th>
       </tr>
       </thead>
       <tbody class="text-center">
-      <tr *ngFor="let reg of registrations">
-      <tr *ngFor="let reg of filteredRegistrations">
-        <td>{{ reg.id }}</td>
-        <td>{{ reg.contact }}</td>
+      <tr *ngFor="let reg of registrations; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ reg.name }}</td>
+        <td>{{ reg.email }}</td>
+        <td>{{ reg.phone }}</td>
         <td>{{ reg.date }}</td>
-        <td>{{ reg.status }}</td>
         <td>
           <div class="btn-group-responsive">
-            <button class="btn btn-sm btn-approve" (click)="approveRegistration(reg.id)">
+            <button class="btn btn-sm btn-approve" (click)="approveRegistration(reg.user_id)">
               <i class="bi bi-check2"></i>
             </button>
-            <button class="btn btn-sm btn-reject" (click)="rejectRegistration(reg.id)">
+            <button class="btn btn-sm btn-reject" (click)="rejectRegistration(reg.user_id)">
               <i class="bi bi-x"></i>
             </button>
           </div>
