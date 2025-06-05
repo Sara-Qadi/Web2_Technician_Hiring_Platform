@@ -18,8 +18,10 @@ getUser(): Observable<any> {
     'Authorization': `Bearer ${token}`
   });
 
-return this.http.get<{ id: number, name: string, email: string }>('http://localhost:8000/api/profile', { headers });
-
+ return this.http.get<{ id: number; name: string; email: string; role_id: number }>(
+    this.apiUrl,
+    { headers }
+  );
 }
   getProfile(): Observable<any> {
 
@@ -46,6 +48,31 @@ return this.http.get<{ id: number, name: string, email: string }>('http://localh
   getSelectedFile(): File | null {
   return this.selectedFile;
 }
+
+
+getUserById(userId: number) {
+  const token = localStorage.getItem('token') || '';
+  return this.http.get<any>(`http://localhost:8000/api/users/${userId}`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+}
+
+updateProfile(data: any, photoFile?: File | null, cvFile?: File | null): Observable<any> {
+  const token = localStorage.getItem('token') || '';
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`,
+  });
+
+  const formData = new FormData();
+  if (data.name) formData.append('name', data.name);
+  if (data.specialty) formData.append('specialty', data.specialty);
+  if (data.description) formData.append('description', data.description);
+  if (cvFile) formData.append('cv', cvFile, cvFile.name);
+  if (photoFile) formData.append('photo', photoFile, photoFile.name);
+
+  return this.http.post('http://localhost:8000/api/profile/update', formData, { headers });
+}
+
 
 
 
