@@ -26,6 +26,7 @@ import { CompleteJobsComponent } from './modules/technician/complete-jobs/comple
 
 import { JobInfoPageComponent } from './modules/job_owner/job-info-page/job-info-page.component';
 import { EditJobComponent } from './modules/job_owner/editform/editform.component';
+import {EditUserComponent} from './modules/admin/admin/edit-user/edit-user.component';
 
 
 export const routes: Routes = [
@@ -34,6 +35,7 @@ export const routes: Routes = [
 
   {path: 'admin/craftsmen-registrations', component:CraftsmenRegistrationsComponent},
   {path: 'admin/delete-craftsman', component:DeleteCraftsmanComponent},
+  { path: 'admin/edit-user/:user_id', component: EditUserComponent },
   {path: 'admin/jop-listing', component:JopListingComponent},
   {path: 'navbar-admin', component: NavbarAdminComponent},
   {path: 'footer-admin', component:FooterAdminComponent},
