@@ -55,7 +55,15 @@ export class SearchComponent {
 
     if (!this.searchInput)
     {
-      //this.jobs = this.JobDataService.getJobs();
+      this.JobDataService.getjobpostsfortech().subscribe({
+        next: (res) =>{
+          this.jobs = res;
+        },
+        error: (err) => { 
+          console.error('Error during search:', err);
+        }
+
+    });
       return;  
     }
     
@@ -63,6 +71,7 @@ export class SearchComponent {
     .subscribe({
       next: (res) => {
         this.jobs = res;
+        console.log(this.jobs);
       },
       error: (err) => { 
         console.error('Error during search:', err);
