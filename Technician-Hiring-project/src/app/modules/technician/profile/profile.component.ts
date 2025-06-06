@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { catchError, of, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ProfileModalService } from '../../../services/profile-modal.service';
 import { RouterModule } from '@angular/router';
@@ -21,10 +21,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
   showCreateForm = false;
   private sub!: Subscription;
   userCountry: string = '';
+    role: number = 0;
+  userId: number | null = null;
 
   constructor(private modalService: ProfileModalService, public profileService: ProfileService) {}
 
   ngOnInit() {
+      this.loadUserRole();
+
     this.sub = this.modalService.modalOpen$.subscribe(isOpen => {
       this.showProfileModal = isOpen;
       if (isOpen) {
@@ -106,6 +110,36 @@ onCreateProfile(formData: any) {
       console.error('Failed to create profile:', err);
     }
   });
+}
+loadUserRole() {
+  this.profileService.getProfile()
+    .pipe(
+      catchError(error => {
+        console.error('Failed to fetch profile', error);
+        return of(null);
+      })
+    )
+    .subscribe(profile => {
+      if (profile && profile.user_id) {
+        this.profileService.getUserById(profile.user_id)
+          .pipe(
+            catchError(error => {
+              console.error('Failed to fetch user by ID', error);
+              return of(null);
+            })
+          )
+          .subscribe(user => {
+            if (user) {
+              this.role = user.role_id;
+              this.userId = user.user_id;
+              console.log('User ID:', this.userId);
+              console.log('User role:', this.role);
+            }
+          });
+      } else {
+        console.warn('Profile does not contain user_id');
+      }
+    });
 }
 
 

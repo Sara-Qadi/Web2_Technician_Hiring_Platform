@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { JobDataService } from '../../../services/jobdata.service';
 import { Jobpost } from '../../../models/jobpost.model'; 
+declare var bootstrap: any;
 @Component({
   selector: 'app-jobblock',
   standalone:true,
@@ -16,10 +17,10 @@ export class JobblockComponent {
   constructor(private router:Router,private route:ActivatedRoute){}
   private jobService = inject(JobDataService);
   selectedJob: any = null;
-  //@Output() editJob = new EventEmitter<Jobpost>();
-
+  @Output() editJob = new EventEmitter<Jobpost>();
+  @Input() role: number | undefined;
   //عملت متغير مؤقتا عشان اشوف شكل الكارد للجوب اونر و للارتيزن
-  @Input() role:string | undefined;
+ // @Input() role:string | undefined;
   //عشان استقبل الداتا من الكارد ليست
   @Input() job!: Jobpost;
   @Input() userId!: number;
@@ -27,7 +28,7 @@ export class JobblockComponent {
   //لما اليوزر او الجوب اونر يكبس على الايكونز الموجودة عالكارد عشان توصل للكارد ليست
   @Output() deleteRequest = new EventEmitter<number>();
   //@Output() editRequest = new EventEmitter<void>(); // أضف حدث التعديل
- @Output() editJob = new EventEmitter<Jobpost>();
+  //@Output() editJob = new EventEmitter<Jobpost>();
   //للفايل(بدي اشتغل عليه مرة ثانية)
   extractFileName(url: string): string {
     return url.split('/').pop() || 'Attachment';
@@ -50,16 +51,32 @@ export class JobblockComponent {
   }
 
   //شكل الكارد للجوباونر
-  jobowner()
+  /*jobowner()
   {
     this.role='jobowner';
-  }
+  }*/
   //شكل الكارد للارتيزن
-  artisan()
+  /*artisan()
   {
     this.role='artisan';
+  }*/
+  openConfirmation() {
+    const modal = new bootstrap.Modal(document.getElementById('statusModal'));
+    modal.show();
   }
 
+  markAsCompleted() {
+    this.jobService.updatestatus(this.job.jobpost_id).subscribe({
+      next: (response) => {
+        console.log('Job marked as completed:', response);
+        alert('Job marked as completed successfully!');
+      },
+      error: (error) => {
+        console.error('Error marking job as completed:', error);
+        alert('Failed to mark job as completed.');
+      }});
+    bootstrap.Modal.getInstance(document.getElementById('statusModal'))?.hide();
+  }
   toreview(){
     this.router.navigate(['/reviewbids',this.job.jobpost_id]);
   }
