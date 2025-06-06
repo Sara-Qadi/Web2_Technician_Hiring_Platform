@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { NgIf } from '@angular/common';
+import {NgIf} from '@angular/common';
 import { NotificationDropdownComponent } from '../../../notification/notification-dropdown/notification-dropdown.component';
 import { ProfileModalService } from '../../../../services/profile-modal.service';
-import { ProfileService } from '../../../../services/profile.service'; // ← Add this
-import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { ProfileService } from '../../../../services/profile.service';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-navbar-admin',
@@ -23,6 +22,7 @@ import { of } from 'rxjs';
 export class NavbarAdminComponent implements OnInit {
   role: number = 0;
   dropdownOpen = false;
+  userId: number | null = null;
 
   constructor(
     private router: Router,
@@ -54,6 +54,8 @@ export class NavbarAdminComponent implements OnInit {
           .subscribe(user => {
             if (user) {
               this.role = user.role_id;
+              this.userId = user.user_id; 
+              console.log('User ID:', this.userId);
               console.log('User role:', this.role);
             }
           });
@@ -67,19 +69,8 @@ export class NavbarAdminComponent implements OnInit {
     return this.router.url === route;
   }
 
+
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
-  }
-
-  openProfileOrLogin() {
-    if (this.isLoggedIn()) {
-      this.profileModalService.openModal();
-    } else {
-      this.router.navigate(['/login']);
-    }
-  }
-
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
   }
 }

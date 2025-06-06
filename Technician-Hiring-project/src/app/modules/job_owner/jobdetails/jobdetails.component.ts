@@ -46,6 +46,7 @@ import { NavbarAdminComponent } from '../../admin/admin/navbar-admin/navbar-admi
 })
 export class JobdetailsComponent implements OnInit {
   job: any;
+  attachments: string[] = [];
   private route = inject(ActivatedRoute);
   private router=inject(Router);
   private dataService = inject(JobDataService);
@@ -57,6 +58,7 @@ export class JobdetailsComponent implements OnInit {
       this.dataService.getthisjobpost(id).subscribe({
         next: (res) => {
           this.job = res;
+          this.attachments = this.job.attachments;
           console.log('✅ Job loaded:', this.job);
         },
         error: (err) => {
