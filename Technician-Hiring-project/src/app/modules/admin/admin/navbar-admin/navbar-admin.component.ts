@@ -54,7 +54,7 @@ export class NavbarAdminComponent implements OnInit {
           .subscribe(user => {
             if (user) {
               this.role = user.role_id;
-              this.userId = user.user_id; 
+              this.userId = user.user_id;
               console.log('User ID:', this.userId);
               console.log('User role:', this.role);
             }
@@ -69,8 +69,19 @@ export class NavbarAdminComponent implements OnInit {
     return this.router.url === route;
   }
 
-
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
   }
+   openProfileOrLogin() {
+    if (this.isLoggedIn()) {
+      this.profileModalService.openModal();
+    } else {
+      this.router.navigate(['/login']);
+    }
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
 }
+
