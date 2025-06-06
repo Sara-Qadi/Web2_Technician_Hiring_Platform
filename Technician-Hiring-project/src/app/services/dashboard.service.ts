@@ -31,5 +31,8 @@ getPendingApprovals(): Observable<number> {
     .pipe(map(res => res.pending_approvals));
 }
 
+getJobStatusCounts(): Observable<{ in_progress: number, completed: number }> {
+  return this.http.get<{ in_progress: number, completed: number }>(`${this.baseUrl}/dashboard/job-status-counts`);
+}
 
 }
