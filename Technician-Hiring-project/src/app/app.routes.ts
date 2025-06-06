@@ -25,7 +25,6 @@ import { RatingComponent } from './modules/rating/rating/rating.component';
 import { CompleteJobsComponent } from './modules/technician/complete-jobs/complete-jobs.component';
 
 import { JobInfoPageComponent } from './modules/job_owner/job-info-page/job-info-page.component';
-import { EditJobComponent } from './modules/job_owner/editform/editform.component';
 import {EditUserComponent} from './modules/admin/admin/edit-user/edit-user.component';
 
 
@@ -43,10 +42,7 @@ export const routes: Routes = [
   {path:'jobdetails/:id',component:JobInfoPageComponent},
   {path:'jobowner/:id',component:JobownerprofileComponent},
   //{path:'updatejob/:id',component:AddjobComponent},
-  {
-  path: 'updatejob/:id',
-  component: EditJobComponent
-},
+  
   {path:'updatejob',component:AddjobComponent},
   {path:'reviewbids',component:BidlistComponent},
   {path: 'login',component: LoginPageComponent},

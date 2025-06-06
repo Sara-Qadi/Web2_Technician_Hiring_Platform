@@ -69,18 +69,18 @@ option:hover{
   display: none;
 }
 #AttachmentsLabel .icon{
-  font-size: 50px;
+  font-size: 45px;
   color: #444344;
-  margin: 15px 0;
+  margin: 15px 0 30px 0;
 }
 .Attachmentcontent p{
   font-size: 14px;
   margin: 0;
   
-}*/
+}
 .Attachmentcontent span{
   font-size: 13px;
-}
+}*/
 .warning span{
   font-size: 13px;
   padding: 5px 0;
