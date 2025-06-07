@@ -16,7 +16,7 @@
           class="form-control custom-search-input"
         />
       </label>
-      <button (click)="applySearch()" class="btn" style="background: linear-gradient(135deg, #7b00ff, #17031b); 
+      <button (click)="applySearch()" (keyup.enter)="applySearch()" class="btn" style="background: linear-gradient(135deg, #7b00ff, #17031b); 
       color: white; font-size: medium;">
         Search
       </button>
