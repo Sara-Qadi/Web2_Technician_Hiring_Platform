@@ -5,7 +5,7 @@
   }
   100% {
     transform: rotate(360deg);
-}
+  }
 }
 
 .logo-section svg {
@@ -23,9 +23,10 @@
   right: 0;
   height: 70px;
   background-color: black;
-  z-index: 100;
-  width: 100%;
+  z-index: 1000;
 
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .bottom-navbar {
@@ -33,16 +34,14 @@
   top: 70px;
   left: 0;
   right: 0;
-  height: 56px;
   background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   color: white;
   z-index: 10;
-width: 100%;
-
-
+  box-sizing: border-box;
+  height:51.5px;
 }
 
 .icon-btn {

@@ -33,8 +33,7 @@ export class CardListComponent implements OnInit {
       }
     });
   }
-
-  role="technician";
+  //role="technician";
   //اول شي بدي اجيب الداتا من السيرفس عشان اعمل عمليات حذف او تعديل وهيك
   //جبت السيرفس و عملتله انجكت
 

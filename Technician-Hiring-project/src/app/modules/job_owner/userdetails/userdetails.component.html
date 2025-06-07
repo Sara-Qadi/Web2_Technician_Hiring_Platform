@@ -21,19 +21,19 @@
         <div class="info d-flex flex-column gap-3">
           <div class="sec name">
             <h5 class="shine">Name:</h5>
-            <span class="value">Lian B. Sawa</span>
+            <span class="value">{{ profileForm.get('user_name')?.value }}</span>
           </div>
           <div class="sec email">
             <h5 class="shine">Email:</h5>
-            <span class="value">madre&#64;example.com</span>
+            <span class="value">{{ profileForm.get('email')?.value }}</span>
           </div>
           <div class="sec phone">
             <h5 class="shine">Phone:</h5>
-            <span class="value">0508995643</span>
+            <span class="value">{{ profileForm.get('phone')?.value }}</span>
           </div>
           <div class="sec country">
             <h5 class="shine">Country:</h5>
-            <span class="value">Palestine</span>
+            <span class="value">{{ profileForm.get('country')?.value }}</span>
           </div>
           <div class="only-artisan d-flex gap-3 justify-content-end">
             <button class="b report" *ngIf="showartisan" data-bs-toggle="modal" data-bs-target="#ReportModal"><i class="fa-solid fa-flag"></i>Report</button>
@@ -47,7 +47,7 @@
           <h2>Edit Info</h2>
           <div class="col-md-6">
             <label class="form-label">Full Name</label>
-            <input type="text" class="form-control" formControlName="name">
+            <input type="text" class="form-control" formControlName="user_name">
           </div>
           <div class="col-md-6">
             <label class="form-label">Email</label>
@@ -59,7 +59,7 @@
           </div>
           <div class="col-md-6">
             <label class="form-label">Country</label>
-            <input type="text" class="form-control" formControlName="city">
+            <input type="text" class="form-control" formControlName="country">
           </div>
           <!-- <div class="col-12">
             <label class="form-label">About</label>

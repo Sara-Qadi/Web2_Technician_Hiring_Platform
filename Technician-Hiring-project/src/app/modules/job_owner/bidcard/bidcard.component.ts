@@ -31,7 +31,7 @@ export class BidcardComponent {
             const notification = {
               user_id: proposal.tech_id,
               type: 'proposal-response',
-              message: 'تم قبول عرضك من قبل صاحب العمل.',
+              message: 'Your offer has been accepted by job owner',
               read_status: 'unread'
             };
 
@@ -57,7 +57,7 @@ export class BidcardComponent {
             const notification = {
               user_id: proposal.tech_id,
               type: 'proposal-response',
-              message: 'تم رفض عرضك من قبل صاحب العمل.',
+              message: 'Your offer has been rejected by job owner',
               read_status: 'unread'
             };
 
