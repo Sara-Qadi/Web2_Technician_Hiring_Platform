@@ -38,11 +38,6 @@
   background: white;
 }
 
-.chat-header {
-  padding: 15px;
-  border-bottom: 1px solid #ddd;
-  font-weight: bold;
-}
 
 .chat-messages {
   flex-grow: 1;

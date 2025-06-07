@@ -16,7 +16,7 @@
           class="form-control custom-search-input"
         />
       </label>
-      <button (click)="applySearch()" class="btn" style="background: linear-gradient(135deg, #7b00ff, #17031b); 
+      <button (click)="applySearch()" (keyup.enter)="applySearch()" class="btn" style="background: linear-gradient(135deg, #7b00ff, #17031b); 
       color: white; font-size: medium;">
         Search
       </button>
@@ -36,7 +36,7 @@
         <!-- --------------------------------------------              ---------------------             -------------         -->
         <div class="mb-3 d-flex align-items-center gap-2">
           <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="Electrician" value="electrician"   [checked]="selectedCategory.includes('Electrician')"
+            <input type="checkbox" name="agree" id="Electrician" value="electrician"   [checked]="selectedCategory.includes('electrician')"
             (change)="onCategoryChange($event)" />      
             <div class="neon-checkbox__frame">
               <div class="neon-checkbox__box">
@@ -73,7 +73,7 @@
 
         <div class="mb-3 d-flex align-items-center gap-2">
           <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="Plumber" value="plumber"   [checked]="selectedCategory.includes('Plumber')"
+            <input type="checkbox" name="agree" id="Plumber" value="plumber"   [checked]="selectedCategory.includes('plumber')"
             (change)="onCategoryChange($event)"/>      
             <div class="neon-checkbox__frame">
               <div class="neon-checkbox__box">
@@ -523,8 +523,9 @@
       </div>-->   <!--we check if the category is selected or not -->
 
       <div class="col-md-9">
-        <app-cardlist [jobs]="jobs | filterBy: selectedCategory : locationInput : maxInput : minInput"></app-cardlist>
+        <app-cardlist [jobs]="jobs | filterBy: selectedCategory : locationInput : minInput : maxInput"></app-cardlist>
       </div>
+      <div>{{jobs}}</div>
 
     </div>
   </div>
