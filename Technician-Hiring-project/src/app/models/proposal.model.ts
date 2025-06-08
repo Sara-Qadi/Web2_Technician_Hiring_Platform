@@ -5,6 +5,8 @@ export class Proposal{
   description_proposal:string='';
   tech_id:number=0;
   jobpost_id:number=0;
-  //tech_name:string='';
-  //country:string='';
+  tech_name?:string='';
+  country?:string='';
+  rate?:number=0;
+  //lollllllllllllllllll
 }

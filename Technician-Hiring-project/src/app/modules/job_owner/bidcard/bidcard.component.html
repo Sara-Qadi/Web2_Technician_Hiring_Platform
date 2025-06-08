@@ -2,14 +2,15 @@
   <div class="d-flex justify-content-between align-items-center mb-2">
     <div class="d-flex align-items-center">
       <div class="rounded-circle bg-secondary" style="width: 40px; height: 40px;"><img src="" alt=""></div>
-      <!-- <div class="ms-2">
-        <div class="fs-6 fw-semibold bidname">{{ bid.bidname }}</div>
+       <div class="ms-2">
+        <div class="fs-6 fw-semibold bidname">{{ bid.tech_name }}</div>
         <div class="d-flex gap-3 text-muted small">
-          <span><i class="fas fa-star text-warning"></i> {{ bid.rate }}</span>
-          <span>{{ bid.completejobs }} jobs completed</span>
-          <span>Member since {{ bid.memberdate }}</span>
+           <span><i class="fas fa-star text-warning"></i> {{ bid.rate }}</span>
+          <!--<span>{{ bid.completejobs }} jobs completed</span>-->
+          <!--<span>{{ bid.completejobs }} jobs completed</span> -->
+           <span> {{ bid.country }}</span>
         </div>
-      </div> -->
+      </div> 
     </div>
     <div class="fw-semibold fs-5 amount">{{ bid.price }}$</div>
   </div>
