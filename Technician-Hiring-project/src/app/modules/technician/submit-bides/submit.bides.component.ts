@@ -23,6 +23,8 @@ export class SubmitBidesComponent implements OnInit {
   Price: number | null = null;
   comment: string = '';
   showForm = false;
+  maxJobPrice: number | null = null;
+  minJobPrice: number | null = null;
 
   constructor(
     private jobDataService: JobDataService,
@@ -38,6 +40,8 @@ export class SubmitBidesComponent implements OnInit {
       this.jobDataService.getthisjobpost(id).subscribe({
         next: (res) => {
           this.job = res;
+          this.maxJobPrice = this.job.maximum_budget;
+          this.minJobPrice = this.job.minimum_budget;
           console.log('✅ Job loaded:', this.job);
         },
         error: (err) => {
@@ -48,6 +52,15 @@ export class SubmitBidesComponent implements OnInit {
       console.error('❌ Invalid job ID in URL');
     }
   }
+
+  checkAmount(value: number): void {
+  if (this.minJobPrice != null && this.maxJobPrice != null) {
+    if (value < this.minJobPrice || value > this.maxJobPrice) {
+      this.Price = null;
+    }
+  }
+}
+
 
   toggleApply() {
     this.showForm = true;
@@ -62,14 +75,15 @@ export class SubmitBidesComponent implements OnInit {
     const proposalData: Proposal = {
       id: 0, // or omit if not needed
       price: this.Price ?? 0,
-      status_agreed: false,
+      status_agreed: 'pending',
       description_proposal: this.comment,
       tech_id: 3,  // TODO: dynamically get current technician ID
       jobpost_id: this.job.jobpost_id
     };
 
-    this.proposalService.addProposal(proposalData).subscribe({
+    this.proposalService.addProposal(proposalData,proposalData.jobpost_id).subscribe({
       next: (res) => {
+        console.log('✅ koko wawa :', proposalData , proposalData.jobpost_id);
         console.log('✅ Proposal submitted:', res);
 
         const notification = {
