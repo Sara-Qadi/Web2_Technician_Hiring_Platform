@@ -107,7 +107,7 @@ export class SignUpComponent implements OnInit {
         phone: formValue.phone,
         password: formValue.password,
         country: formValue.country,
-        role_id: this.role === 'technician' ? 3 : 2,
+        role_id: this.role === 'technician' ? 3 : this.role === 'admin' ? 1 : 2, // fallback إلى job owner
       };
 
       this.authService.register(data).subscribe({

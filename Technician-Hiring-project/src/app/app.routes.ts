@@ -26,27 +26,30 @@ import { CompleteJobsComponent } from './modules/technician/complete-jobs/comple
 
 import { JobInfoPageComponent } from './modules/job_owner/job-info-page/job-info-page.component';
 import {EditUserComponent} from './modules/admin/admin/edit-user/edit-user.component';
-
+import { ResetPasswordComponent } from './modules/auth/reset-password/reset-password.component';
 
 export const routes: Routes = [
   { path: 'admin/dashboard', component: AdminComponent },
   { path: 'messages', component: MessagingComponent },
 
-  {path: 'admin/craftsmen-registrations', component:CraftsmenRegistrationsComponent},
-  {path: 'admin/delete-craftsman', component:DeleteCraftsmanComponent},
+  {
+    path: 'admin/craftsmen-registrations',
+    component: CraftsmenRegistrationsComponent,
+  },
+  { path: 'admin/delete-craftsman', component: DeleteCraftsmanComponent },
   { path: 'admin/edit-user/:user_id', component: EditUserComponent },
-  {path: 'admin/jop-listing', component:JopListingComponent},
-  {path: 'navbar-admin', component: NavbarAdminComponent},
-  {path: 'footer-admin', component:FooterAdminComponent},
-  {path:'postjob/:id',component:AddjobComponent},
-  {path:'jobdetails/:id',component:JobInfoPageComponent},
-  {path:'jobowner/:id',component:JobownerprofileComponent},
+  { path: 'admin/jop-listing', component: JopListingComponent },
+  { path: 'navbar-admin', component: NavbarAdminComponent },
+  { path: 'footer-admin', component: FooterAdminComponent },
+  { path: 'postjob/:id', component: AddjobComponent },
+  { path: 'jobdetails/:id', component: JobInfoPageComponent },
+  { path: 'jobowner/:id', component: JobownerprofileComponent },
   //{path:'updatejob/:id',component:AddjobComponent},
-  
-  {path:'updatejob',component:AddjobComponent},
-  {path:'reviewbids',component:BidlistComponent},
-  {path: 'login',component: LoginPageComponent},
-  {path: 'reports/analytics',component: AnalyticsComponent},
+
+  { path: 'updatejob', component: AddjobComponent },
+  { path: 'reviewbids', component: BidlistComponent },
+  { path: 'login', component: LoginPageComponent },
+  { path: 'reports/analytics', component: AnalyticsComponent },
 
   { path: 'admin/dashboard', component: AdminComponent },
   {
@@ -79,4 +82,6 @@ export const routes: Routes = [
     path: 'submit-bid/:id',
     component: SubmitBidesComponent,
   },
+  { path: 'reset-password', component: ResetPasswordComponent },
+  
 ];

@@ -33,6 +33,14 @@
     <a routerLink="/admin/jop-listing" routerLinkActive="active" class="nav-link">Jobs</a>
     <a routerLink="/admin/delete-craftsman" routerLinkActive="active" class="nav-link">Users</a>
     <a routerLink="/reports/analytics" routerLinkActive="active" class="nav-link">Reports</a>
+    <a
+  [routerLink]="['/sign-up']"
+  [queryParams]="{ role: 'admin' }"
+  routerLinkActive="active"
+  class="nav-link"
+>
+  Create New Admin Account
+</a>
   </ng-container>
 
 
