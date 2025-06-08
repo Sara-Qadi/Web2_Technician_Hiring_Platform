@@ -51,30 +51,30 @@ export class JobDataService {
   }
 
   getjobownerjobposts(userid: Number): Observable<Jobpost[]> {
-  return this.http.get<Jobpost[]>(`http://127.0.0.1:8000/api/jobpost/showuserposts/${userid}`);
+  return this.http.get<Jobpost[]>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/showuserposts/${userid}`);
 }
 
 addjobpost(data: FormData): Observable<any> {
-  return this.http.post('http://127.0.0.1:8000/api/jobpost/addpost', data);
+  return this.http.post('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/addpost', data);
 }
 
 getthisjobpost(id: Number): Observable<Jobpost> {
-  return this.http.get<Jobpost>(`http://127.0.0.1:8000/api/jobpost/showpost/${id}`);
+  return this.http.get<Jobpost>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/showpost/${id}`);
 }
 
 updatethisjobpost(id: Number, jp: FormData): Observable<any> {
-  return this.http.put<any>(`http://127.0.0.1:8000/api/jobpost/updatepost/${id}`, jp);
+  return this.http.put<any>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/updatepost/${id}`, jp);
 }
 
 deletethisjobpost(id: Number): Observable<any> {
-  return this.http.delete(`http://127.0.0.1:8000/api/jobpost/deletepost/${id}`);
+  return this.http.delete(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/deletepost/${id}`);
 }
 
 countjobposts(): Observable<number> {
-  return this.http.get<number>('http://127.0.0.1:8000/api/jobpost/countposts');
+  return this.http.get<number>('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/countposts');
 }
   getjobpostsfortech():Observable<Jobpost[]>{
-  return this.http.get<Jobpost[]>('http://127.0.0.1:8000/api/jobpost/allPostsforTech');
+  return this.http.get<Jobpost[]>('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/allPostsforTech');
   }
   updatestatus(id:Number){
     return this.http.put(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/updatestatus/${id}`,{});

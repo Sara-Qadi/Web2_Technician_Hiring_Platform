@@ -43,6 +43,7 @@ export class UserdetailsComponent implements OnInit {
       email: [''],
       phone: [''],
       country: [''],
+      description: [''],
       photo: [null]
     });
   }
@@ -58,6 +59,7 @@ export class UserdetailsComponent implements OnInit {
             email: user.email,
             phone: user.phone,
             country: user.country,
+            description:user.description
           });
           if (user.photo) {
             this.profileImageUrl = `http://localhost:8000/storage/${user.photo}`;
