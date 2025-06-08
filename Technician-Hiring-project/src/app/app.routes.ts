@@ -26,6 +26,7 @@ import { CompleteJobsComponent } from './modules/technician/complete-jobs/comple
 
 import { JobInfoPageComponent } from './modules/job_owner/job-info-page/job-info-page.component';
 import {EditUserComponent} from './modules/admin/admin/edit-user/edit-user.component';
+import { ProposalspageComponent } from './modules/job_owner/proposalspage/proposalspage.component';
 
 
 export const routes: Routes = [
@@ -42,6 +43,7 @@ export const routes: Routes = [
   {path:'jobdetails/:id',component:JobInfoPageComponent},
   {path:'jobowner/:id',component:JobownerprofileComponent},
   //{path:'updatejob/:id',component:AddjobComponent},
+  {path:'allproposals/:id',component:ProposalspageComponent},
   
   {path:'updatejob',component:AddjobComponent},
   {path:'reviewbids',component:BidlistComponent},

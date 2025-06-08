@@ -1,7 +1,7 @@
 export class Proposal{
   id!:number;
   price:number=0;
-  status_agreed:boolean=false;
+  status_agreed:string='pending';
   description_proposal:string='';
   tech_id:number=0;
   jobpost_id:number=0;

@@ -9,40 +9,15 @@ import { Jobpost } from '../models/jobpost.model';
 })
 export class JobDataService {
 
-  private jobsList: any[] = [];  // ليست للجوبس اللي رح ادخلهم لما اعمل بوست من الفورم
-  //private selectedJob: any=null;
 
-  constructor(private http: HttpClient){} /*{
-    this.loadJobs().subscribe({
-      next: (res: any) => {
-        this.jobsList = res;
-        console.log('Jobs loaded:', this.jobsList);
-      },
-      error: (err) => {
-        console.error('Error fetching jobs:', err);
-        console.log('error:', this.jobsList);
-      }
-    });
-  }
 
-  loadJobs() {
-    return this.http.get<any>('http://127.0.0.1:8000/api/jobpost/allposts');
-  }
-
-  // في حال بدي اضيف جوب جديدة
-  addJob(job: any)
-  {
-    this.jobsList.push(job);
-
-  constructor(private http:HttpClient) { }
-  private jobpostsChanged = new Subject<void>();*/
-
-  //jobpostsChanged$ = this.jobpostsChanged$.asObservable();
-
+  constructor(private http: HttpClient){}
+    
+  
   getjobposts():Observable<Jobpost[]> {
     return this.http.get<Jobpost[]>('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/allposts');
   }
-  getjobownerjobposts(userid:Number):Observable<Jobpost[]>{
+  /*getjobownerjobposts(userid:Number):Observable<Jobpost[]>{
     return this.http.get<Jobpost[]>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/showuserposts/${userid}`);
   }
   addjobpost(data: FormData):Observable<any>{
@@ -73,7 +48,7 @@ export class JobDataService {
     return this.http.delete(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/deletepost/${id}`, { headers });
   } countjobposts():Observable<number>{
     return this.http.get<number>('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/countposts');
-  }
+  }*/
 
   getjobownerjobposts(userid: Number): Observable<Jobpost[]> {
   return this.http.get<Jobpost[]>(`http://127.0.0.1:8000/api/jobpost/showuserposts/${userid}`);

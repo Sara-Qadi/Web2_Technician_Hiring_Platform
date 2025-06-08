@@ -1,9 +1,18 @@
 <app-navbar-admin></app-navbar-admin>
-<app-userdetails [showartisan]="false" [showowner]="true"></app-userdetails>
+<app-userdetails [showartisan]="true" [showowner]="true"></app-userdetails>
   <div class="my-5 container">
     <h2 class="d-flex justify-content-between align-items-center">My Job Listings
       <button class="add d-flex" (click)="addJob()"><i class="fa-solid fa-plus"></i>Add Job</button>
     </h2>
+    <div class="mb-4">
+      <button class="btn btn-outline-primary me-2" >All jobposts</button>
+      <button class="btn btn-outline-primary me-2" >Pending jobposts</button>
+      <button class="btn btn-outline-primary me-2" >On progress jobposts</button>
+      <button class="btn btn-outline-primary" >Completed jobposts</button>
+    </div>
+    <div >
+    
+  </div>
     <app-joblist [userId]="userId"></app-joblist>
   </div>
 

@@ -62,13 +62,13 @@ export class SubmitBidesComponent implements OnInit {
     const proposalData: Proposal = {
       id: 0, // or omit if not needed
       price: this.Price ?? 0,
-      status_agreed: false,
+      status_agreed: 'pending',
       description_proposal: this.comment,
       tech_id: 3,  // TODO: dynamically get current technician ID
       jobpost_id: this.job.jobpost_id
     };
 
-    this.proposalService.addProposal(proposalData).subscribe({
+    this.proposalService.addProposal(proposalData,proposalData.jobpost_id).subscribe({
       next: (res) => {
         console.log('✅ Proposal submitted:', res);
 
