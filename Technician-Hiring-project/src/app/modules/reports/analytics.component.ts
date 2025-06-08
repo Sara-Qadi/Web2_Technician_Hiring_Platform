@@ -278,7 +278,7 @@ get totalPages() {
   return Math.ceil(filteredData.length / this.pageSize);
 }
 
-// تغيير الصفحة للأمام أو الخلف
+
 changePage(direction: 'next' | 'prev') {
   if (direction === 'next' && this.currentPage < this.totalPages) {
     this.currentPage++;

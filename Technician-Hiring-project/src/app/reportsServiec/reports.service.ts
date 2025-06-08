@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -9,7 +9,13 @@ export class ReportsService {
   private apiUrl = 'http://127.0.0.1:8000/api/reports'; 
 
   constructor(private http: HttpClient) {}
-
+  
+ private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token') || '';
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+  }
   getJobCompletion(): Observable<any> {
     return this.http.get(`${this.apiUrl}/completion`);
   }
