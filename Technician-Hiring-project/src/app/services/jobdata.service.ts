@@ -15,7 +15,7 @@ export class JobDataService {
   constructor(private http: HttpClient){} /*{
     this.loadJobs().subscribe({
       next: (res: any) => {
-        this.jobsList = res; 
+        this.jobsList = res;
         console.log('Jobs loaded:', this.jobsList);
       },
       error: (err) => {
@@ -24,22 +24,21 @@ export class JobDataService {
       }
     });
   }
-  
+
   loadJobs() {
     return this.http.get<any>('http://127.0.0.1:8000/api/jobpost/allposts');
   }
 
   // في حال بدي اضيف جوب جديدة
-  addJob(job: any) 
+  addJob(job: any)
   {
     this.jobsList.push(job);
-  } 
 
   constructor(private http:HttpClient) { }
   private jobpostsChanged = new Subject<void>();*/
 
   //jobpostsChanged$ = this.jobpostsChanged$.asObservable();
-  
+
   getjobposts():Observable<Jobpost[]> {
     return this.http.get<Jobpost[]>('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/allposts');
   }
@@ -55,13 +54,13 @@ export class JobDataService {
     return this.http.get<Jobpost>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/showpost/${id}`).pipe(
     map(job => ({
       ...job,
-      attachments: typeof job.attachments === 'string' 
-        ? JSON.parse(job.attachments) 
+      attachments: typeof job.attachments === 'string'
+        ? JSON.parse(job.attachments)
         : job.attachments
     }))
   );
   }
-  
+
   updatethisjobpost(id:Number,jp:FormData):Observable<Jobpost>{
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -109,7 +108,7 @@ countjobposts(): Observable<number> {
 
   setUserId(id: number) { this.userId = id; }
   getUserId() { return this.userId; }
-  
+
  // private selectedJob: Jobpost | null = null;
 
   /*setSelectedJob(job: Jobpost) {
@@ -120,5 +119,11 @@ countjobposts(): Observable<number> {
     return this.selectedJob;
   }*/
 
-  
+    //sara
+   private apiUrl = 'http://localhost:8000/api';
+getCompletedJobs(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/completed-jobs`);
+}
+
+
 }

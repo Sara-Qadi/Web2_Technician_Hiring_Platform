@@ -1,8 +1,10 @@
-import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { JobDataService } from '../../../services/jobdata.service';
+import { CommonModule, DatePipe } from '@angular/common';
+import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admin.component';
 import { RouterModule } from '@angular/router';
 import { NavbarAdminComponent } from '../../admin/admin/navbar-admin/navbar-admin.component';
-import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admin.component';
+
 
 @Component({
   selector: 'app-complete-jobs',
@@ -15,45 +17,18 @@ import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admi
   ]
 })
 export class CompleteJobsComponent implements OnInit {
-  completedJobs = [
-    {
-      title: 'Fix Office Wiring',
-      location: 'Downtown Plaza',
-      budget: 250,
-      completedAt: new Date('2025-04-21'),
-      review: 'Very professional and quick.'
-    },
-    {
-      title: 'Install Ceiling Fan',
-      location: 'Rosewood Estate',
-      budget: 120,
-      completedAt: new Date('2025-03-10'),
-      review: ''
-    },
-       {
-      title: 'Install Ceiling Fan',
-      location: 'Rosewood Estate',
-      budget: 120,
-      completedAt: new Date('2025-03-10'),
-      review: ''
-    },
-       {
-      title: 'Install Ceiling Fan',
-      location: 'Rosewood Estate',
-      budget: 120,
-      completedAt: new Date('2025-03-10'),
-      review: ''
-    },
-       {
-      title: 'Install Ceiling Fan',
-      location: 'Rosewood Estate',
-      budget: 120,
-      completedAt: new Date('2025-03-10'),
-      review: ''
-    }
-  ];
+  completedJobs: any[] = [];
 
-  constructor() {}
+  constructor(private JobDataService: JobDataService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.JobDataService.getCompletedJobs().subscribe({
+      next: (data) => {
+        this.completedJobs = data;
+      },
+      error: (err) => {
+        console.error('Failed to fetch completed jobs', err);
+      }
+    });
+  }
 }

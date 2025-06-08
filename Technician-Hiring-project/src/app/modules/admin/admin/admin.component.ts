@@ -141,36 +141,46 @@ createBarChart(): void {
 
 
 
-  createPieChart(): void {
-    new Chart('jobProgressPieChart', {
-      type: 'pie',
-      data: {
-        labels: ['Jobs in Progress', 'Completed Jobs'],
-        datasets: [
-          {
-            label: 'Jobs Progress',
-            data: [45, 105],
-            backgroundColor: ['#ffcc00', '#28a745'],
-            borderColor: '#ffffff',
-            borderWidth: 1
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'top'
-          },
-          tooltip: {
-            callbacks: {
-              label: function (tooltipItem) {
-                return tooltipItem.label + ': ' + tooltipItem.raw + ' Jobs';
+createPieChart(): void {
+  this.dashboardService.getJobStatusCounts().subscribe({
+    next: (res) => {
+      const data = [res.in_progress, res.completed];
+
+      new Chart('jobProgressPieChart', {
+        type: 'pie',
+        data: {
+          labels: ['Jobs in Progress', 'Completed Jobs'],
+          datasets: [
+            {
+              label: 'Jobs Progress',
+              data: data,
+              backgroundColor: ['#ffcc00', '#28a745'],
+              borderColor: '#ffffff',
+              borderWidth: 1
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top'
+            },
+            tooltip: {
+              callbacks: {
+                label: function (tooltipItem: any) {
+                  return tooltipItem.label + ': ' + tooltipItem.raw + ' Jobs';
+                }
               }
             }
           }
         }
-      }
-    });
-  }
+      });
+    },
+    error: (err) => {
+      console.error('Error loading job status counts for pie chart', err);
+    }
+  });
+}
+
 }
