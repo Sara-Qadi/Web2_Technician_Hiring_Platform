@@ -33,13 +33,16 @@
  <div *ngFor="let notification of filteredNotifications(); let last = last">
   <div class="notification-item d-flex align-items-center mb-3">
     <div class="me-3">
-      <img src="assets/person1.jpg" class="rounded-circle" width="45" height="45" alt="User" (click)="onProfileImageClick()" />
-      <app-profile></app-profile>
+<img [src]="userDetails[notification.user_id]?.imageUrl || 'assets/person1.jpg'"
+     class="rounded-circle" width="45" height="45" alt="User"
+     (click)="onProfileImageClick()" />
+
     </div>
     <div class="flex-grow-1">
       <p class="mb-1">
    <span [ngClass]="{'fw-bold': notification.read_status === 'unread'}">
-  {{ userNames[notification.user_id] || ('User #' + notification.user_id) }}
+{{ userNames[notification.user_id] || ('User #' + notification.user_id) }}
+
 </span>
 
         <span>{{ notification.message }}</span>

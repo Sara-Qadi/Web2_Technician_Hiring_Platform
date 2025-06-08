@@ -22,6 +22,9 @@ export class NotificationComponent implements OnInit {
   notifications: Notification[] = [];
   userId!: number;
   userNames: { [id: number]: string } = {};
+userDetails: { [id: number]: { name: string, imageUrl: string } } = {};
+
+technicianProfiles: { [id: number]: any } = {};
 
 
   @ViewChild('dropdownRef', { static: true }) dropdownRef!: ElementRef;
@@ -52,7 +55,8 @@ export class NotificationComponent implements OnInit {
     this.notificationService.getNotifications(this.userId).subscribe({
       next: (data) => {
         this.notifications = data;
-             this.loadUserNames();
+         this.loadUserNames();
+
       },
       error: (err) => console.error('Failed to load notifications', err),
     });
@@ -62,17 +66,40 @@ loadUserNames() {
   const userIds = Array.from(new Set(this.notifications.map(n => n.user_id)));
   userIds.forEach(id => {
     if (!this.userNames[id]) {
-      this.profileService.getUserById(id).subscribe({
-        next: (user) => {
-          this.userNames[id] = user.user_name;
-        },
-        error: () => {
-          this.userNames[id] = 'Unknown User';
-        }
-      });
+    this.profileService.getUserById(id).subscribe({
+  next: (user) => {
+    this.userNames[id] = user.user_name;
+
+    this.profileService.getProfileByUserId(id).subscribe({
+      next: (profile) => {
+        this.userDetails[id] = {
+          name: user.user_name,
+          imageUrl: 'http://localhost:8000/storage/' + profile.photo
+        };
+      },
+      error: () => {
+        this.userDetails[id] = {
+          name: user.user_name,
+          imageUrl: 'assets/person1.jpg'
+        };
+      }
+    });
+
+  },
+  error: () => {
+    this.userNames[id] = 'Unknown User';
+    this.userDetails[id] = {
+      name: 'Unknown User',
+      imageUrl: 'assets/person1.jpg'
+    };
+  }
+});
     }
   });
 }
+
+
+
 
 
   filteredNotifications(): Notification[] {

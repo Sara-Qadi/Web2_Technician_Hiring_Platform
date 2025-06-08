@@ -42,7 +42,7 @@ export const routes: Routes = [
   {path:'jobdetails/:id',component:JobInfoPageComponent},
   {path:'jobowner/:id',component:JobownerprofileComponent},
   //{path:'updatejob/:id',component:AddjobComponent},
-  
+
   {path:'updatejob',component:AddjobComponent},
   {path:'reviewbids',component:BidlistComponent},
   {path: 'login',component: LoginPageComponent},
