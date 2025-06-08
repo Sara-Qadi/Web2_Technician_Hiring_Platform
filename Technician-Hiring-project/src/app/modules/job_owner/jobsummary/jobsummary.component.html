@@ -10,7 +10,8 @@
       <span><i class="fas fa-clock me-1"></i> Due in {{jobinfo.deadline}}</span>
     </div>
     <div class="text-end mt-2">
-      <span class="text-decoration-none bidnum">{{bidsnumber}} bids received</span>
+      <span class="text-decoration-none bidnum" *ngIf="!router.url.includes('/allproposals')">{{bidsnumber}} bids received</span>
+      <a [routerLink]="['/reviewbids',jobinfo.jobpost_id]" class="text-decoration-none bidnum" *ngIf="router.url.includes('/allproposals')">view bids</a>
     </div>
   </div>
   

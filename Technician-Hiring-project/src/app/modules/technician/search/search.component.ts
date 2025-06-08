@@ -41,7 +41,7 @@ export class SearchComponent {
   ngOnInit(): void {
     this.JobDataService.getjobposts().subscribe({
       next: (res) => {
-        this.jobs = res.filter(job => job.status === 'pending');;
+        this.jobs = res.filter(job => job.status === 'pending');
       },
       error: (err) => { 
         console.error('Error during search:', err); 
@@ -67,14 +67,13 @@ export class SearchComponent {
       return;  
     }
     
-    this.http.get<Jobpost[]>(`http://127.0.0.1:8000/api/jobpost/filterJobs/${this.searchInput}`)
-    .subscribe({
-      next: (res) => {
+    this.JobDataService.filterJobs(this.searchInput).subscribe({
+      next: (res : any[]) => {
         this.jobs = res;
-        console.log(this.jobs);
+        console.log(this.searchInput , this.jobs);
       },
-      error: (err) => { 
-        console.error('Error during search:', err);
+      error: (err : any[]) => {
+        console.error('Error filtering jobs:', err);
       }
     });
   }
@@ -89,4 +88,5 @@ export class SearchComponent {
     this.selectedCategory = this.selectedCategory.filter(c => c !== category);
   }
 }
-}
+  }
+

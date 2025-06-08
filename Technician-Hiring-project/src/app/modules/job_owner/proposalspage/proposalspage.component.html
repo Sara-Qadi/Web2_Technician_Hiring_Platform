@@ -1,4 +1,44 @@
 <app-navbar-admin></app-navbar-admin>
+
 <div class="my-5 container">
-  
+  <p>Number of proposals: {{JOproposals}}</p>
+  <p>Number of jobs that received proposals: {{jobnumber}}</p>
+
+  <!-- Tabs -->
+  <div class="mb-4">
+    <button class="btn btn-outline-primary me-2" [class.active]="selectedTab === 'jobs'" (click)="selectedTab = 'jobs'">Jobs</button>
+    <button class="btn btn-outline-primary me-2" [class.active]="selectedTab === 'all'" (click)="selectedTab = 'all'">All Proposals</button>
+    <button class="btn btn-outline-primary me-2" [class.active]="selectedTab === 'pending'" (click)="selectedTab = 'pending'">Pending</button>
+    <button class="btn btn-outline-primary" [class.active]="selectedTab === 'accepted'" (click)="selectedTab = 'accepted'">Accepted</button>
+  </div>
+
+  <!-- Jobs tab -->
+  <div *ngIf="selectedTab === 'jobs'">
+    <div *ngFor="let job of jobsummaryArray">
+      <app-jobsummary [jobinfo]="job"></app-jobsummary>
+    </div>
+  </div>
+
+  <!-- All proposals -->
+  <div *ngIf="selectedTab === 'all'">
+    <div *ngFor="let bid of bidsarray">
+      <app-bidcard [bid]="bid"></app-bidcard>
+    </div>
+  </div>
+
+  <!-- Pending -->
+  <div *ngIf="selectedTab === 'pending'">
+    <div *ngFor="let bid of pendingBids">
+      <app-bidcard [bid]="bid"></app-bidcard>
+    </div>
+  </div>
+
+  <!-- Accepted -->
+  <div *ngIf="selectedTab === 'accepted'">
+    <div *ngFor="let bid of acceptedBids">
+      <app-bidcard [bid]="bid"></app-bidcard>
+    </div>
+  </div>
+</div>
+
 <app-footer-admin></app-footer-admin>

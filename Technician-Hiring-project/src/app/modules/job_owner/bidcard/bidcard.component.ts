@@ -4,10 +4,12 @@ import { SubmissionService } from '../../../services/submission.service';
 import { ProposalService } from '../../../services/proposal.service';
 import { ActivatedRoute } from '@angular/router';
 import { NotificationService } from '../../../services/notification.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-bidcard',
   templateUrl: './bidcard.component.html',
+  imports: [CommonModule],
   styleUrls: ['./bidcard.component.css']
 })
 export class BidcardComponent {
