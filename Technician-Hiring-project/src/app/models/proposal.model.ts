@@ -8,4 +8,5 @@ export class Proposal{
   tech_name?:string='';
   country?:string='';
   rate?:number=0;
+  //lollllllllllllllllll
 }
