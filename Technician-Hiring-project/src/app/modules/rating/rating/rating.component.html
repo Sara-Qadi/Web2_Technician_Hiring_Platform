@@ -40,7 +40,7 @@
    <div class="mb-4">
   <div *ngFor="let r of filteredComments; let i = index"
        class="card mb-3"
-       [ngClass]="{'text-end': r.rtl}">
+       >
     <div class="card-body">
       <div class="d-flex justify-content-between align-items-start mb-2">
         <div>
@@ -54,8 +54,7 @@
             </ng-container>
           </span>
           <span class="text-muted small ms-2">
-            <ng-container *ngIf="r.color">{{ r.color }}</ng-container>
-            <ng-container *ngIf="r.item"> {{ r.item }}</ng-container>
+        
           </span>
         </div>
         <div [innerHTML]="r.avatar"

@@ -43,38 +43,38 @@ export class JobDataService {
   getjobposts():Observable<Jobpost[]> {
     return this.http.get<Jobpost[]>('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/allposts');
   }
-  getjobownerjobposts(userid:Number):Observable<Jobpost[]>{
-    return this.http.get<Jobpost[]>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/showuserposts/${userid}`);
-  }
-  addjobpost(data: FormData):Observable<any>{
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/addpost',data,{ headers });
-  }
-  getthisjobpost(id:Number):Observable<Jobpost>{
-    return this.http.get<Jobpost>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/showpost/${id}`).pipe(
-    map(job => ({
-      ...job,
-      attachments: typeof job.attachments === 'string' 
-        ? JSON.parse(job.attachments) 
-        : job.attachments
-    }))
-  );
-  }
+  // getjobownerjobposts(userid:Number):Observable<Jobpost[]>{
+  //   return this.http.get<Jobpost[]>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/showuserposts/${userid}`);
+  // }
+  // addjobpost(data: FormData):Observable<any>{
+  //   const token = localStorage.getItem('token');
+  //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  //   return this.http.post('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/addpost',data,{ headers });
+  // }
+  // getthisjobpost(id:Number):Observable<Jobpost>{
+  //   return this.http.get<Jobpost>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/showpost/${id}`).pipe(
+  //   map(job => ({
+  //     ...job,
+  //     attachments: typeof job.attachments === 'string' 
+  //       ? JSON.parse(job.attachments) 
+  //       : job.attachments
+  //   }))
+  // );
+  // }
   
-  updatethisjobpost(id:Number,jp:FormData):Observable<Jobpost>{
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    jp.append('_method', 'PUT');
-    return this.http.post<Jobpost>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/updatepost/${id}`,jp, { headers });
-  }
-  deletethisjobpost(id:Number):Observable<any>{
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.delete(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/deletepost/${id}`, { headers });
-  } countjobposts():Observable<number>{
-    return this.http.get<number>('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/countposts');
-  }
+  // updatethisjobpost(id:Number,jp:FormData):Observable<Jobpost>{
+  //   const token = localStorage.getItem('token');
+  //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  //   jp.append('_method', 'PUT');
+  //   return this.http.post<Jobpost>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/updatepost/${id}`,jp, { headers });
+  // }
+  // deletethisjobpost(id:Number):Observable<any>{
+  //   const token = localStorage.getItem('token');
+  //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  //   return this.http.delete(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/deletepost/${id}`, { headers });
+  // } countjobposts():Observable<number>{
+  //   return this.http.get<number>('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/countposts');
+  // }
 
   getjobownerjobposts(userid: Number): Observable<Jobpost[]> {
   return this.http.get<Jobpost[]>(`http://127.0.0.1:8000/api/jobpost/showuserposts/${userid}`);
