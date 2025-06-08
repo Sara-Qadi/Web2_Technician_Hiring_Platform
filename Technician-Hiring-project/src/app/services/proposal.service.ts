@@ -44,4 +44,9 @@ export class ProposalService {
   getAcceptedProposalsfirJO(id: number): Observable<Proposal[]> {
     return this.http.get<Proposal[]>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/proposals/jobpost/accepted/${id}`);
   }
+
+  getTechNameById(id: any){
+    return this.http.get(`http://127.0.0.1:8000/api/proposals/getTechNameById/${id}`);
+  }
+
 }
