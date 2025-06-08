@@ -6,6 +6,7 @@ import { NotificationDropdownComponent } from '../../../notification/notificatio
 import { ProfileModalService } from '../../../../services/profile-modal.service';
 import { ProfileService } from '../../../../services/profile.service';
 import { catchError, of } from 'rxjs';
+import { AuthService } from '../../../../services/auth.service';
 
 @Component({
   selector: 'app-navbar-admin',
@@ -23,14 +24,17 @@ export class NavbarAdminComponent implements OnInit {
   role: number = 0;
   dropdownOpen = false;
   userId: number | null = null;
+    loggedIn: boolean = false;
 
   constructor(
     private router: Router,
     private profileModalService: ProfileModalService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+      private authService: AuthService
   ) {}
 
   ngOnInit(): void {
+      this.loggedIn = this.isLoggedIn();
     this.loadUserRole();
   }
 
@@ -83,5 +87,11 @@ export class NavbarAdminComponent implements OnInit {
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
+
+  logout() {
+  this.authService.logout();
+  this.router.navigate(['/login']);
+}
+
 }
 
