@@ -16,7 +16,7 @@ import { FormsModule } from '@angular/forms';
 export class ProfileComponent implements OnInit, OnDestroy {
   showProfileModal = false;
   userName: string = '';
-    userPhone: Number = 0;
+  userPhone: Number = 0;
   profile: any = null;
   showCreateForm = false;
   private sub!: Subscription;
