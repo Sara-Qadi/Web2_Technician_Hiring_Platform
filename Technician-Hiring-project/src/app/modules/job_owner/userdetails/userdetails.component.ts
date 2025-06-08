@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProfileService } from '../../../services/profile.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { MessagingService } from '../../../services/messaging.service';
 @Component({
   selector: 'app-userdetails',
   standalone: true,
@@ -27,7 +27,8 @@ export class UserdetailsComponent implements OnInit {
     private router: Router,
     private profileService: ProfileService,
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private messagingService: MessagingService
   ) {}
 
   ngOnInit(): void {
@@ -115,8 +116,25 @@ export class UserdetailsComponent implements OnInit {
       this.editMode = false;
     }
   }
-  gotomessage(){
-    this.router.navigate(['/messages']);
-  }
+  gotomessage() {
+  this.profileService.getUser().subscribe({
+    next: (currentUser) => {
+      this.messagingService.getSelectedUserToMessage(currentUser.user_id, this.userId).subscribe({
+        next: (user) => {
+          this.userData = user;
+          console.log('Selected User:', user);
+          this.router.navigate(['/messages']);
+        },
+        error: (err) => {
+          console.error('❌ Error in getSelectedUserToMessage:', err);
+        }
+      });
+    },
+    error: (err) => {
+      console.error('❌ Error in getUser:', err);
+    }
+  });
+}
 
+  
 }
