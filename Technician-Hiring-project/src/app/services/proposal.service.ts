@@ -10,9 +10,10 @@ export class ProposalService {
 
   constructor(private http: HttpClient) { }
 
-  addProposal(proposal : any) {
-    return this.http.post('http://127.0.0.1:8000/api/proposal/addproposal', proposal);
-  }
+  addProposal(proposal :any , id:number) {
+    return this.http.post(`http://127.0.0.1:8000/api/proposal/addproposal/${id}`, proposal);
+  }
+
   showjobproposals(id:number):Observable<Proposal[]>{
     return this.http.get<Proposal[]>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/proposals/jobpost/${id}`);
   }
@@ -26,6 +27,8 @@ export class ProposalService {
   return this.http.get<Proposal>(`/api/proposals/${id}`);
 }
 
-
+  getTechNameById(id: any){
+    return this.http.get(`http://127.0.0.1:8000/api/proposals/getTechNameById/${id}`);
+  }
 
 }
