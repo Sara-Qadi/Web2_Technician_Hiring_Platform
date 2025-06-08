@@ -1,23 +1,6 @@
 <app-navbar-admin></app-navbar-admin>
 <div class="container my-4">
 
-    <div class="row mb-4">
-      <div *ngFor="let m of metrics" class="col-md-4 mb-3">
-        <div [ngClass]="{'text-end': !m.ltr, 'text-start': m.ltr}" class="bg-light p-3 rounded shadow-sm">
-          <div class="d-flex justify-content-between mb-1">
-            <span>{{m.title}}</span>
-            <span>{{m.value}}%</span>
-  
-  
-  
-          </div>
-          <div class="progress" style="height:12px;">
-            <div class="progress-bar bg-primary" [style.width.%]="m.value"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  
   
   
       <div class="mb-2">
@@ -54,45 +37,50 @@
     </div>
   
   
-    <div class="mb-4">
-      <div *ngFor="let r of filteredComments; let i = index"
-           class="card mb-3"
-           [ngClass]="{'text-end': r.rtl}">
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-start mb-2">
-            <div>
-            <span>
-              <ng-container *ngFor="let s of [1,2,3,4,5]">
-                <i class="fa-star"
-                   [ngClass]="{
-                     'fas text-warning': s <= r.stars,
-                     'far text-secondary': s > r.stars
-                   }"></i>
-              </ng-container>
-            </span>
-              <span class="text-muted small ms-2">{{r.color}} {{r.item}}</span>
-            </div>
-            <div [innerHTML]="r.avatar"
-                 class="rounded-circle bg-light d-flex align-items-center justify-content-center"
-                 style="width:40px; height:40px; font-weight:bold;"></div>
-          </div>
-          <div class="d-flex">
-            <div class="me-3" *ngIf="r.img">
-              <img [src]="r.img" class="rounded" width="80" height="60" alt="review image" />
-            </div>
-            <div class="flex-grow-1">
-              <p class="mb-2">{{r.text}}</p>
-            </div>
-          </div>
-          <div class="d-flex justify-content-between align-items-center mt-3">
-            <button class="btn btn-sm btn-link text-secondary" (click)="markHelpful(r)">
-              <i class="far fa-thumbs-up me-1"></i> Helpful ({{r.helpful}})
-            </button>
-            <span class="text-muted small">{{18-i}} | {{r.user}} {{r.date}}</span>
-          </div>
+   <div class="mb-4">
+  <div *ngFor="let r of filteredComments; let i = index"
+       class="card mb-3"
+       [ngClass]="{'text-end': r.rtl}">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-start mb-2">
+        <div>
+          <span>
+            <ng-container *ngFor="let s of [1,2,3,4,5]">
+              <i class="fa-star"
+                 [ngClass]="{
+                   'fas text-warning': s <= r.stars,
+                   'far text-secondary': s > r.stars
+                 }"></i>
+            </ng-container>
+          </span>
+          <span class="text-muted small ms-2">
+            <ng-container *ngIf="r.color">{{ r.color }}</ng-container>
+            <ng-container *ngIf="r.item"> {{ r.item }}</ng-container>
+          </span>
+        </div>
+        <div [innerHTML]="r.avatar"
+             class="rounded-circle bg-light d-flex align-items-center justify-content-center"
+             style="width:40px; height:40px; font-weight:bold;">
         </div>
       </div>
+      <div class="d-flex">
+        <div class="me-3" *ngIf="r.img">
+          <img [src]="r.img" class="rounded" width="80" height="60" alt="review image" />
+        </div>
+        <div class="flex-grow-1">
+          <p class="mb-2">{{ r.text }}</p>
+        </div>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <button class="btn btn-sm btn-link text-secondary" (click)="markHelpful(r)">
+          <i class="far fa-thumbs-up me-1"></i> Helpful ({{ r.helpful }})
+        </button>
+        <span class="text-muted small">{{ 18 - i }} | {{ r.user }} {{ r.date }}</span>
+      </div>
     </div>
+  </div>
+</div>
+
   
   
     <!-- Add Review Button -->

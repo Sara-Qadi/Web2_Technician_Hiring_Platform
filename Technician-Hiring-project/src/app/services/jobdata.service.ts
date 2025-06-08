@@ -9,7 +9,6 @@ import { Jobpost } from '../models/jobpost.model';
 })
 export class JobDataService {
 
-//<<<<<<< Updated upstream
   private jobsList: any[] = [];  // ليست للجوبس اللي رح ادخلهم لما اعمل بوست من الفورم
   //private selectedJob: any=null;
 
@@ -34,11 +33,9 @@ export class JobDataService {
   addJob(job: any)
   {
     this.jobsList.push(job);
-  }
-=======
+
   constructor(private http:HttpClient) { }
-  private jobpostsChanged = new Subject<void>();
->>>>>>> Stashed changes*/
+  private jobpostsChanged = new Subject<void>();*/
 
   //jobpostsChanged$ = this.jobpostsChanged$.asObservable();
 
@@ -74,12 +71,35 @@ export class JobDataService {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.delete(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/deletepost/${id}`, { headers });
-  }
-  countjobposts():Observable<number>{
+  } countjobposts():Observable<number>{
     return this.http.get<number>('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/countposts');
   }
+
+  getjobownerjobposts(userid: Number): Observable<Jobpost[]> {
+  return this.http.get<Jobpost[]>(`http://127.0.0.1:8000/api/jobpost/showuserposts/${userid}`);
+}
+
+addjobpost(data: FormData): Observable<any> {
+  return this.http.post('http://127.0.0.1:8000/api/jobpost/addpost', data);
+}
+
+getthisjobpost(id: Number): Observable<Jobpost> {
+  return this.http.get<Jobpost>(`http://127.0.0.1:8000/api/jobpost/showpost/${id}`);
+}
+
+updatethisjobpost(id: Number, jp: FormData): Observable<any> {
+  return this.http.put<any>(`http://127.0.0.1:8000/api/jobpost/updatepost/${id}`, jp);
+}
+
+deletethisjobpost(id: Number): Observable<any> {
+  return this.http.delete(`http://127.0.0.1:8000/api/jobpost/deletepost/${id}`);
+}
+
+countjobposts(): Observable<number> {
+  return this.http.get<number>('http://127.0.0.1:8000/api/jobpost/countposts');
+}
   getjobpostsfortech():Observable<Jobpost[]>{
-    return this.http.get<Jobpost[]>('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/allPostsforTech');
+  return this.http.get<Jobpost[]>('http://127.0.0.1:8000/api/jobpost/allPostsforTech');
   }
   updatestatus(id:Number){
     return this.http.put(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/updatestatus/${id}`,{});

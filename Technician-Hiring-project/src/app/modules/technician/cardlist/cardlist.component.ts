@@ -17,6 +17,7 @@ import { Jobpost } from '../../../models/jobpost.model';
 })
 export class CardListComponent implements OnInit {
   jobarray: Jobpost[] = [];
+  
 
   constructor(private jobpostService: JobDataService) {}
 
@@ -25,6 +26,7 @@ export class CardListComponent implements OnInit {
       next: (data) => {
         this.jobarray = data;
         console.log('Received job posts:', data);
+        this.mergeJobs()
       },
       error: (err) => {
         console.error('Error fetching job posts:', err);
@@ -43,7 +45,26 @@ export class CardListComponent implements OnInit {
   selectedJob: any = null;
 
   //جبت الجوبس كلهم و خزنتهم هون
-  @Input() jobs: any[] = [];
+  @Input() jobs: Jobpost[] = [];
+
+  mergeJobs() {
+  const merged: Jobpost[] = [];
+
+  for (const job of this.jobs) {
+    const match = this.jobarray.find(j => j.jobpost_id === job.jobpost_id);
+    
+    if (match) {
+      merged.push(job);
+    }
+  }
+
+  
+
+  this.jobs = merged;
+
+  console.log('Merged jobs:', this.jobs);
+}
+
     //فلاغ عشان الديليت بوب اب
   showPopup = false;
   //يا نل يا رقم

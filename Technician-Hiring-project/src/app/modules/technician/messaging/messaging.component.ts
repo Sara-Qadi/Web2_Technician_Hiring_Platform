@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { NavbarAdminComponent } from '../../admin/admin/navbar-admin/navbar-admin.component';
-
+import { MessagingService } from '../../../services/messaging.service';
 @Component({
   selector: 'app-messaging',
   standalone: true,
@@ -22,52 +22,76 @@ import { NavbarAdminComponent } from '../../admin/admin/navbar-admin/navbar-admi
   templateUrl: './messaging.component.html',
   styleUrls: ['./messaging.component.css']
 })
-export class MessagingComponent {
+export class MessagingComponent implements OnInit {
   @ViewChild('chatMessages') chatMessages!: ElementRef;
 
   searchControl = new FormControl('');
-  currentUserId = '1'; // Logged in user ID
-
-  users = [
-    { id: '1', name: 'Technician A' },
-    { id: '2', name: 'Job Owner B' },
-    { id: '3', name: 'Technician C' }
-  ];
-
+  currentUserId = '1'; // this will be updated later from localStorage
   selectedUser: any = null;
+
+  users: any[] = []; // كل المستخدمين اللي تواصل معهم
   messages: { senderId: string; messageText: string }[] = [];
   newMessage: string = '';
 
-  get filteredUsers() {
+  constructor(private messagesService: MessagingService) {}
+
+  ngOnInit() {
+    this.messagesService.getUserConversations(this.currentUserId).subscribe({
+      next: (data: any[]) => {
+        this.users = data;
+        console.log('Users:', data);
+      },
+      error: (err) => {
+        console.error('Failed to load user:', err);
+      }
+    });
+  }
+
+  filteredUsers() {
     const term = this.searchControl.value?.toLowerCase() || '';
-    return this.users.filter(user => user.name.toLowerCase().includes(term));
+    const t = this.users.filter(user => user.user_name.toLowerCase().includes(term));
+    return t;
   }
 
   selectUser(user: any) {
     this.selectedUser = user;
-    this.messages = [
-      { senderId: '1', messageText: 'Hello there!' },
-      { senderId: user.id, messageText: 'Hi! How can I help you?' }
-    ];
-    setTimeout(() => this.scrollToBottom(), 0);
+
+    this.messagesService.getConversation(this.currentUserId, user.user_id).subscribe({
+      next: (data: any) => {
+        console.log('Messages:', data);
+        this.messages = data.map((msg: any) => ({
+          senderId: msg.sender_id.toString(),
+          messageText: msg.message_content
+        }));
+      },
+      error: (err) => {
+        console.error('Failed to load conversation:', err);
+      }
+    });
   }
 
   sendMessage() {
-    if (this.newMessage.trim()) {
-      this.messages.push({
-        senderId: this.currentUserId,
-        messageText: this.newMessage
+    if (this.newMessage.trim() && this.selectedUser) {
+      const payload = {
+        sender_id: this.currentUserId,
+        receiver_id: this.selectedUser.user_id,
+        message_content: this.newMessage
+      };
+
+      this.messagesService.storeMessage(payload).subscribe({
+        next: () => {
+          this.messages.push({
+            senderId: this.currentUserId,
+            messageText: this.newMessage
+          });
+          this.newMessage = '';
+        },
+        error: (err) => {
+          console.error('Failed to send message:', err);
+        }
       });
-      this.newMessage = '';
-      setTimeout(() => this.scrollToBottom(), 0);
     }
   }
 
-  scrollToBottom() {
-    try {
-      this.chatMessages.nativeElement.scrollTop = this.chatMessages.nativeElement.scrollHeight;
-    } catch (err) {
-      console.error('Failed to scroll:', err);
-    }
-  }
+
 }
