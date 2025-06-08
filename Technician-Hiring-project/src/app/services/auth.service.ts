@@ -31,4 +31,11 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
   }
+  
+  sendResetLink(email: string) {
+    return this.http.post<{ message: string }>(
+      `${this.apiUrl}/forgot-password`,
+      { email }
+    );
+  }
 }

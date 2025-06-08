@@ -28,7 +28,13 @@ export class AppComponent {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         const currentUrl = this.router.url.split(/[?#]/)[0].replace(/\/+$/, '');
-        const authRoutes = ['/login', '/sign-up', '/forgot-password', '/role-selection'];
+        const authRoutes = [
+          '/login',
+          '/sign-up',
+          '/forgot-password',
+          '/role-selection',
+          '/reset-password',
+        ];
 
         const isAuthRoute = authRoutes.includes(currentUrl);
         document.body.classList.toggle('with-navbar', !isAuthRoute);
