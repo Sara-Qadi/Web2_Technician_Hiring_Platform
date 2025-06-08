@@ -1,0 +1,95 @@
+/* Keyframes for rotating the element */
+@keyframes rotateTest {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.logo-section svg {
+  display: block;
+  margin: 0 auto;
+  animation: rotateTest 4s linear infinite;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.top-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background-color: black;
+  z-index: 1000;
+
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.bottom-navbar {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  z-index: 10;
+  box-sizing: border-box;
+  height:51.5px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 1.2rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+  padding: 0;
+}
+
+.icon-btn:hover {
+  color: #c988a4;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.top-navbar .nav-link {
+  text-decoration: none;
+  color: white;
+  font-size: small;
+}
+
+.top-navbar .nav-link.active {
+  color: white;
+  font-weight: bold;
+}
+
+.logo-section img {
+  display: block;
+  margin: 0 auto;
+}
+
+.brand-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+}
+
+.bottom-navbar .nav-link {
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 6px 12px;
+  transition: border-bottom 0.3s ease;
+}
+
+.bottom-navbar .nav-link:hover,
+.bottom-navbar .nav-link.active {
+  border-bottom: 2px solid white;
+}

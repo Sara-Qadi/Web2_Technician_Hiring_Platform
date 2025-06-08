@@ -1,0 +1,71 @@
+<app-navbar-admin></app-navbar-admin>
+<br>
+<div class="container mt-4">
+
+  <div class="row mt-4 justify-content-center">
+    <div class="col-md-3">
+      <div class="card shadow-sm hover-effect" style="border-color: #475451; min-height: 180px;">
+        <div class="card-header card-header-custom">
+          <strong>Total Jobs Posted</strong>
+        </div>
+        <div class="card-body text-center d-flex align-items-center justify-content-center">
+<h4 class="m-0" style="font-weight: bold;">{{ totalJobPosts }} <br> Job Posts</h4>
+
+        </div>
+      </div>
+    </div>
+ <div class="col-md-3">
+  <div class="card shadow-sm hover-effect" style="border-color: #475451; min-height: 180px;">
+    <div class="card-header card-header-custom">
+      <strong>Total Submissions</strong>
+    </div>
+    <div class="card-body text-center d-flex align-items-center justify-content-center">
+      <h4 class="m-0" style="font-weight: bold;">{{ totalSubmissions }} <br>Submissions</h4>
+    </div>
+  </div>
+</div>
+
+    <div class="col-md-3">
+      <div class="card shadow-sm hover-effect" style="border-color: #475451; min-height: 180px;">
+        <div class="card-header card-header-custom">
+          <strong>Pending Approvals</strong>
+        </div>
+        <div class="card-body text-center d-flex align-items-center justify-content-center">
+        <h4 class="m-0" style="font-weight: bold;">{{ pendingApprovalsCount }}<br> Pending Approvals </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br><br><br>
+
+  <div class="row justify-content-center">
+    <!-- Job Overview Chart -->
+    <div class="col-md-8 d-flex justify-content-end align-items-center" style="margin-bottom: 20px;">
+      <div class="card shadow-sm" style="border-color: #475451;">
+        <div class="card-header card-header-custom">
+          <strong>Jobs Overview</strong>
+        </div>
+        <div class="card-body p-1 d-flex justify-content-center align-items-center">
+          <canvas id="jobOverviewChart" width="800" height="450"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Jobs Progress Pie Chart -->
+    <div class="col-md-4 d-flex justify-content-start align-items-center" style="margin-bottom: 20px;">
+      <div class="card shadow-sm" style="border-color: #475451; " id="pie">
+        <div class="card-header card-header-custom">
+          <strong>Jobs in Progress vs Completed Jobs</strong>
+        </div>
+        <div class="card-body p-1 d-flex justify-content-center align-items-center">
+          <canvas id="jobProgressPieChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<br><br>
+<app-footer-admin></app-footer-admin>

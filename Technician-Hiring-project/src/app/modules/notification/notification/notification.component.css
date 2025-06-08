@@ -1,0 +1,56 @@
+
+.contain{
+  background-color:white;
+  color:black;
+}
+
+.nav-tabs .nav-link {
+  color: #642eda;
+}
+.nav-tabs .nav-link.active {
+  color: white;
+  background-color: #642eda;
+  border: none;
+}
+.mark-read-btn {
+  color: #642eda;
+  border: 1px solid #642eda;
+  background-color: white;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.mark-read-btn:hover {
+  background-color: #642eda;
+  color: white;
+}
+
+img {
+  object-fit: cover;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.notification-divider {
+  border: none;
+  height: 2px;
+  background-color: #642eda;
+  margin: 8px 0;
+}
+
+.earlier{
+  font-size: 20px;
+}
+
+.notification-item {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.notification-item:hover {
+  background-color: rgba(150, 15, 180, 0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}

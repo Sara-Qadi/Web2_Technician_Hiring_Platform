@@ -1,0 +1,24 @@
+<div *ngIf="showProfileModal" class="modal-overlay">
+  <div class="modal-content">
+    <button class="close-btn" (click)="closeProfileModal()">x</button>
+
+    <img [src]="editableProfile.imageUrl" class="modal-img" />
+    <input type="file" accept="image/*" (change)="onImageChange($event)" />
+
+    <input type="text" [(ngModel)]="editableProfile.name" placeholder="Technician Name" />
+    <input type="text" [(ngModel)]="editableProfile.specialty" placeholder="Specialty" />
+
+    <p><strong>Rating:</strong> ⭐⭐⭐⭐☆ (4/5)</p>
+
+    <textarea [(ngModel)]="editableProfile.description" placeholder="Description or contact info"></textarea>
+
+    <label><strong>Upload CV (PDF):</strong></label>
+    <input type="file" accept=".pdf" (change)="onCvChange($event)" />
+
+    <div *ngIf="editableProfile.cvUrl" class="cv-preview">
+      📄 <a [href]="editableProfile.cvUrl" target="_blank" download>View Current CV</a>
+    </div>
+
+    <button class="update" (click)="saveProfileChanges()">Update</button>
+  </div>
+</div>

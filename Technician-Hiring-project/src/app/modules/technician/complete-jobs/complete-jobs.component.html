@@ -1,0 +1,25 @@
+<div class="page-wrapper">
+
+<app-navbar-admin></app-navbar-admin>
+
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Completed Jobs</h1>
+
+  <div *ngIf="completedJobs.length === 0" class="text-center text-muted empty-message">
+    You have not completed any jobs yet.
+  </div>
+
+
+<div *ngIf="completedJobs.length > 0;">
+  <div *ngFor="let job of completedJobs" class="job-card">
+    <h3>{{ job.title }}</h3>
+    <p><strong>Category:</strong> {{ job.category }}</p>
+    <p><strong>Posted By:</strong> {{ job.user_name }}</p>
+    <p><strong>Location:</strong> {{ job.location }}</p>
+    <p><strong>Status:</strong> {{ job.status }}</p>
+  </div>
+</div>
+</div>
+
+<app-footer-admin></app-footer-admin>
+</div>
