@@ -1,8 +1,10 @@
+
+<div class="page-wrapper">
 <app-navbar-admin></app-navbar-admin>
 <div class="container my-4">
 
-  
-  
+
+
       <div class="mb-2">
       <div class="text-end mb-4" >
         <div class="dropdown text-end mb-4">
@@ -23,7 +25,7 @@
             </li>
           </ul>
         </div>
-  
+
         <span class="me-2">({{ averageRating | number: '1.1-2' }})</span>
         <span>
     <ng-container *ngFor="let _ of filledStars">
@@ -35,12 +37,12 @@
   </span>
       </div>
     </div>
-  
-  
+
+
    <div class="mb-4">
   <div *ngFor="let r of filteredComments; let i = index"
        class="card mb-3"
-       >
+      >
     <div class="card-body">
       <div class="d-flex justify-content-between align-items-start mb-2">
         <div>
@@ -54,7 +56,12 @@
             </ng-container>
           </span>
           <span class="text-muted small ms-2">
+
         
+
+            <!-- <ng-container *ngIf="r.color">{{ r.color }}</ng-container>
+            <ng-container *ngIf="r.item"> {{ r.item }}</ng-container> -->
+
           </span>
         </div>
         <div [innerHTML]="r.avatar"
@@ -80,15 +87,15 @@
   </div>
 </div>
 
-  
-  
+
+
     <!-- Add Review Button -->
     <div class="text-center my-4">
       <button class="btn btn-primary px-4 py-2" (click)="openModal()">
         <i class="fas fa-pen-to-square me-2"></i> Add Review
       </button>
     </div>
-  
+
     <!-- Modal -->
     <div class="modal fade show" tabindex="-1" [ngStyle]="{'display': showModal?'block':'none', 'background':'rgba(0,0,0,0.3)'}" style="transition:none;" *ngIf="showModal">
       <div class="modal-dialog modal-dialog-centered">
@@ -106,7 +113,7 @@
                 (mouseleave)="clearHover()"
                 (click)="setStars(s)"
                 style="cursor: pointer; font-size: 30px; display: inline-block; transition: transform 0.2s;">
-  
+
         <i
           class="fas fa-star"
           [ngStyle]="{
@@ -133,3 +140,4 @@
     <div *ngIf="showModal" class="modal-backdrop fade show"></div>
   </div>
   <app-footer-admin></app-footer-admin>
+</div>

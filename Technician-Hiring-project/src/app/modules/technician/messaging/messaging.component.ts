@@ -7,6 +7,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { NavbarAdminComponent } from '../../admin/admin/navbar-admin/navbar-admin.component';
 import { MessagingService } from '../../../services/messaging.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ProfileService } from '../../../services/profile.service';
 @Component({
   selector: 'app-messaging',
   standalone: true,
@@ -33,19 +35,39 @@ export class MessagingComponent implements OnInit {
   messages: { senderId: string; messageText: string }[] = [];
   newMessage: string = '';
 
-  constructor(private messagesService: MessagingService) {}
+  constructor(private messagesService: MessagingService, private http: HttpClient, private profileService: ProfileService) {}
 
   ngOnInit() {
-    this.messagesService.getUserConversations(this.currentUserId).subscribe({
-      next: (data: any[]) => {
-        this.users = data;
-        console.log('Users:', data);
-      },
-      error: (err) => {
-        console.error('Failed to load user:', err);
-      }
-    });
-  }
+  this.loadCurrentUser();
+}
+
+loadCurrentUser() {
+ 
+  this.profileService.getUser().subscribe({
+    next: (user: any) => {
+      this.currentUserId = user.user_id;
+      console.log('✅ Logged-in user ID:', this.currentUserId);
+
+      // بعدها حمّل المحادثات
+      this.loadUserConversations();
+    },
+    error: (err) => {
+      console.error('❌ Failed to fetch user profile:', err);
+    }
+  });
+}
+
+loadUserConversations() {
+  this.messagesService.getUserConversations(this.currentUserId).subscribe({
+    next: (data: any[]) => {
+      this.users = data;
+      console.log('Users:', data);
+    },
+    error: (err) => {
+      console.error('Failed to load user conversations:', err);
+    }
+  });
+}
 
   filteredUsers() {
     const term = this.searchControl.value?.toLowerCase() || '';

@@ -42,8 +42,8 @@
       <div *ngFor="let msg of messages"
            class="mb-2 text-white p-3"
            [ngClass]="{
-             'bg-primary ms-auto text-end': msg.senderId === currentUserId,
-             'bg-secondary me-auto text-start': msg.senderId !== currentUserId
+             'bg-primary ms-auto text-end': msg.senderId == currentUserId,
+             'bg-secondary me-auto text-start': msg.senderId != currentUserId
            }"
            style="
              border-radius: 20px;
