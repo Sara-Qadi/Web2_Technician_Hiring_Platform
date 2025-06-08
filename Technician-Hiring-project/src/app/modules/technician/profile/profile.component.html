@@ -1,50 +1,57 @@
-<div *ngIf="showProfileModal" class="modal-overlay">
-  <div class="modal-content">
+<div *ngIf="showProfileModal && role === 3" class="modal-overlay"  (click)="closeProfileModal()">
+
+  <div class="modal-content"     (click)="$event.stopPropagation()">
     <button class="close-btn" (click)="closeProfileModal()">×</button>
 
-<img class="modal-img" [src]="getProfileImageUrl()" alt="Profile Picture" />
+    <!-- ✅ Edit Button on top, after creation only -->
+    <div *ngIf="!showCreateForm && profile" class="edit-button-container">
+      <button class="edit-btn" (click)="openEditProfileModal()">Edit Profile</button>
+    </div>
 
+    <!-- User Info -->
+    <img class="modal-img" [src]="getProfileImageUrl()" alt="Profile Picture" />
 
-    <h2 style="  margin-right: 18px;  font-weight: bold;">{{ userName }}</h2>
+    <h2 style="margin-right: 18px; font-weight: bold;">{{ userName }}</h2>
     <p class="user-phone" style="margin-left: 18px;">Phone Number: {{ userPhone }}</p>
-       <p class="user-phone">Country: {{ userCountry }}</p>
+    <p class="user-phone">Country: {{ userCountry }}</p>
 
+    <!-- Create Profile Form -->
+    <form *ngIf="showCreateForm" (ngSubmit)="onCreateProfile(createProfileForm.value)" #createProfileForm="ngForm" class="create-profile-form">
+      <div class="form-group">
+        <label for="profilePicture">Upload Profile Picture</label>
+        <input id="profilePicture" type="file" (change)="onProfilePictureSelected($event)" />
+      </div>
 
-<form *ngIf="showCreateForm" (ngSubmit)="onCreateProfile(createProfileForm.value)" #createProfileForm="ngForm" class="create-profile-form">
-  <div class="form-group">
-  <label for="profilePicture">Upload Profile Picture</label>
-  <input id="profilePicture" type="file" (change)="onProfilePictureSelected($event)" />
+      <div class="form-group">
+        <div class="form-header">
+          <h3>Welcome!</h3>
+          <p>Please create your profile to get started.</p>
+        </div>
+<div class="form-group2">
+  <label for="specialty">Specialty:</label>
+  <input id="specialty" name="specialty" ngModel required />
 </div>
 
+      </div>
 
-  <div class="form-group">
-  <div class="form-header">
-    <h3> Welcome!</h3>
-    <p>Please create your profile to get started.</p>
-  </div>
-    <label for="specialty">Specialty</label>
-    <input id="specialty" name="specialty" ngModel required />
-  </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" ngModel rows="2"></textarea>
+      </div>
 
-  <div class="form-group">
-    <label for="description">Description</label>
-    <textarea id="description" name="description" ngModel rows="4"></textarea>
-  </div>
+      <div class="form-group">
+        <label for="cv">Upload CV</label>
+        <input id="cv" type="file" (change)="profileService.onFileSelected($event)" />
+      </div>
 
-  <div class="form-group">
-    <label for="cv">Upload CV</label>
-    <input id="cv" type="file" (change)="profileService.onFileSelected($event)" />
-  </div>
+      <button type="submit" [disabled]="!createProfileForm.valid" class="submit-btn">Create Profile</button>
+    </form>
 
-  <button type="submit" [disabled]="!createProfileForm.valid" class="submit-btn">Create Profile</button>
-</form>
-
-
+    <!-- Profile Details -->
     <div *ngIf="!showCreateForm && profile">
       <p><strong>Specialty:</strong> {{ profile.specialty || 'N/A' }}</p>
       <p class="clickable-rating" routerLink="/rating/rating">
         <strong>Rating:</strong>
-
         <ng-container *ngFor="let star of [1,2,3,4,5]">
           <span [class.filled]="star <= (profile.rating || 0)">&#9733;</span>
         </ng-container>
@@ -54,11 +61,10 @@
       <a *ngIf="profile.cv" [href]="'/storage/' + profile.cv" target="_blank" class="cv-link" download>
         📄 Download My CV
       </a>
-<br>
+      <br />
       <button class="view-jobs-btn" routerLink="/technician/completed-jobs">
         View All Completed Jobs
       </button>
     </div>
-
   </div>
 </div>

@@ -33,11 +33,11 @@
   </ng-container>
 
 
-  <ng-container *ngIf="role === 2">
-    <a routerLink="/postjob" routerLinkActive="active" class="nav-link">Post Job</a>
+ <ng-container *ngIf="role === 2">
+    <!-- <a routerLink="/postjob" routerLinkActive="active" class="nav-link">Post Job</a> -->
     <a routerLink="/home" routerLinkActive="active" class="nav-link">Home</a>
-    <a routerLink="/reviewbids/:id" routerLinkActive="active" class="nav-link">My Bids</a>
-    <a routerLink="/jobowner/:id" routerLinkActive="active" class="nav-link">My Jobs</a>
+    <a [routerLink]="['/reviewbids',userId]" routerLinkActive="active" class="nav-link">My Bids</a>
+    <a [routerLink]="['/jobowner',userId]" routerLinkActive="active" class="nav-link">My Jobs</a>
   </ng-container>
 
   <ng-container *ngIf="role === 3">

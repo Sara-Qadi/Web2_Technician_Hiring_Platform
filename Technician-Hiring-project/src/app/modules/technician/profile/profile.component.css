@@ -35,6 +35,24 @@
 }
 
 
+.edit-button-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.edit-btn {
+  padding: 6px 12px;
+  background-color: #642eda;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background-color: #402d68;
+}
 
 
 .modal-content {
@@ -53,12 +71,8 @@
   object-fit: cover;
   margin-bottom: 10px;
   margin-left: 6rem;
-  cursor: pointer;
 }
-.modal-img:hover {
-  transform: scale(1.1);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+
 .close-btn {
   position: absolute;
   top: 10px;
@@ -69,6 +83,12 @@
   cursor: pointer;
   color: #642eda;
 }
+.form-group2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .view-jobs-btn {
   margin-top: 15px;
   padding: 10px 16px;

@@ -2,7 +2,7 @@
 <div class="container my-5 p-0"><!-- w-75 -->
   <div class="row gy-2 d-flex "><!-- justify-content-between -->
     <div class="col-6 col-md-4" *ngFor="let job of jobsarray; let i = index">
-      <app-jobblock [job]="job " (deleteRequest)="requestDelete($event)"  [role]="role"  [userId]="userId" (editJob)="requestEdit($event)"></app-jobblock><!-- [index]="i" (editRequest)="requestEdit(i)"-->
+      <app-jobblock [job]="job " (deleteRequest)="requestDelete($event)"  [role]="roleId"  [userId]="userId" (editJob)="requestEdit($event)"></app-jobblock><!-- [index]="i" (editRequest)="requestEdit(i)"-->
     </div>
   </div>
 </div>

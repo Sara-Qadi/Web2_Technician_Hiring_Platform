@@ -6,6 +6,7 @@ import { AddjobComponent } from '../addjob/addjob.component';
 import { ActivatedRoute, NavigationEnd, Router,RouterLink } from '@angular/router';
 import { Jobpost } from '../../../models/jobpost.model';
 import { filter } from 'rxjs';
+import { ProfileService } from '../../../services/profile.service';
 
 declare var bootstrap: any;
 @Component({
@@ -17,22 +18,17 @@ declare var bootstrap: any;
 })
 export class JobListComponent implements OnInit {
 
-  constructor(private jobpostservice:JobDataService,private route: ActivatedRoute) { }
-  
+  constructor(private jobpostservice:JobDataService,private profileser:ProfileService,private route: ActivatedRoute) { }
+  roleId!: number;
   @Input() userId!: number;
-jobsarray: Jobpost[] = [];
+  jobsarray: Jobpost[] = [];
 
-ngOnInit(): void {
-    const updatedJob = history.state.updatedJob;
-    /*if (updatedJob) {
-      const index = this.jobsarray.findIndex(job => job.id === updatedJob.id);
-      if (index !== -1) {
-        this.jobsarray[index] = updatedJob;
-      } else {
-        this.jobsarray.unshift(updatedJob);
-      }
-    }*/
-  }
+  ngOnInit(): void {
+  this.profileser.getroleid(this.userId).subscribe((roleid: number) => {
+    this.roleId =roleid;
+    console.log('User Role ID:', this.roleId);
+  });
+}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['userId'] && this.userId) {
