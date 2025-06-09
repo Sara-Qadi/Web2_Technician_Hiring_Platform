@@ -7,6 +7,79 @@ import { Jobpost } from '../models/jobpost.model';
   providedIn: 'root',
 })
 export class JobDataService {
+
+
+
+
+  //constructor(private http: HttpClient){}
+    
+  
+  /*getjobposts():Observable<Jobpost[]> {
+    return this.http.get<Jobpost[]>('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/allposts');
+  }
+  getjobownerjobposts(userid:Number):Observable<Jobpost[]>{
+    return this.http.get<Jobpost[]>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/showuserposts/${userid}`);
+  }
+  addjobpost(data: FormData):Observable<any>{
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/addpost',data,{ headers });
+  }
+  getthisjobpost(id:Number):Observable<Jobpost>{
+    return this.http.get<Jobpost>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/showpost/${id}`).pipe(
+    map(job => ({
+      ...job,
+      attachments: typeof job.attachments === 'string'
+        ? JSON.parse(job.attachments)
+        : job.attachments
+    }))
+  );
+  }
+
+  updatethisjobpost(id:Number,jp:FormData):Observable<Jobpost>{
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    jp.append('_method', 'PUT');
+    return this.http.post<Jobpost>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/updatepost/${id}`,jp, { headers });
+  }
+  deletethisjobpost(id:Number):Observable<any>{
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/deletepost/${id}`, { headers });
+  } countjobposts():Observable<number>{
+    return this.http.get<number>('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/countposts');
+  }
+
+  getjobownerjobposts(userid: Number): Observable<Jobpost[]> {
+  return this.http.get<Jobpost[]>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/showuserposts/${userid}`);
+}
+
+addjobpost(data: FormData): Observable<any> {
+  return this.http.post('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/addpost', data);
+}
+
+getthisjobpost(id: Number): Observable<Jobpost> {
+  return this.http.get<Jobpost>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/showpost/${id}`);
+}
+
+updatethisjobpost(id: Number, jp: FormData): Observable<any> {
+  return this.http.put<any>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/updatepost/${id}`, jp);
+}
+
+deletethisjobpost(id: Number): Observable<any> {
+  return this.http.delete(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/deletepost/${id}`);
+}
+
+countjobposts(): Observable<number> {
+  return this.http.get<number>('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/countposts');
+}
+  getjobpostsfortech():Observable<Jobpost[]>{
+  return this.http.get<Jobpost[]>('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/allPostsforTech');
+  }
+  updatestatus(id:Number){
+    return this.http.put(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/updatestatus/${id}`,{});
+  }*/
+
   private baseUrl = 'http://127.0.0.1:8000/api';
   private userId: number | null = null;
   constructor(private http: HttpClient) {}

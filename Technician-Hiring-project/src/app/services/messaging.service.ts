@@ -21,4 +21,8 @@ export class MessagingService {
    return this.http.get<any>(`http://127.0.0.1:8000/api/messages/get-user-conversations/${userId}`);
   }
 
+  getSelectedUserToMessage(userId: any, receiverId: any) {
+  return this.http.post(`http://127.0.0.1:8000/api/messages/get-Selected-User-To-Message/${userId}/${receiverId}`,{});
+}
+
 }

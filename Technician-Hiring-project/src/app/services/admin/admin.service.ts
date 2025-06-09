@@ -73,4 +73,17 @@ export class AdminService {
       headers: this.getAuth()
     });
   }
+
+  
+//sara
+  getNotifications(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/admin/notifications`, {
+    headers: this.getAuth(),
+  });
+}
+markNotificationAsRead(notificationId: number): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/admin/notifications/${notificationId}/read`, {}, {
+      headers: this.getAuth(),
+    });
+}
 }

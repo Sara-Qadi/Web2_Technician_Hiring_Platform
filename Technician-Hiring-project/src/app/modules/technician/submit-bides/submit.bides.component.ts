@@ -77,7 +77,7 @@ export class SubmitBidesComponent implements OnInit {
       price: this.Price ?? 0,
       status_agreed: 'pending',
       description_proposal: this.comment,
-      tech_id: 3,  // TODO: dynamically get current technician ID
+      tech_id: 15,  // TODO: dynamically get current technician ID
       jobpost_id: this.job.jobpost_id
     };
 
