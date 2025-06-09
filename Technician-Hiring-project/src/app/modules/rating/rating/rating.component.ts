@@ -4,6 +4,7 @@ import {FormsModule} from '@angular/forms';
 import { NavbarAdminComponent } from '../../admin/admin/navbar-admin/navbar-admin.component';
 import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admin.component';
 import { ReviewService } from '../../../services/review.service';
+import { ActivatedRoute } from '@angular/router';
 interface Review {
  id?: number;
   stars: number;
@@ -32,28 +33,11 @@ interface Review {
   templateUrl: './rating.component.html',
   styleUrl: './rating.component.css'
 })
-export class RatingComponent implements OnInit{
-  userId: number = 3;
+export class RatingComponent implements OnInit {
+   userId: number = 0;
   userName: string = '';
   reviews: Review[] = [];
-
-  constructor(private reviewService: ReviewService) {}
-
-  ngOnInit() {
-    if (!this.userId) {
-      console.error('userId is not set!');
-      return;
-    }
-
-    this.reviewService.getReviewsForUser(this.userId).subscribe({
-  next: (res) => {
-    this.userName = res.userName;
-    this.reviews = res.reviews ?? [];
-  },
-  error: (err) => console.error('fail to get', err)
-});
-
-  }
+  averageRating: number = 0;
 
   newReviewText = '';
   newReviewStars: number = 0;
@@ -61,8 +45,49 @@ export class RatingComponent implements OnInit{
   submitting = false;
   showModal = false;
 
-  
-  jobpostId: number = 10;
+  jobpostId: number = 0;
+
+  selectedRating: number | null = null;
+
+  constructor(
+    private route: ActivatedRoute,
+    private reviewService: ReviewService
+  ) {}
+
+  ngOnInit() {
+    const paramId = this.route.snapshot.paramMap.get('userId');
+    if (paramId) {
+      this.userId = +paramId; 
+      this.loadReviews();
+      this.loadAverageRating();
+    } else {
+      console.error('userId is missing from route!');
+    }
+  }
+
+  loadReviews(): void {
+  this.reviewService.getReviewsForUser(this.userId).subscribe({
+    next: (res) => {
+      this.reviews = res.reviews ?? [];
+      this.userName = res.userName;
+      this.averageRating = res.average_rating ?? 0;
+    },
+    error: (err) => {
+      console.error('Error loading reviews', err);
+    }
+  });
+}
+loadAverageRating(): void {
+  this.reviewService.getUserAverageRating(this.userId).subscribe({
+    next: (res) => {
+      this.averageRating = res.average_rating ?? 0;
+    },
+    error: (err) => {
+      console.error('Error loading average rating', err);
+    }
+  });
+}
+
 
   openModal() {
     this.showModal = true;
@@ -90,6 +115,7 @@ export class RatingComponent implements OnInit{
 
   submitReview() {
     if (!this.newReviewStars || !this.newReviewText.trim()) return;
+
     this.submitting = true;
 
     const payload = {
@@ -100,17 +126,11 @@ export class RatingComponent implements OnInit{
     };
 
     this.reviewService.submitReview(payload).subscribe({
-      next: (res) => {
-        this.reviews.unshift({
-          
-          stars: this.newReviewStars,
-          text: this.newReviewText.trim(),
-          user: res.userName ?? 'user',
-          date: new Date().toLocaleDateString('ar-EG', { year: 'numeric', month: 'long' }),
-          img: '',
-          helpful: 0,
-          avatar: `<span class="text-primary">${(res.userName?.charAt(0) || 'U')}</span>`
-        });
+      next: () => {
+        this.loadReviews();  // بعد الإرسال، نحدث قائمة التعليقات
+        this.submitting = false;
+        this.newReviewStars = 0;
+        this.newReviewText = '';
         this.closeModal();
       },
       error: (err) => {
@@ -124,26 +144,19 @@ export class RatingComponent implements OnInit{
     r.helpful++;
   }
 
-  get averageRating(): number {
-    if (!this.reviews || this.reviews.length === 0) return 0;
-    const total = this.reviews.reduce((sum, review) => sum + review.stars, 0);
-    return total / this.reviews.length;
+  
+
+  get filledStars(): number[] {
+    const rating = Math.floor(this.averageRating);
+    return rating > 0 ? Array(rating).fill(1) : [];
   }
 
- get filledStars(): number[] {
-  const rating = Math.floor(this.averageRating);
-  return rating > 0 ? Array(rating).fill(1) : [];
-}
+  get emptyStars(): number[] {
+    const rating = Math.floor(this.averageRating);
+    const remaining = 5 - rating;
+    return remaining > 0 ? Array(remaining).fill(1) : [];
+  }
 
-
- get emptyStars(): number[] {
-  const rating = Math.floor(this.averageRating);
-  const remaining = 5 - rating;
-  return remaining > 0 ? Array(remaining).fill(1) : [];
-}
-
-
-  selectedRating: number | null = null;
   get filteredComments(): Review[] {
     if (!this.reviews) return [];
     if (this.selectedRating === null) return this.reviews;
@@ -153,6 +166,4 @@ export class RatingComponent implements OnInit{
   setRatingFilter(rating: number | null) {
     this.selectedRating = rating;
   }
-
- 
 }

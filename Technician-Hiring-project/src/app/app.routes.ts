@@ -89,6 +89,13 @@ export const routes: Routes = [
     path: 'submit-bid/:id',
     component: SubmitBidesComponent,
   },
+
+  {
+  path: 'rating/:userId',
+  component: RatingComponent,
+},
+
   { path: 'reset-password', component: ResetPasswordComponent },
+
 
 ];
