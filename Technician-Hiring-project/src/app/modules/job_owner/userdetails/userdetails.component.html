@@ -21,7 +21,7 @@
         <div class="info d-flex flex-column gap-3">
           <div class="sec name">
             <h5 class="shine">Name:</h5>
-            <span class="value">{{ profileForm.get('user_name')?.value }}</span>
+            <span class="value text-capitalize">{{ profileForm.get('user_name')?.value }}</span>
           </div>
           <div class="sec email">
             <h5 class="shine">Email:</h5>
@@ -31,9 +31,19 @@
             <h5 class="shine">Phone:</h5>
             <span class="value">{{ profileForm.get('phone')?.value }}</span>
           </div>
+          <div class="sec rate">
+            <h5 class="shine">Rate:</h5>
+            <span class="value">{{ profileForm.get('phone')?.value }}</span>
+          </div>
           <div class="sec country">
             <h5 class="shine">Country:</h5>
             <span class="value">{{ profileForm.get('country')?.value }}</span>
+          </div>
+          <div class="sec about d-flex flex-column gap-2 align-items-start">
+            <h5 class="shine">About:</h5>
+            <div>
+              <span class="value">{{ profileForm.get('description')?.value }}</span>
+            </div>
           </div>
           <div class="only-artisan d-flex gap-3 justify-content-end">
             <button class="b report" *ngIf="showartisan" data-bs-toggle="modal" data-bs-target="#ReportModal"><i class="fa-solid fa-flag"></i>Report</button>
@@ -61,10 +71,10 @@
             <label class="form-label">Country</label>
             <input type="text" class="form-control" formControlName="country">
           </div>
-          <!-- <div class="col-12">
+           <div class="col-12">
             <label class="form-label">About</label>
-            <textarea class="form-control" formControlName="about" rows="3"></textarea>
-          </div> -->
+            <textarea class="form-control" formControlName="description" rows="3"></textarea>
+          </div> 
         </div>
   
         <div class="d-flex justify-content-end gap-2 mt-4">

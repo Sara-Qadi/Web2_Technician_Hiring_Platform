@@ -31,11 +31,13 @@
   <p class="text-muted">No notifications yet.</p>
 </div>
  <div *ngFor="let notification of filteredNotifications(); let last = last">
-  <div class="notification-item d-flex align-items-center mb-3">
+<div class="notification-item d-flex align-items-center mb-3"
+     (click)="handleNotificationClick(notification)">
     <div class="me-3">
-<img [src]="userDetails[notification.user_id]?.imageUrl || 'assets/person1.jpg'"
+   <img [src]="userDetails[notification.user_id]?.imageUrl || 'assets/person1.jpg'"
      class="rounded-circle" width="45" height="45" alt="User"
-     (click)="onProfileImageClick()" />
+  (click)="openModalIfAllowed()"
+ />
 
     </div>
     <div class="flex-grow-1">

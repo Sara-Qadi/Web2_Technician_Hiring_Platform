@@ -12,19 +12,27 @@
   </a>
 
 
+<div class="d-flex gap-3 align-items-center small-text">
+  <!-- Show login button if not logged in -->
+  <a *ngIf="!loggedIn" routerLink="/login" class="btn btn-outline-primary btn-sm">
+    Login
+  </a>
 
-  <div class="d-flex gap-3 align-items-center small-text">
-<a class="d-inline-block" title="Profile" (click)="openProfileOrLogin()">
-  <img src="assets/person1.jpg" alt="User" class="rounded-circle" width="24" height="24" />
-</a>
-
+  <!-- Show profile image if logged in -->
+  <a *ngIf="loggedIn" class="d-inline-block" title="Profile" (click)="openProfileOrLogin()">
+    <img [src]="profileImageUrl || 'assets/person1.jpg'" alt="User" class="rounded-circle" width="32" height="32" />
+  </a>
 </div>
+
+
 
  <!-- <div class="d-flex gap-3 align-items-center small-text">
     <a routerLink="/login" class="d-inline-block" title="Login">
       <img src="assets/person1.jpg" alt="User" class="rounded-circle" width="24" height="24" />
     </a>
-  </div> -->
+
+    KOKO -->
+
 
 <nav class="bottom-navbar d-flex justify-content-center gap-5 py-2 ">
 
@@ -34,13 +42,21 @@
     <a routerLink="/admin/jop-listing" routerLinkActive="active" class="nav-link">Jobs</a>
     <a routerLink="/admin/delete-craftsman" routerLinkActive="active" class="nav-link">Users</a>
     <a routerLink="/reports/analytics" routerLinkActive="active" class="nav-link">Reports</a>
+    <a
+  [routerLink]="['/sign-up']"
+  [queryParams]="{ role: 'admin' }"
+  routerLinkActive="active"
+  class="nav-link"
+>
+  Create New Admin Account
+</a>
   </ng-container>
 
 
  <ng-container *ngIf="role === 2">
     <!-- <a routerLink="/postjob" routerLinkActive="active" class="nav-link">Post Job</a> -->
     <a routerLink="/home" routerLinkActive="active" class="nav-link">Home</a>
-    <a [routerLink]="['/reviewbids',userId]" routerLinkActive="active" class="nav-link">My Bids</a>
+    <a [routerLink]="['/allproposals',userId]" routerLinkActive="active" class="nav-link">My Bids</a>
     <a [routerLink]="['/jobowner',userId]" routerLinkActive="active" class="nav-link">My Jobs</a>
   </ng-container>
 

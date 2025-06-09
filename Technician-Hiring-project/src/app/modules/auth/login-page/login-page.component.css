@@ -251,7 +251,7 @@
 .container {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; 
   padding: 0; 
   margin: 0; 
   width: 1.3em; 
