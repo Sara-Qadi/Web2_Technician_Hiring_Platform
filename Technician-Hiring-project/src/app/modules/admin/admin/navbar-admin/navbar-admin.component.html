@@ -57,9 +57,14 @@
     <button class="icon-btn me-3" routerLink="/messages">
       <i class="bi bi-messenger"></i>
     </button>
-    <button class="icon-btn" (click)="toggleDropdown()" title="Notifications">
-      <i class="bi bi-bell"></i>
-    </button>
+<button class="icon-btn" (click)="toggleDropdown()" title="Notifications" style="position: relative;">
+  <i class="bi bi-bell"></i>
+  <span *ngIf="unreadCount > 0"
+        class="notification-badge">
+    {{ unreadCount }}
+  </span>
+</button>
+
     <app-notification-dropdown [dropdownOpen]="dropdownOpen"></app-notification-dropdown>
   </div>
 </nav>
