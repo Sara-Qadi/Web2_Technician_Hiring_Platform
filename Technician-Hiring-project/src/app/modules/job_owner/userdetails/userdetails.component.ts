@@ -30,13 +30,14 @@ export class UserdetailsComponent implements OnInit {
     private http: HttpClient,
     private messagingService: MessagingService
   ) {}
-
+averageRating: number = 0;
   ngOnInit(): void {
     this.userId = Number(this.route.snapshot.paramMap.get('id'));
     this.initForm();
     if (this.userId) {
       this.loading = true;
       this.loadUserProfile(this.userId);
+      this.loadAverageRating();
     }
   }
   initForm() {
@@ -144,6 +145,19 @@ export class UserdetailsComponent implements OnInit {
     }
   });
 }
+loadAverageRating() {
+  if (!this.userId) return;
 
+  this.profileService.getAverageRating(this.userId).subscribe({
+    next: (res) => {
+      this.averageRating = res.average_rating;
+      console.log('Average rating:', this.averageRating);
+    },
+    error: (err) => {
+      console.error('Error loading average rating', err);
+      this.averageRating = 0;
+    }
+  });
+}
   
 }

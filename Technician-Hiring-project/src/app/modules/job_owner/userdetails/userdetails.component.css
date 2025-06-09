@@ -162,3 +162,24 @@ input:focus{
   font-weight: 500;
   font-size: 17px;
 }
+.clickable-rating {
+  cursor: pointer;
+
+  transition: transform 0.2s ease, color 0.2s ease;
+  display: inline-block;
+}
+
+.clickable-rating:hover {
+  transform: scale(1.1);
+  text-shadow: 0 0 5px rgba(72, 71, 66, 0.4);
+}
+.clickable-rating span {
+  margin-right: 2px;
+
+  font-size: 24px;
+  color: #ccc;
+}
+
+.clickable-rating span.filled {
+  color: gold;
+}

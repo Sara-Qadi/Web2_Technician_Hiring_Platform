@@ -42,13 +42,14 @@
             <span class="value">{{ profileForm.get('phone')?.value }}</span>
           </div>
           <div class="sec rate">
-            <h5 class="shine" >Rate:</h5>
-            <a class="valuelink"  [routerLink]="['/rating/rating']">{{ profileForm.get('rating')?.value }} <i class="fas fa-star text-warning"></i></a>
-          </div>
-          <div class="sec country">
-            <h5 class="shine">Country:</h5>
-            <span class="value">{{ profileForm.get('country')?.value }}</span>
-          </div>
+             <p class="clickable-rating" [routerLink]="['/rating', userId]">
+        <strong>Rating:</strong>
+        <ng-container *ngFor="let star of [1,2,3,4,5]">
+          <span [class.filled]="star <= (averageRating || 0)">&#9733;</span>
+        </ng-container>
+        ({{ (averageRating | number:'1.2-2') || '0.00' }}/5)
+
+      </p>
           <div class="sec about d-flex flex-column gap-2 align-items-start">
             <h5 class="shine">About:</h5>
             <div>

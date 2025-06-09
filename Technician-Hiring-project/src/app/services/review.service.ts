@@ -14,7 +14,6 @@ interface Review {
 
 interface ReviewPayload {
   review_to: number;
-  jobpost_id: number;
   rating: number;
   review_comment?: string;
 }
