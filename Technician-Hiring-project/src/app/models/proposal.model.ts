@@ -7,6 +7,6 @@ export class Proposal{
   jobpost_id:number=0;
   tech_name?:string='';
   country?:string='';
-  rate?:number=0;
-  //lollllllllllllllllll
+  rating?:number=0;
+  photo?:string='';
 }

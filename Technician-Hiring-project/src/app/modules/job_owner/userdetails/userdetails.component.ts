@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProfileService } from '../../../services/profile.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MessagingService } from '../../../services/messaging.service';
 @Component({
   selector: 'app-userdetails',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,RouterLink],
   templateUrl: './userdetails.component.html',
   styleUrl: './userdetails.component.css',
 })
@@ -21,7 +21,7 @@ export class UserdetailsComponent implements OnInit {
   @Input() showowner: boolean = true;
   @Input() showartisan: boolean = false;
   userData: any;
-
+  loading = false;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -35,6 +35,7 @@ export class UserdetailsComponent implements OnInit {
     this.userId = Number(this.route.snapshot.paramMap.get('id'));
     this.initForm();
     if (this.userId) {
+      this.loading = true;
       this.loadUserProfile(this.userId);
     }
   }
@@ -45,7 +46,8 @@ export class UserdetailsComponent implements OnInit {
       phone: [''],
       country: [''],
       description: [''],
-      photo: [null]
+      photo: [null],
+      rating:[0]
     });
   }
   loadUserProfile(userId: number) {
@@ -60,14 +62,17 @@ export class UserdetailsComponent implements OnInit {
             email: user.email,
             phone: user.phone,
             country: user.country,
-            description:user.description
+            description:user.description,
+            rating:user.rating
           });
           if (user.photo) {
             this.profileImageUrl = `http://localhost:8000/storage/${user.photo}`;
           }
+                this.loading = false;
         },
         error: err => {
           console.error('Error loading profile:', err);
+                this.loading = false;
         }
       });
   }
@@ -82,6 +87,7 @@ export class UserdetailsComponent implements OnInit {
   }
 
   onImageSelected(event: any) {
+    this.loading = true;
   const file = event.target.files[0];
   if (!file) return;
 
@@ -100,6 +106,7 @@ export class UserdetailsComponent implements OnInit {
 
   this.http.post('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/profile/update', formData, { headers })
     .subscribe(() => console.log('✔️ صورة البروفايل تم رفعها'));
+    this.loading = false;
 }
 
   onSubmit() {

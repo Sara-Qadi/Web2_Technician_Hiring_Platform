@@ -1,4 +1,13 @@
-button.active {
-  background-color: #0d6efd;
-  color: white;
+.custom-tabs .nav-link {
+  color: black !important;
+  background-color: transparent;
+  font-weight: 400;
+  font-size: 16px;
+  padding: 10px 20px;
+  font-family: "Poppins", sans-serif;
+}
+
+.custom-tabs .nav-link.active {
+  color: #7b00ff !important; /* بنفسجي */
+  border-bottom: 2px solid #7b00ff; /* بنفسجي */
 }

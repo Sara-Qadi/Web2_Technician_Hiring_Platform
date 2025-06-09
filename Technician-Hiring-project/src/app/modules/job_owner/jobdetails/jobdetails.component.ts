@@ -55,13 +55,16 @@ export class JobdetailsComponent implements OnInit {
   private proposalService = inject(ProposalService);
   @Input() showButtons = true;
   @Input() showTitle = true;
+  loading= false;
   ngOnInit() {
+    this.loading = true; 
     const id = Number(this.route.snapshot.paramMap.get('id'));
     if (id) {
       this.dataService.getthisjobpost(id).subscribe({
         next: (res) => {
           this.job = res;
           this.attachments = this.job.attachments;
+          this.loading = false;
           console.log('✅ Job loaded:', this.job);
         },
         error: (err) => {

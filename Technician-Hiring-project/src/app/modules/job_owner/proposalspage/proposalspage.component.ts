@@ -25,12 +25,15 @@ export class ProposalspageComponent implements OnInit {
   bidsarray:Proposal[] = [];
   pendingBids: Proposal[] = [];
   acceptedBids: Proposal[] = [];
+  loading= false;
   ngOnInit() {
+  this.loading = true;
   this.route.params.subscribe(params => {
     const userId = +params['id']; 
     this.propservice.countProposalsforJO(userId).subscribe({
       next: (count) => {
         this.JOproposals = count;
+        this.loading = false; 
         console.log('عدد الاقتراحات:', this.JOproposals);
       },
       error: (err) => console.error('فشل في تحميل عدد الاقتراحات:', err)

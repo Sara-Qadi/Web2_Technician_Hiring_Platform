@@ -17,6 +17,7 @@ export class JobsummaryComponent implements OnInit {
   bidsnumber!:number;
   @Input() jobinfo!: Jobpost;
   ngOnInit(): void {
+    if (!this.jobinfo) {
     this.route.paramMap.subscribe(params => {
           this.jobid = Number(params.get('id')) || 0;
         });
@@ -33,4 +34,5 @@ export class JobsummaryComponent implements OnInit {
         }
       });
   }
+}
 }

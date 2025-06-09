@@ -19,12 +19,15 @@ export class BidlistComponent implements OnInit {
  
   @Input() bidarray:Proposal[]=[]; 
   jobid!:number ;
+  loading= false;
   ngOnInit(): void {
+    this.loading = true;
     this.route.paramMap.subscribe(params => {
       this.jobid = Number(params.get('id')) || 0;
     });
     this.propservice.showjobproposals(this.jobid).subscribe((bids: Proposal[]) => {
       this.bidarray = bids;
+      this.loading = false; 
   });
     }
 

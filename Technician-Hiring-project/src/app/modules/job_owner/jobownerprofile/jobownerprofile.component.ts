@@ -23,6 +23,12 @@ import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admi
 export class JobownerprofileComponent implements OnInit {
   userId!: number;
   //userId: number = 0;
+  selectedStatus: string = 'all';
+
+setStatus(status: string) {
+  this.selectedStatus = status;
+}
+
   jobs: any[] = []; // Array to hold job posts for the user
   constructor(
     private route: ActivatedRoute,
