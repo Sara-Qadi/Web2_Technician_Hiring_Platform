@@ -46,6 +46,8 @@
     <a routerLink="/home" routerLinkActive="active" class="nav-link">Home</a>
     <a [routerLink]="['/allproposals',userId]" routerLinkActive="active" class="nav-link">My Bids</a>
     <a [routerLink]="['/jobowner',userId]" routerLinkActive="active" class="nav-link">My Jobs</a>
+        <a routerLink="/reports/analytics" routerLinkActive="active" class="nav-link">Reports</a>
+
   </ng-container>
   <ng-container *ngIf="role === 3">
     <a routerLink="/home" routerLinkActive="active" class="nav-link">Home</a>
