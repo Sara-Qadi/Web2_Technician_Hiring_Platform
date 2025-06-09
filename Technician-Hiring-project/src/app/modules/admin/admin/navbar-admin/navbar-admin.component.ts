@@ -94,7 +94,7 @@ loadUserRole() {
     this.dropdownOpen = !this.dropdownOpen;
   }
 openProfileOrLogin() {
-  if (this.isLoggedIn() && this.role === 3) {
+  if (this.isLoggedIn() && this.role === 3&& this.userId !== null) {
     this.profileModalService.openModal();
   } else if(this.isLoggedIn() && this.role === 2) {
     console.warn('User does not have permission to open modal');

@@ -128,6 +128,7 @@ loadUserNames() {
 openModalIfAllowed(): void {
   if (this.userRole === 3) {
     this.modalService.openModal();
+    this.modalService.openOUTModal(this.userId);
   } else {
     console.warn('User does not have permission to open modal');
   }

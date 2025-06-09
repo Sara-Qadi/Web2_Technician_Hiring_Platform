@@ -5,6 +5,7 @@ import { ProposalService } from '../../../services/proposal.service';
 import { ActivatedRoute } from '@angular/router';
 import { NotificationService } from '../../../services/notification.service';
 import { CommonModule } from '@angular/common';
+import { ProfileModalService } from '../../../services/profile-modal.service';
 
 @Component({
   selector: 'app-bidcard',
@@ -20,9 +21,12 @@ export class BidcardComponent {
     private subservice: SubmissionService,
     private proposalService: ProposalService,
     private route: ActivatedRoute,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private profilemodalservice:ProfileModalService
   ) {}
-
+  openProfileModal(techId: number) {
+  this.profilemodalservice.openOUTModal(techId);
+}
   acceptProposal(id: number): void {
     this.subservice.acceptproposal(id).subscribe({
       next: () => {
