@@ -7,6 +7,8 @@ import { ProfileModalService } from '../../../../services/profile-modal.service'
 import { ProfileService } from '../../../../services/profile.service';
 import { catchError, of } from 'rxjs';
 import { AuthService } from '../../../../services/auth.service';
+import { NotificationService, Notification } from '../../../../services/notification.service';
+
 
 @Component({
   selector: 'app-navbar-admin',
@@ -26,13 +28,15 @@ export class NavbarAdminComponent implements OnInit {
   userId: number | null = null;
     loggedIn: boolean = false;
     profileImageUrl: string = '';
+unreadCount: number = 0;
 
 
   constructor(
     private router: Router,
     private profileModalService: ProfileModalService,
     private profileService: ProfileService,
-      private authService: AuthService
+      private authService: AuthService,
+        private notificationService: NotificationService
   ) {}
 
  ngOnInit(): void {
@@ -60,9 +64,12 @@ loadUserRole() {
             if (user) {
               this.role = user.role_id;
               this.userId = user.user_id;
-              console.log('User ID:', this.userId);
-              console.log('User role:', this.role);
               this.roleLoaded = true;
+
+       if (this.userId !== null) {
+       this.loadUnreadNotifications(this.userId);
+        }
+
 
               if (this.role === 1) {
                 this.profileImageUrl = 'assets/person1.jpg';
@@ -84,6 +91,17 @@ loadUserRole() {
     });
 }
 
+loadUnreadNotifications(userId: number) {
+  this.notificationService.getUnreadNotifications(userId).subscribe({
+    next: (notifications) => {
+      this.unreadCount = notifications.length;
+    },
+    error: (err) => {
+      console.error('Failed to load unread notifications', err);
+      this.unreadCount = 0;
+    }
+  });
+}
 
 
   isActive(route: string): boolean {
