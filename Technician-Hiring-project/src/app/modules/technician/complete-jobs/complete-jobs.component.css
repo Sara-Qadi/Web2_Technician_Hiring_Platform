@@ -12,43 +12,6 @@ h1 {
   color: #641739;
 }
 
-.jobs-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-
-.job-card {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  padding: 1.2rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease;
-}
-
-.job-card:hover {
-  transform: translateY(-4px);
-}
-
-.empty-message {
-  color: #555;
-  font-style: italic;
-}
-
-.clickable-rating {
-  cursor: pointer;
-
-  transition: transform 0.2s ease, color 0.2s ease;
-  display: inline-block;
-}
-
-.clickable-rating:hover {
-  transform: scale(1.1);
-  text-shadow: 0 0 5px rgba(72, 71, 66, 0.4);
-}
-
 .card-title {
   color: #262626;
   font-size: 20px;
@@ -166,7 +129,7 @@ h1 {
   gap: 10px;
   height: 100%;
 }
-.review,.veiw-more button {
+.review,.view-more button {
   padding: 10px 20px;
   border-radius: 50px;
   cursor: pointer;
@@ -175,7 +138,7 @@ h1 {
   font-size: 15px;
   transition: all 0.5s ease;
 }
-.veiw-more button{
+.view-more button{
   background-color: white;
 }
 .review{
@@ -183,14 +146,14 @@ h1 {
   text-align: center;
   color: white;
 }
-.review:hover, .veiw-more button:hover {
+.review:hover, .view-more button:hover {
   letter-spacing: 3px;
   background-color: #7b00ff;/*#6293c8*/
   color:white;
   box-shadow:  #7b00ff 0px 7px 29px 0px;/*#6293c8*/
 }
 
-.review:active,.veiw-more button:active {
+.review:active,.view-more button:active {
   letter-spacing: 3px;
   background-color: #7b00ff;/*#6293c8*/
   color: white;
