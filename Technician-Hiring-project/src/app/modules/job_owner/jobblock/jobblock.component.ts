@@ -93,6 +93,10 @@ export class JobblockComponent {
     this.editJob.emit(this.job);
   }*/
 goToDetails() {
-    this.router.navigate(['/jobdetails', this.job.jobpost_id]); 
+    if (this.job?.jobpost_id) {
+    this.router.navigate(['/jobdetails', this.job.jobpost_id]);
+  } else {
+    console.error('❌ لا يمكن الانتقال: jobpost_id غير موجود', this.job);
+  }
 }
 }

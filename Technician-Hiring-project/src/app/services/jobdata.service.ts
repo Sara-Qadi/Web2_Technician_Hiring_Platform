@@ -11,10 +11,10 @@ export class JobDataService {
 
 
 
-  //constructor(private http: HttpClient){}
+  //غconstructor(private http: HttpClient){}
     
   
-  /*getjobposts():Observable<Jobpost[]> {
+  getjobposts():Observable<Jobpost[]> {
     return this.http.get<Jobpost[]>('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/allposts');
   }
   getjobownerjobposts(userid:Number):Observable<Jobpost[]>{
@@ -35,6 +35,15 @@ export class JobDataService {
     }))
   );
   }
+  getPendingJobposts(id:number):Observable<Jobpost[]>{
+    return this.http.get<Jobpost[]>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/pending/${id}`);
+  }
+  getonProgressJobposts(id:number):Observable<Jobpost[]>{
+    return this.http.get<Jobpost[]>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/onprogress/${id}`);
+  }
+  getCompletedJobposts(id:number):Observable<Jobpost[]>{
+    return this.http.get<Jobpost[]>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/completed/${id}`);
+  }
 
   updatethisjobpost(id:Number,jp:FormData):Observable<Jobpost>{
     const token = localStorage.getItem('token');
@@ -50,7 +59,7 @@ export class JobDataService {
     return this.http.get<number>('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/countposts');
   }
 
-  getjobownerjobposts(userid: Number): Observable<Jobpost[]> {
+  /*getjobownerjobposts(userid: Number): Observable<Jobpost[]> {
   return this.http.get<Jobpost[]>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/showuserposts/${userid}`);
 }
 
@@ -72,19 +81,19 @@ deletethisjobpost(id: Number): Observable<any> {
 
 countjobposts(): Observable<number> {
   return this.http.get<number>('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/countposts');
-}
+}*/
   getjobpostsfortech():Observable<Jobpost[]>{
   return this.http.get<Jobpost[]>('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/allPostsforTech');
   }
   updatestatus(id:Number){
     return this.http.put(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/jobpost/updatestatus/${id}`,{});
-  }*/
+  }
   private baseUrl = 'http://127.0.0.1:8000/api';
   private userId: number | null = null;
 
   constructor(private http: HttpClient) {}
 
-  getjobposts(): Observable<Jobpost[]> {
+  /*getjobposts(): Observable<Jobpost[]> {
     return this.http.get<Jobpost[]>(`${this.baseUrl}/jobpost/allposts`);
   }
 
@@ -129,7 +138,7 @@ countjobposts(): Observable<number> {
 
   updatestatus(id: number): Observable<any> {
     return this.http.put(`${this.baseUrl}/jobpost/updatestatus/${id}`, {});
-  }
+  }*/
 
   setUserId(id: number) {
     this.userId = id;

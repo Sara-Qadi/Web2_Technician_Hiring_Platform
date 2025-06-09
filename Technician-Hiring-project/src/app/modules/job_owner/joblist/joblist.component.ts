@@ -21,19 +21,22 @@ export class JobListComponent implements OnInit {
   constructor(private jobpostservice:JobDataService,private profileser:ProfileService,private route: ActivatedRoute) { }
   roleId!: number;
   @Input() userId!: number;
+  @Input() status!: string ;
   jobsarray: Jobpost[] = [];
-
+  loading = false;
   ngOnInit(): void {
+  this.loading = true;
   this.profileser.getroleid(this.userId).subscribe((roleid: number) => {
     this.roleId =roleid;
     console.log('User Role ID:', this.roleId);
+    this.loading = false;
   });
 }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['userId'] && this.userId) {
-      this.loadJobs(this.userId);
-    }
+    if ((changes['userId'] && this.userId) || (changes['status'] && this.status)) {
+    this.loadJobsByStatus(this.status); // حمّلي حسب الحالة
+  }
   }
 
   loadJobs(userId: number) {
@@ -41,6 +44,22 @@ export class JobListComponent implements OnInit {
       next: (data) => this.jobsarray = data,
       error: (err) => console.error('فشل في تحميل الوظائف:', err)
     });
+  }
+ loadJobsByStatus(status: string) {
+    switch (status) {
+      case 'all':
+        this.jobpostservice.getjobownerjobposts(this.userId).subscribe(jobs => this.jobsarray = jobs);
+        break;
+      case 'pending':
+        this.jobpostservice.getPendingJobposts(this.userId).subscribe(jobs => this.jobsarray = jobs);
+        break;
+      case 'in progress':
+        this.jobpostservice.getonProgressJobposts(this.userId).subscribe(jobs => this.jobsarray = jobs);
+        break;
+      case 'completed':
+        this.jobpostservice.getCompletedJobposts(this.userId).subscribe(jobs => this.jobsarray = jobs);
+        break;
+    }
   }
   showPopup = false;
   selectedJobIdToDelete: number | null = null;
