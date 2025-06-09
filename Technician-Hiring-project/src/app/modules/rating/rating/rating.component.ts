@@ -45,7 +45,7 @@ export class RatingComponent implements OnInit {
   submitting = false;
   showModal = false;
 
-  jobpostId: number = 0;
+ 
 
   selectedRating: number | null = null;
 
@@ -120,14 +120,13 @@ loadAverageRating(): void {
 
     const payload = {
       review_to: this.userId,
-      jobpost_id: this.jobpostId,
       rating: this.newReviewStars,
       review_comment: this.newReviewText.trim()
     };
 
     this.reviewService.submitReview(payload).subscribe({
       next: () => {
-        this.loadReviews();  // بعد الإرسال، نحدث قائمة التعليقات
+        this.loadReviews(); 
         this.submitting = false;
         this.newReviewStars = 0;
         this.newReviewText = '';
