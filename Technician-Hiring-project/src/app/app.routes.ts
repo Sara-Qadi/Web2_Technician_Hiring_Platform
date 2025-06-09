@@ -21,7 +21,7 @@ import { HomepageComponent } from './modules/homepage/homepage.component';
 import { JobdetailsComponent } from './modules/job_owner/jobdetails/jobdetails.component';
 import { JobownerprofileComponent } from './modules/job_owner/jobownerprofile/jobownerprofile.component';
 import { RatingComponent } from './modules/rating/rating/rating.component';
-
+import { MybidsComponent } from './modules/technician/mybids/mybids.component';
 import { CompleteJobsComponent } from './modules/technician/complete-jobs/complete-jobs.component';
 
 import { JobInfoPageComponent } from './modules/job_owner/job-info-page/job-info-page.component';
@@ -51,6 +51,7 @@ export const routes: Routes = [
   //{path:'updatejob/:id',component:AddjobComponent},
 
   {path:'allproposals/:id',component:ProposalspageComponent},
+  {path: 'mybids',component: MybidsComponent},
 
   {path:'updatejob',component:AddjobComponent},
   {path:'reviewbids',component:BidlistComponent},

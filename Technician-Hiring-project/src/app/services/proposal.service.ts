@@ -47,9 +47,18 @@ export class ProposalService {
     return this.http.get<Proposal[]>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/proposals/jobpost/accepted/${id}`);
   }
 
+  checkIfUserValidateToSubmitBids(user_id: any, jobpostid: any){
+    return this.http.get(`http://127.0.0.1:8000/api/proposals/checkIfUserValidateToSubmitBids/${user_id}/${jobpostid}`);
+  }
+
   getTechNameById(id: any){
     return this.http.get(`http://127.0.0.1:8000/api/proposals/getTechNameById/${id}`);
   }
+
+  getAllProposalsForTech(id: any){
+    return this.http.get<any[]>(`http://127.0.0.1:8000/api/proposals/getAllProposalsForTech/${id}`);
+  }
+  
 }
 
 
