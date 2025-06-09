@@ -93,3 +93,7 @@
 .bottom-navbar .nav-link.active {
   border-bottom: 2px solid white;
 }
+
+.d-inline-block{
+  cursor: pointer;
+}

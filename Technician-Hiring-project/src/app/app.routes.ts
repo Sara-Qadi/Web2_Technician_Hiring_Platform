@@ -51,7 +51,7 @@ export const routes: Routes = [
   //{path:'updatejob/:id',component:AddjobComponent},
 
   {path:'allproposals/:id',component:ProposalspageComponent},
-  
+
   {path:'updatejob',component:AddjobComponent},
   {path:'reviewbids',component:BidlistComponent},
   {path: 'login',component: LoginPageComponent},
@@ -90,5 +90,5 @@ export const routes: Routes = [
     component: SubmitBidesComponent,
   },
   { path: 'reset-password', component: ResetPasswordComponent },
-  
+
 ];

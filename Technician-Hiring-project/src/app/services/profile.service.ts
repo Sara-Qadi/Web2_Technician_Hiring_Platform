@@ -82,4 +82,13 @@ getroleid(user_id:number): Observable<number> {
   return this.http.get<number>(`http://localhost:8000/api/user/role/${user_id}`);
 }
 
+getProfileByUserId(userId: number): Observable<any> {
+  const token = localStorage.getItem('token') || '';
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`,
+  });
+  return this.http.get(`http://localhost:8000/api/profile/${userId}`, { headers });
+}
+
+
 }

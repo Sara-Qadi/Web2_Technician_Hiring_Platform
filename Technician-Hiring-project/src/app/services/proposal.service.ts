@@ -2,17 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Proposal } from '../models/proposal.model';
+
 import { Jobpost } from '../models/jobpost.model';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProposalService {
-
   constructor(private http: HttpClient) { }
 
-  addProposal(proposal : any,id:number) {
-    return this.http.post(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/proposal/addproposal/${id}`, proposal);
+  addProposal(proposal :any , id:number) {
+    return this.http.post(`http://localhost:8000/api/proposal/addproposal/${id}`, proposal);
+
   }
   showjobproposals(id:number):Observable<Proposal[]>{
     return this.http.get<Proposal[]>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/proposals/jobpost/${id}`);
@@ -48,5 +50,10 @@ export class ProposalService {
   getTechNameById(id: any){
     return this.http.get(`http://127.0.0.1:8000/api/proposals/getTechNameById/${id}`);
   }
-
 }
+
+
+
+
+
+
