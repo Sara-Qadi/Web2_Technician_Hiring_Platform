@@ -81,5 +81,17 @@ updateJO(id: number, data: any): Observable<any> {
 getroleid(user_id:number): Observable<number> {
   return this.http.get<number>(`http://localhost:8000/api/user/role/${user_id}`);
 }
+getAverageRating(userId: number): Observable<any> {
+  return this.http.get<any>(`http://127.0.0.1:8000/api/users/${userId}/average-rating`);
+}
+
+getProfileByUserId(userId: number): Observable<any> {
+  const token = localStorage.getItem('token') || '';
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`,
+  });
+  return this.http.get(`http://localhost:8000/api/profile/${userId}`, { headers });
+}
+
 
 }

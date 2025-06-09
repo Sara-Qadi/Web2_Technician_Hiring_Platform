@@ -36,7 +36,8 @@ import { CommonModule } from '@angular/common';
 import { JobDataService } from '../../../services/jobdata.service';
 import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admin.component';
 import { NavbarAdminComponent } from '../../admin/admin/navbar-admin/navbar-admin.component';
-
+import { ProfileService } from '../../../services/profile.service';
+import { ProposalService } from '../../../services/proposal.service';
 @Component({
   selector: 'app-jobdetails',
   standalone: true,
@@ -50,6 +51,8 @@ export class JobdetailsComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router=inject(Router);
   private dataService = inject(JobDataService);
+  private profileService = inject(ProfileService);
+  private proposalService = inject(ProposalService);
   @Input() showButtons = true;
   @Input() showTitle = true;
   loading= false;
@@ -74,6 +77,28 @@ export class JobdetailsComponent implements OnInit {
   }
 
   gotosubmitbid() {
-  this.router.navigate(['/submit-bid', this.job.jobpost_id]);
+  const id = Number(this.route.snapshot.paramMap.get('id'));
+  this.profileService.getUser().subscribe({
+    next: (res) => {
+      this.proposalService.checkIfUserValidateToSubmitBids(res.user_id, id).subscribe({
+      next: (response: any) => {
+        if (response.canSubmit) {
+          console.log('✅ User validated to submit bid:', response);
+          this.router.navigate(['/submit-bid', this.job.jobpost_id]);
+        }
+        else {
+          alert('❌ You have already submitted a proposal for this job.');
+        }
+      },
+    error: (err) => {
+      console.error('❌ Error validating user for bid:', err);
+    }
+  });
+  },
+  error: (err) => {
+    console.error('❌ Error loading user:', err);
   }
+  });
+}
+
 }

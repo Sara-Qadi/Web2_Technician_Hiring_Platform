@@ -22,6 +22,7 @@ interface ReviewPayload {
 interface UserReviewsResponse {
   userName: string;
   reviews: Review[];
+   average_rating: number;
 }
 
 @Injectable({
@@ -33,20 +34,25 @@ export class ReviewService {
   constructor(private http: HttpClient) {}
 
   submitReview(payload: ReviewPayload): Observable<any> {
-    const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token');
 
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Accept': 'application/json'
-    });
+  console.log('Payload to be sent:', payload); // ✅ اطبع البايلود لتتأكد
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`,
+    'Accept': 'application/json'
+  });
 
-    return this.http.post(`${this.apiUrl}/reviews`, payload, {
-      headers: headers
-    });
-  }
+  return this.http.post(`${this.apiUrl}/reviews`, payload, {
+    headers: headers
+  });
+}
 
   getReviewsForUser(userId: number): Observable<UserReviewsResponse> {
     return this.http.get<UserReviewsResponse>(`${this.apiUrl}/users/${userId}/reviews`);
   }
+  getUserAverageRating(userId: number): Observable<{ average_rating: number }> {
+  return this.http.get<{ average_rating: number }>(`${this.apiUrl}/users/${userId}/average-rating`);
+}
+
 }
 

@@ -18,4 +18,7 @@ export class SubmissionService {
   rejectproposal(id:number):Observable<Proposal>{
     return this.http.put<Proposal>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/submission/reject/${id}`,{})
   }
+
+  
+
 }
