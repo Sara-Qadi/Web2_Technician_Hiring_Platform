@@ -16,10 +16,20 @@
           class="form-control custom-search-input"
         />
       </label>
-      <button (click)="applySearch()" (keyup.enter)="applySearch()" class="btn" style="background: linear-gradient(135deg, #7b00ff, #17031b); 
-      color: white; font-size: medium;">
-        Search
-      </button>
+      <div class="neon-button-wrapper">
+    <button 
+      (click)="applySearch()" 
+      (keyup.enter)="applySearch()" 
+      class="neon-button">
+      Search
+      <div class="neon-button-borders">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+</div>
     </div>
   </div>
 </div>

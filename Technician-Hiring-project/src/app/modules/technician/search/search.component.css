@@ -1,3 +1,103 @@
+.neon-button-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.neon-button {
+  background: linear-gradient(135deg, #7b00ff, #17031b);
+  color: white;
+  font-size: medium;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.4s ease;
+  z-index: 1;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.neon-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px #7b00ff, 0 0 24px rgba(123, 0, 255, 0.5);
+}
+
+.neon-button:focus {
+  outline: none;
+  box-shadow: 0 0 12px #7b00ff, 0 0 24px rgba(123, 0, 255, 0.5);
+}
+
+.neon-button::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(123, 0, 255, 0.3), transparent);
+  opacity: 0;
+  filter: blur(8px);
+  transition: opacity 0.4s ease;
+  z-index: -1;
+}
+
+.neon-button:hover::before,
+.neon-button:focus::before {
+  opacity: 1;
+}
+
+.neon-button-borders {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.neon-button-borders span {
+  position: absolute;
+  background: #7b00ff;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.neon-button:hover .neon-button-borders span,
+.neon-button:focus .neon-button-borders span {
+  opacity: 1;
+}
+
+.neon-button-borders span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 40px;
+  height: 1px;
+  animation: borderFlow1 2s linear infinite;
+}
+
+.neon-button-borders span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 1px;
+  height: 40px;
+  animation: borderFlow2 2s linear infinite;
+}
+
+.neon-button-borders span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 40px;
+  height: 1px;
+  animation: borderFlow3 2s linear infinite;
+}
+
+.neon-button-borders span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 1px;
+  height: 40px;
+  animation: borderFlow4 2s linear infinite;
+}
+
 .custom-search-wrapper {
     width: 100%;
     max-width: 280px;
