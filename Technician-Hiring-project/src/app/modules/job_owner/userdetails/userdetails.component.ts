@@ -10,7 +10,7 @@ import { MessagingService } from '../../../services/messaging.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule,RouterLink],
   templateUrl: './userdetails.component.html',
-  styleUrl: './userdetails.component.css',
+  styleUrls: ['./userdetails.component.css'],
 })
 export class UserdetailsComponent implements OnInit {
   profileForm!: FormGroup;
@@ -20,6 +20,7 @@ export class UserdetailsComponent implements OnInit {
   userId!: number;
   @Input() showowner: boolean = true;
   @Input() showartisan: boolean = false;
+  @Input() isOwnProfile: boolean = false;
   userData: any;
   loading = false;
   constructor(
@@ -48,7 +49,6 @@ averageRating: number = 0;
       country: [''],
       description: [''],
       photo: [null],
-      rating:[0]
     });
   }
   loadUserProfile(userId: number) {
@@ -79,12 +79,8 @@ averageRating: number = 0;
   }
 
   toggleEdit(): void {
-    // إعادة القيم الأصلية إلى الفورم
-    if (this.userData) {
-      this.profileForm.patchValue(this.userData);
-      this.loadUserProfile(this.userId);
-    }
-    this.editMode = !this.editMode;
+      this.editMode = !this.editMode;
+      
   }
 
   onImageSelected(event: any) {
@@ -115,15 +111,15 @@ averageRating: number = 0;
       console.log('Updated Profile:', this.profileForm.value);
       this.profileService.updateJO(this.userId, this.profileForm.value).subscribe({
         next: () => {
-          alert('✅ تم تحديث الملف الشخصي بنجاح');
+          alert('PROFILE UPDATED SUCCESSFULLY!!');
           this.router.navigate(['/jobowner', this.userId]);
         },
         error: err => {
           console.error('Error updating profile:', err);
-          alert('❌ فشل تحديث الملف الشخصي');
+          alert('Error updating profile');
         }
       });
-      this.editMode = false;
+      this.toggleEdit();
     }
   }
   gotomessage() {

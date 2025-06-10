@@ -57,6 +57,7 @@ getUserById(userId: number) {
   });
 }
 
+
 updateProfile(data: any, photoFile?: File | null, cvFile?: File | null): Observable<any> {
   const token = localStorage.getItem('token') || '';
   const headers = new HttpHeaders({

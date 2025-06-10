@@ -6,8 +6,18 @@
         </svg>
       </div>
 <div class="my-5 container" *ngIf="!loading">
-  <p>Number of proposals: {{JOproposals}}</p>
-  <p>Number of jobs that received proposals: {{jobnumber}}</p>
+  <div class="d-flex gap-3 my-3 num">
+  <div class="card text-center p-3 shadow-sm flex-fill">
+    <h5 class="mb-2">Number of proposals</h5>
+    <p class="display-5 mb-0">{{JOproposals}}</p>
+  </div>
+
+  <div class="card text-center p-3 shadow-sm flex-fill">
+    <h5 class="mb-2">Jobs with proposals</h5>
+    <p class="display-5 mb-0">{{jobnumber}}</p>
+  </div>
+</div>
+
 
   <!-- Tabs -->
   <div class="nav nav-tabs mb-4 custom-tabs">
