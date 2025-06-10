@@ -4,10 +4,10 @@ import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admi
 import { ProposalService } from '../../../services/proposal.service';
 import { ProfileService } from '../../../services/profile.service';
 import { CommonModule } from '@angular/common';
-
+import { JobsummaryComponent } from '../../job_owner/jobsummary/jobsummary.component';
 @Component({
   selector: 'app-mybids',
-  imports: [NavbarAdminComponent , FooterAdminComponent, CommonModule],
+  imports: [NavbarAdminComponent , FooterAdminComponent, CommonModule , JobsummaryComponent],
   templateUrl: './mybids.component.html',
   styleUrl: './mybids.component.css'
 })

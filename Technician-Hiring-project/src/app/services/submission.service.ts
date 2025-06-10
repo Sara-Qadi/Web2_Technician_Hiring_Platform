@@ -8,17 +8,19 @@ import { Proposal } from '../models/proposal.model';
 })
 export class SubmissionService {
 
-  constructor(private http:HttpClient) {}
+  private baseUrl = 'http://127.0.0.1:8000/api';
 
-  acceptproposal(id:number):Observable<Proposal>{
+  constructor(private http: HttpClient) {}
+
+  acceptproposal(id: number): Observable<Proposal> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.put<Proposal>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/submission/accept/${id}`,{}, { headers });
-  }
-  rejectproposal(id:number):Observable<Proposal>{
-    return this.http.put<Proposal>(`http://localhost/BackEnd-Technician-Hiring-Platform/public/api/submission/reject/${id}`,{})
+    return this.http.put<Proposal>(`${this.baseUrl}/submission/accept/${id}`, {}, { headers });
   }
 
-  
-
+  rejectproposal(id: number): Observable<Proposal> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put<Proposal>(`${this.baseUrl}/submission/reject/${id}`, {}, { headers });
+  }
 }
