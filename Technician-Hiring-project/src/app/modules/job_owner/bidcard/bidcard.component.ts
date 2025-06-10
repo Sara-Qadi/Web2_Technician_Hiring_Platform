@@ -21,15 +21,15 @@ export class BidcardComponent implements OnInit {
   
 
   constructor(
-    private subservice: SubmissionService,
-    private proposalService: ProposalService,
-    private route: ActivatedRoute,
-    private notificationService: NotificationService,
-
-    private jobdataService: JobDataService, 
-    private mesagingService: MessagingService,
-    private router: Router
-  ) {}
+  private subservice: SubmissionService,
+  private proposalService: ProposalService,
+  private route: ActivatedRoute,
+  private notificationService: NotificationService,
+  private jobdataService: JobDataService, 
+  private mesagingService: MessagingService,
+  private router: Router,
+  private profilemodalservice: ProfileModalService
+) {}
 
   ngOnInit(): void {
   this.route.url.subscribe(segments => {
@@ -40,8 +40,6 @@ export class BidcardComponent implements OnInit {
 }
 
 
-    private profilemodalservice:ProfileModalService
-  ) {}
   openProfileModal(techId: number) {
   this.profilemodalservice.openOUTModal(techId);
 }
