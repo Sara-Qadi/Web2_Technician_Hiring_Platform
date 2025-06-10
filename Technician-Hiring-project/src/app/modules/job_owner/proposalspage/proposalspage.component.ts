@@ -79,7 +79,7 @@ export class ProposalspageComponent implements OnInit {
       error: (err) => console.error('فشل في تحميل الاقتراحات المعلقة:', err)
     });
  
-
+    console.log('count' , this.jobnumber)
   });
 
 }
