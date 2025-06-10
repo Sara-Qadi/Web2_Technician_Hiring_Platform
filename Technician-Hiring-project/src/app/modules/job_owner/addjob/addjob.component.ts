@@ -112,23 +112,31 @@ export class AddjobComponent implements OnInit {
       this.jobService.updatethisjobpost(this.jobId, formData).subscribe({
         next: () => {
           console.log(formData);
-          alert("✅ تم تعديل الوظيفة بنجاح");
+          alert("JOBPOST UPDATED SUCCESSFULLY!!");
           this.router.navigate(['/jobowner', this.userId]);
         },
         error: (err) => {
-          console.error(err);
-          alert("❌ فشل تعديل الوظيفة");
+          if (err.status === 403 && err.error?.message === 'Unauthorized') {
+            console.error('Unauthorized: Only jobowners and admins can update jobposts.');
+            alert('Only jobowners and admins are allowed to update jobposts.');
+          } else {
+            console.error('Error adding jobpost:', err);
+          }
         }
       });
     } else {
       this.jobService.addjobpost(formData).subscribe({
         next: () => {
-          alert("✅ تمت إضافة الوظيفة بنجاح");
+          alert("JOBPOST ADDED SUCCESSFULLY!!");
           this.router.navigate(['/jobowner', this.userId]);
         },
         error: (err) => {
-          console.error(err);
-          alert("❌ فشل إضافة الوظيفة");
+          if (err.status === 403 && err.error?.message === 'Unauthorized') {
+            console.error('Unauthorized: Only jobowners can add jobposts.');
+            alert('Only jobowners are allowed to add jobposts.');
+          } else {
+            console.error('Error adding jobpost:', err);
+          }
         }
       });
     }

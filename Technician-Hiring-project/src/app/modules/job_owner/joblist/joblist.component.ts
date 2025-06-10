@@ -24,11 +24,26 @@ export class JobListComponent implements OnInit {
   @Input() status!: string ;
   jobsarray: Jobpost[] = [];
   loading = false;
+  currentUserId!: number;
   ngOnInit(): void {
   this.loading = true;
-  this.profileser.getroleid(this.userId).subscribe((roleid: number) => {
-    this.roleId =roleid;
-    console.log('User Role ID:', this.roleId);
+
+  this.profileser.getUser().subscribe(user => {
+    this.currentUserId = user.user_id;
+    console.log('Current User ID:', this.currentUserId);
+
+    this.profileser.getroleid(this.userId).subscribe((roleid: number) => {
+      this.roleId = roleid;
+      console.log('User Role ID:', this.roleId);
+      this.loading = false;
+
+      // ✅ تحميل الوظائف عند أول تشغيل إن توفرت البيانات
+      if (this.userId && this.status) {
+        this.loadJobsByStatus(this.status);
+      }
+    });
+  }, error => {
+    console.error('فشل في جلب المستخدم الحالي:', error);
     this.loading = false;
   });
 }
@@ -46,6 +61,7 @@ export class JobListComponent implements OnInit {
     });
   }
  loadJobsByStatus(status: string) {
+  if (!this.userId) return;
     switch (status) {
       case 'all':
         this.jobpostservice.getjobownerjobposts(this.userId).subscribe(jobs => this.jobsarray = jobs);
