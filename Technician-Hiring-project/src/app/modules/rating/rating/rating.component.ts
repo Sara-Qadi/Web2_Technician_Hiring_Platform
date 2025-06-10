@@ -113,31 +113,36 @@ loadAverageRating(): void {
     this.newReviewStars = stars;
   }
 
-  submitReview() {
-    if (!this.newReviewStars || !this.newReviewText.trim()) return;
+ submitReview() {
+  if (!this.newReviewStars || !this.newReviewText.trim()) return;
 
-    this.submitting = true;
+  this.submitting = true;
 
-    const payload = {
-      review_to: this.userId,
-      rating: this.newReviewStars,
-      review_comment: this.newReviewText.trim()
-    };
+  const payload = {
+    review_to: this.userId,
+    rating: this.newReviewStars,
+    review_comment: this.newReviewText.trim()
+  };
 
-    this.reviewService.submitReview(payload).subscribe({
-      next: () => {
-        this.loadReviews(); 
-        this.submitting = false;
-        this.newReviewStars = 0;
-        this.newReviewText = '';
-        this.closeModal();
-      },
-      error: (err) => {
-        console.error('fail', err);
-        this.submitting = false;
-      }
-    });
-  }
+  this.reviewService.submitReview(payload).subscribe({
+    next: () => {
+      this.loadReviews(); 
+      this.submitting = false;
+      this.newReviewStars = 0;
+      this.newReviewText = '';
+      this.closeModal();
+      alert('The review was sent successfully');
+    },
+    error: (err) => {
+      console.error('fail', err);
+      this.submitting = false;
+
+      const msg = err?.error?.message || 'error!';
+      alert('❌ ' + msg);
+    }
+  });
+}
+
 
   markHelpful(r: Review) {
     r.helpful++;

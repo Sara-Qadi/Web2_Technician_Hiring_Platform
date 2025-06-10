@@ -7,6 +7,7 @@ import { NotificationService } from '../../../services/notification.service';
 import { CommonModule } from '@angular/common';
 import { JobDataService } from '../../../services/jobdata.service';
 import { MessagingService } from '../../../services/messaging.service';
+import { ProfileModalService } from '../../../services/profile-modal.service';
 
 @Component({
   selector: 'app-bidcard',
@@ -24,6 +25,7 @@ export class BidcardComponent implements OnInit {
     private proposalService: ProposalService,
     private route: ActivatedRoute,
     private notificationService: NotificationService,
+
     private jobdataService: JobDataService, 
     private mesagingService: MessagingService,
     private router: Router
@@ -37,6 +39,12 @@ export class BidcardComponent implements OnInit {
   });
 }
 
+
+    private profilemodalservice:ProfileModalService
+  ) {}
+  openProfileModal(techId: number) {
+  this.profilemodalservice.openOUTModal(techId);
+}
   acceptProposal(id: number): void {
     this.subservice.acceptproposal(id).subscribe({
       next: () => {

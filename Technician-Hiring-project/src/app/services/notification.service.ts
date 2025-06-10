@@ -34,4 +34,8 @@ getNotifications(userId: number): Observable<Notification[]> {
   deleteNotification(notificationId: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${notificationId}`);
   }
+  getUnreadNotifications(userId: number): Observable<Notification[]> {
+  return this.http.get<Notification[]>(`${this.baseUrl}/${userId}/unread`);
+}
+
 }

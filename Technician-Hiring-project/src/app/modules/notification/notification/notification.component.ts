@@ -135,7 +135,8 @@ handleNotificationClick(notification: Notification): void {
 }
 
 openModalIfAllowed(): void {
-  if (this.userRole === 3) {
+  if (this.userRole === 3&& this.userId) { 
+    this.modalService.openOUTModal(this.userId);
     this.modalService.openModal();
   } else {
     console.warn('User does not have permission to open modal');

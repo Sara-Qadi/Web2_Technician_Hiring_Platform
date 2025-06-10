@@ -35,7 +35,7 @@ export class ReviewService {
   submitReview(payload: ReviewPayload): Observable<any> {
   const token = localStorage.getItem('token');
 
-  console.log('Payload to be sent:', payload); // ✅ اطبع البايلود لتتأكد
+  console.log('Payload to be sent:', payload); 
   const headers = new HttpHeaders({
     'Authorization': `Bearer ${token}`,
     'Accept': 'application/json'
