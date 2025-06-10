@@ -15,7 +15,7 @@ export class AuthService {
       .post<any>(`${this.apiUrl}/login`, { email, password })
       .pipe(
         tap((res) => {
-          localStorage.setItem('token', res.token); //  تخزين التوكن
+          localStorage.setItem('token', res.token); // تخزين التوكن
         })
       );
   }
@@ -31,7 +31,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
   }
-  
+
   sendResetLink(email: string) {
     return this.http.post<{ message: string }>(
       `${this.apiUrl}/forgot-password`,

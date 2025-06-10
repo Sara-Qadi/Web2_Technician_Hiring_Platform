@@ -31,19 +31,6 @@ export class LoginPageComponent {
     });
   }
 
-  // onSubmit() {
-  //   if (this.loginForm.valid) {
-  //     const email = this.loginForm.value.email;
-  //     const password = this.loginForm.value.password;
-
-  //     console.log('Login successful! Email:', email);
-  //     // هون بس تحققت انه الفورم صحيح
-  //     //عملية التوجيه  للداشبورد رح تتم لاحقا لما نربط مع الباك اند
-
-  //     console.log('Form is valid, but no navigation yet');
-  //     //this.router.navigate(['/']);
-  //   }
-  // }
   onSubmit() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
@@ -51,11 +38,11 @@ export class LoginPageComponent {
       this.authService.login(email, password).subscribe({
         next: (res) => {
           console.log('Login successful!', res);
-          this.router.navigate(['/']); // أو أي صفحة بدك تحول لها
+          this.router.navigate(['/']); 
         },
         error: (err) => {
           console.error('Login failed:', err);
-          // اعرض رسالة خطأ للمستخدم لو بدك
+          
           this.loginError = 'The email or password is incorrect.';
         },
       });
@@ -71,6 +58,6 @@ export class LoginPageComponent {
   }
 
   onInputChange() {
-    this.loginError = null; // تمسح رسالة الخطأ لما المستخدم يبدأ يكتب
+    this.loginError = null; 
   }
 }

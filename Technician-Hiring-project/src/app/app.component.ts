@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { SearchComponent } from './modules/technician/search/search.component';
@@ -10,22 +10,30 @@ import { ProfileEditComponent } from './modules/technician/profile-edit/profile-
 import { JobListComponent } from './modules/job_owner/joblist/joblist.component';
 import { AnalyticsComponent } from './modules/reports/analytics.component';
 
-
-
 @Component({
   selector: 'app-root',
 
-  imports: [RouterOutlet, NotificationComponent, NotificationDropdownComponent, ProfileComponent, ProfileEditComponent,JobListComponent,AnalyticsComponent,
-            CommonModule , SearchComponent , SubmitBidesComponent , RouterOutlet ],
-
+  imports: [
+    RouterOutlet,
+    NotificationComponent,
+    NotificationDropdownComponent,
+    ProfileComponent,
+    ProfileEditComponent,
+    JobListComponent,
+    AnalyticsComponent,
+    CommonModule,
+    SearchComponent,
+    SubmitBidesComponent,
+    RouterOutlet,
+  ],
 
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'Technician-Hiring-project';
   constructor(private router: Router) {
-    this.router.events.subscribe(event => {
+    this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const currentUrl = this.router.url.split(/[?#]/)[0].replace(/\/+$/, '');
         const authRoutes = [
@@ -39,9 +47,13 @@ export class AppComponent {
         const isAuthRoute = authRoutes.includes(currentUrl);
         document.body.classList.toggle('with-navbar', !isAuthRoute);
 
-        console.log('Normalized URL:', currentUrl, '| Auth Route:', isAuthRoute);
+        console.log(
+          'Normalized URL:',
+          currentUrl,
+          '| Auth Route:',
+          isAuthRoute
+        );
       }
     });
-
   }
 }

@@ -74,23 +74,6 @@ export class SignUpComponent implements OnInit {
     return pass === confirm ? null : { passwordMismatch: true };
   }
 
-  // On Submit
-  // onSubmit(): void {
-  //   this.submitted = true;
-
-  //   if (this.signUpForm.valid) {
-  //     const data = {
-  //       ...this.signUpForm.value,
-  //       role: this.role,
-  //     };
-
-  //     console.log('✅ Form Submitted:', data);
-  //     this.router.navigate(['/login']);
-  //   } else {
-  //     console.warn('❌ Form is invalid');
-  //   }
-  // }
-
   registerError: string | null = null;
   backendErrors: any = {};
 
@@ -107,13 +90,13 @@ export class SignUpComponent implements OnInit {
         phone: formValue.phone,
         password: formValue.password,
         country: formValue.country,
-        role_id: this.role === 'technician' ? 3 : this.role === 'admin' ? 1 : 2, // fallback إلى job owner
+        role_id: this.role === 'technician' ? 3 : this.role === 'admin' ? 1 : 2, 
       };
 
       this.authService.register(data).subscribe({
         next: (res) => {
           localStorage.setItem('token', res.token);
-          console.log('Registered successfully! Token:', res.token); // 💥 هذا السطر يطبع التوكن
+          console.log('Registered successfully! Token:', res.token); 
            this.router.navigate(['/']);
 
         },
