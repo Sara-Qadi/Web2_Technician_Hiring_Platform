@@ -17,16 +17,12 @@
   
 <small class="text-muted">Choose a report from the list below:</small>
 
-  <select [(ngModel)]="selectedTable" class="form-select">
-    <option [ngValue]="''" disabled hidden>Select a report</option>
-    <option [ngValue]="'jobCompletion'">Job Completion Report</option>
-    <option [ngValue]="'earnings'">Earnings Report</option>
-    <option [ngValue]="'topRated'">Top Rated Artisans Report</option>
-    <option [ngValue]="'lowPerformance'">Low Performance Users Report</option>
-    <option [ngValue]="'monthlyActivity'">Monthly Activity Report</option>
-    <option [ngValue]="'locationDemand'">Location Based Demand Report</option>
-    <option [ngValue]="'topFinishers'">top Finishers Report</option>
-  </select>
+<select [(ngModel)]="selectedTable" class="form-select">
+  <option [ngValue]="''" disabled hidden>Select a report</option>
+  <option *ngFor="let option of filteredOptions" [ngValue]="option.value">
+    {{ option.label }}
+  </option>
+</select>
 
 
 
