@@ -67,4 +67,9 @@ export class ProposalService {
   getAllProposalsForTech(id: any) {
     return this.http.get<any[]>(`${this.baseUrl}/proposals/getAllProposalsForTech/${id}`);
   }
+
+  getJobownerDataByProposalId(proposalId: any): Observable<any> {
+  return this.http.get<any>(`${this.baseUrl}/proposals/jobpost/getJobownerDataByProposalId/${proposalId}`);
+  }
+
 }
