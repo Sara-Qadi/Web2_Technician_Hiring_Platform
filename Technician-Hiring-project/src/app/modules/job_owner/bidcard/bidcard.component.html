@@ -7,8 +7,6 @@
         <div class="fs-6 fw-semibold bidname">{{ bid.tech_name }}</div>
         <div class="d-flex gap-3 text-muted small">
            <span><i class="fas fa-star text-warning"></i> {{ bid.rating }}</span>
-          <!--<span>{{ bid.completejobs }} jobs completed</span>-->
-          <!--<span>{{ bid.completejobs }} jobs completed</span> -->
            <span class="text-capitalize"> {{ bid.country }}</span>
         </div>
       </div> 
@@ -22,7 +20,7 @@
     <button class="btn btn-sm accept" (click)="acceptProposal(bid.id)"><i class="fas fa-check-circle me-1"></i>Accept bid</button>
   </div>
   <div class="d-flex justify-content-end align-items-center gap-2" *ngIf="bid.status_agreed === 'accepted'">
-    <button class="btn btn-sm message" (click)="messageTheTech()" ><i class="fas fa-comment-dots me-1"></i>Message</button> 
+    <button  class="btn btn-sm message" (click)="messageTheTech()" *ngIf="!router.url.includes('/allproposals')"><i class="fas fa-comment-dots me-1"></i> Message</button>
     <span class="accepted"><i class="fas fa-check-circle me-1"></i> Accepted</span>
   </div>
   <div class="d-flex justify-content-end align-items-center gap-2" *ngIf="bid.status_agreed === 'rejected'">

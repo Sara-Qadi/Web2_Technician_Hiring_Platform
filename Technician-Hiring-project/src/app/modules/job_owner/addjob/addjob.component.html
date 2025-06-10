@@ -25,8 +25,9 @@
         <option value="Mechanic">Mechanic</option>
         <option value="Welder">Welder</option>
         <option value="Tiler">Tiler</option>
-        <option value="ACTechnician">AC Technician</option>
-        <option value="SecurityCameraInstaller">Security Camera Installer</option>
+        <option value="AC Technician">AC Technician</option>
+        <option value="Security Camera Installer">Security Camera Installer</option>
+        <option value="Other">Other</option>
       </select>
       <div class="text-danger warning">
         @if(addJobForm.controls['category'].errors?.['required']&& addJobForm.controls['category'].touched){
@@ -105,13 +106,9 @@
     <div class="col-12 mb-2" id="Attachments">
       <p>Attachments (Optional)</p>
       <label for="inputAttachments" class="form-label mb-3" id="AttachmentsLabel">
-        <div class="icon">
-          <i class="fa-solid fa-file-arrow-up fa-xl"></i>
-        </div>
-        <div class="Attachmentcontent mt-3" >
-          <p>Drag & drop files here, or click to select files</p>
+        <div class="Attachmentcontent mt-1" >
           <span>Supports: Images (JPG, PNG) and PDF files</span>
-          <input type="file" class="form-control"  name="attachments" id="inputAttachments" (change)="onFileChange($event)"  multiple><!--formControlName="attachments" -->
+          <input type="file" class="form-control col-12"  name="attachments" id="inputAttachments" (change)="onFileChange($event)"  multiple><!--formControlName="attachments" -->
         </div>
       </label> 
     </div> 

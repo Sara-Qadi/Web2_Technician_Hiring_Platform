@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { JobDataService } from '../../../services/jobdata.service';
 import { Jobpost } from '../../../models/jobpost.model'; 
+import { ProfileService } from '../../../services/profile.service';
 declare var bootstrap: any;
 @Component({
   selector: 'app-jobblock',
@@ -14,7 +15,7 @@ declare var bootstrap: any;
   styleUrls: ['./jobblock.component.css']
 })
 export class JobblockComponent {
-  constructor(private router:Router,private route:ActivatedRoute){}
+  constructor(private router:Router,private route:ActivatedRoute,private profileservice:ProfileService){}
   private jobService = inject(JobDataService);
   selectedJob: any = null;
   @Output() editJob = new EventEmitter<Jobpost>();
@@ -33,33 +34,28 @@ export class JobblockComponent {
   extractFileName(url: string): string {
     return url.split('/').pop() || 'Attachment';
   }
-
+  canEdit = false;
+  @Input() currentUserId!: number;
   //ارسل الايفنت اللي صار للكارد ليست
  
+  ngOnInit(): void {
+  this.canEdit = this.job.user_id === this.userId;
+  console.log('Current User ID:', this.currentUserId);
+  console.log('Job User ID:', this.job.user_id); 
+  console.log('Can Edit:', this.canEdit);
+}
   onDeleteClick()
   {
-    //this.deleteRequest.emit({ jobId: this.job.id, index: this.job.index });
     this.deleteRequest.emit(this.job.jobpost_id); // أو job.id حسب التسمية
 
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['job']) {
-      // سيتم تحديث البيانات المعروضة على الكارد عندما تتغير
       this.job = changes['job'].currentValue;
     }
   }
 
-  //شكل الكارد للجوباونر
-  /*jobowner()
-  {
-    this.role='jobowner';
-  }*/
-  //شكل الكارد للارتيزن
-  /*artisan()
-  {
-    this.role='artisan';
-  }*/
   openConfirmation() {
     const modal = new bootstrap.Modal(document.getElementById('statusModal'));
     modal.show();
@@ -80,23 +76,16 @@ export class JobblockComponent {
   toreview(){
     this.router.navigate(['/reviewbids',this.job.jobpost_id]);
   }
-  /*toupdate(){
-    this.router.navigate(['/updatejob']);
-  }
-  onEditClick() {
-  
-}*/
+
  emitEditJob() {
     this.editJob.emit(this.job);
   }
-  /*onEditClick() {
-    this.editJob.emit(this.job);
-  }*/
+  
 goToDetails() {
     if (this.job?.jobpost_id) {
     this.router.navigate(['/jobdetails', this.job.jobpost_id]);
   } else {
-    console.error('❌ لا يمكن الانتقال: jobpost_id غير موجود', this.job);
+    console.error(' لا يمكن الانتقال: jobpost_id غير موجود', this.job);
   }
 }
 }
