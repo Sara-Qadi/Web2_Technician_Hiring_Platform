@@ -57,7 +57,8 @@
 
     <div class="col-12 mb-2">
       <label for="inputLocation" class="form-label mb-3">Location</label>
-      <select id="inputLocation" class="form-select" aria-label="Default select example" formControlName="location">
+          <input type="text" formControlName="location" class="form-control" id="inputLocation" placeholder="e.g., New York City">
+      <!--<select id="inputLocation" class="form-select" aria-label="Default select example" formControlName="location">
         <option disabled selected>Open this select menu</option>
         <option value="Nablus">Nablus</option>
         <option value="Tulkarm">Tulkarm</option>
@@ -70,7 +71,7 @@
         <option value="Bethlehem">Bethlehem</option>
         <option value="Ramallah">Ramallah</option>
         <option value="Gaza">Gaza</option>
-      </select>
+      </select>-->
       <div class="text-danger warning">
         @if(addJobForm.controls['location'].errors?.['required']&& addJobForm.controls['location'].touched){
           <span>This field is Required</span>

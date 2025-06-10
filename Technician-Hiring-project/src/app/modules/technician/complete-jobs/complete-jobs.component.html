@@ -10,16 +10,73 @@
   </div>
 
 
-<div *ngIf="completedJobs.length > 0;">
-  <div *ngFor="let job of completedJobs" class="job-card">
-    <h3>{{ job.title }}</h3>
-    <p><strong>Category:</strong> {{ job.category }}</p>
-    <p><strong>Posted By:</strong> {{ job.user_name }}</p>
-    <p><strong>Location:</strong> {{ job.location }}</p>
-    <p><strong>Status:</strong> {{ job.status }}</p>
+<div *ngIf="completedJobs.length > 0" class="row g-3">
+  <div *ngFor="let job of completedJobs" class="col-12 col-md-6 col-lg-4">
+    <div class="card position-relative" style="width: 300px; height: 280px;">
+      <div class="before-effect">
+        <p class="card-title d-flex justify-content-between align-items-center text-capitalize">
+          {{ job.title }}
+        </p>
+
+        <div class="small-desc d-flex flex-column gap-4">
+          <div class="categ-loc d-flex justify-content-between">
+            <div class="category d-flex align-items-center gap-2">
+              <i [ngClass]="{
+                'fa-hammer': job.category === 'Carpenter',
+                'fa-droplet': job.category === 'Plumber',
+                'fa-bolt': job.category === 'Electrician',
+                'fa-brush': job.category === 'Painter',
+                'fa-trowel-bricks': job.category === 'Mason' || job.category === 'Tiler',
+                'fa-people-roof': job.category === 'Roofing',
+                'fa-screwdriver-wrench': job.category === 'Mechanic',
+                'fa-weight-hanging': job.category === 'Welder',
+                'fa-wind': job.category === 'ACTechnician',
+                'fa-shield-halved': job.category === 'CameraInstaller'
+              }" class="fa-solid" style="color:#555;"></i>
+              <span class="text-capitalize">{{ job.category }}</span>
+            </div>
+            <div class="location d-flex align-items-center gap-2">
+              <i class="fa-solid fa-location-dot" style="color:#ea4335;"></i>
+              <span>{{ job.location }}</span>
+            </div>
+          </div>
+
+          <div class="budget-status d-flex justify-content-between">
+            <div class="budget d-flex align-items-center gap-2">
+              <i class="fa-solid fa-money-check-dollar" style="color:#3e9c35;"></i>
+              <span>{{ job.minimum_budget }}$ - {{ job.maximum_budget }}$</span>
+            </div>
+            <div class="status d-flex align-items-center gap-2 text-capitalize">
+              <i class="fa-solid fa-check-circle" style="color:#28a745;"></i>
+              <span>{{ job.status }}</span>
+            </div>
+          </div>
+
+          <div class="desc mb-2 mt-1">
+            <h4 class="title">Description</h4>
+            <p>{{ job.description }}</p>
+          </div>
+        </div>
+
+
+
+</div>
+  <div  class="after-effect">
+    <div class="encourage">
+      <span>Wanna rate the Job Onwer?</span>
+    </div>
+    <div class="view-more">
+      <button (click)="gotoOwnerProfile(job.user_id)">Go to his Profile</button>
+    </div>
+  </div>
+  <div class="go-corner">
+    <div class="go-arrow"><i class="fa-solid fa-arrow-right fa-fade" style="color: #ffffff;"></i></div>
+  </div>
+    </div>
   </div>
 </div>
 </div>
+
 
 <app-footer-admin></app-footer-admin>
 </div>

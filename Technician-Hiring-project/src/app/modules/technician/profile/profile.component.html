@@ -1,9 +1,7 @@
-<div *ngIf="showProfileModal && role === 3" class="modal-overlay"  (click)="closeProfileModal()">
-
+<div *ngIf="showProfileModal " class="modal-overlay"  (click)="closeProfileModal()">
   <div class="modal-content"     (click)="$event.stopPropagation()">
     <button class="close-btn" (click)="closeProfileModal()">×</button>
-
-    <!-- ✅ Edit Button on top, after creation only -->
+    <!-- :white_check_mark: Edit Button on top, after creation only -->
     <div *ngIf="!showCreateForm && profile" class="edit-button-container">
       <button class="edit-btn" (click)="openEditProfileModal()">Edit Profile</button>
     </div>
@@ -50,16 +48,16 @@
     <!-- Profile Details -->
     <div *ngIf="!showCreateForm && profile">
       <p><strong>Specialty:</strong> {{ profile.specialty || 'N/A' }}</p>
-      <p class="clickable-rating" routerLink="/rating/rating">
+      <p class="clickable-rating" [routerLink]="['/rating', userId]">
         <strong>Rating:</strong>
         <ng-container *ngFor="let star of [1,2,3,4,5]">
-          <span [class.filled]="star <= (profile.rating || 0)">&#9733;</span>
+          <span [class.filled]="star <= (averageRating || 0)">&#9733;</span>
         </ng-container>
-        ({{ profile.rating || 0 }}/5)
+        ({{ averageRating.toFixed(2) }}/5)
       </p>
       <p>{{ profile.description || 'No description available.' }}</p>
       <a *ngIf="profile.cv" [href]="'/storage/' + profile.cv" target="_blank" class="cv-link" download>
-        📄 Download My CV
+        :page_facing_up: Download My CV
       </a>
       <br />
       <button class="view-jobs-btn" routerLink="/technician/completed-jobs">

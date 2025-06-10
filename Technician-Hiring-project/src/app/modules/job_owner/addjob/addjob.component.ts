@@ -75,6 +75,21 @@ export class AddjobComponent implements OnInit {
       this.addJobForm.markAllAsTouched();
       return;
     }
+    const minBudget = this.addJobForm.value.minimum_budget ?? 0;
+  const maxBudget = this.addJobForm.value.maximum_budget ?? 0;
+  const deadline = new Date(this.addJobForm.value.deadline ?? '');
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); 
+    if (minBudget > maxBudget) {
+    alert('⚠️ الحد الأدنى للميزانية يجب أن يكون أقل من أو يساوي الحد الأقصى.');
+    return;
+  }
+
+  // التحقق من التاريخ
+  if (deadline < today) {
+    alert('⚠️ يجب أن يكون تاريخ التسليم بعد تاريخ اليوم.');
+    return;
+  }
 
     const formData = this.buildFormData();
 

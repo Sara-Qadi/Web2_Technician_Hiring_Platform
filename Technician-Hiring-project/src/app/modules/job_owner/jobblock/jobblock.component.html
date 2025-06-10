@@ -55,20 +55,20 @@
           {
             <i class="fa-solid fa-trowel-bricks" style="color:#491313; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
           }
-          @case('ACTechnician')
+          @case('AC Technician')
           {
             <i class="fa-solid fa-wind" style="color:#9fb3c8; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
           }
-          @case('CameraInstaller')
+          @case('Security Camera Installer')
           {
             <i class="fa-solid fa-shield-halved" style="color:#505153; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
           }
         }
-        <span class="text-capitalize">{{job.category}}</span>
+        <span class="text-capitalize">{{job.category === 'Security Camera Installer' ? 'CameraInstaller' : job.category}}</span>
       </div>
       <div class="location d-flex align-items-center gap-2">
         <i class="fa-solid fa-location-dot" style="color:#ea4335 ; box-shadow: rgba(234, 68, 53, 0.467)  0px 7px 29px 0px;"></i>
-        <span>{{job.location}}</span>
+        <span class="text-capitalize">{{job.location}}</span>
       </div>
     </div>
     <div class="budget-status d-flex justify-content-between">

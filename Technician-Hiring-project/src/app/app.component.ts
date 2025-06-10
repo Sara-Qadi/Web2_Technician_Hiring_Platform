@@ -9,23 +9,15 @@ import { ProfileComponent } from './modules/technician/profile/profile.component
 import { ProfileEditComponent } from './modules/technician/profile-edit/profile-edit.component';
 import { JobListComponent } from './modules/job_owner/joblist/joblist.component';
 import { AnalyticsComponent } from './modules/reports/analytics.component';
+import { OutsideprofileComponent } from './modules/job_owner/outsideprofile/outsideprofile.component';
 
 @Component({
   selector: 'app-root',
 
-  imports: [
-    RouterOutlet,
-    NotificationComponent,
-    NotificationDropdownComponent,
-    ProfileComponent,
-    ProfileEditComponent,
-    JobListComponent,
-    AnalyticsComponent,
-    CommonModule,
-    SearchComponent,
-    SubmitBidesComponent,
-    RouterOutlet,
-  ],
+
+  imports: [RouterOutlet, NotificationComponent, NotificationDropdownComponent, ProfileComponent, ProfileEditComponent,JobListComponent,AnalyticsComponent,
+            CommonModule , SearchComponent , SubmitBidesComponent , RouterOutlet ,OutsideprofileComponent],
+
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

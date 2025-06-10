@@ -21,12 +21,16 @@ import { HomepageComponent } from './modules/homepage/homepage.component';
 import { JobdetailsComponent } from './modules/job_owner/jobdetails/jobdetails.component';
 import { JobownerprofileComponent } from './modules/job_owner/jobownerprofile/jobownerprofile.component';
 import { RatingComponent } from './modules/rating/rating/rating.component';
-
+import { MybidsComponent } from './modules/technician/mybids/mybids.component';
 import { CompleteJobsComponent } from './modules/technician/complete-jobs/complete-jobs.component';
 
 import { JobInfoPageComponent } from './modules/job_owner/job-info-page/job-info-page.component';
 import {EditUserComponent} from './modules/admin/admin/edit-user/edit-user.component';
+
 import { ResetPasswordComponent } from './modules/auth/reset-password/reset-password.component';
+
+import { ProposalspageComponent } from './modules/job_owner/proposalspage/proposalspage.component';
+
 
 export const routes: Routes = [
   { path: 'admin/dashboard', component: AdminComponent },
@@ -46,10 +50,14 @@ export const routes: Routes = [
   { path: 'jobowner/:id', component: JobownerprofileComponent },
   //{path:'updatejob/:id',component:AddjobComponent},
 
-  { path: 'updatejob', component: AddjobComponent },
-  { path: 'reviewbids', component: BidlistComponent },
-  { path: 'login', component: LoginPageComponent },
-  { path: 'reports/analytics', component: AnalyticsComponent },
+  {path:'allproposals/:id',component:ProposalspageComponent},
+  {path: 'mybids',component: MybidsComponent},
+
+  {path:'updatejob',component:AddjobComponent},
+  {path:'reviewbids',component:BidlistComponent},
+  {path: 'login',component: LoginPageComponent},
+  {path: 'reports/analytics',component: AnalyticsComponent},
+
 
   { path: 'admin/dashboard', component: AdminComponent },
   {
@@ -82,6 +90,13 @@ export const routes: Routes = [
     path: 'submit-bid/:id',
     component: SubmitBidesComponent,
   },
+
+  {
+  path: 'rating/:userId',
+  component: RatingComponent,
+},
+
   { path: 'reset-password', component: ResetPasswordComponent },
-  
+
+
 ];

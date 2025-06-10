@@ -1,10 +1,32 @@
 <app-navbar-admin></app-navbar-admin>
-<app-userdetails [showartisan]="false" [showowner]="true"></app-userdetails>
+<app-userdetails [showartisan]="true" [showowner]="true"></app-userdetails>
   <div class="my-5 container">
     <h2 class="d-flex justify-content-between align-items-center">My Job Listings
       <button class="add d-flex" (click)="addJob()"><i class="fa-solid fa-plus"></i>Add Job</button>
     </h2>
-    <app-joblist [userId]="userId"></app-joblist>
+    <ul class="nav nav-tabs mb-4 custom-tabs">
+    <li class="nav-item">
+      <button class="nav-link" [class.active]="selectedStatus === 'all'" (click)="setStatus('all')">
+        All jobposts
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" [class.active]="selectedStatus === 'pending'" (click)="setStatus('pending')">
+        Pending jobposts
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" [class.active]="selectedStatus === 'in progress'" (click)="setStatus('in progress')">
+        On progress jobposts
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" [class.active]="selectedStatus === 'completed'" (click)="setStatus('completed')">
+        Completed jobposts
+      </button>
+    </li>
+  </ul>
+    <app-joblist [userId]="userId" [status]="selectedStatus"></app-joblist>
   </div>
 
 <app-footer-admin></app-footer-admin>
