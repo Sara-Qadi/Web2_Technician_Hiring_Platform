@@ -1,19 +1,18 @@
 <div *ngIf="showProfileModal " class="modal-overlay"  (click)="closeProfileModal()">
   <div class="modal-content"     (click)="$event.stopPropagation()">
     <button class="close-btn" (click)="closeProfileModal()">×</button>
-    <!-- :white_check_mark: Edit Button on top, after creation only -->
+
     <div *ngIf="!showCreateForm && profile" class="edit-button-container">
       <button class="edit-btn" (click)="openEditProfileModal()">Edit Profile</button>
     </div>
 
-    <!-- User Info -->
     <img class="modal-img" [src]="getProfileImageUrl()" alt="Profile Picture" />
 
     <h2 style="margin-right: 18px; font-weight: bold;">{{ userName }}</h2>
     <p class="user-phone" style="margin-left: 18px;">Phone Number: {{ userPhone }}</p>
     <p class="user-phone">Country: {{ userCountry }}</p>
 
-    <!-- Create Profile Form -->
+
     <form *ngIf="showCreateForm" (ngSubmit)="onCreateProfile(createProfileForm.value)" #createProfileForm="ngForm" class="create-profile-form">
       <div class="form-group">
         <label for="profilePicture">Upload Profile Picture</label>
@@ -45,7 +44,6 @@
       <button type="submit" [disabled]="!createProfileForm.valid" class="submit-btn">Create Profile</button>
     </form>
 
-    <!-- Profile Details -->
     <div *ngIf="!showCreateForm && profile">
       <p><strong>Specialty:</strong> {{ profile.specialty || 'N/A' }}</p>
       <p class="clickable-rating" [routerLink]="['/rating', userId]">

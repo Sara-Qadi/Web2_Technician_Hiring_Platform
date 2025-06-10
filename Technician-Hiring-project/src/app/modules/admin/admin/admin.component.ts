@@ -3,7 +3,7 @@ import Chart from 'chart.js/auto';
 
 import { NavbarAdminComponent } from './navbar-admin/navbar-admin.component';
 import { FooterAdminComponent } from './footer-admin/footer-admin.component';
-import { DashboardService } from '../../../services/dashboard.service'; // Adjust path as needed
+import { DashboardService } from '../../../services/dashboard.service';
 
 @Component({
   selector: 'app-admin',
