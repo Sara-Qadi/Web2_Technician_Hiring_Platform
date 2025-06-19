@@ -36,7 +36,7 @@ export class BidcardComponent implements OnInit {
   this.route.url.subscribe(segments => {
     const lastSegment = segments[segments.length - 1];
     this.jobid = +lastSegment.path;
-    console.log('📌 Job Post ID:', this.jobid);
+    console.log('Job Post ID:', this.jobid);
   });
 }
 

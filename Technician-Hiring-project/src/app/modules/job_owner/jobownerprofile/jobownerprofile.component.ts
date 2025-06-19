@@ -31,7 +31,7 @@ setStatus(status: string) {
   this.selectedStatus = status;
 }
 
-  jobs: any[] = []; // Array to hold job posts for the user
+  jobs: any[] = []; 
   constructor(
     private route: ActivatedRoute,
     private router: Router,

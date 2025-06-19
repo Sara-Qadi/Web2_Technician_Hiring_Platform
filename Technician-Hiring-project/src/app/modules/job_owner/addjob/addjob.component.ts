@@ -65,7 +65,7 @@ export class AddjobComponent implements OnInit {
             deadline: job.deadline
           });
         },
-        error: () => alert('❌ فشل تحميل بيانات الوظيفة')
+        error: () => alert('error loading job data')
       });
     }
   }
@@ -156,7 +156,7 @@ export class AddjobComponent implements OnInit {
     formData.append('user_id', String(this.userId));
 
    if (this.selectedFile) {
-  formData.append('attachments', this.selectedFile); // فقط ملف واحد
+  formData.append('attachments', this.selectedFile);
 }
 
     return formData;

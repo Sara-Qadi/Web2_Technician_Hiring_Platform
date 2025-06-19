@@ -32,7 +32,6 @@ export class JobblockComponent {
     return url.split('/').pop() || 'Attachment';
   }
   canEdit = false;
-  //ارسل الايفنت اللي صار للكارد ليست
  
   ngOnInit(): void {
   this.canEdit = this.job.user_id === this.userId;
@@ -88,7 +87,7 @@ goToDetails() {
     if (this.job?.jobpost_id) {
     this.router.navigate(['/jobdetails', this.job.jobpost_id]);
   } else {
-    console.error(' لا يمكن الانتقال: jobpost_id غير موجود', this.job);
+    console.error('the jov id missing', this.job);
   }
 }
 }

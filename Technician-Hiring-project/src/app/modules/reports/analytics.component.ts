@@ -67,9 +67,8 @@ constructor(private reportsService: ReportsService, private profileService: Prof
 ngOnInit(): void {
   this.selectedTable = 'jobCompletion'; 
 
-  this.loadUserRole();  // جلب الدور من السيرفر فقط
+  this.loadUserRole();
 
-  // جلب التقارير (يمكن تحريكها بعد تحميل الدور لو تريد)
   this.fetchAndMapReport('jobCompletion', this.reportsService.getJobCompletion());
   this.fetchAndMapReport('earnings', this.reportsService.getEarnings());
   this.fetchAndMapReport('topRated', this.reportsService.getTopRated());
@@ -118,7 +117,7 @@ loadUserRole() {
             if (user) {
               this.userRoleId = user.role_id;
               console.log('User role loaded:', this.userRoleId);
-              this.filterOptionsByRole(); // استدعي الفلترة بعد تحميل الدور
+              this.filterOptionsByRole(); 
             }
           });
       } else {
