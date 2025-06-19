@@ -52,7 +52,7 @@ averageRating: number = 0;
     });
   }
   loadUserProfile(userId: number) {
-    const token = localStorage.getItem('token'); // أو حسب مكان تخزين التوكين
+    const token = localStorage.getItem('token');  
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     this.http.get<any>(`http://localhost:8000/api/profile/${userId}`, { headers })
@@ -88,12 +88,10 @@ averageRating: number = 0;
   const file = event.target.files[0];
   if (!file) return;
 
-  // عرض الصورة مؤقتًا
   const reader = new FileReader();
   reader.onload = e => this.profileImageUrl = e.target?.result as string;
   reader.readAsDataURL(file);
 
-  // تجهيز البيانات وإرسالها
   const formData = new FormData();
   formData.append('photo', file);
 
@@ -102,7 +100,7 @@ averageRating: number = 0;
   };
 
   this.http.post('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/profile/update', formData, { headers })
-    .subscribe(() => console.log('✔️ صورة البروفايل تم رفعها'));
+    .subscribe(() => console.log('Profile image updated successfully'),);
     this.loading = false;
 }
 

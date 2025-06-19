@@ -42,7 +42,7 @@ export class JobListComponent implements OnInit {
       }
     });
   }, error => {
-    console.error('فشل في جلب المستخدم الحالي:', error);
+    console.error('error loding user', error);
     this.loading = false;
   });
 }

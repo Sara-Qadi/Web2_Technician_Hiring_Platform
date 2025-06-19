@@ -43,8 +43,7 @@ export class JobblockComponent {
 }
   onDeleteClick()
   {
-    this.deleteRequest.emit(this.job.jobpost_id); // أو job.id حسب التسمية
-
+    this.deleteRequest.emit(this.job.jobpost_id); 
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -64,10 +63,8 @@ export class JobblockComponent {
     next: (response) => {
       console.log('Job marked as completed:', response);
 
-      // ✅ حدّث الـ job مباشرة من الـ response
       this.job = response.job;
 
-      // ✅ إغلاق المودال
       bootstrap.Modal.getInstance(document.getElementById('statusModal'))?.hide();
 
       alert('Job marked as completed successfully!');

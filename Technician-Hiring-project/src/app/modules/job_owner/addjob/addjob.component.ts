@@ -81,13 +81,13 @@ export class AddjobComponent implements OnInit {
   const today = new Date();
   today.setHours(0, 0, 0, 0); 
     if (minBudget > maxBudget) {
-    alert('⚠️ الحد الأدنى للميزانية يجب أن يكون أقل من أو يساوي الحد الأقصى.');
+    alert('Minimum budget cannot be greater than maximum budget');
     return;
   }
 
   // التحقق من التاريخ
   if (deadline < today) {
-    alert('⚠️ يجب أن يكون تاريخ التسليم بعد تاريخ اليوم.');
+    alert('deadline must be after todat');
     return;
   }
 
@@ -107,7 +107,7 @@ export class AddjobComponent implements OnInit {
           });
           console.log('Job data loaded:', job);
         },
-        error: () => alert('❌ فشل تحميل بيانات الوظيفة')
+        error: () => alert('error loading job data')
       });
       this.jobService.updatethisjobpost(this.jobId, formData).subscribe({
         next: () => {
