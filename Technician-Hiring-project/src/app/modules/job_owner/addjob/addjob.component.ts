@@ -16,7 +16,7 @@ import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admi
 export class AddjobComponent implements OnInit {
   jobId?: number;
   userId: number = 0;
-  selectedFiles: File[] = [];
+  selectedFile: File | null = null;
 
   addJobForm = new FormGroup({
     title: new FormControl('', Validators.required),
@@ -155,17 +155,17 @@ export class AddjobComponent implements OnInit {
     formData.append('deadline', form.deadline ?? '');
     formData.append('user_id', String(this.userId));
 
-    for (let i = 0; i < this.selectedFiles.length; i++) {
-    formData.append('attachments[]', this.selectedFiles[i]);
-  }
+   if (this.selectedFile) {
+  formData.append('attachments', this.selectedFile); // فقط ملف واحد
+}
 
     return formData;
   }
 
   onFileChange(event: any) {
   if (event.target.files && event.target.files.length > 0) {
-    this.selectedFiles = Array.from(event.target.files);
-    console.log('Selected files:', this.selectedFiles);
+    this.selectedFile = event.target.files[0];
+    console.log('Selected files:', this.selectedFile);
   }
 }
 

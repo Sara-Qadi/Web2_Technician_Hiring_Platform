@@ -11,8 +11,9 @@ import { ProfileModalService } from '../../../services/profile-modal.service';
 
 @Component({
   selector: 'app-bidcard',
-  templateUrl: './bidcard.component.html',
   imports: [CommonModule],
+  standalone: true,
+  templateUrl: './bidcard.component.html',
   styleUrls: ['./bidcard.component.css']
 })
 export class BidcardComponent implements OnInit {
@@ -27,14 +28,14 @@ export class BidcardComponent implements OnInit {
   private notificationService: NotificationService,
   private jobdataService: JobDataService, 
   private mesagingService: MessagingService,
-  private router: Router,
+  public router: Router,
   private profilemodalservice: ProfileModalService
 ) {}
 
   ngOnInit(): void {
   this.route.url.subscribe(segments => {
     const lastSegment = segments[segments.length - 1];
-    this.jobid = +lastSegment.path; // نحول من string إلى رقم
+    this.jobid = +lastSegment.path;
     console.log('📌 Job Post ID:', this.jobid);
   });
 }
@@ -46,7 +47,7 @@ export class BidcardComponent implements OnInit {
   acceptProposal(id: number): void {
     this.subservice.acceptproposal(id).subscribe({
       next: () => {
-        alert('تم قبول العرض بنجاح ✅');
+        alert('PROPOSAL ACCEPTED SUCCESSFULLY!!');
 
         this.proposalService.getProposalById(id).subscribe({
           next: (proposal) => {
@@ -65,14 +66,14 @@ export class BidcardComponent implements OnInit {
           error: (err) => console.error('❌ Failed to fetch proposal:', err)
         });
       },
-      error: (err) => console.error('خطأ أثناء قبول العرض:', err)
+      error: (err) => console.error('ERROR IN ACCEPTING THE PROPOSAL', err)
     });
   }
 
   rejectProposal(id: number): void {
     this.subservice.rejectproposal(id).subscribe({
       next: (response) => {
-        alert('تم رفض العرض ❌');
+        alert('PROPOSAL REJECTED SUCCESSFULLY');
 
         this.proposalService.getProposalById(id).subscribe({
           next: (proposal) => {
@@ -98,7 +99,7 @@ export class BidcardComponent implements OnInit {
           });
         }
       },
-      error: (err) => console.error('خطأ أثناء رفض العرض:', err)
+      error: (err) => console.error('error in rejecting the proposal', err)
     });
   }
 

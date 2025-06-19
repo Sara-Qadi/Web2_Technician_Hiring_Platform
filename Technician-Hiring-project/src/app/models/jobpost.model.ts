@@ -6,7 +6,7 @@ export class Jobpost{
   minimum_budget: number=0;
   maximum_budget: number=0;
   description: string='';
-  attachments: string[] | undefined;
+  attachments: string | undefined;
   deadline: string= '';
   status: string = 'pending'; 
   user_id: number=0;

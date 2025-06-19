@@ -27,14 +27,7 @@ export class JobDataService {
   }
 
   getthisjobpost(id: number): Observable<Jobpost> {
-    return this.http.get<Jobpost>(`${this.baseUrl}/jobpost/showpost/${id}`).pipe(
-      map(job => ({
-        ...job,
-        attachments: typeof job.attachments === 'string'
-          ? JSON.parse(job.attachments)
-          : job.attachments
-      }))
-    );
+    return this.http.get<Jobpost>(`${this.baseUrl}/jobpost/showpost/${id}`);
   }
 
   updatethisjobpost(id: number, jp: FormData): Observable<Jobpost> {

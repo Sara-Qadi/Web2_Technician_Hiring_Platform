@@ -18,30 +18,27 @@ export class JobblockComponent {
   constructor(private router:Router,private route:ActivatedRoute,private profileservice:ProfileService){}
   private jobService = inject(JobDataService);
   selectedJob: any = null;
-  @Output() editJob = new EventEmitter<Jobpost>();
   @Input() role: number | undefined;
-  //عملت متغير مؤقتا عشان اشوف شكل الكارد للجوب اونر و للارتيزن
- // @Input() role:string | undefined;
-  //عشان استقبل الداتا من الكارد ليست
   @Input() job!: Jobpost;
   @Input() userId!: number;
-  //@Input() index: number = 0;
-  //لما اليوزر او الجوب اونر يكبس على الايكونز الموجودة عالكارد عشان توصل للكارد ليست
+  @Input() currentUserId!: number;
+  
+  @Output() editJob = new EventEmitter<Jobpost>();
   @Output() deleteRequest = new EventEmitter<number>();
-  //@Output() editRequest = new EventEmitter<void>(); // أضف حدث التعديل
-  //@Output() editJob = new EventEmitter<Jobpost>();
+  @Output() statusChanged = new EventEmitter<number>();
+  
   //للفايل(بدي اشتغل عليه مرة ثانية)
   extractFileName(url: string): string {
     return url.split('/').pop() || 'Attachment';
   }
   canEdit = false;
-  @Input() currentUserId!: number;
   //ارسل الايفنت اللي صار للكارد ليست
  
   ngOnInit(): void {
   this.canEdit = this.job.user_id === this.userId;
   console.log('Current User ID:', this.currentUserId);
   console.log('Job User ID:', this.job.user_id); 
+  console.log('Current Job ID in this card:', this.job.jobpost_id);
   console.log('Can Edit:', this.canEdit);
 }
   onDeleteClick()
@@ -62,17 +59,26 @@ export class JobblockComponent {
   }
 
   markAsCompleted() {
-    this.jobService.updatestatus(this.job.jobpost_id).subscribe({
-      next: (response) => {
-        console.log('Job marked as completed:', response);
-        alert('Job marked as completed successfully!');
-      },
-      error: (error) => {
-        console.error('Error marking job as completed:', error);
-        alert('Failed to mark job as completed.');
-      }});
-    bootstrap.Modal.getInstance(document.getElementById('statusModal'))?.hide();
-  }
+     console.log('Job ID before update:', this.job.jobpost_id);
+      this.jobService.updatestatus(this.job.jobpost_id).subscribe({
+    next: (response) => {
+      console.log('Job marked as completed:', response);
+
+      // ✅ حدّث الـ job مباشرة من الـ response
+      this.job = response.job;
+
+      // ✅ إغلاق المودال
+      bootstrap.Modal.getInstance(document.getElementById('statusModal'))?.hide();
+
+      alert('Job marked as completed successfully!');
+    },
+    error: (error) => {
+      console.error('Error marking job as completed:', error);
+      alert('Failed to mark job as completed.');
+    }
+  });
+}
+
   toreview(){
     this.router.navigate(['/reviewbids',this.job.jobpost_id]);
   }

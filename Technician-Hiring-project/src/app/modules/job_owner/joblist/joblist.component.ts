@@ -37,7 +37,6 @@ export class JobListComponent implements OnInit {
       console.log('User Role ID:', this.roleId);
       this.loading = false;
 
-      // ✅ تحميل الوظائف عند أول تشغيل إن توفرت البيانات
       if (this.userId && this.status) {
         this.loadJobsByStatus(this.status);
       }
@@ -50,14 +49,14 @@ export class JobListComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     if ((changes['userId'] && this.userId) || (changes['status'] && this.status)) {
-    this.loadJobsByStatus(this.status); // حمّلي حسب الحالة
+    this.loadJobsByStatus(this.status);
   }
   }
 
   loadJobs(userId: number) {
     this.jobpostservice.getjobownerjobposts(userId).subscribe({
       next: (data) => this.jobsarray = data,
-      error: (err) => console.error('فشل في تحميل الوظائف:', err)
+      error: (err) => console.error('failed in loading the jobs', err)
     });
   }
  loadJobsByStatus(status: string) {
@@ -77,6 +76,15 @@ export class JobListComponent implements OnInit {
         break;
     }
   }
+  onStatusChanged(jobId: number) {
+  const job = this.jobsarray.find(j => j.jobpost_id === jobId);
+  if (job) {
+    //job.status = 'completed';  
+    console.log(`Job with ID ${jobId} status updated locally.`);
+  } else {
+    console.warn(`Job with ID ${jobId} not found in jobsarray.`);
+  }
+}
   showPopup = false;
   selectedJobIdToDelete: number | null = null;
 
@@ -110,7 +118,6 @@ requestEdit(job: Jobpost) {
       });
       (document.activeElement as HTMLElement)?.blur();
 
-      // إغلاق المودال باستخدام Bootstrap
       const modalEl = document.getElementById('deleteModal');
       const modalInstance = bootstrap.Modal.getInstance(modalEl!);
       modalInstance?.hide();

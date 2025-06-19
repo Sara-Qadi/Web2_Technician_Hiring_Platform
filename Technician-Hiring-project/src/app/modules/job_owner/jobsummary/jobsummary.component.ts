@@ -27,10 +27,10 @@ export class JobsummaryComponent implements OnInit {
         this.jobdateservice.getthisjobpost(this.jobid).subscribe({
         next: (res) => {
           this.jobinfo = res;
-          console.log('✅ Job loaded:', this.jobinfo);
+          console.log('Job loaded successfully', this.jobinfo);
         },
         error: (err) => {
-          console.error('❌ Error loading job:', err);
+          console.error('Error loading job', err);
         }
       });
   }

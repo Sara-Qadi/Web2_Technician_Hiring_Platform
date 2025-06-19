@@ -42,6 +42,10 @@
             <h5 class="shine">Phone:</h5>
             <span class="value">{{ profileForm.get('phone')?.value }}</span>
           </div>
+          <div class="sec location">
+            <h5 class="shine">country:</h5>
+            <span class="value text-capitalize">{{ profileForm.get('country')?.value }}</span>
+          </div>
           <div class="sec rate">
              <div class="clickable-rating shine d-flex justify-content-around" [routerLink]="['/rating', userId]">
                 <h5 class="shine">Rating:</h5>

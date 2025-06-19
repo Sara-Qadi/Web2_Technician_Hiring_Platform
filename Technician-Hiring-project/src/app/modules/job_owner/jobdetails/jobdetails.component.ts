@@ -65,14 +65,14 @@ export class JobdetailsComponent implements OnInit {
           this.job = res;
           this.attachments = this.job.attachments;
           this.loading = false;
-          console.log('✅ Job loaded:', this.job);
+          console.log('Job loaded:', this.job);
         },
         error: (err) => {
-          console.error('❌ Error loading job:', err);
+          console.error('Error loading job:', err);
         }
       });
     } else {
-      console.error('❌ Invalid job ID in URL');
+      console.error('Invalid job ID in URL');
     }
   }
 
@@ -83,20 +83,20 @@ export class JobdetailsComponent implements OnInit {
       this.proposalService.checkIfUserValidateToSubmitBids(res.user_id, id).subscribe({
       next: (response: any) => {
         if (response.canSubmit) {
-          console.log('✅ User validated to submit bid:', response);
+          console.log('User validated to submit bid:', response);
           this.router.navigate(['/submit-bid', this.job.jobpost_id]);
         }
         else {
-          alert('❌ You have already submitted a proposal for this job.');
+          alert('You have already submitted a proposal for this job.');
         }
       },
     error: (err) => {
-      console.error('❌ Error validating user for bid:', err);
+      console.error('Error validating user for bid:', err);
     }
   });
   },
   error: (err) => {
-    console.error('❌ Error loading user:', err);
+    console.error('Error loading user:', err);
   }
   });
 }
