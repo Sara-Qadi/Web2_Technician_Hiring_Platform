@@ -16,7 +16,8 @@ import { FormsModule } from '@angular/forms';
 export class ProfileComponent implements OnInit, OnDestroy {
   showProfileModal = false;
   userName: string = '';
-    userPhone: Number = 0;
+  userPhone: Number = 0;
+  averageRating: number = 0;
   profile: any = null;
   showCreateForm = false;
   private sub!: Subscription;
@@ -28,6 +29,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
       this.loadUserRole();
+
 
     this.sub = this.modalService.modalOpen$.subscribe(isOpen => {
       this.showProfileModal = isOpen;
@@ -134,6 +136,8 @@ loadUserRole() {
               this.userId = user.user_id;
               console.log('User ID:', this.userId);
               console.log('User role:', this.role);
+
+              this.loadAverageRating();
             }
           });
       } else {
@@ -141,7 +145,20 @@ loadUserRole() {
       }
     });
 }
+loadAverageRating() {
+  if (!this.userId) return;
 
+  this.profileService.getAverageRating(this.userId).subscribe({
+    next: (res) => {
+      this.averageRating = res.average_rating;
+      console.log('Average rating:', this.averageRating);
+    },
+    error: (err) => {
+      console.error('Error loading average rating', err);
+      this.averageRating = 0;
+    }
+  });
+}
 
   openEditProfileModal() {
     this.modalService.closeModal();
@@ -156,4 +173,7 @@ loadUserRole() {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
+  roundRating(rating: number): number {
+  return Math.round(rating);
+}
 }

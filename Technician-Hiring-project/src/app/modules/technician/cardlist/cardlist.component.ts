@@ -17,15 +17,17 @@ import { Jobpost } from '../../../models/jobpost.model';
 })
 export class CardListComponent implements OnInit {
   jobarray: Jobpost[] = [];
-  
+  loading = false;
 
   constructor(private jobpostService: JobDataService) {}
 
   ngOnInit(): void {
+    this.loading = true; 
     this.jobpostService.getjobpostsfortech().subscribe({
       next: (data) => {
         this.jobarray = data;
         console.log('Received job posts:', data);
+        this.loading = false; 
         this.mergeJobs()
       },
       error: (err) => {
@@ -33,18 +35,7 @@ export class CardListComponent implements OnInit {
       }
     });
   }
-  //role="technician";
-  //اول شي بدي اجيب الداتا من السيرفس عشان اعمل عمليات حذف او تعديل وهيك
-  //جبت السيرفس و عملتله انجكت
-
-  private dataService = inject(JobDataService);
-
- // private dataService = inject(DataService);  //omar
-   private ldataService = inject(JobDataService);//lian
-
-  selectedJob: any = null;
-
-  //جبت الجوبس كلهم و خزنتهم هون
+  
   @Input() jobs: Jobpost[] = [];
 
   mergeJobs() {
@@ -65,56 +56,6 @@ export class CardListComponent implements OnInit {
   console.log('Merged jobs:', this.jobs);
 }
 
-    //فلاغ عشان الديليت بوب اب
-  showPopup = false;
-  //يا نل يا رقم
-  deleteIndex: number | null = null;
-
-  // لما اكبس على الايكون تاعت الابديت بجيب الداتا تبعت هاي الكارد عشان اعدل عليها
-  requestEdit(index: number)
-  {
-    this.selectedJob = { ...this.jobs[index] };  // تخزين نسخة من الوظيفة للتعديل
-  }
-
-  // لما اكبس على الايقونة تبعت الديليت بخلي الفلاغ ترو عشان تظهر البوب اب و بخزن رقم الاندكس في حال اكدت على عملية الحذف
-  requestDelete(index: number)
-  {
-    this.showPopup = true;
-    this.deleteIndex = index;
-  }
-
-  // بحدث الجوبس سواء بعد ما حذفت او عدلت عليهم
-  refreshJobs()
-  {
-
-   //this.jobs = this.dataService.getJobs();
-
-   //this.jobs = this.dataService.getJobs();  //omar
-    //this.jobs = this.ldataService.getJobs(); //lian
-
-  }
-
-  // لما اكبس على ديليت تاعت البوب اب بحذف الكارد
-  confirmDelete()
-  {
-    if (this.deleteIndex !== null)
-      {
-       // this.dataService.removeJob(this.deleteIndex); //omar
-        //this.ldataService.removeJob(this.deleteIndex); //lian
-        this.showPopup = false;//رجعناها فولس عشان خلصنا حذف
-        this.deleteIndex = null;
-        this.refreshJobs();  // عشان احدث الجوبس
-      }
-  }
-
-    // بعد ما عدلت على الداتا و كبست ابديت
-  jobUpdated(newJob: any) {
-    //this.ldataService.updateJob(this.selectedJob, newJob);
-    this.selectedJob = null;
-    this.refreshJobs();
-  }
-  onStatusChange(index: number, newStatus: string) {
-    this.jobs[index].status = newStatus;
-  }
+ 
 
 }

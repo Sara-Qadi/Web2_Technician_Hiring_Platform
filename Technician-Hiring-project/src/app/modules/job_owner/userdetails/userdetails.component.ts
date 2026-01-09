@@ -1,16 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProfileService } from '../../../services/profile.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { MessagingService } from '../../../services/messaging.service';
 @Component({
   selector: 'app-userdetails',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,RouterLink],
   templateUrl: './userdetails.component.html',
-  styleUrl: './userdetails.component.css',
+  styleUrls: ['./userdetails.component.css'],
 })
 export class UserdetailsComponent implements OnInit {
   profileForm!: FormGroup;
@@ -20,21 +20,25 @@ export class UserdetailsComponent implements OnInit {
   userId!: number;
   @Input() showowner: boolean = true;
   @Input() showartisan: boolean = false;
+  @Input() isOwnProfile: boolean = false;
   userData: any;
-
+  loading = false;
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private profileService: ProfileService,
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private messagingService: MessagingService
   ) {}
-
+averageRating: number = 0;
   ngOnInit(): void {
     this.userId = Number(this.route.snapshot.paramMap.get('id'));
     this.initForm();
     if (this.userId) {
+      this.loading = true;
       this.loadUserProfile(this.userId);
+      this.loadAverageRating();
     }
   }
   initForm() {
@@ -43,11 +47,12 @@ export class UserdetailsComponent implements OnInit {
       email: [''],
       phone: [''],
       country: [''],
-      photo: [null]
+      description: [''],
+      photo: [null],
     });
   }
   loadUserProfile(userId: number) {
-    const token = localStorage.getItem('token'); // أو حسب مكان تخزين التوكين
+    const token = localStorage.getItem('token');  
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     this.http.get<any>(`http://localhost:8000/api/profile/${userId}`, { headers })
@@ -58,45 +63,95 @@ export class UserdetailsComponent implements OnInit {
             email: user.email,
             phone: user.phone,
             country: user.country,
+            description:user.description,
+            rating:user.rating
           });
           if (user.photo) {
             this.profileImageUrl = `http://localhost:8000/storage/${user.photo}`;
           }
+                this.loading = false;
         },
         error: err => {
           console.error('Error loading profile:', err);
+                this.loading = false;
         }
       });
   }
 
   toggleEdit(): void {
-    // إعادة القيم الأصلية إلى الفورم
-    if (this.userData) {
-      this.profileForm.patchValue(this.userData);
-      this.loadUserProfile(this.userId);
-    }
-    this.editMode = !this.editMode;
+      this.editMode = !this.editMode;
+      
   }
 
-  onImageSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedImageFile = input.files[0];
-      const reader = new FileReader();
-      reader.onload = e => {
-        this.profileImageUrl = e.target?.result as string;
-      };
-      reader.readAsDataURL(this.selectedImageFile);
-    }
-  }
+  onImageSelected(event: any) {
+    this.loading = true;
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = e => this.profileImageUrl = e.target?.result as string;
+  reader.readAsDataURL(file);
+
+  const formData = new FormData();
+  formData.append('photo', file);
+
+  const headers = {
+    Authorization: 'Bearer ' + localStorage.getItem('token')
+  };
+
+  this.http.post('http://localhost/BackEnd-Technician-Hiring-Platform/public/api/profile/update', formData, { headers })
+    .subscribe(() => console.log('Profile image updated successfully'),);
+    this.loading = false;
+}
+
   onSubmit() {
     if (this.profileForm.valid) {
       console.log('Updated Profile:', this.profileForm.value);
-      this.editMode = false;
+      this.profileService.updateJO(this.userId, this.profileForm.value).subscribe({
+        next: () => {
+          alert('PROFILE UPDATED SUCCESSFULLY!!');
+          this.router.navigate(['/jobowner', this.userId]);
+        },
+        error: err => {
+          console.error('Error updating profile:', err);
+          alert('Error updating profile');
+        }
+      });
+      this.toggleEdit();
     }
   }
-  gotomessage(){
-    this.router.navigate(['/messages']);
-  }
+  gotomessage() {
+  this.profileService.getUser().subscribe({
+    next: (currentUser) => {
+      this.messagingService.getSelectedUserToMessage(currentUser.user_id, this.userId).subscribe({
+        next: (user) => {
+          this.userData = user;
+          console.log('Selected User:', user);
+          this.router.navigate(['/messages']);
+        },
+        error: (err) => {
+          console.error('❌ Error in getSelectedUserToMessage:', err);
+        }
+      });
+    },
+    error: (err) => {
+      console.error('❌ Error in getUser:', err);
+    }
+  });
+}
+loadAverageRating() {
+  if (!this.userId) return;
+
+  this.profileService.getAverageRating(this.userId).subscribe({
+    next: (res) => {
+      this.averageRating = res.average_rating;
+      console.log('Average rating:', this.averageRating);
+    },
+    error: (err) => {
+      console.error('Error loading average rating', err);
+      this.averageRating = 0;
+    }
+  });
+}
   
 }

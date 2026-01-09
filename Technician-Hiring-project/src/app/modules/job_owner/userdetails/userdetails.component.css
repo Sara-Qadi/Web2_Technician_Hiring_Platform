@@ -43,6 +43,13 @@ h2{
   font-size: 18px;
   color: #555357;
 }
+.valuelink{
+  text-decoration: none;
+  color: #7b00ff;
+  font-family: "manrope", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+}
 .vl {
   border-left: 2px solid #8e8d9072; 
 }
@@ -154,4 +161,25 @@ input:focus{
   font-family: "Manrope", sans-serif;
   font-weight: 500;
   font-size: 17px;
+}
+.clickable-rating {
+  cursor: pointer;
+
+  transition: transform 0.2s ease, color 0.2s ease;
+  display: inline-block;
+}
+
+.clickable-rating:hover {
+  transform: scale(1.1);
+  text-shadow: 0 0 5px rgba(72, 71, 66, 0.4);
+}
+.clickable-rating span {
+  margin-right: 2px;
+
+  font-size: 24px;
+  color: #ccc;
+}
+
+.clickable-rating span.filled {
+  color: gold;
 }

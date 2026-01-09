@@ -16,7 +16,7 @@ import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admi
 export class AddjobComponent implements OnInit {
   jobId?: number;
   userId: number = 0;
-  selectedFiles: File[] = [];
+  selectedFile: File | null = null;
 
   addJobForm = new FormGroup({
     title: new FormControl('', Validators.required),
@@ -65,7 +65,7 @@ export class AddjobComponent implements OnInit {
             deadline: job.deadline
           });
         },
-        error: () => alert('❌ فشل تحميل بيانات الوظيفة')
+        error: () => alert('error loading job data')
       });
     }
   }
@@ -75,6 +75,21 @@ export class AddjobComponent implements OnInit {
       this.addJobForm.markAllAsTouched();
       return;
     }
+    const minBudget = this.addJobForm.value.minimum_budget ?? 0;
+  const maxBudget = this.addJobForm.value.maximum_budget ?? 0;
+  const deadline = new Date(this.addJobForm.value.deadline ?? '');
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); 
+    if (minBudget > maxBudget) {
+    alert('Minimum budget cannot be greater than maximum budget');
+    return;
+  }
+
+  // التحقق من التاريخ
+  if (deadline < today) {
+    alert('deadline must be after todat');
+    return;
+  }
 
     const formData = this.buildFormData();
 
@@ -92,28 +107,36 @@ export class AddjobComponent implements OnInit {
           });
           console.log('Job data loaded:', job);
         },
-        error: () => alert('❌ فشل تحميل بيانات الوظيفة')
+        error: () => alert('error loading job data')
       });
       this.jobService.updatethisjobpost(this.jobId, formData).subscribe({
         next: () => {
           console.log(formData);
-          alert("✅ تم تعديل الوظيفة بنجاح");
+          alert("JOBPOST UPDATED SUCCESSFULLY!!");
           this.router.navigate(['/jobowner', this.userId]);
         },
         error: (err) => {
-          console.error(err);
-          alert("❌ فشل تعديل الوظيفة");
+          if (err.status === 403 && err.error?.message === 'Unauthorized') {
+            console.error('Unauthorized: Only jobowners and admins can update jobposts.');
+            alert('Only jobowners and admins are allowed to update jobposts.');
+          } else {
+            console.error('Error adding jobpost:', err);
+          }
         }
       });
     } else {
       this.jobService.addjobpost(formData).subscribe({
         next: () => {
-          alert("✅ تمت إضافة الوظيفة بنجاح");
+          alert("JOBPOST ADDED SUCCESSFULLY!!");
           this.router.navigate(['/jobowner', this.userId]);
         },
         error: (err) => {
-          console.error(err);
-          alert("❌ فشل إضافة الوظيفة");
+          if (err.status === 403 && err.error?.message === 'Unauthorized') {
+            console.error('Unauthorized: Only jobowners can add jobposts.');
+            alert('Only jobowners are allowed to add jobposts.');
+          } else {
+            console.error('Error adding jobpost:', err);
+          }
         }
       });
     }
@@ -132,17 +155,17 @@ export class AddjobComponent implements OnInit {
     formData.append('deadline', form.deadline ?? '');
     formData.append('user_id', String(this.userId));
 
-    for (let i = 0; i < this.selectedFiles.length; i++) {
-    formData.append('attachments[]', this.selectedFiles[i]);
-  }
+   if (this.selectedFile) {
+  formData.append('attachments', this.selectedFile);
+}
 
     return formData;
   }
 
   onFileChange(event: any) {
   if (event.target.files && event.target.files.length > 0) {
-    this.selectedFiles = Array.from(event.target.files);
-    console.log('Selected files:', this.selectedFiles);
+    this.selectedFile = event.target.files[0];
+    console.log('Selected files:', this.selectedFile);
   }
 }
 

@@ -1,9 +1,9 @@
-<div class="card position-relative" [ngStyle]="role === 3 ? { width: '300px', height: '280px' } : {}" [ngClass]="{'col-6 col-md-4': role === 1|| role===2}">
-  <div  [class.obefore-effect]="role === 1|| role === 2"
-        [class.before-effect]="role === 3"><!-- class="obefore-effect"-->
+<div class="card position-relative" [ngStyle]="role === 3 || currentUserId!==job.user_id? { width: '300px', height: '280px' } : {}" [ngClass]="{'col-6 col-md-4': role === 1|| role===2}">
+  <div  [class.obefore-effect]="role === 1|| role === 2 || currentUserId === job.user_id "
+        [class.before-effect]="role === 3 || currentUserId !== job.user_id "><!-- class="obefore-effect"-->
      <p class="card-title d-flex justify-content-between align-items-center text-capitalize">{{job.title}}
       @if(role === 1 || role === 2){
-      <span class="d-flex gap-2 update-delete">
+      <span class="d-flex gap-2 update-delete" *ngIf="job.user_id === currentUserId">
         <button class="btn btn-sm" (click)="emitEditJob()"><!-- (click)="toupdate(job.jobpost_id)" -->          
           <i class="fa-solid fa-pen text-secondary"></i>
         </button>
@@ -55,20 +55,24 @@
           {
             <i class="fa-solid fa-trowel-bricks" style="color:#491313; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
           }
-          @case('ACTechnician')
+          @case('AC Technician')
           {
             <i class="fa-solid fa-wind" style="color:#9fb3c8; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
           }
-          @case('CameraInstaller')
+          @case('Security Camera Installer')
           {
             <i class="fa-solid fa-shield-halved" style="color:#505153; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
           }
+          @case('Other')
+          {
+            <i class="fa-solid fa-ellipsis" style="color:#6c757d; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+          }
         }
-        <span class="text-capitalize">{{job.category}}</span>
+        <span class="text-capitalize">{{ job.category === 'Security Camera Installer' ? 'Camera Installer' : job.category }}</span>
       </div>
       <div class="location d-flex align-items-center gap-2">
         <i class="fa-solid fa-location-dot" style="color:#ea4335 ; box-shadow: rgba(234, 68, 53, 0.467)  0px 7px 29px 0px;"></i>
-        <span>{{job.location}}</span>
+        <span class="text-capitalize">{{job.location}}</span>
       </div>
     </div>
     <div class="budget-status d-flex justify-content-between">
@@ -79,12 +83,13 @@
       <div class="status d-flex align-items-center gap-2 text-capitalize">
       <ng-container *ngIf="job.status === 'pending' && role !== 3">
         <i class="fa-solid fa-hourglass-start" style="color:#ffc107;"></i>
-        <span>{{ job.status }}</span>
+        <span >{{ job.status }}</span>
       </ng-container>
       <ng-container *ngIf="job.status === 'in progress'">
         <i class="fa-solid fa-spinner" style="color:#fd7e14;"></i>
         <ng-container *ngIf="role === 2">
-          <button (click)="openConfirmation()">{{ job.status }}</button>
+          <button  *ngIf="currentUserId == job.user_id"class="btn p-0 colored" (click)="openConfirmation()">{{ job.status }}</button>
+          <span *ngIf="currentUserId !== job.user_id">{{ job.status }}</span>
         </ng-container>
         <ng-container *ngIf="role === 3 || role === 1">
             <span>{{ job.status }}</span>
@@ -102,14 +107,14 @@
       <p>{{job.description}}</p>
     </div><!--  mb-2 mt-1 -->
   </div>
-    <div *ngIf="role === 1 || role === 2" class=" d-flex justify-content-around mt-2">
+    <div *ngIf="role === 1 || (role === 2 && job.user_id === currentUserId)" class=" d-flex justify-content-around mt-2">
       <a  class=" btn review" (click)="toreview()"> Reviews</a>
       <div class="veiw-more">
       <button (click)="goToDetails()">View More</button>
     </div>
     </div>
   </div>
-  <div *ngIf="role === 3" class="after-effect">
+  <div *ngIf="role === 3 || job.user_id !== currentUserId" class="after-effect">
     <div class="encourage">
       <span>Wanna know more?</span>
     </div>

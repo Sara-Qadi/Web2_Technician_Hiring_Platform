@@ -1,4 +1,3 @@
-//
 
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
@@ -9,6 +8,7 @@ import { ProfileModalService } from '../../../services/profile-modal.service';
 import { ProfileComponent } from '../../technician/profile/profile.component';
 import { ProfileService } from '../../../services/profile.service';
 import { NotificationService, Notification } from '../../../services/notification.service';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-notification',
@@ -22,8 +22,11 @@ export class NotificationComponent implements OnInit {
   notifications: Notification[] = [];
   userId!: number;
   userNames: { [id: number]: string } = {};
+userDetails: { [id: number]: { name: string, imageUrl: string } } = {};
 
+technicianProfiles: { [id: number]: any } = {};
 
+  userRole: any;
   @ViewChild('dropdownRef', { static: true }) dropdownRef!: ElementRef;
   @Input() dropdownOpen = false;
 
@@ -34,44 +37,110 @@ export class NotificationComponent implements OnInit {
     private notificationService: NotificationService
   ) {}
 
-  ngOnInit(): void {
-    this.profileService.getUser().subscribe({
-      next: (user) => {
-   this.userId = user.user_id;
-
-        this.loadNotifications();
-      },
-      error: (err) => {
-        console.error('Error fetching user data', err);
-      },
-    });
-  }
+ngOnInit(): void {
+  this.profileService.getUser().subscribe({
+    next: (user) => {
+      this.userId = user.user_id;
+      this.loadNotifications();
+      this.profileService.getroleid(this.userId).subscribe({
+        next: (roleId) => {
+          this.userRole = roleId;
+          console.log('User role:', this.userRole);
+        },
+        error: (err) => {
+          console.error('Failed to fetch role id', err);
+          this.userRole = null;
+        }
+      });
+    },
+    error: (err) => {
+      console.error('Failed to fetch user', err);
+    }
+  });
+}
 
   loadNotifications(): void {
     if (!this.userId) return;
     this.notificationService.getNotifications(this.userId).subscribe({
       next: (data) => {
         this.notifications = data;
-             this.loadUserNames();
+         this.loadUserNames();
+
       },
       error: (err) => console.error('Failed to load notifications', err),
     });
   }
 
+
 loadUserNames() {
   const userIds = Array.from(new Set(this.notifications.map(n => n.user_id)));
+
   userIds.forEach(id => {
     if (!this.userNames[id]) {
-      this.profileService.getUserById(id).subscribe({
-        next: (user) => {
-          this.userNames[id] = user.user_name;
-        },
-        error: () => {
+      this.profileService.getUserById(id).pipe(
+        catchError(error => {
+          console.error(`Failed to fetch user ${id}`, error);
           this.userNames[id] = 'Unknown User';
+          this.userDetails[id] = {
+            name: 'Unknown User',
+            imageUrl: 'assets/person1.jpg'
+          };
+          return of(null);
+        })
+      ).subscribe(user => {
+        if (!user) return;
+
+        this.userNames[id] = user.user_name;
+
+        if (user.role_id === 1) {
+          this.userDetails[id] = {
+            name: user.user_name,
+            imageUrl: 'assets/person1.jpg'
+          };
+        } else {
+          this.profileService.getProfileByUserId(id).pipe(
+            catchError(() => {
+              this.userDetails[id] = {
+                name: user.user_name,
+                imageUrl: 'assets/person1.jpg'
+              };
+              return of(null);
+            })
+          ).subscribe(profile => {
+            if (!profile) return;
+
+            this.userDetails[id] = {
+              name: user.user_name,
+              imageUrl: 'http://localhost:8000/storage/' + profile.photo
+            };
+          });
         }
       });
     }
   });
+}
+handleNotificationClick(notification: Notification): void {
+  if (notification.message.includes('You received a new proposal for your job post.')) {
+    if (notification.read_status === 'unread') {
+      this.notificationService.markAsRead(notification.notification_id).subscribe(() => {
+        notification.read_status = 'read';
+      });
+    }
+
+    this.router.navigate(['/allproposals', notification.user_id]);
+  } else {
+
+    console.log('This notification is not routable.');
+  }
+}
+
+openModalIfAllowed(): void {
+  if (this.userRole === 3&& this.userId) { 
+    this.modalService.openOUTModal(this.userId);
+    this.modalService.openModal();
+  } else {
+    console.warn('User does not have permission to open modal');
+  }
 }
 
 

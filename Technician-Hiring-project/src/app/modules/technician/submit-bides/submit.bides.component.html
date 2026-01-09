@@ -10,7 +10,8 @@
           <form (ngSubmit)="submitForm()" #myForm="ngForm" class="p-4 rounded shadow mb-3 w-75" style="background-color: #ffffff;;">
             <div class="mb-3">
               <label for="price" class="form-label text-dark">Wanted Price</label>
-              <input type="number" id="price" class="form-control mb-5  custom-search-wrapper " [(ngModel)]="Price" name="price" required>
+              <input type="number" id="price" class="form-control mb-5  custom-search-wrapper "
+              [(ngModel)]="Price"  (ngModelChange)="checkAmount($event)" name="price" required>
             </div>
 
             <div class="mb-3">
@@ -18,11 +19,19 @@
               <textarea id="comment" rows="4" class="form-control  custom-search-wrapper" [(ngModel)]="comment" name="comment"></textarea>
             </div>
 
-            <button type="submit" class="btn w-100" style="  background: linear-gradient(135deg, #7b00ff, #17031b);color: white;">Submit</button>
+            <div class="neon-button-wrapper">
+              <button 
+                type="submit" 
+                class="neon-button w-100">
+                Submit
+              </button>
+            </div>
           </form>
         </div>
-      </div>  
+      </div>
 
     </div>
   </div>
+
+
   <app-footer-admin></app-footer-admin>

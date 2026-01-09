@@ -17,16 +17,12 @@
   
 <small class="text-muted">Choose a report from the list below:</small>
 
-  <select [(ngModel)]="selectedTable" class="form-select">
-    <option [ngValue]="''" disabled hidden>Select a report</option>
-    <option [ngValue]="'jobCompletion'">Job Completion Report</option>
-    <option [ngValue]="'earnings'">Earnings Report</option>
-    <option [ngValue]="'topRated'">Top Rated Artisans Report</option>
-    <option [ngValue]="'lowPerformance'">Low Performance Users Report</option>
-    <option [ngValue]="'monthlyActivity'">Monthly Activity Report</option>
-    <option [ngValue]="'locationDemand'">Location Based Demand Report</option>
-    <option [ngValue]="'topFinishers'">top Finishers Report</option>
-  </select>
+<select [(ngModel)]="selectedTable" class="form-select">
+  <option [ngValue]="''" disabled hidden>Select a report</option>
+  <option *ngFor="let option of filteredOptions" [ngValue]="option.value">
+    {{ option.label }}
+  </option>
+</select>
 
 
 
@@ -48,13 +44,7 @@
   <div class="bg-light p-4 rounded mb-4">
     <div class="row g-3">
       <div class="col-12 col-md-3">
-        <label for="date-range" class="form-label">Date Range</label>
-        <select id="date-range" class="form-select">
-          <option value="last7">Last 7 Days</option>
-          <option value="last30" selected>Last 30 Days</option>
-          <option value="last90">Last 90 Days</option>
-          <option value="ytd">Year to Date</option>
-        </select>
+        
       </div>
 
       <div class="col-12 col-md-3">
