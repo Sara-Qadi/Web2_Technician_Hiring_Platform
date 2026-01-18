@@ -1,10 +1,13 @@
-<div class="card position-relative" [ngStyle]="role === 3 || currentUserId!==job.user_id? { width: '300px', height: '280px' } : {}" [ngClass]="{'col-6 col-md-4': role === 1|| role===2}">
+<div class="card position-relative" 
+      [ngStyle]="(role === 3 || (role !== 1 && currentUserId !== job.user_id)) ? { width: '300px', height: '280px' } : {}" 
+      [ngClass]="{'col-6 col-md-4': role === 1|| role===2}">
   <div  [class.obefore-effect]="role === 1|| role === 2 || currentUserId === job.user_id "
-        [class.before-effect]="role === 3 || currentUserId !== job.user_id "><!-- class="obefore-effect"-->
+        [class.before-effect]="role === 3 || (role !== 1 && currentUserId !== job.user_id)"><!-- class="obefore-effect"-->
      <p class="card-title d-flex justify-content-between align-items-center text-capitalize">{{job.title}}
       @if(role === 1 || role === 2){
-      <span class="d-flex gap-2 update-delete" *ngIf="job.user_id === currentUserId">
-        <button class="btn btn-sm" (click)="emitEditJob()"><!-- (click)="toupdate(job.jobpost_id)" -->          
+      <span class="d-flex gap-2 update-delete" *ngIf="role === 1 || job.user_id === currentUserId">
+        <button class="btn btn-sm" (click)="emitEditJob()"
+        [style.display]="role === 1 ? 'none' : 'inline-block'"><!-- (click)="toupdate(job.jobpost_id)" -->          
           <i class="fa-solid fa-pen text-secondary"></i>
         </button>
         <button class="btn btn-sm " (click)="onDeleteClick()" data-bs-toggle="modal" data-bs-target="#deleteModal">
@@ -108,7 +111,8 @@
     </div><!--  mb-2 mt-1 -->
   </div>
     <div *ngIf="role === 1 || (role === 2 && job.user_id === currentUserId)" class=" d-flex justify-content-around mt-2">
-      <a  class=" btn review" (click)="toreview()"> Reviews</a>
+      <a  class=" btn review" (click)="toreview()"
+      [style.display]="role === 1 ? 'none' : 'inline-block'"> Reviews</a>
       <div class="veiw-more">
       <button (click)="goToDetails()">View More</button>
     </div>

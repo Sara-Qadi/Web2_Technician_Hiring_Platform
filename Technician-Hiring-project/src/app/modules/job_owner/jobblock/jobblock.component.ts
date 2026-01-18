@@ -27,7 +27,7 @@ export class JobblockComponent {
   @Output() deleteRequest = new EventEmitter<number>();
   @Output() statusChanged = new EventEmitter<number>();
   
-  //للفايل(بدي اشتغل عليه مرة ثانية)
+
   extractFileName(url: string): string {
     return url.split('/').pop() || 'Attachment';
   }

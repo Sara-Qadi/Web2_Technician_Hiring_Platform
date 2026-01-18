@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { DatePipe, NgForOf, NgIf } from '@angular/common';
 import { FooterAdminComponent } from '../footer-admin/footer-admin.component';
 import { NavbarAdminComponent } from '../navbar-admin/navbar-admin.component';
+import { JobblockComponent } from '../../../job_owner/jobblock/jobblock.component';
 import { AdminService } from '../../../../services/admin/admin.service';
+import { Jobpost } from '../../../../models/jobpost.model';
 import {FormsModule} from '@angular/forms';
 
 @Component({
@@ -15,20 +17,23 @@ import {FormsModule} from '@angular/forms';
     NgIf,
     NgForOf,
     FormsModule,
+    JobblockComponent
   ],
   styleUrls: ['./jop-listing.component.css']
 })
 export class JopListingComponent implements OnInit {
-  jobs: any[] = [];
+  jobs: Jobpost[] = [];
   loading: boolean = false;
   errorMessage: string = '';
   searchTerm: string = '';
-
+  role: number = 1; 
+  
   constructor(private adminService: AdminService) {}
 
   ngOnInit(): void {
-    this.loadJobs();
+    this.loadJobs(); 
   }
+
 
   loadJobs() {
     this.loading = true;
@@ -69,4 +74,7 @@ export class JopListingComponent implements OnInit {
   onSearchChange() {
     this.loadJobs();
   }
+
+ 
+
 }

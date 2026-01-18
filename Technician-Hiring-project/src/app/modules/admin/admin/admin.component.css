@@ -1,8 +1,8 @@
-#jobProgressPieChart {
-  width: 350px !important;
-  height: 350px !important;
+#jobProgressPieChart,#usersDoughnutChart {
+  width: 300px !important;
+  height: 300px !important;
 }
-#pie{
+#pie,#doughnut {
   width: 350px;
 }
 .hover-effect {

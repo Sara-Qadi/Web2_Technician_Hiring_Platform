@@ -3,7 +3,7 @@ import { AdminService } from '../../../../services/admin/admin.service';
 import { NavbarAdminComponent } from '../navbar-admin/navbar-admin.component';
 import { FooterAdminComponent } from '../footer-admin/footer-admin.component';
 import { FormsModule } from '@angular/forms';
-import { NgForOf } from '@angular/common';
+import { CommonModule, NgForOf } from '@angular/common';
 
 @Component({
   selector: 'app-craftsmen-registrations',
@@ -13,7 +13,8 @@ import { NgForOf } from '@angular/common';
     NavbarAdminComponent,
     NgForOf,
     FooterAdminComponent,
-    FormsModule
+    FormsModule,
+    CommonModule
   ],
   styleUrls: ['./craftsmen-registrations.component.css']
 })
@@ -30,6 +31,7 @@ export class CraftsmenRegistrationsComponent implements OnInit {
   loadPendingRegistrations(): void {
     this.adminService.getPendingTechnicians(this.searchQuery).subscribe({
       next: (response: any) => {
+        console.log('Pending registrations response:', response);
         if (response.success) {
           this.registrations = response.data.map((user: any) => ({
             user_id: user.user_id,
