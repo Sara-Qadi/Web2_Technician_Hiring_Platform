@@ -4,8 +4,11 @@
 
 .login-btn {
   border: 1px solid #7f3ff2; 
+  border: 1px solid var(--primaryColor); 
+  
   background-color: transparent;
   color: #7f3ff2;
+  color: var(--primaryColor);
   transition: all 0.3s ease;
   border-radius: 12px;
   font-weight: 500;
@@ -21,6 +24,8 @@
 
 .login-btn:not(:disabled) {
   background-color: #642eda; 
+  background-color: var(--primaryColor); 
+  
   color: #ffffff; 
   opacity: 1;
 }
@@ -30,6 +35,7 @@
 .login-page .welcome-title {
   font-weight: 600;
   font-size: 2.7rem;
+  font-family: var(--headings);
 }
 
 /* شاشة الموبايل */
@@ -45,7 +51,7 @@
 }
 
 .gradient-bg {
-  background: linear-gradient(135deg, #3b0da0, #000000);
+  background: linear-gradient(135deg, var(--primaryColor), #000000);
 }
 .gradient-bg h2 {
   font-size: 2.5rem; 
@@ -65,7 +71,7 @@
 }
 
 .dark-right-panel {
-  background-color: #101010; 
+  background-color: whitesmoke; 
   color: #ffffff; 
 }
 /*  */
@@ -75,6 +81,7 @@
   transform: translateY(-20px);
   font-size: 14px;
   color: #8248ff;
+  color: var(--primaryColor);
 }
 .wave-group {
   position: relative;
@@ -115,6 +122,7 @@
   transform: translateY(-20px);
   font-size: 14px;
   color: #8248ff;
+  color: var(--primaryColor);
 }
 
 .wave-group .bar {
@@ -131,6 +139,7 @@
   bottom: 1px;
   position: absolute;
   background: #8248ff;
+  background: var(--primaryColor);
   transition: 0.2s ease all;
   -moz-transition: 0.2s ease all;
   -webkit-transition: 0.2s ease all;
@@ -151,6 +160,7 @@
 
 .forgot-color{
   color:#8248ff ;
+  color: var(--primaryColor);
 }
 
 .input-color{
@@ -160,7 +170,9 @@
 .google-login-btn {
   background-color: transparent;
   color: #9055ff;
+  color: var(--primaryColor);
   border: 1px solid #7f3ff2;
+  border: 1px solid var(--primaryColor);
   border-radius: 12px;
   font-weight: 500;
   padding: 0.75rem;
@@ -172,6 +184,7 @@
 
 .google-login-btn:hover {
   background-color: #642eda;
+  background-color: var(--primaryColor);
   color: #ffffff;
 }
 
