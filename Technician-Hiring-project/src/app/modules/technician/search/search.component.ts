@@ -26,8 +26,7 @@ import { Jobpost } from '../../../models/jobpost.model';
 export class SearchComponent {
   allCategories: string[] = [
     'electrician', 'plumber', 'painter', 'carpenter',
-    'mechanic', 'tiler', 'welder', 'roofing-specialist',
-    'mason', 'ac-technician', 'security-camera-installer', 'other'
+    'mechanic','other'
   ];
   selectedCategory: string[] = [];
   jobs: any[] = [];
@@ -58,6 +57,7 @@ export class SearchComponent {
       this.JobDataService.getjobpostsfortech().subscribe({
         next: (res) =>{
           this.jobs = res;
+          
         },
         error: (err) => { 
           console.error('Error during search:', err);

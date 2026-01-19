@@ -1,4 +1,4 @@
-<app-navbar-admin></app-navbar-admin>
+<!-- <app-navbar-admin></app-navbar-admin>
 
 <div class="video-container position-relative">
   <video autoplay muted loop class="w-100">
@@ -35,6 +35,30 @@
           <a class="dropdown-item" [routerLink]="['/home']">{{ suggestion }}</a>
         </li>
       </ul>
+    </div>
+  </div>
+</div>
+
+<app-footer-admin></app-footer-admin> -->
+<app-navbar-admin></app-navbar-admin>
+
+<div class="video-container position-relative">
+  <video autoplay muted loop class="w-100">
+    <source src="assets/video.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <div class="overlay-content text-white text-center">
+    <h1 class="mb-3">You need it done.<br><br>They make it happen.</h1>
+    <br>
+    <div class="search-container d-inline-block position-relative">
+<button class="button mt-3 me-5" [routerLink]="['/home']">
+  <span class="button_lg">
+    <span class="button_sl"></span>
+    <span class="button_text">Start Now</span>
+  </span>
+</button>        
+<a class="dropdown-item" [routerLink]="['/home']"></a>
     </div>
   </div>
 </div>
