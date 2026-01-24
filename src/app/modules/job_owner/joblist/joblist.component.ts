@@ -1,105 +1,125 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input, OnInit, SimpleChanges } from '@angular/core';
 import { JobDataService } from '../../../services/jobdata.service';
 import { JobblockComponent } from '../jobblock/jobblock.component';
 import { CommonModule } from '@angular/common';
 import { AddjobComponent } from '../addjob/addjob.component';
-import { Router,RouterLink } from '@angular/router';
-
+import { Router } from '@angular/router';
+import { Jobpost } from '../../../models/jobpost.model';
+import { ProfileService } from '../../../services/profile.service';
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-joblist',
   standalone: true,
-  imports: [JobblockComponent,CommonModule,AddjobComponent],
+  imports: [JobblockComponent, CommonModule, AddjobComponent],
   templateUrl: './joblist.component.html',
   styleUrls: ['./joblist.component.css'],
 })
-export class JobListComponent {
-  JOBS = [
-    {
-      jobTitle: 'Fix Kitchen Sink',
-      category: 'Plumber',
-      location: 'Asira al-Shamaliya',
-      minBudget: 100,
-      maxBudget: 200,
-      jobDescription: 'The kitchen sink is leaking and needs urgent repair.',
-      attachments: [
-        'https://example.com/uploads/sink-leak.jpg',
-        'https://example.com/uploads/sink-invoice.pdf'
-      ],
-      deadline: '2025-04-20'
-    },
-    {
-      jobTitle: 'Paint Living Room',
-      category: 'Painter',
-      location: 'Nablus',
-      minBudget: 300,
-      maxBudget: 500,
-      jobDescription: 'Need to paint a 6x6m living room. Light colors only.',
-      attachments: [],
-      deadline: '2025-04-25'
-    },
-    {
-      jobTitle: 'Install New Light Fixtures',
-      category: 'Electrician',
-      location: 'Ramallah',
-      minBudget: 150,
-      maxBudget: 250,
-      jobDescription: 'lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      attachments: ['https://example.com/uploads/light-layout.pdf'],
-      deadline: '2025-04-22'
-    }
-  ];
+export class JobListComponent implements OnInit {
+  constructor(
+    private jobpostservice: JobDataService,
+    private profileser: ProfileService
+  ) {}
+
+  roleId!: number;
+  @Input() userId!: number;    
+  @Input() status!: string;
+
+  jobsarray: Jobpost[] = [];
+  loading = false;
+  currentUserId!: number;
+
   router = inject(Router);
-  //اول شي بدي اجيب الداتا من السيرفس عشان اعمل عمليات حذف او تعديل وهيك
-  //جبت السيرفس و عملتله انجكت
-  private dataService = inject(JobDataService);
-  selectedJob: any = null;
-  role="jobowner";
-  //جبت الجوبس كلهم و خزنتهم هون
-  jobs = this.dataService.getJobs();
-  //فلاغ عشان الديليت بوب اب
+
+  ngOnInit(): void {
+    this.loading = true;
+
+    this.profileser.getUser().subscribe({
+      next: (user) => {
+        this.currentUserId = user.user_id;
+
+        this.profileser.getroleid(this.userId).subscribe({
+          next: (roleid: number) => {
+            this.roleId = roleid;
+            this.loading = false;
+
+            if (this.userId && this.status) {
+              this.loadJobsByStatus(this.status);
+            }
+          },
+          error: (err) => {
+            console.error('failed getting role id', err);
+            this.loading = false;
+          }
+        });
+      },
+      error: (error) => {
+        console.error('error loading user', error);
+        this.loading = false;
+      },
+    });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if ((changes['userId'] && this.userId) || (changes['status'] && this.status)) {
+      this.loadJobsByStatus(this.status);
+    }
+  }
+
+  loadJobsByStatus(status: string) {
+    if (!this.userId) return;
+
+    if (this.roleId === 3) {
+      this.jobpostservice.getCompletedJobsForTechnician(this.userId).subscribe({
+        next: (jobs) => this.jobsarray = jobs,
+        error: (err) => console.error('failed loading technician completed jobs', err),
+      });
+      return;
+    }
+
+    switch (status) {
+      case 'all':
+        this.jobpostservice.getjobownerjobposts(this.userId).subscribe(jobs => this.jobsarray = jobs);
+        break;
+      case 'pending':
+        this.jobpostservice.getPendingJobposts(this.userId).subscribe(jobs => this.jobsarray = jobs);
+        break;
+      case 'in progress':
+        this.jobpostservice.getonProgressJobposts(this.userId).subscribe(jobs => this.jobsarray = jobs);
+        break;
+      case 'completed':
+        this.jobpostservice.getCompletedJobposts(this.userId).subscribe(jobs => this.jobsarray = jobs);
+        break;
+    }
+  }
+
+  onStatusChanged(jobId: number) {
+    const job = this.jobsarray.find(j => j.jobpost_id === jobId);
+    if (!job) console.warn(`Job with ID ${jobId} not found in jobsarray.`);
+  }
+
   showPopup = false;
-  //يا نل يا رقم
-  deleteIndex: number | null = null;
+  selectedJobIdToDelete: number | null = null;
 
-  // لما اكبس على الايكون تاعت الابديت بجيب الداتا تبعت هاي الكارد عشان اعدل عليها
-  requestEdit(index: number)
-  {
-    this.selectedJob = { ...this.jobs[index] };  // تخزين نسخة من الوظيفة للتعديل
+  requestEdit(job: Jobpost) {
+    this.router.navigate(['/updatejob'], { state: { userId: this.userId, data: job } });
   }
 
-  // لما اكبس على الايقونة تبعت الديليت بخلي الفلاغ ترو عشان تظهر البوب اب و بخزن رقم الاندكس في حال اكدت على عملية الحذف
-  requestDelete(index: number)
-  {
+  requestDelete(jobpost_id: number) {
     this.showPopup = true;
-    this.deleteIndex = index;
+    this.selectedJobIdToDelete = jobpost_id;
   }
 
-  // بحدث الجوبس سواء بعد ما حذفت او عدلت عليهم
-  refreshJobs()
-  {
-   this.jobs = this.dataService.getJobs();
-  }
+  confirmDelete() {
+    if (this.selectedJobIdToDelete !== null) {
+      this.jobpostservice.deletethisjobpost(this.selectedJobIdToDelete).subscribe(() => {
+        this.jobsarray = this.jobsarray.filter(job => job.jobpost_id !== this.selectedJobIdToDelete);
+      });
 
-  // لما اكبس على ديليت تاعت البوب اب بحذف الكارد
-  confirmDelete()
-  {
-    if (this.deleteIndex !== null)
-      {
-        this.dataService.removeJob(this.deleteIndex);
-        this.showPopup = false;//رجعناها فولس عشان خلصنا حذف
-        this.deleteIndex = null;
-        this.refreshJobs();  // عشان احدث الجوبس
-      }
+      (document.activeElement as HTMLElement)?.blur();
+      const modalEl = document.getElementById('deleteModal');
+      const modalInstance = bootstrap.Modal.getInstance(modalEl!);
+      modalInstance?.hide();
+    }
   }
-
-    // بعد ما عدلت على الداتا و كبست ابديت
-  jobUpdated(newJob: any)
-  {
-    // البيانات الجديدة بتحل محل القديمة
-    this.dataService.updateJob(this.selectedJob, newJob);
-    this.selectedJob = null;
-    this.refreshJobs();  // حدثت الجوبس بعد ما عدلت عليهم
-  }
-  
 }

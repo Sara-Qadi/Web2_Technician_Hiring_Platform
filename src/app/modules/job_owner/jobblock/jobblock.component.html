@@ -1,9 +1,142 @@
-@if(role == 'jobowner' || role == 'admin'){
+<div class="card position-relative" 
+      [ngStyle]="(role === 3 || (role !== 1 && currentUserId !== job.user_id)) ? { width: '300px', height: '280px' } : {}" 
+      [ngClass]="{'col-6 col-md-4': role === 1|| role===2}">
+  <div  [class.obefore-effect]="role === 1|| role === 2 || currentUserId === job.user_id "
+        [class.before-effect]="role === 3 || currentUserId !== job.user_id ">
+     <p class="card-title d-flex justify-content-between align-items-center text-capitalize">{{job.title}}
+      @if(role === 1 || role === 2){
+      <span class="d-flex gap-2 update-delete" *ngIf="job.user_id === currentUserId">
+        <button class="btn btn-sm" (click)="emitEditJob()">
+          <i class="fa-solid fa-pen text-secondary"></i>
+        </button>
+        <button class="btn btn-sm " (click)="onDeleteClick()" data-bs-toggle="modal" data-bs-target="#deleteModal">
+          <i class="fa-solid fa-trash text-danger"></i>
+        </button>
+      </span>
+    }
+     </p>
+  <div class="small-desc d-flex flex-column" [ngClass]="{
+  'gap-3': role === 1 || role === 2,
+  'gap-4': role === 3 }">
+    <div class="categ-loc d-flex justify-content-between">
+      <div class="category d-flex align-items-center gap-2">
+        @switch(job.category){
+          @case('Carpenter')
+          {
+            <i class="fa-solid fa-hammer" style="color:#b4b5bb;"></i>
+          }
+          @case('Plumber')
+          {
+            <i class="fa-solid fa-droplet" style="color:#6293c8;"></i>
+          }
+          @case('Electrician')
+          {
+            <i class="fa-solid fa-bolt" style="color:#b0b008;"></i>
+          }
+          @case('Painter')
+          {
+            <i class="fa-solid fa-brush" style="color:#779977; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
+          }
+          @case('Mason')
+          {
+            <i class="fa-solid fa-trowel-bricks" style="color:#3e4043; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
+          }
+          @case('Roofing')
+          {
+            <i class="fa-solid fa-people-roof" style="color:#781d1d; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
+          }
+          @case('Mechanic')
+          {
+            <i class="fa-solid fa-screwdriver-wrench" style="color:teal; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
+          }
+          @case('Welder')
+          {
+            <i class="fa-solid fa-weight-hanging" style="color:#323940; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
+          }
+          @case('Tiler')
+          {
+            <i class="fa-solid fa-trowel-bricks" style="color:#491313; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
+          }
+          @case('AC Technician')
+          {
+            <i class="fa-solid fa-wind" style="color:#9fb3c8; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
+          }
+          @case('Security Camera Installer')
+          {
+            <i class="fa-solid fa-shield-halved" style="color:#505153; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
+          }
+          @case('Other')
+          {
+            <i class="fa-solid fa-ellipsis" style="color:#6c757d; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
+          }
+        }
+        <span class="text-capitalize">{{ job.category === 'Security Camera Installer' ? 'Camera Installer' : job.category }}</span>
+      </div>
+      <div class="location d-flex align-items-center gap-2">
+        <i class="fa-solid fa-location-dot" style="color:#ea4335 ; box-shadow: rgba(234, 68, 53, 0.467)  0px 7px 29px 0px;"></i>
+        <span class="text-capitalize">{{job.location}}</span>
+      </div>
+    </div>
+    <div class="budget-status d-flex justify-content-between">
+      <div class="budget d-flex align-items-center gap-2">
+      <i class="fa-solid fa-money-check-dollar" style="color:#3e9c35; box-shadow: rgb(62, 156, 53, 0.467) 0px 7px 29px 0px;"></i>
+      <span>{{job.minimum_budget}}$ - {{job.maximum_budget}}$</span>
+      </div>
+      <div class="status d-flex align-items-center gap-2 text-capitalize">
+      <ng-container *ngIf="job.status === 'pending' && role !== 3">
+        <i class="fa-solid fa-hourglass-start" style="color:#ffc107;"></i>
+        <span >{{ job.status }}</span>
+      </ng-container>
+      <ng-container *ngIf="job.status === 'in progress'">
+        <i class="fa-solid fa-spinner" style="color:#fd7e14;"></i>
+        <ng-container *ngIf="role === 2">
+          <button  *ngIf="currentUserId == job.user_id"class="btn p-0 colored" (click)="openConfirmation()">{{ job.status }}</button>
+          <span *ngIf="currentUserId !== job.user_id">{{ job.status }}</span>
+        </ng-container>
+        <ng-container *ngIf="role === 3 || role === 1">
+            <span>{{ job.status }}</span>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="job.status === 'completed'">
+        <i class="fa-solid fa-check-circle" style="color:#28a745;"></i>
+        <span>{{ job.status }}</span>
+      </ng-container>
+      </div>
+    </div>
+
+    <div class="desc"[ngClass]="{'mb-2 mt-1': role === 1 || role === 2}">
+      <h4 class="title">Description</h4>
+      <p>{{job.description}}</p>
+    </div><!--  mb-2 mt-1 -->
+  </div>
+    <div *ngIf="role === 1 || (role === 2 && job.user_id === currentUserId)" class=" d-flex justify-content-around mt-2">
+      <a  class=" btn review" (click)="toreview()"
+      [style.display]="role === 1 ? 'none' : 'inline-block'"> Reviews</a>
+      <div class="veiw-more">
+      <button (click)="goToDetails()">View More</button>
+    </div>
+    </div>
+  </div>
+  <div *ngIf="role === 3 || job.user_id !== currentUserId" class="after-effect">
+    <div class="encourage">
+      <span>Wanna know more?</span>
+    </div>
+    <div class="veiw-more">
+      <button (click)="goToDetails()">View More</button>
+    </div>
+  </div>
+  <div class="go-corner">
+    <div class="go-arrow"><i class="fa-solid fa-arrow-right fa-fade" style="color: #ffffff;"></i></div>
+  </div>
+</div>
+
+
+<!-- @if(role == 'jobowner' || role == 'admin'){
 <div class="card position-relative col-6 col-md-4">
   <div class="obefore-effect">
-     <p class="card-title d-flex justify-content-between align-items-center">{{job.jobTitle}}
+     <p class="card-title d-flex justify-content-between align-items-center text-capitalize">{{job.title}}
       <span class="d-flex gap-2 update-delete">
-        <button class="btn btn-sm" (click)="onEditClick()" (click)="toupdate()">
+        <button class="btn btn-sm" (click)="emitEditJob()"><!- (click)="toupdate(job.jobpost_id)" ->
           <i class="fa-solid fa-pen text-secondary"></i>
         </button>
         <button class="btn btn-sm " (click)="onDeleteClick()" data-bs-toggle="modal" data-bs-target="#deleteModal">
@@ -21,7 +154,7 @@
           }
           @case('Plumber')
           {
-            <i class="fa-solid fa-droplet" style="color:#6293c8;"></i> 
+            <i class="fa-solid fa-droplet" style="color:#6293c8;"></i>
           }
           @case('Electrician')
           {
@@ -29,54 +162,72 @@
           }
           @case('Painter')
           {
-            <i class="fa-solid fa-brush" style="color:#779977; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+            <i class="fa-solid fa-brush" style="color:#779977; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('Mason')
           {
-            <i class="fa-solid fa-trowel-bricks" style="color:#3e4043; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>             
+            <i class="fa-solid fa-trowel-bricks" style="color:#3e4043; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('Roofing')
           {
-            <i class="fa-solid fa-people-roof" style="color:#781d1d; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>             
+            <i class="fa-solid fa-people-roof" style="color:#781d1d; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('Mechanic')
           {
-            <i class="fa-solid fa-screwdriver-wrench" style="color:teal; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+            <i class="fa-solid fa-screwdriver-wrench" style="color:teal; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('Welder')
           {
-            <i class="fa-solid fa-weight-hanging" style="color:#323940; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
-          } 
+            <i class="fa-solid fa-weight-hanging" style="color:#323940; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
+          }
           @case('Tiler')
           {
-            <i class="fa-solid fa-trowel-bricks" style="color:#491313; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
-          }
-          @case('Mason')
-          {
-            <i class="fa-solid fa-trowel-bricks" style="color:#691b0a; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>           
+            <i class="fa-solid fa-trowel-bricks" style="color:#491313; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('ACTechnician')
           {
-            <i class="fa-solid fa-wind" style="color:#9fb3c8; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+            <i class="fa-solid fa-wind" style="color:#9fb3c8; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
-          @case('SecurityCameraInstaller')
+          @case('CameraInstaller')
           {
-            <i class="fa-solid fa-shield-halved" style="color:#505153; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+            <i class="fa-solid fa-shield-halved" style="color:#505153; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
         }
-        <span>{{job.category}}</span>
+        <span class="text-capitalize">{{job.category}}</span>
       </div>
       <div class="location d-flex align-items-center gap-2">
         <i class="fa-solid fa-location-dot" style="color:#ea4335 ; box-shadow: rgba(234, 68, 53, 0.467)  0px 7px 29px 0px;"></i>
         <span>{{job.location}}</span>
       </div>
     </div>
-    <div class="budget d-flex align-items-center gap-2">
+    <div class="budget-status d-flex justify-content-between">
+ <div class="budget d-flex align-items-center gap-2">
       <i class="fa-solid fa-money-check-dollar" style="color:#3e9c35; box-shadow: rgb(62, 156, 53, 0.467) 0px 7px 29px 0px;"></i>
-      <span>{{job.minBudget}}$ - {{job.maxBudget}}$</span>
+      <span>{{job.minimum_budget}}$ - {{job.maximum_budget}}$</span>
     </div>
-    <div class="desc">
-      <p>{{job.jobDescription}}</p>
+    <div class="status d-flex align-items-center gap-2 text-capitalize">
+      @switch(job.status){
+        @case('pending')
+        {
+          <i class="fa-solid fa-hourglass-start" style="color:#ffc107;"></i>
+          <span>{{ job.status }}</span>
+        }
+        @case('in progress')
+        {
+          <i class="fa-solid fa-spinner" style="color:#fd7e14;"></i>
+          <button (click)="openConfirmation()">{{job.status}}</button>
+        }
+        @case('completed')
+        {
+          <i class="fa-solid fa-check-circle" style="color:#28a745;"></i>
+          <span>{{ job.status }}</span>
+        }
+      }
+    </div>
+    </div>
+
+    <div class="desc mb-2 mt-1">
+      <p>{{job.description}}</p>
     </div>
   </div>
     <div class=" d-flex justify-content-around mt-2">
@@ -94,7 +245,7 @@
 @else if(role == 'technician'){
 <div class="card position-relative" style="width: 300px;height: 280px;">
   <div class="before-effect">
-     <p class="card-title d-flex justify-content-between align-items-center">{{job.jobTitle}}
+     <p class="card-title d-flex justify-content-between align-items-center text-capitalize">{{job.title}}
      </p>
   <div class="small-desc d-flex flex-column gap-4">
     <div class="categ-loc d-flex justify-content-between">
@@ -106,7 +257,7 @@
           }
           @case('Plumber')
           {
-            <i class="fa-solid fa-droplet" style="color:#6293c8;"></i> 
+            <i class="fa-solid fa-droplet" style="color:#6293c8;"></i>
           }
           @case('Electrician')
           {
@@ -114,39 +265,35 @@
           }
           @case('Painter')
           {
-            <i class="fa-solid fa-brush" style="color:#779977; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+            <i class="fa-solid fa-brush" style="color:#779977; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('Mason')
           {
-            <i class="fa-solid fa-trowel-bricks" style="color:#3e4043; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>             
+            <i class="fa-solid fa-trowel-bricks" style="color:#3e4043; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('Roofing')
           {
-            <i class="fa-solid fa-people-roof" style="color:#781d1d; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>             
+            <i class="fa-solid fa-people-roof" style="color:#781d1d; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('Mechanic')
           {
-            <i class="fa-solid fa-screwdriver-wrench" style="color:teal; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+            <i class="fa-solid fa-screwdriver-wrench" style="color:teal; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('Welder')
           {
-            <i class="fa-solid fa-weight-hanging" style="color:#323940; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
-          } 
+            <i class="fa-solid fa-weight-hanging" style="color:#323940; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
+          }
           @case('Tiler')
           {
-            <i class="fa-solid fa-trowel-bricks" style="color:#491313; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
-          }
-          @case('Mason')
-          {
-            <i class="fa-solid fa-trowel-bricks" style="color:#691b0a; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>           
+            <i class="fa-solid fa-trowel-bricks" style="color:#491313; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('ACTechnician')
           {
-            <i class="fa-solid fa-wind" style="color:#9fb3c8; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+            <i class="fa-solid fa-wind" style="color:#9fb3c8; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
-          @case('SecurityCameraInstaller')
+          @case('CameraInstaller')
           {
-            <i class="fa-solid fa-shield-halved" style="color:#505153; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+            <i class="fa-solid fa-shield-halved" style="color:#505153; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
         }
         <span>{{job.category}}</span>
@@ -156,16 +303,36 @@
         <span>{{job.location}}</span>
       </div>
     </div>
-    <div class="budget d-flex align-items-center gap-2">
+    <div class="budget-status d-flex justify-content-between">
+ <div class="budget d-flex align-items-center gap-2">
       <i class="fa-solid fa-money-check-dollar" style="color:#3e9c35; box-shadow: rgb(62, 156, 53, 0.467) 0px 7px 29px 0px;"></i>
-      <span>{{job.minBudget}}$ - {{job.maxBudget}}$</span>
+      <span>{{job.minimum_budget}}$ - {{job.maximum_budget}}$</span>
+    </div>
+    <div class="status d-flex align-items-center gap-2">
+      @switch(job.status){
+        @case('pending')
+        {
+          <i class="fa-solid fa-hourglass-start" style="color:#ffc107;"></i>
+        }
+        @case('in progress')
+        {
+          <i class="fa-solid fa-spinner" style="color:#fd7e14;"></i>
+        }
+        @case('completed')
+        {
+          <i class="fa-solid fa-check-circle" style="color:#28a745;"></i>
+        }
+      }
+      <span>{{ job.status }}</span>
+    </div>
     </div>
     <div class="desc">
-      <p>{{job.jobDescription}}</p>
+      <h4 class="title">Description</h4>
+      <p>{{job.description}}</p>
     </div>
   </div>
   </div>
- 
+
   <div class="after-effect">
     <div class="encourage">
       <span>Wanna know more?</span>
@@ -178,4 +345,21 @@
     <div class="go-arrow"><i class="fa-solid fa-arrow-right fa-fade" style="color: #ffffff;"></i></div>
   </div>
 </div>
-}
+} -->
+<div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm Completion</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Do you want to mark this job as <strong>Completed</strong>?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success" (click)="markAsCompleted()">Yes, Mark as Completed</button>
+      </div>
+    </div>
+  </div>
+</div>

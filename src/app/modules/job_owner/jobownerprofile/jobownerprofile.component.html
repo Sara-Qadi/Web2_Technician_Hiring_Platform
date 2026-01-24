@@ -1,10 +1,55 @@
 <app-navbar-admin></app-navbar-admin>
-<app-userdetails [showartisan]="true" [showowner]="false"></app-userdetails>
-  <div class="my-5 container">
-    <h2 class="d-flex justify-content-between align-items-center">My Job Listings
-      <button class="add d-flex" (click)="addJob()"><i class="fa-solid fa-plus"></i>Add Job</button>
+
+<app-userdetails
+  [showartisan]="true"
+  [showowner]="true"
+  [isOwnProfile]="currentUserId === userId">
+</app-userdetails>
+
+<div class="my-5 container">
+
+  <ng-container *ngIf="isTechnicianProfile; else jobOwnerView">
+    <h2 class="d-flex justify-content-between align-items-center">
+      Completed Jobs
     </h2>
-    <app-joblist></app-joblist>
-  </div>
+
+    <app-joblist [userId]="userId" [status]="'completed'"></app-joblist>
+  </ng-container>
+
+  <ng-template #jobOwnerView>
+    <h2 class="d-flex justify-content-between align-items-center">
+      My Job Listings
+      <button class="add d-flex" *ngIf="currentUserId === userId" (click)="addJob()">
+        <i class="fa-solid fa-plus"></i>Add Job
+      </button>
+    </h2>
+
+    <ul class="nav nav-tabs mb-4 custom-tabs">
+      <li class="nav-item">
+        <button class="nav-link" [class.active]="selectedStatus === 'all'" (click)="setStatus('all')">
+          All jobposts
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" [class.active]="selectedStatus === 'pending'" (click)="setStatus('pending')">
+          Pending jobposts
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" [class.active]="selectedStatus === 'in progress'" (click)="setStatus('in progress')">
+          In progress jobposts
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" [class.active]="selectedStatus === 'completed'" (click)="setStatus('completed')">
+          Completed jobposts
+        </button>
+      </li>
+    </ul>
+
+    <app-joblist [userId]="userId" [status]="selectedStatus"></app-joblist>
+  </ng-template>
+
+</div>
 
 <app-footer-admin></app-footer-admin>

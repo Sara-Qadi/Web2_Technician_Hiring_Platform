@@ -1,9 +1,12 @@
 import { Component, Input,Output,EventEmitter,OnChanges, SimpleChanges,inject } from '@angular/core';
 
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { JobDataService } from '../../../services/jobdata.service';
+import { Jobpost } from '../../../models/jobpost.model';
+import { ProfileService } from '../../../services/profile.service';
+declare var bootstrap: any;
 @Component({
   selector: 'app-jobblock',
   standalone:true,
@@ -12,60 +15,78 @@ import { JobDataService } from '../../../services/jobdata.service';
   styleUrls: ['./jobblock.component.css']
 })
 export class JobblockComponent {
-  constructor(private router:Router){}
+  constructor(private router:Router,private route:ActivatedRoute,private profileservice:ProfileService){}
   private jobService = inject(JobDataService);
   selectedJob: any = null;
-  //عملت متغير مؤقتا عشان اشوف شكل الكارد للجوب اونر و للارتيزن
-  @Input() role:string | undefined;
-  //عشان استقبل الداتا من الكارد ليست
-  @Input() job: any;
-  //لما اليوزر او الجوب اونر يكبس على الايكونز الموجودة عالكارد عشان توصل للكارد ليست
-  @Output() deleteRequest = new EventEmitter<void>();
-  @Output() editRequest = new EventEmitter<void>(); // أضف حدث التعديل
+  @Input() role: number | undefined;
+  @Input() job!: Jobpost;
+  @Input() userId!: number;
+  @Input() currentUserId!: number;
 
-  //للفايل(بدي اشتغل عليه مرة ثانية)
+  @Output() editJob = new EventEmitter<Jobpost>();
+  @Output() deleteRequest = new EventEmitter<number>();
+  @Output() statusChanged = new EventEmitter<number>();
+
   extractFileName(url: string): string {
     return url.split('/').pop() || 'Attachment';
   }
+  canEdit = false;
 
-  //ارسل الايفنت اللي صار للكارد ليست
-  onEditClick()
+  ngOnInit(): void {
+  this.canEdit = this.job.user_id === this.userId;
+  console.log('Current User ID:', this.currentUserId);
+  console.log('Job User ID:', this.job.user_id);
+  console.log('Current Job ID in this card:', this.job.jobpost_id);
+  console.log('Can Edit:', this.canEdit);
+}
+  onDeleteClick()
   {
-  this.editRequest.emit();  
+    this.deleteRequest.emit(this.job.jobpost_id);
   }
 
-  onDeleteClick() 
-  {
-    this.deleteRequest.emit();
-  }
-  
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['job']) {
-      // سيتم تحديث البيانات المعروضة على الكارد عندما تتغير
       this.job = changes['job'].currentValue;
     }
   }
-  
-  //شكل الكارد للجوباونر
-  jobowner()
-  {
-    this.role='jobowner';
-  }
-  //شكل الكارد للارتيزن
-  artisan()
-  {
-    this.role='artisan';
+
+  openConfirmation() {
+    const modal = new bootstrap.Modal(document.getElementById('statusModal'));
+    modal.show();
   }
 
-  toreview(){
-    this.router.navigate(['/reviewbids']);
-  }
-  toupdate(){
-    this.router.navigate(['/updatejob']);
-  }
-  goToDetails() {
-    this.jobService.setSelectedJob(this.job);  // احفظ الجوب في الخدمة
-    this.router.navigate(['/jobdetails']);       // انتقل للصفحة
-    localStorage.setItem('selectedJob', JSON.stringify(this.job));//عشان تضل حتى لما اعمل ريفرش
+  markAsCompleted() {
+     console.log('Job ID before update:', this.job.jobpost_id);
+      this.jobService.updatestatus(this.job.jobpost_id).subscribe({
+    next: (response) => {
+      console.log('Job marked as completed:', response);
+
+      this.job = response.job;
+
+      bootstrap.Modal.getInstance(document.getElementById('statusModal'))?.hide();
+
+      alert('Job marked as completed successfully!');
+    },
+    error: (error) => {
+      console.error('Error marking job as completed:', error);
+      alert('Failed to mark job as completed.');
     }
+  });
+}
+
+  toreview(){
+    this.router.navigate(['/reviewbids',this.job.jobpost_id]);
+  }
+
+ emitEditJob() {
+    this.editJob.emit(this.job);
+  }
+
+goToDetails() {
+    if (this.job?.jobpost_id) {
+    this.router.navigate(['/jobdetails', this.job.jobpost_id]);
+  } else {
+    console.error('the jov id missing', this.job);
+  }
+}
 }

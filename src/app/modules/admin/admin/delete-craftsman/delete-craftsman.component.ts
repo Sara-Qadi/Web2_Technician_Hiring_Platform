@@ -1,50 +1,84 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePipe, NgForOf } from '@angular/common';
-import {NavbarAdminComponent} from '../navbar-admin/navbar-admin.component';
-import {FooterAdminComponent} from '../footer-admin/footer-admin.component';
+import { DatePipe, NgForOf, NgIf } from '@angular/common';
+import { AdminService } from '../../../../services/admin/admin.service';
+import { NavbarAdminComponent } from '../navbar-admin/navbar-admin.component';
+import { FooterAdminComponent } from '../footer-admin/footer-admin.component';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-delete-craftsman',
+  standalone: true,
   templateUrl: './delete-craftsman.component.html',
   imports: [
     FormsModule,
     NgForOf,
     DatePipe,
     NavbarAdminComponent,
-    FooterAdminComponent
+    FooterAdminComponent,
+    NgIf,
+    RouterLink,
   ],
   styleUrls: ['./delete-craftsman.component.css']
 })
-export class DeleteCraftsmanComponent {
+export class DeleteCraftsmanComponent implements OnInit {
   searchQuery: string = '';
-  craftsmen = [
-    { id: 1, jobTitle: 'Carpenter', name: 'Ahmad', location: 'Nablus', createdDate: new Date('2025-02-22') },
-    { id: 2, jobTitle: 'Blacksmith', name: 'Ali', location: 'Tulkarm', createdDate: new Date('2025-02-22') },
-    { id: 3, jobTitle: 'Painter', name: 'Mohammad', location: 'Nablus', createdDate: new Date('2025-02-26') },
-    { id: 4, jobTitle: 'Glassblower', name: 'Hamza', location: 'Hebron', createdDate: new Date('2025-03-01') },
-    { id: 5, jobTitle: 'Electrical Technician', name: 'Omar', location: 'Jenin', createdDate: new Date('2025-03-04') },
-    { id: 6, jobTitle: 'Potter', name: 'Abed', location: 'Qalqilia', createdDate: new Date('2025-03-15') },
-    { id: 7, jobTitle: 'Potter', name: 'Ahmad', location: 'Ramallah', createdDate: new Date('2025-03-15') }
-  ];
+  users: any[] = [];
+  loading: boolean = false;
+  errorMessage: string = '';
 
-  // دالة لحذف الحرفي
-  deleteCraftsman(craftsmanId: number): void {
-    const confirmDelete = window.confirm('Are you sure you want to delete this craftsman?');
-    if (confirmDelete) {
-      this.craftsmen = this.craftsmen.filter(c => c.id !== craftsmanId);
+  constructor(private adminService: AdminService) {}
+
+  ngOnInit(): void {
+    this.fetchUsers();
+  }
+
+  fetchUsers(): void {
+    this.loading = true;
+    this.adminService.getAllUsers(this.searchQuery).subscribe({
+      next: (users) => {
+        this.users = users;
+        console.log('Fetched users:', users);
+        this.loading = false;
+      },
+      error: () => {
+        this.errorMessage = 'Failed to load users.';
+        this.loading = false;
+      }
+    });
+  }
+
+  onSearchChange(): void {
+    this.fetchUsers();
+  }
+
+  deleteUser(user_id: number): void {
+    if (!user_id) {
+      alert('Invalid user ID');
+      return;
+    }
+    if (confirm('Are you sure you want to delete this user?')) {
+      this.adminService.deleteUser(user_id).subscribe({
+        next: () => {
+          this.users = this.users.filter(user => user.user_id !== user_id);
+          alert('User deleted successfully');
+        },
+        error: () => {
+          alert('Failed to delete user.');
+        }
+      });
     }
   }
 
-  // دالة لتصفية الحرفيين حسب البحث (اختياري)
-  get filteredCraftsmen() {
-    const query = this.searchQuery.toLowerCase();
-    return this.craftsmen.filter(c =>
-      c.name.toLowerCase().includes(query) ||
-      c.jobTitle.toLowerCase().includes(query) ||
-      c.location.toLowerCase().includes(query)
-    );
+  getAvatar(name: string): string {
+    if (!name) return '';
+    const parts = name.split(' ');
+    const first = parts[0].charAt(0);
+    let second = '';
+    if (parts[1] && isNaN(+parts[1])) {
+      second = parts[1].charAt(0);
+    }
+    return first + second;
   }
-
 
 }

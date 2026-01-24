@@ -1,9 +1,13 @@
-
+ <div *ngIf="loading" class="logo-section d-flex justify-content-center align-items-center" style="min-height: 400px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="#000000" viewBox="0 0 16 16">
+          <path d="M7.068.727c.243-.97 1.62-.97 1.864 0l.071.286a.96.96 0 0 0 1.622.434l.205-.211c.695-.719 1.888-.03 1.613.931l-.08.284a.96.96 0 0 0 1.187 1.187l.283-.081c.96-.275 1.65.918.931 1.613l-.211.205a.96.96 0 0 0 .434 1.622l.286.071c.97.243.97 1.62 0 1.864l-.286.071a.96.96 0 0 0-.434 1.622l.211.205c.719.695.03 1.888-.931 1.613l-.284-.08a.96.96 0 0 0-1.187 1.187l.081.283c.275.96-.918 1.65-1.613.931l-.205-.211a.96.96 0 0 0-1.622.434l-.071.286c-.243.97-1.62.97-1.864 0l-.071-.286a.96.96 0 0 0-1.622-.434l-.205.211c-.695.719-1.888.03-1.613-.931l.08-.284a.96.96 0 0 0-1.186-1.187l-.284.081c-.96.275-1.65-.918-.931-1.613l.211-.205a.96.96 0 0 0-.434-1.622l-.286-.071c-.97-.243-.97-1.62 0-1.864l.286-.071a.96.96 0 0 0 .434-1.622l-.211-.205c-.719-.695-.03-1.888.931-1.613l.284.08a.96.96 0 0 0 1.187-1.186l-.081-.284c-.275-.96.918-1.65 1.613-.931l.205.211a.96.96 0 0 0 1.622-.434zM12.973 8.5H8.25l-2.834 3.779A4.998 4.998 0 0 0 12.973 8.5m0-1a4.998 4.998 0 0 0-7.557-3.779l2.834 3.78zM5.048 3.967l-.087.065zm-.431.355A4.98 4.98 0 0 0 3.002 8c0 1.455.622 2.765 1.615 3.678L7.375 8zm.344 7.646.087.065z"/>
+        </svg>
+      </div>
 <div class="detail mb-5" *ngIf="job" >
-  <div class="heading" *ngIf="showTitle">
+  <div class="heading mb-2" *ngIf="showTitle">
     <p>Job Info</p>
   </div>
-<div class="detail-card mx-auto">
+<div class="detail-card mx-auto" *ngIf="!loading">
   <div class="content">
     <div class="title-report">
       <div class="sec title">
@@ -11,7 +15,7 @@
           <i class="fa-solid fa-heading"></i>
           <h5 class="shine">Title:</h5>
         </div>
-        <span class="value">{{job.jobTitle}}</span>
+        <span class="value">{{job.title}}</span>
       </div>
       <button *ngIf="showButtons" class="Btn" data-bs-toggle="modal" data-bs-target="#reportModal">
         <div class="sign">
@@ -39,7 +43,7 @@
         <i class="fa-solid fa-money-bill"></i>
         <h5 class="shine">Budget:</h5>
       </div>
-      <span class="value">{{job.minBudget}}$ - {{job.maxBudget}}$</span>
+      <span class="value">{{job.minimum_budget}}$ - {{job.maximum_budget}}$</span>
     </div>
     <div class="sec deadline">
       <div class="icon-feild">
@@ -58,7 +62,7 @@
         <span class="value" style="width: 200px;">no file was attached</span>
       }
       @else{
-      <a href="#" class="value">{{job.attachments}}</a>
+          <a [href]="'http://localhost/BackEnd-Technician-Hiring-Platform/public/api/attachments/download/' + job.attachments" class="value">{{job.attachments}}</a>
       }
     </div>
     <div class="sec description">
@@ -66,14 +70,14 @@
         <i class="fa-solid fa-circle-info"></i>
         <h5 class="shine">Description:</h5>
       </div> 
-      <p class="value">{{job.jobDescription}}</p>
+      <p class="value">{{job.description}}</p>
     </div>
     <div class="sec postowner desc">
       <div class="icon-feild">
         <i class="fa-solid fa-circle-user"></i>
         <h5 class="shine">Posted by:</h5>
       </div> 
-      <a href="/jobowner" class="value text-decoration-none">JOEY DOESN'T SHARE HIS FOOOOD</a>
+      <a [routerLink]="['/jobowner', job.user_id]" class="value text-decoration-none">{{job.user_name}}</a>
     </div>
   </div>
   <button *ngIf="showButtons" class="apply-btn" (click)="gotosubmitbid()">Apply Job</button>

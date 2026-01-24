@@ -1,53 +1,89 @@
-import { Component } from '@angular/core';
-import {NgForOf} from '@angular/common';
-import {NavbarAdminComponent} from '../navbar-admin/navbar-admin.component';
-import {FooterAdminComponent} from '../footer-admin/footer-admin.component';
-import {FormsModule} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { AdminService } from '../../../../services/admin/admin.service';
+import { NavbarAdminComponent } from '../navbar-admin/navbar-admin.component';
+import { FooterAdminComponent } from '../footer-admin/footer-admin.component';
+import { FormsModule } from '@angular/forms';
+import { CommonModule, NgForOf } from '@angular/common';
 
 @Component({
   selector: 'app-craftsmen-registrations',
-  imports: [
-    NgForOf,
-    NavbarAdminComponent,
-    FooterAdminComponent,
-    FormsModule
-  ],
   templateUrl: './craftsmen-registrations.component.html',
-  styleUrl: './craftsmen-registrations.component.css'
+  standalone: true,
+  imports: [
+    NavbarAdminComponent,
+    NgForOf,
+    FooterAdminComponent,
+    FormsModule,
+    CommonModule
+  ],
+  styleUrls: ['./craftsmen-registrations.component.css']
 })
-export class CraftsmenRegistrationsComponent {
-  searchQuery: string = ''; //  متغير البحث
+export class CraftsmenRegistrationsComponent implements OnInit {
+  searchQuery: string = '';
+  registrations: any[] = [];
 
-  registrations = [
-    { id: 1, contact: '456-7890 / johndhill.gmail.com', date: '20/10/2023', status: 'Pending' },
-    { id: 2, contact: '456-7891 / rallen.gmail.com', date: '21/10/2023', status: 'Pending' },
-    { id: 3, contact: '456-7892 / sgoldson.gmail.com', date: '22/10/2023', status: 'Pending' },
-    { id: 4, contact: '456-7893 / cf.gmail.com', date: '23/10/2023', status: 'Pending' },
-    { id: 5, contact: '456-7894 / te.gmail.com', date: '24/10/2023', status: 'Pending' },
-  ];
+  constructor(private adminService: AdminService) {}
 
-  approveRegistration(id: number): void {
-    const confirmApprove = window.confirm('Are you sure you want to approve this registration?');
-    if (confirmApprove) {
-      const reg = this.registrations.find(r => r.id === id);
-      if (reg) reg.status = 'Approved';
+  ngOnInit(): void {
+    this.loadPendingRegistrations();
+  }
+
+  loadPendingRegistrations(): void {
+    this.adminService.getPendingTechnicians(this.searchQuery).subscribe({
+      next: (response: any) => {
+        console.log('Pending registrations response:', response);
+        if (response.success) {
+          this.registrations = response.data.map((user: any) => ({
+            user_id: user.user_id,
+            name: user.user_name,
+            email: user.email,
+            phone: user.phone,
+            date: new Date(user.created_at).toLocaleDateString(),
+          }));
+        } else {
+          alert('Failed to load pending registrations');
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching technicians', error);
+        alert('Error loading pending registrations');
+      }
+    });
+  }
+
+
+  onSearchChange(): void {
+    this.loadPendingRegistrations();
+  }
+
+  approveRegistration(user_id: number): void {
+    if (window.confirm('Are you sure you want to approve this registration?')) {
+      this.adminService.acceptTechnician(user_id).subscribe({
+        next: () => {
+          alert('The craftsman has been successfully accepted.');
+          this.loadPendingRegistrations();
+        },
+        error: (error) => {
+          console.error('Error in accepting the technician.', error);
+          alert('Failed to accept the technician.');
+        }
+      });
     }
   }
 
-  rejectRegistration(id: number): void {
-    const confirmReject = window.confirm('Are you sure you want to reject this registration?');
-    if (confirmReject) {
-      const reg = this.registrations.find(r => r.id === id);
-      if (reg) reg.status = 'Rejected';
+  rejectRegistration(user_id: number): void {
+    if (window.confirm('Are you sure you want to reject this registration?')) {
+      this.adminService.rejectTechnician(user_id).subscribe({
+        next: () => {
+          alert('The technician was rejected and deleted successfully.');
+          this.loadPendingRegistrations();
+        },
+        error: (error) => {
+          console.error('technician rejection error.', error);
+          alert('Failed to reject the technician.');
+        }
+      });
     }
   }
-  get filteredRegistrations() {
-    const query = this.searchQuery.toLowerCase();
-    return this.registrations.filter(reg =>
-      reg.contact.toLowerCase().includes(query) ||
-      reg.date.toLowerCase().includes(query) ||
-      reg.status.toLowerCase().includes(query) ||
-      reg.id.toString().includes(query)
-    );
-  }
+
 }

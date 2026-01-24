@@ -2,57 +2,38 @@
 <div style="background-color: #f3f2f1; min-height: 100vh;">
 
     <div class="container py-5">
-      <div class="row justify-content-center gap-5">
+      <div class="row justify-content-center gap-2">
 
-        <div class="col-12 col-md-6 col-lg-4 ">
-          <!-- <div class="card h-100 shadow-sm" style="background-color: #ffffff;">
-            <div class="card-header text-white" style="background-color: #641739;">koko wawa</div>
-            <div class="card-img-top d-flex align-items-center justify-content-center bg-light" style="height: 200px;">
-              <i class="bi bi-image" style="font-size: 3rem; color: #888;"></i>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn w-100" style="background-color: #641739; color: white;">Go somewhere</a>
-            </div>
-          </div> -->
-        <app-jobdetails [showButtons]="false" [showTitle]="false"></app-jobdetails>
-
+        <div class="col-12 col-md-5 col-lg-4">
+          <app-jobdetails [showButtons]="false" [showTitle]="false"></app-jobdetails>
         </div>
 
         <div class="col-12 col-md-6 col-lg-7 d-flex align-items-center justify-content-center">
-          <form (ngSubmit)="submitForm()" #myForm="ngForm" class="p-4 rounded shadow mb-3 w-75 " style="background-color: #ffffff;">
+          <form (ngSubmit)="submitForm()" #myForm="ngForm" class="p-4 rounded shadow mb-3 w-75" style="background-color: #ffffff;;">
             <div class="mb-3">
-              <label for="min" class="form-label text-dark">Min Value</label>
-              <input type="number" id="min" class="form-control" [(ngModel)]="min" name="min" required>
-            </div>
-
-            <div class="mb-3">
-              <label for="max" class="form-label text-dark">Max Value</label>
-              <input type="number" id="max" class="form-control" [(ngModel)]="max" name="max" required>
+              <label for="price" class="form-label text-dark">Wanted Price</label>
+              <input type="number" id="price" class="form-control mb-5  custom-search-wrapper "
+              [(ngModel)]="Price"  (ngModelChange)="checkAmount($event)" name="price" required>
             </div>
 
             <div class="mb-3">
               <label for="comment" class="form-label text-dark">Comment</label>
-              <textarea id="comment" rows="4" class="form-control" [(ngModel)]="comment" name="comment"></textarea>
+              <textarea id="comment" rows="4" class="form-control  custom-search-wrapper" [(ngModel)]="comment" name="comment"></textarea>
             </div>
 
-
-            <button type="submit" class="btn w-100" style="background-color: #641739; color: white;">Submit</button>
+            <div class="neon-button-wrapper">
+              <button 
+                type="submit" 
+                class="neon-button w-100">
+                Submit
+              </button>
+            </div>
           </form>
         </div>
       </div>
 
-      <div *ngIf="submissions.length > 0" class="mt-4">
-        <h5 class="mb-3 text-center text-dark">Submissions</h5>
-        <div *ngFor="let entry of submissions" class="card mb-3 shadow-sm">
-          <div class="card-body" style="background-color: #f5f2ef;">
-            <p><strong>Min:</strong> {{ entry.min }}</p>
-            <p><strong>Max:</strong> {{ entry.max }}</p>
-            <p><strong>Comment:</strong> {{ entry.comment }}</p>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
+
+
   <app-footer-admin></app-footer-admin>

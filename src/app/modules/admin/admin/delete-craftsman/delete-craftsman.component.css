@@ -1,26 +1,41 @@
-html, body {
-  height: 100%;
-  margin: 0;
-  background-color: #e8e0da;
-  overflow-x: hidden;
-}
-
-.text-color-primary {
-  color: black;
-}
-
-.custom-thead {
-  background-color: black !important;
+h2, .custom-thead th {
+  font-family: var(--headings);
 }
 
 .custom-thead th {
-  background-color: rebeccapurple !important;
-  color: white;
   text-align: center;
+  font-size: 15px;
+  background-color: #FBFCFD !important;
+}
+.custom-table td, input{
+  font-family: var(--body);
 }
 
 .custom-table {
-  box-shadow: none !important;
+  width: 100%;
+  border: 1px solid rgba(0,0,0,0.1); 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+ 
+}
+
+.custom-table th,
+.custom-table td {
+  border: none;
+  padding: 0.75rem 1rem;
+}
+
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--secondaryColor);
+  color: whitesmoke;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 0.9rem;
 }
 
 .search-input {
@@ -32,8 +47,8 @@ html, body {
 }
 
 .search-input:focus {
-  border-color: #642eda !important;
-  box-shadow: 0 0 0 0.25rem rgba(100, 23, 57, 0.25);
+  border-color: var(--primaryColor) !important;
+  box-shadow: 0 0 0 0.25rem #EAF0F0;
   outline: none;
 }
 
@@ -46,29 +61,17 @@ html, body {
 }
 
 .btn-reject {
-  background-color: #E93445;
-  color: white;
+  background-color: #FAEEEE;
+  color: #cb0a0a;
 }
 .btn-edit {
-  background-color: #642eda;
-  color: white;
+  background-color: #EAF0F0;
+  color: var(--primaryColor);
 }
 
-.add-user-btn {
-  background-color: #642eda;
-  color: white;
-  padding: 0.5rem 2rem;
-  font-weight: 600;
-  border: none;
-  border-radius: 30px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  display: inline-flex;
-  align-items: center;
+.btn-group-responsive {
+  display: flex;
   justify-content: center;
   gap: 0.5rem;
-}
-
-.add-user-btn:hover {
-  background-color: mediumpurple;
-  transform: scale(1.05);
+  flex-wrap: wrap;
 }

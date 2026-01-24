@@ -1,8 +1,8 @@
-#jobProgressPieChart {
-  width: 350px !important;
-  height: 350px !important;
+#jobProgressPieChart,#usersDoughnutChart {
+  width: 300px !important;
+  height: 300px !important;
 }
-#pie{
+#pie,#doughnut {
   width: 350px;
 }
 .hover-effect {
@@ -13,17 +13,17 @@
 .hover-effect:hover {
   transform: scale(1.05);
   box-shadow: 0 8px 20px rgba(100, 23, 57, 0.5);
-  border-color: rebeccapurple !important;
+  border-color: #e83e8c !important;
 }
 
 .card-header-custom {
-  background-color: rebeccapurple;
+  background-color: #641739;
   color: white;
   text-align: center;
   transition: background-color 0.3s ease;
 }
 
 .hover-effect:hover .card-header-custom {
-  background-color: mediumpurple !important;
+  background-color: #7e1f49 !important;
 }
 
