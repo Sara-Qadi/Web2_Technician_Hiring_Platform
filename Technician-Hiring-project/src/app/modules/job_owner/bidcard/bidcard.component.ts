@@ -2,12 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Proposal } from '../../../models/proposal.model';
 import { SubmissionService } from '../../../services/submission.service';
 import { ProposalService } from '../../../services/proposal.service';
-import { ActivatedRoute,Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../../services/notification.service';
 import { CommonModule } from '@angular/common';
 import { JobDataService } from '../../../services/jobdata.service';
 import { MessagingService } from '../../../services/messaging.service';
-import { ProfileModalService } from '../../../services/profile-modal.service';
 
 @Component({
   selector: 'app-bidcard',
@@ -19,31 +18,29 @@ import { ProfileModalService } from '../../../services/profile-modal.service';
 export class BidcardComponent implements OnInit {
   @Input() bid!: Proposal;
   jobid!: number;
-  
 
   constructor(
-  private subservice: SubmissionService,
-  private proposalService: ProposalService,
-  private route: ActivatedRoute,
-  private notificationService: NotificationService,
-  private jobdataService: JobDataService, 
-  private mesagingService: MessagingService,
-  public router: Router,
-  private profilemodalservice: ProfileModalService
-) {}
+    private subservice: SubmissionService,
+    private proposalService: ProposalService,
+    private route: ActivatedRoute,
+    private notificationService: NotificationService,
+    private jobdataService: JobDataService,
+    private mesagingService: MessagingService,
+    public router: Router
+  ) {}
 
   ngOnInit(): void {
-  this.route.url.subscribe(segments => {
-    const lastSegment = segments[segments.length - 1];
-    this.jobid = +lastSegment.path;
-    console.log('Job Post ID:', this.jobid);
-  });
-}
+    this.route.url.subscribe(segments => {
+      const lastSegment = segments[segments.length - 1];
+      this.jobid = +lastSegment.path;
+      console.log('Job Post ID:', this.jobid);
+    });
+  }
 
+  openProfileModal(userId: number) {
+    this.router.navigate(['/jobowner', userId]);
+  }
 
-  openProfileModal(techId: number) {
-  this.profilemodalservice.openOUTModal(techId);
-}
   acceptProposal(id: number): void {
     this.subservice.acceptproposal(id).subscribe({
       next: () => {
@@ -103,31 +100,28 @@ export class BidcardComponent implements OnInit {
     });
   }
 
-
   messageTheTech(): void {
-  if (!this.jobid) {
-    console.error('❌ jobpost_id not found in URL');
-    return;
-  }
-
-  this.jobdataService.getJobownerIdBytheJobpostId(this.jobid).subscribe({
-    next: (res: any) => {
-      const jobownerId = res.jobowner_id;
-
-      this.mesagingService.getSelectedUserToMessage(jobownerId, this.bid.tech_id).subscribe({
-        next: (response) => {
-          this.router.navigate(['/messages']);
-        },
-        error: (err) => {
-          console.error('❌ Failed to send message:', err);
-        }
-      });
-    },
-    error: (err) => {
-      console.error('❌ Failed to get jobowner ID:', err);
+    if (!this.jobid) {
+      console.error('❌ jobpost_id not found in URL');
+      return;
     }
-  });
-}
 
+    this.jobdataService.getJobownerIdBytheJobpostId(this.jobid).subscribe({
+      next: (res: any) => {
+        const jobownerId = res.jobowner_id;
 
+        this.mesagingService.getSelectedUserToMessage(jobownerId, this.bid.tech_id).subscribe({
+          next: () => {
+            this.router.navigate(['/messages']);
+          },
+          error: (err) => {
+            console.error('❌ Failed to send message:', err);
+          }
+        });
+      },
+      error: (err) => {
+        console.error('❌ Failed to get jobowner ID:', err);
+      }
+    });
+  }
 }
