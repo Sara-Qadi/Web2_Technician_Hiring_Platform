@@ -47,6 +47,7 @@
   height: 350px;
   border-radius: 50%;
   background-color: #7b00ff;
+  background-color: var(--primaryColor);
   opacity: 1;
   filter: blur(22px);
   animation: blob-bounce 3s infinite ease;
@@ -114,6 +115,7 @@
 }
 a{
   color: #7b00ff;
+  color: var(--primaryColor);
 }
 @media screen and (max-width: 768px) {
   .detail{
@@ -141,6 +143,7 @@ a{
   overflow: hidden;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
   background-color: rgb(255, 65, 65);
+  background-color: var(--report);
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -188,6 +191,7 @@ a{
   transform: translateY(5px);
   transition: 100ms;
   box-shadow: rgba(255, 65, 65, 0.453) 0px 0px 0px 0px;
+
 }
 .title-report{
   display: flex;
@@ -200,6 +204,7 @@ a{
   left: 40%;
   transform: translateX(-50%);
   background-color: #7b00ff;
+  background-color: var(--primaryColor);
   color: white;
   border: none;
   padding: 10px 18px;

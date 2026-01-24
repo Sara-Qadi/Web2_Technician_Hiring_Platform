@@ -28,6 +28,7 @@ ngOnInit(): void {
   this.loadPendingApprovals();
 
   this.createPieChart();
+  this.createUsersDoughnutChart();
 
   this.dashboardService.getJobPostsByMonth().subscribe({
     next: (res) => {
@@ -145,23 +146,25 @@ createPieChart(): void {
   this.dashboardService.getJobStatusCounts().subscribe({
     next: (res) => {
       const data = [res.in_progress, res.completed];
-
+      console.log('Data for pie chart:', data);
       new Chart('jobProgressPieChart', {
-        type: 'pie',
+        type: 'doughnut',
         data: {
           labels: ['Jobs in Progress', 'Completed Jobs'],
           datasets: [
             {
               label: 'Jobs Progress',
               data: data,
-              backgroundColor: ['#ffcc00', '#28a745'],
+              backgroundColor: ['#641739', '#2c6975'],
+              borderWidth: 0 ,
               borderColor: '#ffffff',
-              borderWidth: 1
+              
             }
           ]
         },
         options: {
           responsive: true,
+          cutout: '65%',
           plugins: {
             legend: {
               position: 'top'
@@ -182,5 +185,59 @@ createPieChart(): void {
     }
   });
 }
+
+createUsersDoughnutChart(): void {
+  this.dashboardService.getTechnicianCounts().subscribe({
+    next: (techRes) => {
+
+      const techCount = techRes?.technicians ?? 0;
+
+      this.dashboardService.getJobOwnerCounts().subscribe({
+        next: (ownerRes) => {
+          const ownerCount = Array.isArray(ownerRes) ? ownerRes.length : 0;
+
+          const data = [techCount, ownerCount];
+          console.log('Data for donut chart:', data);
+
+          new Chart('usersDoughnutChart', {
+            type: 'doughnut',
+            data: {
+              labels: ['Technicians', 'Job Owners'],
+              datasets: [
+                {
+                  label: 'Users Distribution',
+                  data: data,
+                  backgroundColor: ['#2c6975', '#641739'],
+                  borderColor: '#ffffff',
+                  borderWidth: 0
+                }
+              ]
+            },
+            options: {
+              responsive: false,
+              maintainAspectRatio: false,
+              cutout: '65%',
+              plugins: {
+                legend: { position: 'top' },
+                tooltip: {
+                  callbacks: {
+                    label: function(tooltipItem: any) {
+                      return `${tooltipItem.label}: ${tooltipItem.raw} Users`;
+                    }
+                  }
+                }
+              }
+            }
+          });
+
+        },
+        error: (err) => console.error('Error loading job owners count', err)
+      });
+    },
+    error: (err) => console.error('Error loading technicians count', err)
+  });
+}
+
+
 
 }

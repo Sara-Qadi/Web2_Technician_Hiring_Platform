@@ -38,6 +38,7 @@ export class DeleteCraftsmanComponent implements OnInit {
     this.adminService.getAllUsers(this.searchQuery).subscribe({
       next: (users) => {
         this.users = users;
+        console.log('Fetched users:', users);
         this.loading = false;
       },
       error: () => {
@@ -67,6 +68,17 @@ export class DeleteCraftsmanComponent implements OnInit {
         }
       });
     }
+  }
+
+  getAvatar(name: string): string {
+    if (!name) return '';
+    const parts = name.split(' ');
+    const first = parts[0].charAt(0);
+    let second = '';
+    if (parts[1] && isNaN(+parts[1])) {
+      second = parts[1].charAt(0);
+    }
+    return first + second;
   }
 
 }

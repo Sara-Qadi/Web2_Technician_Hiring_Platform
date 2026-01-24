@@ -34,4 +34,12 @@ getJobStatusCounts(): Observable<{ in_progress: number, completed: number }> {
   return this.http.get<{ in_progress: number, completed: number }>(`${this.baseUrl}/dashboard/job-status-counts`);
 }
 
+getTechnicianCounts(): Observable<{technicians: number }> {
+  return this.http.get<{ technicians: number }>(`${this.baseUrl}/users/technicians`);
+}
+
+getJobOwnerCounts(): Observable<{job_owners: number }> {
+  return this.http.get<{ job_owners: number }>(`${this.baseUrl}/users/owners`);
+}
+
 }

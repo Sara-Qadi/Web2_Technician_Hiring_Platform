@@ -1,4 +1,6 @@
-<div class="card position-relative" [ngStyle]="role === 3 || currentUserId!==job.user_id? { width: '300px', height: '280px' } : {}" [ngClass]="{'col-6 col-md-4': role === 1|| role===2}">
+<div class="card position-relative" 
+      [ngStyle]="(role === 3 || (role !== 1 && currentUserId !== job.user_id)) ? { width: '300px', height: '280px' } : {}" 
+      [ngClass]="{'col-6 col-md-4': role === 1|| role===2}">
   <div  [class.obefore-effect]="role === 1|| role === 2 || currentUserId === job.user_id "
         [class.before-effect]="role === 3 || currentUserId !== job.user_id ">
      <p class="card-title d-flex justify-content-between align-items-center text-capitalize">{{job.title}}
@@ -108,7 +110,8 @@
     </div><!--  mb-2 mt-1 -->
   </div>
     <div *ngIf="role === 1 || (role === 2 && job.user_id === currentUserId)" class=" d-flex justify-content-around mt-2">
-      <a  class=" btn review" (click)="toreview()"> Reviews</a>
+      <a  class=" btn review" (click)="toreview()"
+      [style.display]="role === 1 ? 'none' : 'inline-block'"> Reviews</a>
       <div class="veiw-more">
       <button (click)="goToDetails()">View More</button>
     </div>

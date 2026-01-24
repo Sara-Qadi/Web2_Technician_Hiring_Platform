@@ -1,27 +1,30 @@
-html, body {
-  height: 100%;
-  margin: 0;
-  background-color: white;
-  overflow-x: hidden;
-}
-
-.text-color-primary {
-  color: #642eda;
-}
-
-.custom-thead {
-  background-color: #642eda !important;
+h2,.custom-thead th {
+  font-family: var(--headings);
 }
 
 .custom-thead th {
-  background-color: #642eda !important;
-  color: white;
   text-align: center;
+  font-size: 15px;
+  background-color: #FBFCFD !important;
+}
+
+.custom-table td, input{
+  font-family: var(--body);
 }
 
 .custom-table {
-  box-shadow: none !important;
+  width: 100%;
+  border: 1px solid rgba(0,0,0,0.1); 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+ 
 }
+
+.custom-table th,
+.custom-table td {
+  border: none;
+  padding: 0.75rem 1rem;
+}
+ 
 
 .search-input {
   border-radius: 50rem;
@@ -31,8 +34,8 @@ html, body {
   padding-right: 3rem;
 }
 .search-input:focus {
-  border-color: rebeccapurple !important;
-  box-shadow: 0 0 0 0.25rem rgba(100, 23, 57, 0.25);
+  border-color: var(--secondaryColor) !important;
+  box-shadow: 0 0 0 0.25rem #EAF0F0;
   outline: none;
 }
 .search-icon {
@@ -44,13 +47,13 @@ html, body {
 }
 
 .btn-approve {
-  background-color: green;
-  color: white;
+  background-color: #EAF0F0;
+  color: var(--primaryColor);
 }
 
 .btn-reject {
-  background-color: #E93445;
-  color: white;
+  background-color: #FAEEEE;
+  color: #cb0a0a;
 }
 
 .btn-group-responsive {
@@ -59,3 +62,17 @@ html, body {
   gap: 0.5rem;
   flex-wrap: wrap;
 }
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--secondaryColor);
+  color: whitesmoke;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+

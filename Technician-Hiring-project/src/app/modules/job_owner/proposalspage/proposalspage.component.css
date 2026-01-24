@@ -9,5 +9,7 @@
 
 .custom-tabs .nav-link.active {
   color: #7b00ff !important; /* بنفسجي */
+  color: var(--primaryColor) !important;
   border-bottom: 2px solid #7b00ff; /* بنفسجي */
+  border-bottom: 2px solid var(--primaryColor);
 }
