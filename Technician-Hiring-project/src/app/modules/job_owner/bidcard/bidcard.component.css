@@ -4,18 +4,18 @@
   box-shadow: 10px 10px 60px #edeaea;
 }
 span,button,p{
-  font-family: "Manrope", sans-serif;
+  font-family: var(--body);
 }
 h6 {
-  font-family: "poppins", sans-serif;
+  font-family: var(--headings);
   font-weight: 700;
   font-size: 15px;
 }
 .amount{
-  font-family: "poppins", sans-serif;
+  font-family: var(--headings);
 }
 .proposal{
-  font-family: "Manrope", sans-serif;
+  font-family: var(--body);
   font-weight: 500;
   font-size: 14px;
 }
@@ -52,13 +52,13 @@ h6 {
   color: white;
 }
 .bidname{
-  font-family: "poppins", sans-serif;
+  font-family: var(--headings);
 }
 .accepted{
   color: #475451;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--headings);
 }
 .rejected{
   color: #b30a0ac0;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--headings);
 }

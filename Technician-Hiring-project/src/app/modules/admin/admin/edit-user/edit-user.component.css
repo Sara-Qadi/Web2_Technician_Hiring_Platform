@@ -1,0 +1,71 @@
+.edit-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.section-title span{
+  font-family: var(--headings);
+  color: var(--primaryColor);
+  font-weight: 600;
+}
+
+.section-title h6{
+  font-family: var(--body);
+  color: #343a40;
+}
+.section-title i {
+  font-size: 22px;
+  font-family: var(--headings);
+}
+
+.input-icon {
+  position: relative;
+}
+
+label,h3{
+  font-family: var(--headings);
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.input-icon i {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  color: #9aa0a6;
+  font-size: 14px;
+}
+
+.input-icon input {
+  font-family: var(--body);
+  padding-left: 40px;
+  height: 46px;
+  border-radius: 10px;
+  border: 2px solid rgb(200, 200, 200);
+  color: #444344;
+}
+.input-icon input:focus{
+  border-color: var(--secondaryColor) !important;
+  box-shadow: 0 0 0 0.25rem #EAF0F0;
+  outline: none;
+}
+
+.alert-success, .alert-danger{
+  font-family: var(--body);
+}
+
+button{
+  font-family: var(--headings);
+}
+
+.button{
+  background-color: var(--primaryColor);
+  color: #fff;
+}
+
+.button:active{
+  border-color: var(--primaryColor);
+  color: var(--primaryColor);
+}

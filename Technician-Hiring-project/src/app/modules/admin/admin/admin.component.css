@@ -1,29 +1,82 @@
-#jobProgressPieChart,#usersDoughnutChart {
-  width: 300px !important;
-  height: 300px !important;
+body{
+  background-color: #F3F2F1;
 }
-#pie,#doughnut {
-  width: 350px;
-}
-.hover-effect {
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-
+.dashboard-container {
+  margin-top: 30px;
+  margin-bottom: 40px;
 }
 
-.hover-effect:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 20px rgba(100, 23, 57, 0.5);
-  border-color: #e83e8c !important;
+.stat-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
 }
 
-.card-header-custom {
-  background-color: #641739;
-  color: white;
-  text-align: center;
-  transition: background-color 0.3s ease;
+.stat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
 }
 
-.hover-effect:hover .card-header-custom {
-  background-color: #7e1f49 !important;
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 18px;
 }
 
+.bg-blue { background: #3b82f6; }
+.bg-green { background: #10b981; }
+.bg-orange { background: #f59e0b; }
+
+.stat-info h3 {
+  margin: 0;
+  font-weight: 700;
+  font-family: var(--body);
+}
+
+.stat-title {
+  font-family: var(--headings);
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.stat-change {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Dashboard Cards */
+.dashboard-card {
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+}
+
+.dashboard-header {
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+  font-weight: 600;
+  font-size: 17px;
+  font-family: var(--headings);
+}
+
+/* Canvas sizing */
+#jobProgressPieChart {
+  max-width: 320px;
+  max-height: 320px;
+  font-family: var(--body);
+
+}

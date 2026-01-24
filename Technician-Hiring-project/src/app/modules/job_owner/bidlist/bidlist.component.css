@@ -1,4 +1,4 @@
 .heading{
-  font-family: "poppins", sans-serif;
+  font-family: var(--headings);
   font-size: 20px;
 }

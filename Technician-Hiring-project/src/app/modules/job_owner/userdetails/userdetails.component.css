@@ -45,7 +45,6 @@ h2{
 }
 .valuelink{
   text-decoration: none;
-  color: #7b00ff;
   color: var(--primaryColor);
   font-family: "manrope", sans-serif;
   font-weight: 400;
@@ -105,24 +104,20 @@ label{font-family: "Manrope", sans-serif;
   background-color: #000000;
 }
 .edit:hover{
-  background-color: #7b00ff;
   background-color: var(--primaryColor);
   box-shadow:  #cba3f0 0px 7px 29px 0px;/*#6293c8*/
 }
 .edit:active {
-  background-color: #7b00ff;/*#6293c8*/
   background-color: var(--primaryColor);
   box-shadow: #7b00ff  0px 0px 0px 0px;/*#7b00ff*/
   transform: translateY(10px);
   transition: 100ms;
 }
 .save{
-  background-color: #7b00ff;
   background-color: var(--primaryColor);
   color: white;
 }
 .save:hover{
-  background-color: #7b00ff;/*#6293c8*/
   background-color: var(--primaryColor);
   box-shadow:  #7b00ff 0px 7px 29px 0px;/*#6293c8*/
 }

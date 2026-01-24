@@ -37,6 +37,7 @@ footer {
 }
 
 .footer-column h4 {
+  font-family: var(--headings);
   margin-bottom: 15px;
   font-size: 18px;
   border-bottom: 1px solid #555;
@@ -49,6 +50,7 @@ footer {
 }
 
 .footer-column ul li {
+  font-family: var(--body);
   margin-bottom: 10px;
 }
 
@@ -58,6 +60,9 @@ footer {
   transition: color 0.3s;
 }
 
+p{
+  font-family: var(--body);
+}
 .footer-column ul li a:hover {
   color: #fff;
 }

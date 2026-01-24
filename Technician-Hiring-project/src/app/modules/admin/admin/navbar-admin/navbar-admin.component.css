@@ -111,3 +111,7 @@
   line-height: 1;
   pointer-events: none;
 }
+
+a{
+  font-family: var(--body);
+}
