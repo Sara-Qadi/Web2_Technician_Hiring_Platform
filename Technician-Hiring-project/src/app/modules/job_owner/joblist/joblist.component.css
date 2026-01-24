@@ -1,5 +1,5 @@
 h5{
-  font-family: "poppins", sans-serif;
+  font-family: var(--headings);
   font-weight: bold;
   text-transform: capitalize;
   color: black !important;
@@ -19,7 +19,7 @@ h5{
   color: #641739;
 }
 span,p,h6{
-  font-family: "Manrope", sans-serif;
+  font-family: var(--body);
   font-weight: 500;
 }
 .text-body{

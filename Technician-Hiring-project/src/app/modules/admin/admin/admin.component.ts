@@ -28,7 +28,6 @@ ngOnInit(): void {
   this.loadPendingApprovals();
 
   this.createPieChart();
-  this.createUsersDoughnutChart();
 
   this.dashboardService.getJobPostsByMonth().subscribe({
     next: (res) => {
@@ -118,25 +117,49 @@ createBarChart(): void {
       datasets: [{
         label: 'Jobs Posted',
         data: data,
-        backgroundColor: '#641739',
-        borderColor: '#641739',
-        borderWidth: 1
+        backgroundColor: '#2c6975',
+        borderColor: '#4B6F6A',
+        borderWidth: 1,
+        borderRadius: 6,           
+      barThickness: 28 
       }]
     },
     options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          display: true,
-          position: 'top'
-        }
-      },
-      scales: {
-        y: {
-          beginAtZero: true
-        }
+  responsive: true,
+  plugins: {
+    legend: { display: false },
+    tooltip: {
+        backgroundColor: '#111827',
+        titleFont: {
+          size: 14,
+          weight: 'bold',
+          family: 'manrope'
+        },
+        bodyFont: {
+          size: 13,
+          family: 'manrope'
+        },
+        padding: 12
       }
+  },
+  scales: {
+    y: {
+      beginAtZero: true,
+      grid: { color: '#f1f5f9' }
+    },
+    x: {
+      grid: { display: false },
+      ticks: {
+          color: '#6b7280',
+          font: {
+            size: 13,
+            family: 'manrope'
+          }
+        }
     }
+  }
+}
+
   });
 }
 
@@ -155,7 +178,7 @@ createPieChart(): void {
             {
               label: 'Jobs Progress',
               data: data,
-              backgroundColor: ['#641739', '#2c6975'],
+              backgroundColor: ['#CBE0E0', '#0F766E'],
               borderWidth: 0 ,
               borderColor: '#ffffff',
               
@@ -167,14 +190,27 @@ createPieChart(): void {
           cutout: '65%',
           plugins: {
             legend: {
-              position: 'top'
-            },
-            tooltip: {
-              callbacks: {
-                label: function (tooltipItem: any) {
-                  return tooltipItem.label + ': ' + tooltipItem.raw + ' Jobs';
+              position: 'bottom',
+              labels: {
+                boxWidth: 10,
+                padding: 15,
+                font: {
+                  family: 'manrope',
+                  size: 13,
                 }
               }
+            },
+            tooltip: {
+              titleFont: {
+                size: 14,
+                weight: 'bold',
+                family: 'manrope'
+              },
+              bodyFont: {
+                family: 'manrope',
+                size: 13
+              },
+              padding: 12
             }
           }
         }
@@ -186,57 +222,6 @@ createPieChart(): void {
   });
 }
 
-createUsersDoughnutChart(): void {
-  this.dashboardService.getTechnicianCounts().subscribe({
-    next: (techRes) => {
-
-      const techCount = techRes?.technicians ?? 0;
-
-      this.dashboardService.getJobOwnerCounts().subscribe({
-        next: (ownerRes) => {
-          const ownerCount = Array.isArray(ownerRes) ? ownerRes.length : 0;
-
-          const data = [techCount, ownerCount];
-          console.log('Data for donut chart:', data);
-
-          new Chart('usersDoughnutChart', {
-            type: 'doughnut',
-            data: {
-              labels: ['Technicians', 'Job Owners'],
-              datasets: [
-                {
-                  label: 'Users Distribution',
-                  data: data,
-                  backgroundColor: ['#2c6975', '#641739'],
-                  borderColor: '#ffffff',
-                  borderWidth: 0
-                }
-              ]
-            },
-            options: {
-              responsive: false,
-              maintainAspectRatio: false,
-              cutout: '65%',
-              plugins: {
-                legend: { position: 'top' },
-                tooltip: {
-                  callbacks: {
-                    label: function(tooltipItem: any) {
-                      return `${tooltipItem.label}: ${tooltipItem.raw} Users`;
-                    }
-                  }
-                }
-              }
-            }
-          });
-
-        },
-        error: (err) => console.error('Error loading job owners count', err)
-      });
-    },
-    error: (err) => console.error('Error loading technicians count', err)
-  });
-}
 
 
 

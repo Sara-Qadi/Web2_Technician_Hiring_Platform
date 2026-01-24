@@ -1,5 +1,5 @@
 <div class="container role-selection ">
-  <h1 class="text-center p-5 mb-5 text-white 	">Choose Your Role</h1>
+  <h1 class="text-center p-5 mb-5  	">Choose Your Role</h1>
   <div class="row justify-content-center ">
     <!-- Job Owner Option -->
     <div
@@ -7,7 +7,7 @@
       [ngClass]="{ selected: selectedRole === 'jobOwner' }"
       (click)="selectRole('jobOwner')"
     >
-      <div class="role-card text-white	">
+      <div class="role-card 	">
         <img
           src="/assets/job-owner-icon.png"
           alt="Job Owner"
@@ -25,7 +25,7 @@
       [ngClass]="{ selected: selectedRole === 'technician' }"
       (click)="selectRole('technician')"
     >
-      <div class="role-card text-white	">
+      <div class="role-card	">
         <img
           src="/assets/technician-icon.png"
           alt="Technician"

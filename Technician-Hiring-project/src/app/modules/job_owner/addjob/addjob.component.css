@@ -4,19 +4,19 @@
   background-color: white;
 }
 h3{
-  font-family: "poppins", sans-serif;
+  font-family: var(--headings);
   font-weight: bold;
 }
 button{
-  font-family: "Manrope", sans-serif;
+  font-family: var(--body);
 
 }
 label ,#Attachments p{
-  font-family: "Manrope", sans-serif;
+  font-family: var(--body);
   font-weight: 500;
 }
 input, select, textarea{
-  font-family: "Manrope", sans-serif;
+  font-family: var(--body);
   font-size: 14px;
   font-weight: light;
   border: 2px solid rgb(200, 200, 200);
@@ -38,21 +38,22 @@ button{
   outline: none;
 }
 button:hover{
-  box-shadow:#7b00ff5c 0px 7px 29px 0px;
+  box-shadow:#bfdbce5c 0px 7px 29px 0px;
   color: #fff;
-  background-color: #7b00ff;
+  background-color: var(--primaryColor);
   transform: translateY(-7px);
 }
 button:active{
   transform: translateY(-1px);
-  background-color: #7b00ff !important;
+  background-color: var(--primaryColor) !important;
 }
 button:disabled{
   background-color: #BBABA3 !important;
 }
 input:focus,select:focus,textarea:focus{
-  border:#8c2fee79 2px solid;
-  box-shadow: #7b00ff5c 0px 7px 29px 0px;
+  border-color: var(--secondaryColor) !important;
+  box-shadow: 0 0 0 0.25rem #EAF0F0;
+  outline: none;
 }
 option:hover{
   background-color: #475451 !important;
@@ -84,5 +85,5 @@ option:hover{
 .warning span{
   font-size: 13px;
   padding: 5px 0;
-  font-family: "Manrope", sans-serif;
+  font-family: var(--body);
 }

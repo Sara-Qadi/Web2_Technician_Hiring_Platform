@@ -31,7 +31,6 @@
   overflow: hidden;
   top: 0;
   right: 0;
-  background: linear-gradient(135deg, #7b00ff, #17031b);
   background: linear-gradient(135deg, var(--primaryColor), #17031b);
   border-radius: 0 4px 0 32px;
 }
@@ -127,27 +126,22 @@
   background-color: white;
 }
 .review{
-  background-color: #7b00ff;
   background-color: var(--primaryColor);
   text-align: center;
   color: white;
 }
 .review:hover, .veiw-more button:hover {
   letter-spacing: 3px;
-  background-color: #7b00ff;
   background-color: var(--primaryColor);
   color:white;
-  box-shadow:  #7b00ff 0px 7px 29px 0px;
   box-shadow:  var(--primaryColor) 0px 7px 29px 0px;
 
 }
 
 .review:active,.veiw-more button:active {
   letter-spacing: 3px;
-  background-color: #7b00ff;
   background-color: var(--primaryColor);
   color: white;
-  box-shadow:  #7b00ff 0px 0px 0px 0px;
   box-shadow:  var(--primaryColor) 0px 0px 0px 0px;
   transform: translateY(10px);
   transition: 0.1s;
@@ -163,12 +157,12 @@
 }
 @keyframes neon{
   0%{
-    color: #7b00ff;
+    color: var(--primaryColor);
   }
   50%{
     color: #928c97;
   }
   100%{
-    color: #7b00ff;
+    color: var(--primaryColor);
   }
 }

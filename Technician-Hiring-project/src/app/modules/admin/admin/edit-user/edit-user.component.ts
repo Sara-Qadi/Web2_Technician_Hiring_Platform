@@ -70,4 +70,8 @@ export class EditUserComponent implements OnInit {
       }
     });
   }
+
+  cancel(): void {
+    this.router.navigate(['/admin/delete-craftsman']);
+  }
 }
