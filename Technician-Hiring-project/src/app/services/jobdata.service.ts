@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Jobpost } from '../models/jobpost.model';
 
 @Injectable({
@@ -73,6 +72,10 @@ export class JobDataService {
     return this.http.get<any[]>(`${this.baseUrl}/completed-jobs`);
   }
 
+  getCompletedJobsForTechnician(techId: number): Observable<Jobpost[]> {
+    return this.http.get<Jobpost[]>(`${this.baseUrl}/technician/${techId}/completed-jobs`);
+  }
+
   setUserId(id: number) {
     this.userId = id;
   }
@@ -87,11 +90,10 @@ export class JobDataService {
   }
 
   getJobownerIdBytheJobpostId(jobpostId: any) {
-  return this.http.get(`${this.baseUrl}/jobpost/getJobownerIdBytheJobpostId/${jobpostId}`);
-}
+    return this.http.get(`${this.baseUrl}/jobpost/getJobownerIdBytheJobpostId/${jobpostId}`);
+  }
 
   getTechIdBytheJobpostId(Jobpost_id: any) {
     return this.http.get(`${this.baseUrl}/jobpost/getTechIdBytheJobpostId/${Jobpost_id}`);
   }
-
 }

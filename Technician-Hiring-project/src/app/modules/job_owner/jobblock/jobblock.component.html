@@ -1,10 +1,10 @@
 <div class="card position-relative" [ngStyle]="role === 3 || currentUserId!==job.user_id? { width: '300px', height: '280px' } : {}" [ngClass]="{'col-6 col-md-4': role === 1|| role===2}">
   <div  [class.obefore-effect]="role === 1|| role === 2 || currentUserId === job.user_id "
-        [class.before-effect]="role === 3 || currentUserId !== job.user_id "><!-- class="obefore-effect"-->
+        [class.before-effect]="role === 3 || currentUserId !== job.user_id ">
      <p class="card-title d-flex justify-content-between align-items-center text-capitalize">{{job.title}}
       @if(role === 1 || role === 2){
       <span class="d-flex gap-2 update-delete" *ngIf="job.user_id === currentUserId">
-        <button class="btn btn-sm" (click)="emitEditJob()"><!-- (click)="toupdate(job.jobpost_id)" -->          
+        <button class="btn btn-sm" (click)="emitEditJob()">
           <i class="fa-solid fa-pen text-secondary"></i>
         </button>
         <button class="btn btn-sm " (click)="onDeleteClick()" data-bs-toggle="modal" data-bs-target="#deleteModal">
@@ -25,7 +25,7 @@
           }
           @case('Plumber')
           {
-            <i class="fa-solid fa-droplet" style="color:#6293c8;"></i> 
+            <i class="fa-solid fa-droplet" style="color:#6293c8;"></i>
           }
           @case('Electrician')
           {
@@ -33,39 +33,39 @@
           }
           @case('Painter')
           {
-            <i class="fa-solid fa-brush" style="color:#779977; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+            <i class="fa-solid fa-brush" style="color:#779977; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('Mason')
           {
-            <i class="fa-solid fa-trowel-bricks" style="color:#3e4043; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>             
+            <i class="fa-solid fa-trowel-bricks" style="color:#3e4043; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('Roofing')
           {
-            <i class="fa-solid fa-people-roof" style="color:#781d1d; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>             
+            <i class="fa-solid fa-people-roof" style="color:#781d1d; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('Mechanic')
           {
-            <i class="fa-solid fa-screwdriver-wrench" style="color:teal; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+            <i class="fa-solid fa-screwdriver-wrench" style="color:teal; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('Welder')
           {
-            <i class="fa-solid fa-weight-hanging" style="color:#323940; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
-          } 
+            <i class="fa-solid fa-weight-hanging" style="color:#323940; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
+          }
           @case('Tiler')
           {
-            <i class="fa-solid fa-trowel-bricks" style="color:#491313; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+            <i class="fa-solid fa-trowel-bricks" style="color:#491313; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('AC Technician')
           {
-            <i class="fa-solid fa-wind" style="color:#9fb3c8; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+            <i class="fa-solid fa-wind" style="color:#9fb3c8; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('Security Camera Installer')
           {
-            <i class="fa-solid fa-shield-halved" style="color:#505153; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+            <i class="fa-solid fa-shield-halved" style="color:#505153; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('Other')
           {
-            <i class="fa-solid fa-ellipsis" style="color:#6c757d; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+            <i class="fa-solid fa-ellipsis" style="color:#6c757d; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
         }
         <span class="text-capitalize">{{ job.category === 'Security Camera Installer' ? 'Camera Installer' : job.category }}</span>
@@ -101,7 +101,7 @@
       </ng-container>
       </div>
     </div>
-  
+
     <div class="desc"[ngClass]="{'mb-2 mt-1': role === 1 || role === 2}">
       <h4 class="title">Description</h4>
       <p>{{job.description}}</p>
@@ -133,7 +133,7 @@
   <div class="obefore-effect">
      <p class="card-title d-flex justify-content-between align-items-center text-capitalize">{{job.title}}
       <span class="d-flex gap-2 update-delete">
-        <button class="btn btn-sm" (click)="emitEditJob()"><!- (click)="toupdate(job.jobpost_id)" ->          
+        <button class="btn btn-sm" (click)="emitEditJob()"><!- (click)="toupdate(job.jobpost_id)" ->
           <i class="fa-solid fa-pen text-secondary"></i>
         </button>
         <button class="btn btn-sm " (click)="onDeleteClick()" data-bs-toggle="modal" data-bs-target="#deleteModal">
@@ -151,7 +151,7 @@
           }
           @case('Plumber')
           {
-            <i class="fa-solid fa-droplet" style="color:#6293c8;"></i> 
+            <i class="fa-solid fa-droplet" style="color:#6293c8;"></i>
           }
           @case('Electrician')
           {
@@ -159,35 +159,35 @@
           }
           @case('Painter')
           {
-            <i class="fa-solid fa-brush" style="color:#779977; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+            <i class="fa-solid fa-brush" style="color:#779977; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('Mason')
           {
-            <i class="fa-solid fa-trowel-bricks" style="color:#3e4043; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>             
+            <i class="fa-solid fa-trowel-bricks" style="color:#3e4043; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('Roofing')
           {
-            <i class="fa-solid fa-people-roof" style="color:#781d1d; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>             
+            <i class="fa-solid fa-people-roof" style="color:#781d1d; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('Mechanic')
           {
-            <i class="fa-solid fa-screwdriver-wrench" style="color:teal; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+            <i class="fa-solid fa-screwdriver-wrench" style="color:teal; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('Welder')
           {
-            <i class="fa-solid fa-weight-hanging" style="color:#323940; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
-          } 
+            <i class="fa-solid fa-weight-hanging" style="color:#323940; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
+          }
           @case('Tiler')
           {
-            <i class="fa-solid fa-trowel-bricks" style="color:#491313; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+            <i class="fa-solid fa-trowel-bricks" style="color:#491313; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('ACTechnician')
           {
-            <i class="fa-solid fa-wind" style="color:#9fb3c8; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+            <i class="fa-solid fa-wind" style="color:#9fb3c8; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('CameraInstaller')
           {
-            <i class="fa-solid fa-shield-halved" style="color:#505153; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+            <i class="fa-solid fa-shield-halved" style="color:#505153; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
         }
         <span class="text-capitalize">{{job.category}}</span>
@@ -222,7 +222,7 @@
       }
     </div>
     </div>
-  
+
     <div class="desc mb-2 mt-1">
       <p>{{job.description}}</p>
     </div>
@@ -254,7 +254,7 @@
           }
           @case('Plumber')
           {
-            <i class="fa-solid fa-droplet" style="color:#6293c8;"></i> 
+            <i class="fa-solid fa-droplet" style="color:#6293c8;"></i>
           }
           @case('Electrician')
           {
@@ -262,35 +262,35 @@
           }
           @case('Painter')
           {
-            <i class="fa-solid fa-brush" style="color:#779977; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+            <i class="fa-solid fa-brush" style="color:#779977; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('Mason')
           {
-            <i class="fa-solid fa-trowel-bricks" style="color:#3e4043; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>             
+            <i class="fa-solid fa-trowel-bricks" style="color:#3e4043; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('Roofing')
           {
-            <i class="fa-solid fa-people-roof" style="color:#781d1d; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>             
+            <i class="fa-solid fa-people-roof" style="color:#781d1d; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('Mechanic')
           {
-            <i class="fa-solid fa-screwdriver-wrench" style="color:teal; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+            <i class="fa-solid fa-screwdriver-wrench" style="color:teal; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('Welder')
           {
-            <i class="fa-solid fa-weight-hanging" style="color:#323940; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
-          } 
+            <i class="fa-solid fa-weight-hanging" style="color:#323940; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
+          }
           @case('Tiler')
           {
-            <i class="fa-solid fa-trowel-bricks" style="color:#491313; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+            <i class="fa-solid fa-trowel-bricks" style="color:#491313; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('ACTechnician')
           {
-            <i class="fa-solid fa-wind" style="color:#9fb3c8; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+            <i class="fa-solid fa-wind" style="color:#9fb3c8; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
           @case('CameraInstaller')
           {
-            <i class="fa-solid fa-shield-halved" style="color:#505153; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>              
+            <i class="fa-solid fa-shield-halved" style="color:#505153; box-shadow: rgb(56, 76, 108, 0.467) 0px 7px 29px 0px;"></i>
           }
         }
         <span>{{job.category}}</span>
@@ -329,7 +329,7 @@
     </div>
   </div>
   </div>
- 
+
   <div class="after-effect">
     <div class="encourage">
       <span>Wanna know more?</span>

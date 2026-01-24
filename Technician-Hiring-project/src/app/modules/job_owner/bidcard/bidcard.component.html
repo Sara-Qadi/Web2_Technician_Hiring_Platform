@@ -1,7 +1,9 @@
 <div class="card p-3 mb-4">
   <div class="d-flex justify-content-between align-items-center mb-2">
     <div class="d-flex align-items-center">
-<div class="rounded-circle overflow-hidden" (click)="openProfileModal(bid.tech_id)" style="width: 40px; height: 40px;  cursor: pointer;">
+<div class="rounded-circle overflow-hidden"
+     (click)="openProfileModal(bid.tech_id)"
+     style="width: 40px; height: 40px; cursor: pointer;">
   <img [src]="bid.photo ?'http://localhost/BackEnd-Technician-Hiring-Platform/public/storage/' + bid.photo :'assets/person1.jpg' " alt="Photo" class="w-100 h-100 object-fit-cover" />
 </div>       <div class="ms-2">
         <div class="fs-6 fw-semibold bidname">{{ bid.tech_name }}</div>
@@ -9,7 +11,7 @@
            <span><i class="fas fa-star text-warning"></i> {{ bid.rating }}</span>
            <span class="text-capitalize"> {{ bid.country }}</span>
         </div>
-      </div> 
+      </div>
     </div>
     <div class="fw-semibold fs-5 amount">{{ bid.price }}$</div>
   </div>

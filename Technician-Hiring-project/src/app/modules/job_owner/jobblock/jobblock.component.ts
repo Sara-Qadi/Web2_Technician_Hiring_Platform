@@ -4,7 +4,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { JobDataService } from '../../../services/jobdata.service';
-import { Jobpost } from '../../../models/jobpost.model'; 
+import { Jobpost } from '../../../models/jobpost.model';
 import { ProfileService } from '../../../services/profile.service';
 declare var bootstrap: any;
 @Component({
@@ -22,27 +22,26 @@ export class JobblockComponent {
   @Input() job!: Jobpost;
   @Input() userId!: number;
   @Input() currentUserId!: number;
-  
+
   @Output() editJob = new EventEmitter<Jobpost>();
   @Output() deleteRequest = new EventEmitter<number>();
   @Output() statusChanged = new EventEmitter<number>();
-  
-  //للفايل(بدي اشتغل عليه مرة ثانية)
+
   extractFileName(url: string): string {
     return url.split('/').pop() || 'Attachment';
   }
   canEdit = false;
- 
+
   ngOnInit(): void {
   this.canEdit = this.job.user_id === this.userId;
   console.log('Current User ID:', this.currentUserId);
-  console.log('Job User ID:', this.job.user_id); 
+  console.log('Job User ID:', this.job.user_id);
   console.log('Current Job ID in this card:', this.job.jobpost_id);
   console.log('Can Edit:', this.canEdit);
 }
   onDeleteClick()
   {
-    this.deleteRequest.emit(this.job.jobpost_id); 
+    this.deleteRequest.emit(this.job.jobpost_id);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -82,7 +81,7 @@ export class JobblockComponent {
  emitEditJob() {
     this.editJob.emit(this.job);
   }
-  
+
 goToDetails() {
     if (this.job?.jobpost_id) {
     this.router.navigate(['/jobdetails', this.job.jobpost_id]);

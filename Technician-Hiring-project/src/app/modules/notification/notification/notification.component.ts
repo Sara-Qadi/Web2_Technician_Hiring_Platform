@@ -120,28 +120,40 @@ loadUserNames() {
   });
 }
 handleNotificationClick(notification: Notification): void {
-  if (notification.message.includes('You received a new proposal for your job post.')) {
-    if (notification.read_status === 'unread') {
-      this.notificationService.markAsRead(notification.notification_id).subscribe(() => {
-        notification.read_status = 'read';
-      });
-    }
+  if (notification.read_status === 'unread') {
+    this.notificationService.markAsRead(notification.notification_id).subscribe(() => {
+      notification.read_status = 'read';
+    });
+  }
 
-    this.router.navigate(['/allproposals', notification.user_id]);
-  } else {
+  switch (notification.type) {
+    case 'new_proposal':
+    case 'new-proposal':
+    case 'proposal':
+      this.router.navigate(['/allproposals']);
+      break;
 
-    console.log('This notification is not routable.');
+    case 'bid_response':
+    case 'proposal-response':
+      this.router.navigate(['/mybids']);
+      break;
+
+    case 'message':
+      this.router.navigate(['/messages']);
+      break;
+
+    default:
+      console.log('This notification is not routable.', notification);
+      break;
   }
 }
 
-openModalIfAllowed(): void {
-  if (this.userRole === 3&& this.userId) { 
-    this.modalService.openOUTModal(this.userId);
-    this.modalService.openModal();
-  } else {
-    console.warn('User does not have permission to open modal');
-  }
+
+goToUserProfile(event: MouseEvent, userId: number): void {
+  event.stopPropagation();
+  this.router.navigate(['/jobowner', userId]);
 }
+
 
 
   filteredNotifications(): Notification[] {

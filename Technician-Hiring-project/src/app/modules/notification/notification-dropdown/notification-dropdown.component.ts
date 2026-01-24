@@ -64,19 +64,48 @@ ngOnInit(): void {
     });
   }
 handleNotificationClick(notification: Notification): void {
-  if (notification.message.includes('You received a new proposal for your job post.')) {
-    if (notification.read_status === 'unread') {
-      this.notificationService.markAsRead(notification.notification_id).subscribe(() => {
-        notification.read_status = 'read';
-      });
-    }
+  if (notification.read_status === 'unread') {
+    this.notificationService.markAsRead(notification.notification_id).subscribe(() => {
+      notification.read_status = 'read';
+    });
+  }
 
-    this.router.navigate(['/allproposals', notification.user_id]);
-  } else {
+  switch (notification.type) {
 
-    console.log('This notification is not routable.');
+    case 'technician_request':
+    case 'technician-request':
+    case 'join_request':
+    case 'join-request':
+    case 'new_registration':
+    case 'new-registration':
+      if (this.userRole === 1) {
+        this.router.navigate(['/admin/craftsmen-registrations']);
+      } else {
+        console.log('Only admin should navigate to registrations.');
+      }
+      break;
+
+    case 'new_proposal':
+    case 'new-proposal':
+    case 'proposal':
+      this.router.navigate(['/allproposals']);
+      break;
+
+    case 'bid_response':
+    case 'proposal-response':
+      this.router.navigate(['/mybids']);
+      break;
+
+    case 'message':
+      this.router.navigate(['/messages']);
+      break;
+
+    default:
+      console.log('This notification is not routable.', notification);
+      break;
   }
 }
+
 
 loadUserNames() {
   const userIds = Array.from(new Set(this.notifications.map(n => n.user_id)));
@@ -125,13 +154,9 @@ loadUserNames() {
     }
   });
 }
-openModalIfAllowed(): void {
-  if (this.userRole === 3) {
-    this.modalService.openModal();
-    this.modalService.openOUTModal(this.userId);
-  } else {
-    console.warn('User does not have permission to open modal');
-  }
+goToUserProfile(event: MouseEvent, userId: number): void {
+  event.stopPropagation();
+  this.router.navigate(['/jobowner', userId]);
 }
 
   filteredNotifications(): Notification[] {
