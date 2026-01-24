@@ -1,58 +1,63 @@
-<app-navbar-admin></app-navbar-admin>
+<div class="page-shell">
+  <app-navbar-admin></app-navbar-admin>
 
-<div class="container my-5">
-  <h2 class="text-center mb-4 text-color-primary fw-bold">Craftsmen Registrations</h2>
+  <main class="page-content">
+    <div class="container my-5">
+      <h2 class="text-center mb-4 text-color-primary fw-bold">Craftsmen Registrations</h2>
 
-  <div class="d-flex justify-content-center mb-4">
-    <div class="position-relative w-50">
-      <input
-        type="text"
-        class="form-control search-input"
-        placeholder="Search by name, email, or ID..."
-        [(ngModel)]="searchQuery"
-        (ngModelChange)="onSearchChange()"
-      />
-      <i class="bi bi-search search-icon"></i>
+      <div class="d-flex justify-content-center mb-4">
+        <div class="position-relative w-50">
+          <input
+            type="text"
+            class="form-control search-input"
+            placeholder="Search by name, email, or ID..."
+            [(ngModel)]="searchQuery"
+            (ngModelChange)="onSearchChange()"
+          />
+          <i class="bi bi-search search-icon"></i>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-bordered bg-white custom-table">
+          <thead class="custom-thead">
+            <tr class="text-white text-center">
+              <th>ID</th>
+              <th>User Information</th>
+              <th>Phone</th>
+              <th>Registration Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody class="text-center">
+            <tr *ngFor="let reg of registrations; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td class="text-start d-flex align-items-center gap-2">
+                <div class="avatar">{{ reg.name.charAt(0) + reg.name.split(' ')[1]?.charAt(0) || '' }}</div>
+                <div>
+                  <div class="fw-bold">{{ reg.name }}</div>
+                  <div class="text-muted small">{{ reg.email }}</div>
+                </div>
+              </td>
+              <td>{{ reg.phone }}</td>
+              <td>{{ reg.date | date:'MMMM d, y' }}</td>
+              <td>
+                <div class="btn-group-responsive">
+                  <button class="btn btn-sm btn-approve" (click)="approveRegistration(reg.user_id)">
+                    <i class="bi bi-check2"></i>
+                  </button>
+                  <button class="btn btn-sm btn-reject" (click)="rejectRegistration(reg.user_id)">
+                    <i class="bi bi-x"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
     </div>
-  </div>
+  </main>
 
-  <div class="table-responsive">
-    <table class="table table-bordered bg-white custom-table">
-      <thead class="custom-thead">
-        <tr class="text-white text-center">
-          <th>ID</th>
-          <th>User Information</th>
-          <th>Phone</th>
-          <th>Registration Date</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody class="text-center">
-        <tr *ngFor="let reg of registrations; let i = index">
-          <td>{{i+1}}</td>
-          <td class="text-start d-flex align-items-center gap-2">
-            <div class="avatar">{{ reg.name.charAt(0) + reg.name.split(' ')[1]?.charAt(0) || '' }}</div>
-            <div>
-              <div class="fw-bold">{{ reg.name }}</div>
-              <div class="text-muted small">{{ reg.email }}</div>
-            </div>
-          </td>
-          <td>{{ reg.phone }}</td>
-          <td>{{ reg.date | date:'MMMM d, y'}}</td>
-          <td>
-            <div class="btn-group-responsive">
-              <button class="btn btn-sm btn-approve" (click)="approveRegistration(reg.user_id)">
-                <i class="bi bi-check2"></i>
-              </button>
-              <button class="btn btn-sm btn-reject" (click)="rejectRegistration(reg.user_id)">
-                <i class="bi bi-x"></i>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <app-footer-admin></app-footer-admin>
 </div>
-
-<app-footer-admin></app-footer-admin>

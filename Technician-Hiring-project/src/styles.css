@@ -18,8 +18,9 @@ html, body {
   min-height: 100vh;
 }
 
-.container {
-  flex-grow: 1;
+.page-content {
+  flex: 1;
+  min-height: 100vh;
 }
 @keyframes rotateTest {
   0% {

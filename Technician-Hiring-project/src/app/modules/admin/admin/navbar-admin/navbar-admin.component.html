@@ -1,8 +1,6 @@
 <div class="main-content" style="width: 100vw;">
   <div class="top-navbar d-flex justify-content-between align-items-center px-4 py-1">
 
-    <!-- Keep this only if you STILL want it (optional).
-         If you want admin logout ONLY in dropdown, add role !== 1 -->
     <button
       *ngIf="loggedIn && isInProfilePage && role !== 1"
       (click)="logout()"
@@ -22,12 +20,10 @@
 
     <div class="d-flex gap-3 align-items-center small-text">
 
-      <!-- Show login button if not logged in -->
       <a *ngIf="!loggedIn" routerLink="/login" class="btn btn-outline-primary btn-sm">
         Login
       </a>
 
-      <!-- ✅ User icon + name (Admin dropdown on click) -->
       <div *ngIf="loggedIn" class="admin-user-wrapper position-relative">
         <a class="user-info d-flex align-items-center gap-2"
            title="Account"
@@ -37,7 +33,6 @@
           <i *ngIf="role === 1" class="bi bi-chevron-down admin-arrow"></i>
         </a>
 
-        <!-- ✅ Admin dropdown -->
         <div *ngIf="role === 1 && adminDropdownOpen" class="admin-dropdown">
           <button class="dropdown-item logout-item" (click)="logout()">
             <i class="bi bi-box-arrow-right me-2"></i> Logout
@@ -47,47 +42,62 @@
 
     </div>
 
-    <nav class="bottom-navbar d-flex justify-content-center gap-5 py-2">
-      <ng-container *ngIf="role === 1">
-        <a routerLink="/admin/dashboard" routerLinkActive="active" class="nav-link">Dashboard</a>
-        <a routerLink="/admin/craftsmen-registrations" routerLinkActive="active" class="nav-link">Registration</a>
-        <a routerLink="/admin/jop-listing" routerLinkActive="active" class="nav-link">Jobs</a>
-        <a routerLink="/admin/delete-craftsman" routerLinkActive="active" class="nav-link">Users</a>
-        <a routerLink="/reports/analytics" routerLinkActive="active" class="nav-link">Reports</a>
-        <a [routerLink]="['/sign-up']"
-           [queryParams]="{ role: 'admin' }"
-           routerLinkActive="active"
-           class="nav-link">
-          Create New Admin Account
-        </a>
-      </ng-container>
+  <nav class="bottom-navbar d-flex justify-content-center gap-5 py-2">
 
-      <ng-container *ngIf="role === 2">
-        <a routerLink="/home" routerLinkActive="active" class="nav-link">Home</a>
-        <a routerLink="/allproposals" routerLinkActive="active" class="nav-link">My Bids</a>
-        <a [routerLink]="['/jobowner',userId]" routerLinkActive="active" class="nav-link">My Jobs</a>
-        <a routerLink="/reports/analytics" routerLinkActive="active" class="nav-link">Reports</a>
-      </ng-container>
+  <ng-container *ngIf="displayRole === 1; else notAdmin">
+    <a routerLink="/admin/dashboard" routerLinkActive="active" class="nav-link">Dashboard</a>
+    <a routerLink="/admin/craftsmen-registrations" routerLinkActive="active" class="nav-link">Registration</a>
+    <a routerLink="/admin/jop-listing" routerLinkActive="active" class="nav-link">Jobs</a>
+    <a routerLink="/admin/delete-craftsman" routerLinkActive="active" class="nav-link">Users</a>
+    <a routerLink="/reports/analytics" routerLinkActive="active" class="nav-link">Reports</a>
+    <a [routerLink]="['/sign-up']" [queryParams]="{ role: 'admin' }" routerLinkActive="active" class="nav-link">
+      Create New Admin Account
+    </a>
+  </ng-container>
 
-      <ng-container *ngIf="role === 3">
-        <a routerLink="/home" routerLinkActive="active" class="nav-link">Home</a>
-        <a routerLink="/mybids" routerLinkActive="active" class="nav-link">My Bids</a>
-      </ng-container>
+  <ng-template #notAdmin>
+    <ng-container *ngIf="displayRole === 2; else notJobOwner">
+      <a routerLink="/home" routerLinkActive="active" class="nav-link">Home</a>
+      <a routerLink="/allproposals" routerLinkActive="active" class="nav-link">My Bids</a>
+      <a [routerLink]="['/jobowner', userId]" routerLinkActive="active" class="nav-link">My Jobs</a>
+      <a routerLink="/reports/analytics" routerLinkActive="active" class="nav-link">Reports</a>
+    </ng-container>
+  </ng-template>
 
-      <div class="position-absolute end-0 me-4">
-        <button class="icon-btn me-3" routerLink="/messages">
-          <i class="bi bi-messenger"></i>
-        </button>
+  <ng-template #notJobOwner>
+    <ng-container *ngIf="displayRole === 3; else loadingOrGuest">
+      <a routerLink="/home" routerLinkActive="active" class="nav-link">Home</a>
+      <a routerLink="/mybids" routerLinkActive="active" class="nav-link">My Bids</a>
+    </ng-container>
+  </ng-template>
 
-        <button class="icon-btn" (click)="toggleDropdown()" title="Notifications" style="position: relative;">
-          <i class="bi bi-bell"></i>
-          <span *ngIf="unreadCount > 0" class="notification-badge">
-            {{ unreadCount }}
-          </span>
-        </button>
+  <ng-template #loadingOrGuest>
+    <ng-container *ngIf="loggedIn; else guestLinks">
+      <span class="nav-placeholder">Loading menu…</span>
+    </ng-container>
 
-        <app-notification-dropdown [dropdownOpen]="dropdownOpen"></app-notification-dropdown>
-      </div>
-    </nav>
+    <ng-template #guestLinks>
+      <a routerLink="/home" routerLinkActive="active" class="nav-link">Home</a>
+      <a routerLink="/login" routerLinkActive="active" class="nav-link">Login</a>
+    </ng-template>
+  </ng-template>
+
+  <div class="position-absolute end-0 me-4">
+    <button class="icon-btn me-3" routerLink="/messages">
+      <i class="bi bi-messenger"></i>
+    </button>
+
+    <button class="icon-btn" (click)="toggleDropdown()" title="Notifications" style="position: relative;">
+      <i class="bi bi-bell"></i>
+      <span *ngIf="unreadCount > 0" class="notification-badge">
+        {{ unreadCount }}
+      </span>
+    </button>
+
+    <app-notification-dropdown [dropdownOpen]="dropdownOpen"></app-notification-dropdown>
+  </div>
+
+</nav>
+
   </div>
 </div>

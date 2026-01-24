@@ -5,19 +5,15 @@
 }
 
 .nav-tabs .nav-link {
-  color: #642eda;
   color: var(--primaryColor);
 }
 .nav-tabs .nav-link.active {
   color: white;
-  background-color: #642eda;
   background-color: var(--primaryColor);
   border: none;
 }
 .mark-read-btn {
-  color: #642eda;
   color: var(--primaryColor);
-  border: 1px solid #642eda;
   border: 1px solid var(--primaryColor);
   background-color: white;
   transition: all 0.3s ease;
@@ -25,7 +21,6 @@
 }
 
 .mark-read-btn:hover {
-  background-color: #642eda;
   background-color: var(--primaryColor);
   color: white;
 }
@@ -42,7 +37,6 @@ img:hover {
 .notification-divider {
   border: none;
   height: 2px;
-  background-color: #642eda;
   background-color: var(--primaryColor);
   margin: 8px 0;
 }
@@ -57,6 +51,6 @@ img:hover {
 }
 
 .notification-item:hover {
-  background-color: rgba(150, 15, 180, 0.1);
+  background-color: rgba(11, 75, 43, 0.1);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
