@@ -34,10 +34,16 @@
 <div class="notification-item d-flex align-items-center mb-3"
      (click)="handleNotificationClick(notification)">
     <div class="me-3">
-   <img [src]="userDetails[notification.user_id]?.imageUrl || 'assets/person1.jpg'"
-     class="rounded-circle" width="45" height="45" alt="User"
-  (click)="openModalIfAllowed()"
- />
+   <img
+  [src]="userDetails[notification.user_id]?.imageUrl || 'assets/person1.jpg'"
+  class="rounded-circle"
+  width="45"
+  height="45"
+  alt="User"
+  style="cursor:pointer;"
+  (click)="goToUserProfile($event, notification.user_id)"
+/>
+
 
     </div>
     <div class="flex-grow-1">
