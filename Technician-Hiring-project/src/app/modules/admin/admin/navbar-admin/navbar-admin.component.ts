@@ -5,7 +5,7 @@ import { NgIf } from '@angular/common';
 import { NotificationDropdownComponent } from '../../../notification/notification-dropdown/notification-dropdown.component';
 import { ProfileModalService } from '../../../../services/profile-modal.service';
 import { ProfileService } from '../../../../services/profile.service';
-import { catchError, filter, of } from 'rxjs';
+import { catchError, filter, finalize, of, switchMap, tap } from 'rxjs';
 import { AuthService } from '../../../../services/auth.service';
 import { NotificationService } from '../../../../services/notification.service';
 
@@ -18,6 +18,11 @@ import { NotificationService } from '../../../../services/notification.service';
 })
 export class NavbarAdminComponent implements OnInit {
   role: number = 0;
+
+  displayRole: number = 0;
+
+  roleLoading: boolean = false;
+
   dropdownOpen = false;
   userId: number | null = null;
   loggedIn: boolean = false;
@@ -25,10 +30,12 @@ export class NavbarAdminComponent implements OnInit {
   unreadCount: number = 0;
 
   isInProfilePage: boolean = false;
-
   username: string = '';
-
   adminDropdownOpen: boolean = false;
+
+  private readonly LS_ROLE = 'role_id';
+  private readonly LS_USER_ID = 'user_id';
+  private readonly LS_USERNAME = 'user_name';
 
   constructor(
     private router: Router,
@@ -42,7 +49,11 @@ export class NavbarAdminComponent implements OnInit {
     this.loggedIn = this.isLoggedIn();
 
     if (this.loggedIn) {
+      this.hydrateFromStorage();
+
       this.loadUserRole();
+    } else {
+      this.resetState();
     }
 
     this.router.events
@@ -63,7 +74,7 @@ export class NavbarAdminComponent implements OnInit {
   handleUserClick(event: MouseEvent) {
     event.stopPropagation();
 
-    if (this.role === 1) {
+    if (this.displayRole === 1) {
       this.adminDropdownOpen = !this.adminDropdownOpen;
       return;
     }
@@ -73,59 +84,108 @@ export class NavbarAdminComponent implements OnInit {
 
   updateProfileRouteStatus() {
     const url = this.router.url;
-
     this.isInProfilePage =
       url.startsWith('/jobowner/') ||
       url.startsWith('/technician/profile/') ||
       url.includes('/profile');
   }
 
+  private hydrateFromStorage() {
+    const storedRole = localStorage.getItem(this.LS_ROLE);
+    const storedUserId = localStorage.getItem(this.LS_USER_ID);
+    const storedUsername = localStorage.getItem(this.LS_USERNAME);
+
+    if (storedRole) {
+      this.displayRole = Number(storedRole);
+      this.role = this.displayRole;
+    }
+
+    if (storedUserId) {
+      this.userId = Number(storedUserId);
+      this.loadUnreadNotifications(this.userId);
+    }
+
+    if (storedUsername) {
+      this.username = storedUsername;
+    }
+
+    this.profileImageUrl = 'assets/person1.jpg';
+  }
+
+  private saveToStorage(roleId: number, userId: number, username: string) {
+    localStorage.setItem(this.LS_ROLE, String(roleId));
+    localStorage.setItem(this.LS_USER_ID, String(userId));
+    localStorage.setItem(this.LS_USERNAME, username);
+  }
+
+  private clearStorage() {
+    localStorage.removeItem(this.LS_ROLE);
+    localStorage.removeItem(this.LS_USER_ID);
+    localStorage.removeItem(this.LS_USERNAME);
+  }
+
   loadUserRole() {
-    this.profileService.getProfile()
-      .pipe(catchError(error => {
-        console.error('Failed to fetch profile', error);
+    this.roleLoading = true;
+    this.profileService.getProfile().pipe(
+      catchError(err => {
+        console.error('Failed to fetch profile', err);
         return of(null);
-      }))
-      .subscribe(profile => {
-        if (profile && profile.user_id) {
-          this.profileService.getUserById(profile.user_id)
-            .pipe(catchError(error => {
-              console.error('Failed to fetch user by ID', error);
-              return of(null);
-            }))
-            .subscribe(user => {
-              if (user) {
-                this.role = user.role_id;
-                this.userId = user.user_id;
+      }),
+      switchMap(profile => {
+        if (!profile?.user_id) return of(null);
+        return this.profileService.getUserById(profile.user_id).pipe(
+          catchError(err => {
+            console.error('Failed to fetch user by ID', err);
+            return of(null);
+          })
+        );
+      }),
+      tap(user => {
+        if (!user) return;
 
-                this.username = user.user_name || 'User';
+        const newRole = Number(user.role_id || 0);
+        const newUserId = Number(user.user_id || 0);
+        const newUsername = user.user_name || 'User';
 
-                if (this.userId !== null) {
-                  this.loadUnreadNotifications(this.userId);
-                }
 
-                if (this.role === 1) {
-                  this.profileImageUrl = 'assets/person1.jpg';
-                } else {
-                  this.profileService.getProfileByUserId(user.user_id).subscribe({
-                    next: (profile) => {
-                      this.profileImageUrl = 'http://localhost:8000/storage/' + profile.photo;
-                    },
-                    error: () => {
-                      this.profileImageUrl = 'assets/person1.jpg';
-                    }
-                  });
-                }
-              }
-            });
+        if (newRole === 1 || newRole === 2 || newRole === 3) {
+          this.role = newRole;
+          this.displayRole = newRole;
         }
-      });
+
+        this.userId = newUserId || null;
+        this.username = newUsername;
+
+        if (this.userId) {
+          this.saveToStorage(this.displayRole, this.userId, this.username);
+          this.loadUnreadNotifications(this.userId);
+        }
+
+        if (this.displayRole === 1) {
+          this.profileImageUrl = 'assets/person1.jpg';
+        }
+      }),
+      switchMap(user => {
+        if (!user || Number(user.role_id) === 1) return of(null);
+        return this.profileService.getProfileByUserId(user.user_id).pipe(
+          catchError(() => of(null))
+        );
+      }),
+      tap(profile => {
+        if (profile?.photo) {
+          this.profileImageUrl = 'http://localhost:8000/storage/' + profile.photo;
+        }
+      }),
+      finalize(() => {
+        this.roleLoading = false;
+      })
+    ).subscribe();
   }
 
   loadUnreadNotifications(userId: number) {
     this.notificationService.getUnreadNotifications(userId).subscribe({
-      next: (notifications) => this.unreadCount = notifications.length,
-      error: () => this.unreadCount = 0
+      next: (notifications) => (this.unreadCount = notifications.length),
+      error: () => (this.unreadCount = 0)
     });
   }
 
@@ -139,7 +199,22 @@ export class NavbarAdminComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+    this.clearStorage();
+    this.resetState();
     this.router.navigate(['/login']);
+  }
+
+  private resetState() {
+    this.loggedIn = false;
+    this.role = 0;
+    this.displayRole = 0;
+    this.roleLoading = false;
+    this.userId = null;
+    this.username = '';
+    this.unreadCount = 0;
+    this.profileImageUrl = 'assets/person1.jpg';
+    this.adminDropdownOpen = false;
+    this.dropdownOpen = false;
   }
 
   openProfileOrLogin() {
@@ -148,7 +223,7 @@ export class NavbarAdminComponent implements OnInit {
       return;
     }
 
-    if ((this.role === 2 || this.role === 3) && this.userId !== null) {
+    if ((this.displayRole === 2 || this.displayRole === 3) && this.userId !== null) {
       this.router.navigate(['/jobowner', this.userId]);
       return;
     }

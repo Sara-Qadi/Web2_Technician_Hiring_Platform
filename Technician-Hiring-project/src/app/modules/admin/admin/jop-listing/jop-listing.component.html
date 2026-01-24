@@ -1,5 +1,6 @@
 <app-navbar-admin></app-navbar-admin>
 
+<main class="page-content">
 <div class="container py-5">
   <h2 class="text-center text-color-primary fw-bold mb-4">Job Postings</h2>
 
@@ -34,5 +35,5 @@
 
   <div *ngIf="!loading && jobs.length === 0" class="text-center">There are no job postings to display.</div>
 </div>
-
+</main>
 <app-footer-admin></app-footer-admin>
