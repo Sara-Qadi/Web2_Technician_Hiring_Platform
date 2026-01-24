@@ -5,7 +5,7 @@
   }
   100% {
     transform: rotate(360deg);
-}
+  }
 }
 
 .logo-section svg {
@@ -24,7 +24,6 @@
   height: 70px;
   background-color: black;
   z-index: 1000;
-  width: calc(100% - 17px);
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -40,8 +39,8 @@
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   color: white;
   z-index: 10;
-  width: calc(100% - 17px);
   box-sizing: border-box;
+  height:51.5px;
 }
 
 .icon-btn {
@@ -92,4 +91,22 @@
 .bottom-navbar .nav-link:hover,
 .bottom-navbar .nav-link.active {
   border-bottom: 2px solid white;
+}
+
+.d-inline-block{
+  cursor: pointer;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-weight: bold;
+  line-height: 1;
+  pointer-events: none;
 }

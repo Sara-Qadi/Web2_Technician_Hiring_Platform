@@ -38,11 +38,6 @@
   background: white;
 }
 
-.chat-header {
-  padding: 15px;
-  border-bottom: 1px solid #ddd;
-  font-weight: bold;
-}
 
 .chat-messages {
   flex-grow: 1;
@@ -128,4 +123,72 @@
 .chat-messages {
   height: 100%;
   overflow-y: auto;
+}
+
+.chat-messages {
+  background: #f4f6f8;
+  padding: 16px;
+}
+
+/* My message */
+.chat-messages .bg-primary {
+  background: linear-gradient(
+    135deg,
+    var(--primaryColor),
+    #5fb3a2
+  ) !important;
+  border-bottom-right-radius: 6px;
+}
+
+/* Their message */
+.chat-messages .bg-secondary {
+  background-color: #e5e7eb !important;
+  color: #111;
+  border-bottom-left-radius: 6px;
+}
+.chat-messages div {
+  max-width: 65% !important;
+}
+.chat-input {
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+}
+
+.chat-input input {
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+}
+
+.chat-input input:focus {
+  border-color: var(--primaryColor);
+  box-shadow: 0 0 0 2px var(--primarySoft);
+}
+.chat-input button {
+  background: var(--primaryColor);
+  border: none;
+  border-radius: 12px;
+  padding: 8px 14px;
+}
+
+.chat-input button:hover {
+  filter: brightness(1.05);
+}
+
+/* Sidebar search input */
+.sidebar input.form-control {
+  border-radius: 12px;
+  border: 1px solid #d1d5db; /* رمادي فاتح */
+  padding: 8px 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sidebar input.form-control:focus {
+  border-color: var(--primaryColor);
+  box-shadow: 0 0 0 2px var(--primarySoft);
+  outline: none;
+}
+
+.sidebar input.form-control::placeholder {
+  color: #9ca3af; /* رمادي فاتح */
+  font-size: 0.95rem;
 }

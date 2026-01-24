@@ -1,10 +1,15 @@
 <div class="container my-5 p-5">
   <div class="row d-flex justify-content-between">
     <div class="col-4 d-flex flex-column align-items-center justify-content-center text-center gap-3">
-      <div class="user-img">
+      <div *ngIf="loading" class="logo-section d-flex justify-content-center align-items-center" style="min-height: 300px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="#000000" viewBox="0 0 16 16">
+          <path d="M7.068.727c.243-.97 1.62-.97 1.864 0l.071.286a.96.96 0 0 0 1.622.434l.205-.211c.695-.719 1.888-.03 1.613.931l-.08.284a.96.96 0 0 0 1.187 1.187l.283-.081c.96-.275 1.65.918.931 1.613l-.211.205a.96.96 0 0 0 .434 1.622l.286.071c.97.243.97 1.62 0 1.864l-.286.071a.96.96 0 0 0-.434 1.622l.211.205c.719.695.03 1.888-.931 1.613l-.284-.08a.96.96 0 0 0-1.187 1.187l.081.283c.275.96-.918 1.65-1.613.931l-.205-.211a.96.96 0 0 0-1.622.434l-.071.286c-.243.97-1.62.97-1.864 0l-.071-.286a.96.96 0 0 0-1.622-.434l-.205.211c-.695.719-1.888.03-1.613-.931l.08-.284a.96.96 0 0 0-1.186-1.187l-.284.081c-.96.275-1.65-.918-.931-1.613l.211-.205a.96.96 0 0 0-.434-1.622l-.286-.071c-.97-.243-.97-1.62 0-1.864l.286-.071a.96.96 0 0 0 .434-1.622l-.211-.205c-.719-.695-.03-1.888.931-1.613l.284.08a.96.96 0 0 0 1.187-1.186l-.081-.284c-.275-.96.918-1.65 1.613-.931l.205.211a.96.96 0 0 0 1.622-.434zM12.973 8.5H8.25l-2.834 3.779A4.998 4.998 0 0 0 12.973 8.5m0-1a4.998 4.998 0 0 0-7.557-3.779l2.834 3.78zM5.048 3.967l-.087.065zm-.431.355A4.98 4.98 0 0 0 3.002 8c0 1.455.622 2.765 1.615 3.678L7.375 8zm.344 7.646.087.065z"/>
+        </svg>
+      </div>
+      <div class="user-img" *ngIf="!loading">
         <img [src]="profileImageUrl" alt="Profile Image" class="img-fluid rounded-circle profile-img mb-2">
       </div>
-      <div class="edit-img" *ngIf="showowner">
+      <div class="edit-img" *ngIf="isOwnProfile && !loading">
           <input type="file" id="imageInput"  (change)="onImageSelected($event)" hidden>
           <label for="imageInput" class="b">
             <i class="fa-solid fa-camera me-1"></i>Change Photo
@@ -16,30 +21,50 @@
     <div class="col-7" >
       <div class="user-info d-flex flex-column gap-4 justify-content-center mt-4" *ngIf="!editMode">
         <h2 class="d-flex justify-content-between">User Info:
-          <button class="b edit" *ngIf="showowner" (click)="toggleEdit()"><i class="fa-solid fa-pen"></i>Edit</button>
+          <button class="b edit" *ngIf="isOwnProfile && !loading" (click)="toggleEdit()"><i class="fa-solid fa-pen"></i>Edit</button>
         </h2>
-        <div class="info d-flex flex-column gap-3">
+      </div>
+        <div *ngIf="loading" class="logo-section d-flex justify-content-center align-items-center" style="min-height: 300px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="#000000" viewBox="0 0 16 16">
+          <path d="M7.068.727c.243-.97 1.62-.97 1.864 0l.071.286a.96.96 0 0 0 1.622.434l.205-.211c.695-.719 1.888-.03 1.613.931l-.08.284a.96.96 0 0 0 1.187 1.187l.283-.081c.96-.275 1.65.918.931 1.613l-.211.205a.96.96 0 0 0 .434 1.622l.286.071c.97.243.97 1.62 0 1.864l-.286.071a.96.96 0 0 0-.434 1.622l.211.205c.719.695.03 1.888-.931 1.613l-.284-.08a.96.96 0 0 0-1.187 1.187l.081.283c.275.96-.918 1.65-1.613.931l-.205-.211a.96.96 0 0 0-1.622.434l-.071.286c-.243.97-1.62.97-1.864 0l-.071-.286a.96.96 0 0 0-1.622-.434l-.205.211c-.695.719-1.888.03-1.613-.931l.08-.284a.96.96 0 0 0-1.186-1.187l-.284.081c-.96.275-1.65-.918-.931-1.613l.211-.205a.96.96 0 0 0-.434-1.622l-.286-.071c-.97-.243-.97-1.62 0-1.864l.286-.071a.96.96 0 0 0 .434-1.622l-.211-.205c-.719-.695-.03-1.888.931-1.613l.284.08a.96.96 0 0 0 1.187-1.186l-.081-.284c-.275-.96.918-1.65 1.613-.931l.205.211a.96.96 0 0 0 1.622-.434zM12.973 8.5H8.25l-2.834 3.779A4.998 4.998 0 0 0 12.973 8.5m0-1a4.998 4.998 0 0 0-7.557-3.779l2.834 3.78zM5.048 3.967l-.087.065zm-.431.355A4.98 4.98 0 0 0 3.002 8c0 1.455.622 2.765 1.615 3.678L7.375 8zm.344 7.646.087.065z"/>
+        </svg>
+      </div>
+        <div class="info d-flex flex-column gap-3" *ngIf="!loading && !editMode">
           <div class="sec name">
             <h5 class="shine">Name:</h5>
-            <span class="value">Lian B. Sawa</span>
+            <span class="value text-capitalize">{{ profileForm.get('user_name')?.value }}</span>
           </div>
           <div class="sec email">
             <h5 class="shine">Email:</h5>
-            <span class="value">madre&#64;example.com</span>
+            <span class="value">{{ profileForm.get('email')?.value }}</span>
           </div>
           <div class="sec phone">
             <h5 class="shine">Phone:</h5>
-            <span class="value">0508995643</span>
+            <span class="value">{{ profileForm.get('phone')?.value }}</span>
           </div>
-          <div class="sec country">
-            <h5 class="shine">Country:</h5>
-            <span class="value">Palestine</span>
+          <div class="sec location">
+            <h5 class="shine">country:</h5>
+            <span class="value text-capitalize">{{ profileForm.get('country')?.value }}</span>
           </div>
-          <div class="only-artisan d-flex gap-3 justify-content-end">
-            <button class="b report" *ngIf="showartisan" data-bs-toggle="modal" data-bs-target="#ReportModal"><i class="fa-solid fa-flag"></i>Report</button>
+          <div class="sec rate">
+             <div class="clickable-rating shine d-flex justify-content-around" [routerLink]="['/rating', userId]">
+                <h5 class="shine">Rating:</h5>
+                <ng-container *ngFor="let star of [1,2,3,4,5]">
+                  <span [class.filled]="star <= (averageRating || 0)">&#9733;</span>
+                </ng-container>
+                    ({{ (averageRating | number:'1.2-2') || '0.00' }}/5)
+              </div>
+            </div>
+          <div class="sec about d-flex flex-column gap-2 align-items-start">
+            <h5 class="shine">About:</h5>
+            <div>
+              <span class="value">{{ profileForm.get('description')?.value }}</span>
+            </div>
+          </div>
+          <div class="only-artisan d-flex gap-3 justify-content-end" *ngIf="!isOwnProfile">
+            <button class="b report"  data-bs-toggle="modal" data-bs-target="#ReportModal"><i class="fa-solid fa-flag"></i>Report</button>
             <button class="b messages" (click)="gotomessage()"><i class="fa-solid fa-message"></i>Message</button>
           </div>
-        </div>
       </div>
 
       <form *ngIf="editMode" [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="d-flex flex-column gap-4 mt-4">
@@ -47,7 +72,7 @@
           <h2>Edit Info</h2>
           <div class="col-md-6">
             <label class="form-label">Full Name</label>
-            <input type="text" class="form-control" formControlName="name">
+            <input type="text" class="form-control" formControlName="user_name">
           </div>
           <div class="col-md-6">
             <label class="form-label">Email</label>
@@ -59,12 +84,12 @@
           </div>
           <div class="col-md-6">
             <label class="form-label">Country</label>
-            <input type="text" class="form-control" formControlName="city">
+            <input type="text" class="form-control" formControlName="country">
           </div>
-          <!-- <div class="col-12">
+           <div class="col-12">
             <label class="form-label">About</label>
-            <textarea class="form-control" formControlName="about" rows="3"></textarea>
-          </div> -->
+            <textarea class="form-control" formControlName="description" rows="3"></textarea>
+          </div> 
         </div>
   
         <div class="d-flex justify-content-end gap-2 mt-4">
@@ -72,9 +97,10 @@
           <button class="b save" type="submit" [disabled]="!profileForm.valid">Save</button>
         </div>
       </form>
+      </div>
     </div>
   </div>
-</div>
+
 <!-- عشان الريبورت -->
 <div class="modal fade" id="ReportModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
   <div class="modal-dialog">

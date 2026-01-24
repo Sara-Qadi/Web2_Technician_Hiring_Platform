@@ -9,27 +9,31 @@
 </button>
 
 
-<nav id="sidebarCollapse" class="collapse d-md-block col-md-3 col-lg-2 bg-white sidebar shadow vh-100 position-sticky ">
+<nav id="sidebarCollapse" class="mb-2 collapse d-md-block col-md-3 col-lg-2 bg-white sidebar shadow vh-100 position-sticky ">
   <div class="p-4">
     <h2 class="h4 text-primary mb-4">reports</h2>
     <!-- Sidebar content -->
+<div class="d-flex flex-column gap-2 position-relative md-2" >
+  
+<small class="text-muted">Choose a report from the list below:</small>
+
+<select [(ngModel)]="selectedTable" class="form-select">
+  <option [ngValue]="''" disabled hidden>Select a report</option>
+  <option *ngFor="let option of filteredOptions" [ngValue]="option.value">
+    {{ option.label }}
+  </option>
+</select>
 
 
-    <div class="d-flex flex-column gap-3">
-      <select [(ngModel)]="selectedTable"  class="form-select">
-        <option value="jobCompletion">Job Completion Report</option>
-        <option value="earnings">Earnings Report</option>
-        <option value="topRatedArtisans">Top Rated Artisans Report</option>
-        <option value="lowPerformanceUsers">Low Performance Users Report</option>
-        <option value="monthlyActivity">Monthly Activity Report</option>
-        <option value="locationBasedDemand">Location Based Demand Report</option>
-        <option value="paymentTransaction">Payment Transaction Report</option>
-      </select>
 
-      <button id="export-btn" class="btn btn-primary d-flex align-items-center gap-2">
-        <i class="fas fa-download"></i>
-        <span>Export</span>
-      </button>
+<button id="export-btn"
+        class="btn d-flex align-items-center gap-2"
+        (click)="exportAll()"
+        style="background-color: var(--primaryColor); color: white; border-color: var(--secondaryColor);">
+  <i class="fas fa-download"></i>
+  <span>Export</span>
+</button>
+
     </div>
   </div>
 </nav>
@@ -40,13 +44,7 @@
   <div class="bg-light p-4 rounded mb-4">
     <div class="row g-3">
       <div class="col-12 col-md-3">
-        <label for="date-range" class="form-label">Date Range</label>
-        <select id="date-range" class="form-select">
-          <option value="last7">Last 7 Days</option>
-          <option value="last30" selected>Last 30 Days</option>
-          <option value="last90">Last 90 Days</option>
-          <option value="ytd">Year to Date</option>
-        </select>
+        
       </div>
 
       <div class="col-12 col-md-3">
@@ -128,7 +126,7 @@
     </div>
   </div>
 
-<app-reportcard></app-reportcard>
+<!--<app-reportcard></app-reportcard>-->
   
 </main>
 </div>

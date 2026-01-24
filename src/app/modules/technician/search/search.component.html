@@ -1,40 +1,50 @@
 <app-navbar-admin></app-navbar-admin>
-<div style="background-color: #f3f2f1; min-height: 100vh;">
-
-  <div class="container pt-3">
+<div style="background-color: #ffffff; min-height: 100vh;">
+  <div class="container" style="padding-top: 3rem;">
     <div class="row align-items-center">
-      <div class="col-auto">
-        <p class="fs-1 m-0" style="color: #641739;">Filter</p>
-      </div>
-  
       <div class="col d-flex justify-content-center align-items-center gap-2">
-        <label class="custom-search-wrapper">
+        <div class="position-relative w-50">
           <input
             type="text"
-            [(ngModel)]="termInput"
-            placeholder="Search for something..."
-            class="form-control custom-search-input"
+            class="form-control search-input"
+            placeholder="Search by job title"
+            [(ngModel)]="searchInput"
+            (ngModelChange)="applySearch()"
           />
-        </label>
-        <button (click)="applySearch()" class="btn fs-5" style="background-color: #641739; color: white;">
-          Search
-        </button>
+          <i class="bi bi-search search-icon"></i>
+        </div>
       </div>
     </div>
   </div>
 
-  
-
-  <div class="container-fluid py-4">
+  <div class="container-fluid mt-0">
     <div class="row">
-      
-      <aside class="col-md-3 p-4 rounded shadow-sm" style="background-color: #f8f9fa;">
-        <h4 class="mb-4 fw-bold border-bottom pb-2" style="color: #641739;">Category</h4>
+      <aside class="col-md-3 p-4 rounded shadow-sm mb-2 filters-sidebar" style="margin-top: 4em;">
 
-        <!-- --------------------------------------------              ---------------------             -------------         -->
-        <div class="mb-3 d-flex align-items-center gap-2">
-          <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="Electrician" />      
+  <section class="filter-section">
+
+<div class="filters-header d-flex align-items-center justify-content-between">
+  <div class="filters-header-title">
+    <i class="bi bi-funnel-fill"></i>
+    <span>Filters</span>
+  </div>
+
+  <label class="switch">
+    <input type="checkbox" [checked]="filtersEnabled" (change)="toggleFilters()" />
+    <span class="slider"></span>
+  </label>
+</div>
+
+          <section class="filter-card">
+            <h5 class="filter-card-title">
+    <i class="bi bi-tags-fill"></i>
+    Category
+  </h5>
+
+    <div class="mb-3 d-flex align-items-center gap-2">
+    <label class="neon-checkbox">
+            <input type="checkbox" name="agree" id="Electrician" value="electrician" [checked]="tempSelectedCategory.includes('electrician')"
+            [disabled]="!filtersEnabled" (change)="onTempCategoryChange($event)" />      
             <div class="neon-checkbox__frame">
               <div class="neon-checkbox__box">
                 <div class="neon-checkbox__check-container">
@@ -65,12 +75,13 @@
             </div>
           </label>
           <label class="form-check-label" for="Electrician-Category" for="Electrician">Electrician</label>
-        </div>
+            </div>
 
 
         <div class="mb-3 d-flex align-items-center gap-2">
           <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="Plumber" />      
+            <input type="checkbox" name="agree" id="Plumber" value="plumber"   [checked]="tempSelectedCategory.includes('plumber')"
+            [disabled]="!filtersEnabled" (change)="onTempCategoryChange($event)"/>      
             <div class="neon-checkbox__frame">
               <div class="neon-checkbox__box">
                 <div class="neon-checkbox__check-container">
@@ -103,11 +114,10 @@
           <label class="form-check-label" for="Electrician-Category" for="Plumber">Plumber</label>
         </div>
 
-
-
         <div class="mb-3 d-flex align-items-center gap-2">
           <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="Painter" />      
+            <input type="checkbox" name="agree" id="Painter" value="painter"   [checked]="tempSelectedCategory.includes('Painter')"
+            [disabled]="!filtersEnabled" (change)="onTempCategoryChange($event)"/>      
             <div class="neon-checkbox__frame">
               <div class="neon-checkbox__box">
                 <div class="neon-checkbox__check-container">
@@ -141,10 +151,10 @@
         </div>
 
 
-
         <div class="mb-3 d-flex align-items-center gap-2">
           <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="Carpenter" />      
+            <input type="checkbox" name="agree" id="Carpenter" value="carpenter"   [checked]="tempSelectedCategory.includes('Carpenter')"
+            [disabled]="!filtersEnabled" (change)="onTempCategoryChange($event)" />      
             <div class="neon-checkbox__frame">
               <div class="neon-checkbox__box">
                 <div class="neon-checkbox__check-container">
@@ -177,11 +187,10 @@
           <label class="form-check-label" for="Electrician-Category" for="Carpenter">Carpenter</label>
         </div>
 
-
-
         <div class="mb-3 d-flex align-items-center gap-2">
           <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="Mechanic" />      
+            <input type="checkbox" name="agree" id="Mechanic" value="mechanic"   [checked]="tempSelectedCategory.includes('Mechanic')"
+            [disabled]="!filtersEnabled" (change)="onTempCategoryChange($event)"/>      
             <div class="neon-checkbox__frame">
               <div class="neon-checkbox__box">
                 <div class="neon-checkbox__check-container">
@@ -214,226 +223,10 @@
           <label class="form-check-label" for="Electrician-Category" for="Mechanic">Mechanic</label>
         </div>
 
-
         <div class="mb-3 d-flex align-items-center gap-2">
           <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="Tiler" />      
-            <div class="neon-checkbox__frame">
-              <div class="neon-checkbox__box">
-                <div class="neon-checkbox__check-container">
-                  <svg viewBox="0 0 24 24" class="neon-checkbox__check">
-                    <path d="M3,12.5l7,7L21,5"></path>
-                  </svg>
-                </div>
-                <div class="neon-checkbox__glow"></div>
-                <div class="neon-checkbox__borders">
-                  <span></span><span></span><span></span><span></span>
-                </div>
-              </div>
-              <div class="neon-checkbox__effects">
-                <div class="neon-checkbox__particles">
-                  <span></span><span></span><span></span><span></span>
-                  <span></span><span></span><span></span><span></span>
-                  <span></span><span></span><span></span><span></span>
-                </div>
-                <div class="neon-checkbox__rings">
-                  <div class="ring"></div>
-                  <div class="ring"></div>
-                  <div class="ring"></div>
-                </div>
-                <div class="neon-checkbox__sparks">
-                  <span></span><span></span><span></span><span></span>
-                </div>
-              </div>
-            </div>
-          </label>
-          <label class="form-check-label" for="Electrician-Category" for="Tiler">Tiler</label>
-        </div>
-
-
-        <div class="mb-3 d-flex align-items-center gap-2">
-          <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="Welder" />      
-            <div class="neon-checkbox__frame">
-              <div class="neon-checkbox__box">
-                <div class="neon-checkbox__check-container">
-                  <svg viewBox="0 0 24 24" class="neon-checkbox__check">
-                    <path d="M3,12.5l7,7L21,5"></path>
-                  </svg>
-                </div>
-                <div class="neon-checkbox__glow"></div>
-                <div class="neon-checkbox__borders">
-                  <span></span><span></span><span></span><span></span>
-                </div>
-              </div>
-              <div class="neon-checkbox__effects">
-                <div class="neon-checkbox__particles">
-                  <span></span><span></span><span></span><span></span>
-                  <span></span><span></span><span></span><span></span>
-                  <span></span><span></span><span></span><span></span>
-                </div>
-                <div class="neon-checkbox__rings">
-                  <div class="ring"></div>
-                  <div class="ring"></div>
-                  <div class="ring"></div>
-                </div>
-                <div class="neon-checkbox__sparks">
-                  <span></span><span></span><span></span><span></span>
-                </div>
-              </div>
-            </div>
-          </label>
-          <label class="form-check-label" for="Electrician-Category" for="Welder">Welder</label>
-        </div>
-
-
-
-        <div class="mb-3 d-flex align-items-center gap-2">
-          <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="Roofing-Specialist" />      
-            <div class="neon-checkbox__frame">
-              <div class="neon-checkbox__box">
-                <div class="neon-checkbox__check-container">
-                  <svg viewBox="0 0 24 24" class="neon-checkbox__check">
-                    <path d="M3,12.5l7,7L21,5"></path>
-                  </svg>
-                </div>
-                <div class="neon-checkbox__glow"></div>
-                <div class="neon-checkbox__borders">
-                  <span></span><span></span><span></span><span></span>
-                </div>
-              </div>
-              <div class="neon-checkbox__effects">
-                <div class="neon-checkbox__particles">
-                  <span></span><span></span><span></span><span></span>
-                  <span></span><span></span><span></span><span></span>
-                  <span></span><span></span><span></span><span></span>
-                </div>
-                <div class="neon-checkbox__rings">
-                  <div class="ring"></div>
-                  <div class="ring"></div>
-                  <div class="ring"></div>
-                </div>
-                <div class="neon-checkbox__sparks">
-                  <span></span><span></span><span></span><span></span>
-                </div>
-              </div>
-            </div>
-          </label>
-          <label class="form-check-label" for="Roofing-Specialist">Roofing Specialist</label>
-        </div>
-
-
-        <div class="mb-3 d-flex align-items-center gap-2">
-          <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="Mason" />      
-            <div class="neon-checkbox__frame">
-              <div class="neon-checkbox__box">
-                <div class="neon-checkbox__check-container">
-                  <svg viewBox="0 0 24 24" class="neon-checkbox__check">
-                    <path d="M3,12.5l7,7L21,5"></path>
-                  </svg>
-                </div>
-                <div class="neon-checkbox__glow"></div>
-                <div class="neon-checkbox__borders">
-                  <span></span><span></span><span></span><span></span>
-                </div>
-              </div>
-              <div class="neon-checkbox__effects">
-                <div class="neon-checkbox__particles">
-                  <span></span><span></span><span></span><span></span>
-                  <span></span><span></span><span></span><span></span>
-                  <span></span><span></span><span></span><span></span>
-                </div>
-                <div class="neon-checkbox__rings">
-                  <div class="ring"></div>
-                  <div class="ring"></div>
-                  <div class="ring"></div>
-                </div>
-                <div class="neon-checkbox__sparks">
-                  <span></span><span></span><span></span><span></span>
-                </div>
-              </div>
-            </div>
-          </label>
-          <label class="form-check-label" for="Mason">Mason</label>
-        </div>
-
-
-        <div class="mb-3 d-flex align-items-center gap-2">
-          <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="AC-Technician" />      
-            <div class="neon-checkbox__frame">
-              <div class="neon-checkbox__box">
-                <div class="neon-checkbox__check-container">
-                  <svg viewBox="0 0 24 24" class="neon-checkbox__check">
-                    <path d="M3,12.5l7,7L21,5"></path>
-                  </svg>
-                </div>
-                <div class="neon-checkbox__glow"></div>
-                <div class="neon-checkbox__borders">
-                  <span></span><span></span><span></span><span></span>
-                </div>
-              </div>
-              <div class="neon-checkbox__effects">
-                <div class="neon-checkbox__particles">
-                  <span></span><span></span><span></span><span></span>
-                  <span></span><span></span><span></span><span></span>
-                  <span></span><span></span><span></span><span></span>
-                </div>
-                <div class="neon-checkbox__rings">
-                  <div class="ring"></div>
-                  <div class="ring"></div>
-                  <div class="ring"></div>
-                </div>
-                <div class="neon-checkbox__sparks">
-                  <span></span><span></span><span></span><span></span>
-                </div>
-              </div>
-            </div>
-          </label>
-          <label class="form-check-label" for="AC-Technician">AC Technician</label>
-        </div>
-
-
-        <div class="mb-3 d-flex align-items-center gap-2">
-          <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="Security-Camera-Installer" />      
-            <div class="neon-checkbox__frame">
-              <div class="neon-checkbox__box">
-                <div class="neon-checkbox__check-container">
-                  <svg viewBox="0 0 24 24" class="neon-checkbox__check">
-                    <path d="M3,12.5l7,7L21,5"></path>
-                  </svg>
-                </div>
-                <div class="neon-checkbox__glow"></div>
-                <div class="neon-checkbox__borders">
-                  <span></span><span></span><span></span><span></span>
-                </div>
-              </div>
-              <div class="neon-checkbox__effects">
-                <div class="neon-checkbox__particles">
-                  <span></span><span></span><span></span><span></span>
-                  <span></span><span></span><span></span><span></span>
-                  <span></span><span></span><span></span><span></span>
-                </div>
-                <div class="neon-checkbox__rings">
-                  <div class="ring"></div>
-                  <div class="ring"></div>
-                  <div class="ring"></div>
-                </div>
-                <div class="neon-checkbox__sparks">
-                  <span></span><span></span><span></span><span></span>
-                </div>
-              </div>
-            </div>
-          </label>
-          <label class="form-check-label" for="Security-Camera-Installer">Security Camera Installer</label>
-        </div>
-
-        <div class="mb-3 d-flex align-items-center gap-2">
-          <label class="neon-checkbox">
-            <input type="checkbox" name="agree" id="Other" />      
+            <input type="checkbox" name="agree" id="Other"  value="other"  [checked]="tempSelectedCategory.includes('Other')"
+            [disabled]="!filtersEnabled" (change)="onTempCategoryChange($event)"/>      
             <div class="neon-checkbox__frame">
               <div class="neon-checkbox__box">
                 <div class="neon-checkbox__check-container">
@@ -465,42 +258,121 @@
           </label>
           <label class="form-check-label" for="Other">Other</label>
         </div>
+        </section>
+  </section>
 
-        <h4 class="mb-4 fw-bold border-bottom pb-2 mt-4" style="color: #641739;">Budget</h4>
-        <label class="custom-search-wrapper mb-3">
-          <input
-          type="text"
-          [(ngModel)]="minInput"
-          placeholder="Min Budget"
-          class="form-control custom-search-input"
-          
-        />
-        </label>
 
-        <label class="custom-search-wrapper mb-3">
-          <input
-          type="text"
-          [(ngModel)]="maxInput"
-          placeholder="max-width Budget"
-          class="form-control custom-search-input"
-        />
-        </label>
+<section class="filter-card">
+  <h5 class="filter-card-title">
+    <i class="bi bi-cash-stack"></i>
+    Budget
+  </h5>
+      <h5 class="filter-title">Budget</h5>
 
-        <h4 class="mb-4 fw-bold border-bottom pb-2 mt-4" style="color: #641739;">Location</h4>
-        <label class="custom-search-wrapper mb-3">
-          <input
-          type="text"
-          [(ngModel)]="locationInput"
-          placeholder="e.g. Jerusalem"
-          class="form-control custom-search-input"
-        />
-        </label>
-      </aside>
+    <div class="budget-row">
 
-      <div class="col-md-9">
-        <app-cardlist [jobs]="jobs | search: term"></app-cardlist>
+      <div class="position-relative w-50">
+    <input
+      type="text"
+      min="0"
+      placeholder="Min"
+      class="form-control search-input ps-4"
+      [(ngModel)]="tempMinInput"
+      [disabled]="!filtersEnabled"
+    />
+    <span class="budget-icon">$</span>
+  </div>
+
+  <div class="position-relative w-50">
+    <input
+      type="text"
+      min="0"
+      placeholder="Max"
+      class="form-control search-input ps-4"
+      [(ngModel)]="tempMaxInput"
+      [disabled]="!filtersEnabled"
+    />
+    <span class="budget-icon">$</span>
+  </div>
+</div>
+  </section>
+
+<section class="filter-card">
+  <h5 class="filter-card-title">
+    <i class="bi bi-geo-alt-fill"></i>
+    Location
+  </h5>    <h5 class="filter-title">Location</h5>
+
+    <div class="position-relative mb-3">
+  <input
+    type="text"
+    [(ngModel)]="tempLocationInput"
+    placeholder=" e.g. Jerusalem"
+    class="form-control search-input ps-4"
+    [disabled]="!filtersEnabled"
+  />
+  <i class="bi bi-geo-alt-fill location-icon"></i>
+</div>
+  </section>
+
+  <div class="d-flex gap-2 mt-3">
+    <button class="neon-button w-100" (click)="applySearch()"  [disabled]="!filtersEnabled">Apply</button>
+    <button class="reset-btn" [disabled]="!filtersEnabled" (click)="resetSearch()">Reset</button>
+  </div>
+
+</aside>
+
+
+    <div class="col-md-9" style="margin-top: 4em;">
+      <div class="jobs-wrapper">
+        <div class="jobs-header">
+  <h5 class="jobs-title mb-0">
+    <i class="bi bi-briefcase-fill"></i>
+    Available Jobs
+  </h5>
+
+  <div class="dropdown">
+    <button
+      class="btn sort-btn dropdown-toggle"
+      type="button"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      <i class="bi bi-sort-down"></i>
+      Sort
+    </button>
+
+    <ul class="dropdown-menu dropdown-menu-end">
+      <li>
+        <button class="dropdown-item" (click)="sortJobs('priceAsc')">
+          Min Price: Low → High
+        </button>
+      </li>
+      <li>
+        <button class="dropdown-item" (click)="sortJobs('priceDesc')">
+          Min Price: High → Low
+        </button>
+      </li>
+      <li><hr class="dropdown-divider" /></li>
+      <li>
+        <button class="dropdown-item" (click)="sortJobs('typeAsc')">
+          Category: A → Z
+        </button>
+      </li>
+      <li>
+        <button class="dropdown-item" (click)="sortJobs('typeDesc')">
+          Category: Z → A
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+
+      <app-cardlist
+      [jobs]="jobs |  filterBy: selectedCategory : locationInput : minInput : maxInput">
+      </app-cardlist>
+        </div>
       </div>
-
     </div>
   </div>
 </div>

@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
+import { AuthService } from '../../../services/auth.service';
 @Component({
   selector: 'app-forgot-password-page',
   standalone: true,
@@ -19,7 +19,7 @@ export class ForgotPasswordComponent {
   forgotPasswordForm!: FormGroup;
   emailSent = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.forgotPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
     });
@@ -36,10 +36,19 @@ export class ForgotPasswordComponent {
     if (this.forgotPasswordForm.valid) {
       const emailValue = this.email?.value;
 
-      // Fake response
-      this.successMessage = `Reset link sent to ${emailValue}`;
+      this.successMessage = null;
+      this.errorMessage = null;
+
+      this.authService.sendResetLink(emailValue).subscribe({
+        next: (res) => {
+          this.successMessage = res.message;
+        },
+        error: (err) => {
+          this.errorMessage = err?.error?.message || 'Something went wrong.';
+        },
+      });
     } else {
-      this.errorMessage = 'الايميل مش موجود بالداتا بيس';
+      this.errorMessage = 'Please enter a valid email.';
     }
   }
 }

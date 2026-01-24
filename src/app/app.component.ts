@@ -9,13 +9,15 @@ import { ProfileComponent } from './modules/technician/profile/profile.component
 import { ProfileEditComponent } from './modules/technician/profile-edit/profile-edit.component';
 import { JobListComponent } from './modules/job_owner/joblist/joblist.component';
 import { AnalyticsComponent } from './modules/reports/analytics.component';
+import { OutsideprofileComponent } from './modules/job_owner/outsideprofile/outsideprofile.component';
+
 
 
 @Component({
   selector: 'app-root',
 
   imports: [RouterOutlet, NotificationComponent, NotificationDropdownComponent, ProfileComponent, ProfileEditComponent,JobListComponent,AnalyticsComponent,
-            CommonModule , SearchComponent , SubmitBidesComponent , RouterOutlet ],
+            CommonModule , SearchComponent , SubmitBidesComponent , RouterOutlet ,OutsideprofileComponent],
 
 
   templateUrl: './app.component.html',
@@ -27,7 +29,13 @@ export class AppComponent {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         const currentUrl = this.router.url.split(/[?#]/)[0].replace(/\/+$/, '');
-        const authRoutes = ['/login', '/sign-up', '/forgot-password', '/role-selection'];
+        const authRoutes = [
+          '/login',
+          '/sign-up',
+          '/forgot-password',
+          '/role-selection',
+          '/reset-password',
+        ];
 
         const isAuthRoute = authRoutes.includes(currentUrl);
         document.body.classList.toggle('with-navbar', !isAuthRoute);

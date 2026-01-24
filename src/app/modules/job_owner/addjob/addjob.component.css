@@ -57,7 +57,7 @@ input:focus,select:focus,textarea:focus{
 option:hover{
   background-color: #475451 !important;
 }
-#AttachmentsLabel{
+/*#AttachmentsLabel{
   border: 2px dashed rgb(200, 200, 200);
   padding: 20px; 
   text-align: center; 
@@ -69,9 +69,9 @@ option:hover{
   display: none;
 }
 #AttachmentsLabel .icon{
-  font-size: 50px;
+  font-size: 45px;
   color: #444344;
-  margin: 15px 0;
+  margin: 15px 0 30px 0;
 }
 .Attachmentcontent p{
   font-size: 14px;
@@ -80,7 +80,7 @@ option:hover{
 }
 .Attachmentcontent span{
   font-size: 13px;
-}
+}*/
 .warning span{
   font-size: 13px;
   padding: 5px 0;

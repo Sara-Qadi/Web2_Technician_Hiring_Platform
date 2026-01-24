@@ -1,11 +1,8 @@
+<div class="main-content" style="width: 100vw;" >
 <div class="top-navbar d-flex justify-content-between align-items-center px-4 py-1">
-
-  <div class="d-flex gap-3 small-text  align-items-center " style="color: white;">
-    <a class="nav-link " href="#">Arabic</a> |
-    <a class="nav-link active" href="#">English</a>
-
-  </div>
-
+<button *ngIf="loggedIn" (click)="logout()" class="btn btn-outline-danger btn-sm" title="Logout">
+  <i class="bi bi-box-arrow-right"></i> Logout
+</button>
   <a class="navbar-brand d-flex align-items-center" routerLink="">
     <div class="logo-section position-absolute top-50 start-50 translate-middle text-center">
       <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#fff" class="bi bi-gear-wide-connected" viewBox="0 0 16 16">
@@ -13,42 +10,70 @@
       </svg>
     </div>
   </a>
-
-
-
-
-
-  <div class="d-flex gap-3 align-items-center small-text">
-    <i class="bi bi-search cursor-pointer text-white"></i>
+<div class="d-flex gap-3 align-items-center small-text">
+  <!-- Show login button if not logged in -->
+  <a *ngIf="!loggedIn" routerLink="/login" class="btn btn-outline-primary btn-sm">
+    Login
+  </a>
+  <!-- Show profile image if logged in -->
+  <a *ngIf="loggedIn" class="d-inline-block" title="Profile" (click)="openProfileOrLogin()">
+    <img [src]="profileImageUrl || 'assets/person1.jpg'" alt="User" class="rounded-circle" width="32" height="32" />
+  </a>
+</div>
+ <!-- <div class="d-flex gap-3 align-items-center small-text">
     <a routerLink="/login" class="d-inline-block" title="Login">
       <img src="assets/person1.jpg" alt="User" class="rounded-circle" width="24" height="24" />
     </a>
-  </div>
-</div>
+    KOKO -->
+<nav class="bottom-navbar d-flex justify-content-center gap-5 py-2 ">
+  <ng-container *ngIf="role === 1">
+    <a routerLink="/admin/dashboard" routerLinkActive="active" class="nav-link">Dashboard</a>
+    <a routerLink="/admin/craftsmen-registrations" routerLinkActive="active" class="nav-link">Registration</a>
+    <a routerLink="/home" routerLinkActive="active" class="nav-link">Jobs</a>
+    <a routerLink="/admin/delete-craftsman" routerLinkActive="active" class="nav-link">Users</a>
+    <a routerLink="/reports/analytics" routerLinkActive="active" class="nav-link">Reports</a>
+    <a
+  [routerLink]="['/sign-up']"
+  [queryParams]="{ role: 'admin' }"
+  routerLinkActive="active"
+  class="nav-link"
+>
+  Create New Admin Account
+</a>
+  </ng-container>
+ <ng-container *ngIf="role === 2">
+    <!-- <a routerLink="/postjob" routerLinkActive="active" class="nav-link">Post Job</a> -->
+    <a routerLink="/home" routerLinkActive="active" class="nav-link">Home</a>
+    <a routerLink="/allproposals" routerLinkActive="active" class="nav-link">My Bids</a>
+    <a [routerLink]="['/jobowner',userId]" routerLinkActive="active" class="nav-link">My Jobs</a>
+        <a routerLink="/reports/analytics" routerLinkActive="active" class="nav-link">Reports</a>
 
-<nav class="bottom-navbar d-flex justify-content-center gap-5 py-2">
-  <a routerLink="/admin/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link">
-    Dashboard
-  </a>
-  <a routerLink="/admin/craftsmen-registrations" routerLinkActive="active" class="nav-link">
-    Registration
-  </a>
-  <a routerLink="/admin/jop-listing" routerLinkActive="active" class="nav-link">
-    Jobs
-  </a>
-  <a routerLink="/admin/delete-craftsman" routerLinkActive="active" class="nav-link">
-    Users
-  </a>
-  <a routerLink="/reports/analytics" routerLinkActive="active" class="nav-link">
-    Reports
-  </a>
+  </ng-container>
+  <ng-container *ngIf="role === 3">
+    <a routerLink="/home" routerLinkActive="active" class="nav-link">Home</a>
+    <a routerLink="/mybids" routerLinkActive="active" class="nav-link">My Bids</a>
+  </ng-container>
   <div class="position-absolute end-0 me-4">
     <button class="icon-btn me-3" routerLink="/messages">
       <i class="bi bi-messenger"></i>
     </button>
-    <button class="icon-btn" (click)="toggleDropdown()" title="Notifications">
-      <i class="bi bi-bell"></i>
-    </button>
+<button class="icon-btn" (click)="toggleDropdown()" title="Notifications" style="position: relative;">
+  <i class="bi bi-bell"></i>
+  <span *ngIf="unreadCount > 0"
+        class="notification-badge">
+    {{ unreadCount }}
+  </span>
+</button>
+
     <app-notification-dropdown [dropdownOpen]="dropdownOpen"></app-notification-dropdown>
   </div>
 </nav>
+</div>
+
+
+
+
+
+
+
+
