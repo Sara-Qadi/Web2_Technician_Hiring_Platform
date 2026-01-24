@@ -10,14 +10,14 @@
 }
 */
 h2 {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--headings);
   font-size: 25px;
   margin: 0;
   padding: 0;
 }
 
 small, p {
-  font-family: "Manrope", sans-serif;
+  font-family: var(--body);
 }
 .add{
   display: flex;

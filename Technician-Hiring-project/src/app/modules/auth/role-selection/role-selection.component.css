@@ -1,3 +1,7 @@
+h1,h3{
+  font-family: var(--headings);
+  font-weight: 600;
+}
 
 .role-option {
   cursor: pointer;
@@ -19,12 +23,13 @@
 }
 
 .role-card p {
-  font-size: 0.9rem;
-  color: #6c757d;
+  font-size: 1rem;
+  font-family: var(--body);
+  color: gray;
 }
 .role-option {
   cursor: pointer;
-  border: 2px solid transparent;
+  border: 2px solid rgb(211, 211, 211);
   border-radius: 10px;
   padding: 20px;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -33,12 +38,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0 40px rgba(88, 14, 141, 0.353);
+  box-shadow: 0 0 40px #EAF0F0;
 }
 
 .role-option.selected {
-  border-color: #9055ff;
-  box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+  border-color: var(--secondaryColor);
+  box-shadow: 0 0 15px var(--secondaryColor);
 }
 
 .role-card img {
@@ -54,31 +59,29 @@
   font-weight: 600;
 }
 
-.role-card p {
-  font-size: 1rem;
-  color: rgba(244, 237, 254, 0.691);
-}
-
 button {
   width: 15%;
-  background-color: #6e33dc;
+  background-color: var(--primaryColor);
   color: white;
   border: none;
   border-radius: 5px;
   padding: 12px;
   font-size: 1rem;
   font-weight: 600;
+  cursor: pointer;
+  font-family: var(--body);
   transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #7f3ff2;
+  background-color: var(--primaryColor);
+  color: white;
 }
 
 button:disabled {
-  background-color: #ab7eff83;
+  background-color: var(--secondaryColor);
+  color: white;
 }
-/* شاشة التلفون الصغيرة */
 @media (max-width: 767px) {
   .role-option {
     padding: 15px;
@@ -101,10 +104,10 @@ button:disabled {
 :host {
   display: block;
   min-height: 100vh; /* يمـلأ ارتفاع الشاشة */
-  background-color: #101010;
+  background-color: whitesmoke;
 }
 
 
 .input-color{
-  color:#f6f0ff
+  color: black;
 }
