@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { HttpResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'any'
@@ -59,10 +60,15 @@ export class ReportsService {
     });
   }
 
-  exportAllReports(): Observable<Blob> {
-    return this.http.get(`${this.apiUrl}/export-all-reports`, {
+exportAllReports(): Observable<HttpResponse<Blob>> {
+  return this.http.get(
+    `${this.apiUrl}/export-all-reports`,
+    {
       headers: this.getAuthHeaders(),
-      responseType: 'blob'
-    });
-  }
+      responseType: 'blob' as 'blob',
+      observe: 'response'
+    }
+  );
+}
+
 }

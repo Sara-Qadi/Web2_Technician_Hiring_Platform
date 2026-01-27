@@ -14,7 +14,7 @@ import { ReportsService } from '../../reportsServiec/reports.service';
 import { HttpClientModule } from '@angular/common/http';
 import { catchError, Observable, of } from 'rxjs';
 import { ProfileService } from '../../services/profile.service';
-
+import { finalize } from 'rxjs/operators';
 interface TableData {
   headers: string[];
   keys: string[];
@@ -246,31 +246,30 @@ changePage(direction: 'next' | 'prev') {
     this.currentPage--;
   }
 }
-exportAll() {
-  this.reportsService.exportAllReports().subscribe({
-    next: (blob: Blob) => {
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'all_reports.xlsx';
-      link.click();
-      window.URL.revokeObjectURL(url);
-    },
-    error: async (err: any) => {
-      if (err.error instanceof Blob) {
-        const text = await err.error.text();
-        let json;
-        try {
-          json = JSON.parse(text);
-        } catch(e) {
-          console.error('Error parsing JSON error:', text);
-        }
-        console.error('Server-side error:', json ?? text);
-      } else {
-        console.error('Unknown error:', err);
-      }
-    }
-  });
+
+
+
+
+  isExporting = false;
+
+  exportAll() {
+  this.isExporting = true;
+
+  this.reportsService.exportAllReports()
+    .pipe(finalize(() => this.isExporting = false))
+    .subscribe({
+      next: (response: any) => {
+  const blob = response.body;
+  const url = window.URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `all_reports_${new Date().toISOString().slice(0,10)}.xlsx`;
+  link.click();
 }
+
+    });
+}
+
+
 
 }
