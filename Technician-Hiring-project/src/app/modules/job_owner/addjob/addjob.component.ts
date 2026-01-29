@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { JobDataService } from '../../../services/jobdata.service';
 import { NavbarAdminComponent } from '../../admin/admin/navbar-admin/navbar-admin.component';
 import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admin.component';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-addjob',
@@ -32,7 +33,8 @@ export class AddjobComponent implements OnInit {
   constructor(
     private router: Router,
     private jobService: JobDataService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public toast: ToastService
   ) {
     const state = this.router.getCurrentNavigation()?.extras.state;
     this.userId = state?.['userId'] || 0;
@@ -81,13 +83,19 @@ export class AddjobComponent implements OnInit {
   const today = new Date();
   today.setHours(0, 0, 0, 0); 
     if (minBudget > maxBudget) {
-    alert('Minimum budget cannot be greater than maximum budget');
-    return;
+    this.toast.show(
+        'Minimum budget cannot be greater than maximum budget',
+        'danger'
+      );    
+      return;
   }
 
   // التحقق من التاريخ
-  if (deadline < today) {
-    alert('deadline must be after todat');
+  if (deadline <= today) {
+    this.toast.show(
+    'Deadline must be later',
+    'danger'
+    );
     return;
   }
 
@@ -112,7 +120,10 @@ export class AddjobComponent implements OnInit {
       this.jobService.updatethisjobpost(this.jobId, formData).subscribe({
         next: () => {
           console.log(formData);
-          alert("JOBPOST UPDATED SUCCESSFULLY!!");
+          this.toast.show(
+          'JOBPOST UPDATED SUCCESSFULLY!!',
+          'success'
+        );
           this.router.navigate(['/jobowner', this.userId]);
         },
         error: (err) => {
@@ -127,13 +138,16 @@ export class AddjobComponent implements OnInit {
     } else {
       this.jobService.addjobpost(formData).subscribe({
         next: () => {
-          alert("JOBPOST ADDED SUCCESSFULLY!!");
+          this.toast.show('JOBPOST ADDED SUCCESSFULLY!!', 'success');
           this.router.navigate(['/jobowner', this.userId]);
         },
         error: (err) => {
           if (err.status === 403 && err.error?.message === 'Unauthorized') {
             console.error('Unauthorized: Only jobowners can add jobposts.');
-            alert('Only jobowners are allowed to add jobposts.');
+            this.toast.show(
+            'You are not authorized to perform this action',
+            'danger'
+          );
           } else {
             console.error('Error adding jobpost:', err);
           }

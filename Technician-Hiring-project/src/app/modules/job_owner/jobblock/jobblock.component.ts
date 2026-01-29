@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { JobDataService } from '../../../services/jobdata.service';
 import { Jobpost } from '../../../models/jobpost.model';
 import { ProfileService } from '../../../services/profile.service';
+import { ToastService } from '../../../services/toast.service';
 declare var bootstrap: any;
 @Component({
   selector: 'app-jobblock',
@@ -15,7 +16,7 @@ declare var bootstrap: any;
   styleUrls: ['./jobblock.component.css']
 })
 export class JobblockComponent {
-  constructor(private router:Router,private route:ActivatedRoute,private profileservice:ProfileService){}
+  constructor(private router:Router,private route:ActivatedRoute,private profileservice:ProfileService, public toast: ToastService){}
   private jobService = inject(JobDataService);
   selectedJob: any = null;
   @Input() role: number | undefined;
@@ -65,11 +66,11 @@ export class JobblockComponent {
 
       bootstrap.Modal.getInstance(document.getElementById('statusModal'))?.hide();
 
-      alert('Job marked as completed successfully!');
+      this.toast.show('Job marked as completed successfully!', 'success');
     },
     error: (error) => {
       console.error('Error marking job as completed:', error);
-      alert('Failed to mark job as completed.');
+      this.toast.show('Failed to mark job as completed.', 'danger');
     }
   });
 }

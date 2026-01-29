@@ -6,6 +6,7 @@ import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admi
 import { NavbarAdminComponent } from '../../admin/admin/navbar-admin/navbar-admin.component';
 import { ProfileService } from '../../../services/profile.service';
 import { ProposalService } from '../../../services/proposal.service';
+import { ToastService } from '../../../services/toast.service';
 @Component({
   selector: 'app-jobdetails',
   standalone: true,
@@ -21,6 +22,7 @@ export class JobdetailsComponent implements OnInit {
   private dataService = inject(JobDataService);
   private profileService = inject(ProfileService);
   private proposalService = inject(ProposalService);
+  public toast=inject(ToastService);
   @Input() showButtons = true;
   @Input() showTitle = true;
   loading= false;
@@ -55,7 +57,7 @@ export class JobdetailsComponent implements OnInit {
           this.router.navigate(['/submit-bid', this.job.jobpost_id]);
         }
         else {
-          alert('You have already submitted a proposal for this job.');
+          this.toast.show('You have already submitted a proposal for this job.', 'warning');
         }
       },
     error: (err) => {

@@ -22,9 +22,10 @@ input, select, textarea{
   border: 2px solid rgb(200, 200, 200);
   color: #444344;
 }
-/*option:hover{
-  background-color: #7b00ff !important;
-}*/
+option:checked {
+  background-color: var(--primaryColor); ;
+  color: white ;
+}
 input::placeholder, textarea::placeholder,.Attachmentcontent{
   color: #444344;
 }
@@ -48,7 +49,7 @@ button:active{
   background-color: var(--primaryColor) !important;
 }
 button:disabled{
-  background-color: #BBABA3 !important;
+  background-color: var(--secondaryColor) !important;
 }
 input:focus,select:focus,textarea:focus{
   border-color: var(--secondaryColor) !important;

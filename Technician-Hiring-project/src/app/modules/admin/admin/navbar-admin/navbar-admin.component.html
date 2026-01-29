@@ -68,6 +68,7 @@
     <ng-container *ngIf="displayRole === 3; else loadingOrGuest">
       <a routerLink="/home" routerLinkActive="active" class="nav-link">Home</a>
       <a routerLink="/mybids" routerLinkActive="active" class="nav-link">My Bids</a>
+      <a [routerLink]="['/jobowner', userId]" routerLinkActive="active" class="nav-link">My Jobs</a>
     </ng-container>
   </ng-template>
 

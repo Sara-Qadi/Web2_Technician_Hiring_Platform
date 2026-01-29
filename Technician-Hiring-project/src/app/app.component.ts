@@ -10,6 +10,8 @@ import { ProfileEditComponent } from './modules/technician/profile-edit/profile-
 import { JobListComponent } from './modules/job_owner/joblist/joblist.component';
 import { AnalyticsComponent } from './modules/reports/analytics.component';
 import { OutsideprofileComponent } from './modules/job_owner/outsideprofile/outsideprofile.component';
+import { ToastComponent } from './modules/toast/toast.component';
+
 
 
 
@@ -17,7 +19,7 @@ import { OutsideprofileComponent } from './modules/job_owner/outsideprofile/outs
   selector: 'app-root',
 
   imports: [RouterOutlet, NotificationComponent, NotificationDropdownComponent, ProfileComponent, ProfileEditComponent,JobListComponent,AnalyticsComponent,
-            CommonModule , SearchComponent , SubmitBidesComponent , RouterOutlet ,OutsideprofileComponent],
+            CommonModule , SearchComponent , SubmitBidesComponent , RouterOutlet ,OutsideprofileComponent,ToastComponent],
 
 
   templateUrl: './app.component.html',

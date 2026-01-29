@@ -694,6 +694,9 @@ label.form-check-label:hover {
   transform: translateY(-2px);
   box-shadow: 0 14px 35px rgba(0, 0, 0, 0.06);
 }
+label ,input,button{
+  font-family: var(--body);
+}
 
 .filter-card-title {
   display: flex;

@@ -5,6 +5,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProfileService } from '../../../services/profile.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MessagingService } from '../../../services/messaging.service';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-userdetails',
@@ -43,7 +44,8 @@ export class UserdetailsComponent implements OnInit {
     private profileService: ProfileService,
     private route: ActivatedRoute,
     private http: HttpClient,
-    private messagingService: MessagingService
+    private messagingService: MessagingService,
+    public toast: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -183,7 +185,7 @@ export class UserdetailsComponent implements OnInit {
         };
 
         if (!this.isTechnicianProfile) {
-          alert('PROFILE UPDATED SUCCESSFULLY!!');
+          this.toast.show('PROFILE UPDATED SUCCESSFULLY!!', 'success');
           this.toggleEdit();
           this.loadUserProfile(this.userId);
           return;
@@ -191,19 +193,17 @@ export class UserdetailsComponent implements OnInit {
 
         this.http.post('http://localhost:8000/api/profile/update', formData, { headers }).subscribe({
           next: () => {
-            alert('PROFILE UPDATED SUCCESSFULLY!!');
+            this.toast.show('PROFILE UPDATED SUCCESSFULLY!!', 'success');
             this.toggleEdit();
             this.loadUserProfile(this.userId);
           },
           error: (err) => {
             console.error('Error uploading technician data', err);
-            alert('Error uploading CV/Specialty/About');
           },
         });
       },
       error: (err) => {
         console.error('Error updating profile', err);
-        alert('Error updating profile');
       },
     });
   }

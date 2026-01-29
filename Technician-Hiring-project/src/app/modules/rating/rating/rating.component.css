@@ -1,4 +1,11 @@
-
+.container{
+  font-family: var(--body);
+}
+h5{
+  font-family: var(--headings);
+  font-weight: 600;
+  font-size: 18px;
+}
 .text-end {
     direction: rtl;
     text-align: right;
@@ -10,4 +17,9 @@
   .star-yellow {
     color: #FFD700 !important;
   }
-  
+.btn{
+  background-color: var(--primaryColor);
+}
+.btn:hover{
+  background-color: var(--secondaryColor);
+}

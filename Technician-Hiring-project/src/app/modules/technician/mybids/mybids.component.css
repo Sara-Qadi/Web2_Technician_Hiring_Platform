@@ -1,0 +1,20 @@
+h3, .heading{
+  font-family: var(--headings);
+}
+p, span{
+  font-family: var(--body);
+}
+
+.custom-tabs .nav-link ,.num,h5{
+  color: black !important;
+  background-color: transparent;
+  font-weight: 400;
+  font-size: 16px;
+  padding: 10px 20px;
+  font-family: "Poppins", sans-serif;
+}
+
+.custom-tabs .nav-link.active {
+  color: var(--primaryColor) !important;
+  border-bottom: 2px solid var(--primaryColor);
+}

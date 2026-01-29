@@ -1,9 +1,14 @@
 .dropdown-menu {
+  font-family: var(--body);
   z-index: 1050;
   background-color: white;
   top: -60%;
   outline: none;
 
+}
+
+h2{
+  font-family: var(--headings);
 }
 
 .notification-item {
