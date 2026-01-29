@@ -1,5 +1,5 @@
 h5{
-  font-family: "poppins", sans-serif;
+  font-family: var(--headings);
   font-weight: bold;
   text-transform: capitalize;
   color: black !important;
@@ -19,7 +19,7 @@ h5{
   color: #641739;
 }
 span,p,h6{
-  font-family: "Manrope", sans-serif;
+  font-family: var(--body);
   font-weight: 500;
 }
 .text-body{
@@ -50,4 +50,53 @@ span,p,h6{
   .row {
     justify-content:flex-start;
   }
+}
+h4{
+  font-family: var(--headings);
+  font-size: 20px;
+}
+.empty-state-wrapper {
+  min-height: 40vh;
+}
+
+.icon-container {
+  width: 120px;
+  height: 120px;
+}
+
+.icon-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+.icon-circle i {
+  font-size: 42px;
+  color: #cfd4da;
+}
+
+.check-badge {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--primaryColor);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 8px 16px rgba(59, 246, 199, 0.4);
+}
+
+.empty-text {
+  max-width: 420px;
+  font-size: 15px;
+  line-height: 1.6;
 }

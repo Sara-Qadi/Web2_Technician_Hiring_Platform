@@ -14,7 +14,7 @@
 
 }
 .container{
-  border: navy 2px solid;/*#B8A59B*/
+  border: var(--primaryColor) 2px solid;
   border-radius: 10px;
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.199);
 }
@@ -45,13 +45,13 @@ h2{
 }
 .valuelink{
   text-decoration: none;
-  color: #7b00ff;
+  color: var(--primaryColor);
   font-family: "manrope", sans-serif;
   font-weight: 400;
   font-size: 18px;
 }
 .vl {
-  border-left: 2px solid #8e8d9072; 
+  border-left: 2px solid #8e8d9072;
 }
 .b{
   display: flex;
@@ -61,7 +61,7 @@ h2{
   border-radius: 50px;
   cursor: pointer;
   border: 0;
-  background-color: rgb(7, 15, 101);
+  background-color: var(--primaryColor);
   letter-spacing: 1.5px;
   font-size: 15px;
   transition: all 0.5s ease;
@@ -70,15 +70,15 @@ h2{
 }
 .b:hover{
   letter-spacing: 3px;
-  background-color: #6293c8;/*#6293c8*/
+  background-color: var(--primaryColor);
   color:white;
-  box-shadow:  #6293c8 0px 7px 29px 0px;/*#6293c8*/
+  box-shadow:  var(--primaryColor) 0px 7px 29px 0px;
 }
 .b:active {
   letter-spacing: 3px;
-  background-color: #6293c8;/*#6293c8*/
+  background-color: var(--primaryColor);
   color: white;
-  box-shadow: #6293c8  0px 0px 0px 0px;/*#7b00ff*/
+  box-shadow: var(--primaryColor) 0px 0px 0px 0px;
   transform: translateY(10px);
   transition: 100ms;
 }
@@ -101,34 +101,34 @@ label{font-family: "Manrope", sans-serif;
   font-weight: 500;
 }
 .edit{
-  background-color: #000000;
+  background-color: var(--primaryColor);
 }
 .edit:hover{
-  background-color: #7b00ff;/*#6293c8*/
-  box-shadow:  #cba3f0 0px 7px 29px 0px;/*#6293c8*/
+  background-color: var(--primaryColor);
+  box-shadow:  var(--primaryColor) 0px 7px 29px 0px;/*#6293c8*/
 }
 .edit:active {
-  background-color: #7b00ff;/*#6293c8*/
-  box-shadow: #7b00ff  0px 0px 0px 0px;/*#7b00ff*/
+  background-color: var(--primaryColor);
+  box-shadow: var(--primaryColor) 0px 0px 0px 0px;
   transform: translateY(10px);
   transition: 100ms;
 }
 .save{
-  background-color: #7b00ff;
+  background-color: var(--primaryColor);
   color: white;
 }
 .save:hover{
-  background-color: #7b00ff;/*#6293c8*/
-  box-shadow:  #7b00ff 0px 7px 29px 0px;/*#6293c8*/
+  background-color: var(--primaryColor);
+  box-shadow:  var(--primaryColor) 0px 7px 29px 0px;
 }
 .save:active {
-  background-color: #7b00ff;/*#6293c8*/
-  box-shadow: #7b00ff  0px 0px 0px 0px;/*#7b00ff*/
+  background-color: var(--primaryColor);
+  box-shadow: var(--primaryColor) 0px 0px 0px 0px;
   transform: translateY(10px);
   transition: 100ms;
 }
 .cancel{
-  
+
   background-color: #000000;
   color: white;
 }
@@ -142,8 +142,8 @@ input{
   color: #444344;
 }
 input:focus{
-  border:#8c2fee79 2px solid;
-  box-shadow: #7b00ff5c 0px 7px 29px 0px;
+  border:var(--primaryColor) 2px solid;
+  box-shadow: var(--primaryColor) 0px 7px 29px 0px;
 }
 /******************report modal***************/
 .modal-title{

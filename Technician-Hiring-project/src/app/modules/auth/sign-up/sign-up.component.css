@@ -5,9 +5,9 @@
 }
 
 .login-btn {
-  border: 1px solid #7f3ff2;
+  border: 1px solid var(--primaryColor);
   background-color: transparent;
-  color: #7f3ff2;
+  color: var(--primaryColor);
   transition: all 0.3s ease;
   border-radius: 12px;
   font-weight: 500;
@@ -20,7 +20,7 @@
 }
 
 .login-btn:not(:disabled) {
-  background-color: #642eda;
+  background-color: var(--primaryColor);
   color: #ffffff;
   opacity: 1;
 }
@@ -41,20 +41,26 @@
 }
 
 .gradient-bg {
-  background: linear-gradient(220deg, #3b0da0, #000000);
+  background: linear-gradient(220deg, var(--primaryColor), #000000);
 }
 
-.gradient-bg h2 {
+.gradient-bg h2, h1 {
+  font-family: var(--headings);
   font-size: 2.5rem;
   font-weight: 700;
 }
 
 .gradient-bg p {
+  font-family: var(--body);
   font-size: 1.25rem;
   margin-bottom: 1.5rem;
 }
-
+label, button {
+  font-family: var(--body);
+  cursor: pointer;
+}
 .gradient-bg .btn {
+  font-family: var(--body);
   padding: 0.75rem 1.5rem;
   font-size: 1.125rem;
   border-width: 2px;
@@ -62,14 +68,14 @@
 }
 
 .dark-right-panel {
-  background-color: #101010;
-  color: #ffffff;
+  background-color: whitesmoke;
+  color: black;
 }
 
 .wave-group.has-value .label-char {
   transform: translateY(-20px);
   font-size: 14px;
-  color: #8248ff;
+  color: var(--primaryColor);
 }
 
 .wave-group {
@@ -77,6 +83,7 @@
 }
 
 .wave-group .input {
+  font-family: var(--body);
   font-size: 16px;
   padding: 10px 10px 10px 5px;
   display: block;
@@ -91,7 +98,8 @@
 }
 
 .wave-group .label {
-  color: #cdcdcd;
+  font-family: var(--headings);
+  color: #1e2221;
   font-size: 18px;
   font-weight: normal;
   position: absolute;
@@ -110,7 +118,7 @@
 .wave-group .input:valid ~ label .label-char {
   transform: translateY(-20px);
   font-size: 14px;
-  color: #8248ff;
+  color: var(--primaryColor);
 }
 
 .wave-group .bar {
@@ -126,7 +134,7 @@
   width: 0;
   bottom: 1px;
   position: absolute;
-  background: #8248ff;
+  background: var(--primaryColor);
   transition: 0.2s ease all;
 }
 
@@ -143,11 +151,7 @@
   width: 50%;
 }
 
-.input-color {
-  color: #f6f0ff;
-}
 
-/* Custom checkbox */
 .container {
   display: inline-flex;
   align-items: center;
@@ -173,13 +177,13 @@
   left: 0;
   height: 1em;
   width: 1em;
-  background-color: #e8daff;
+  background-color: #dafff8;
   border-radius: 5px;
 }
 
 .container input:checked ~ .checkmark {
   box-shadow: 3px 3px 0px rgb(183, 183, 183);
-  background-image: linear-gradient(45deg, rgb(81, 0, 255) 30%, rgb(162, 17, 178) 100%);
+  background-image: linear-gradient(45deg, var(--primaryColor) 30%, var(--secondaryColor) 100%);
   transition: all 0.2s;
   opacity: 1;
 }
@@ -211,3 +215,6 @@
   transform: translate(-50%, -50%) rotate(45deg);
 }
 
+.text-danger, option{
+  font-family: var(--body);
+}

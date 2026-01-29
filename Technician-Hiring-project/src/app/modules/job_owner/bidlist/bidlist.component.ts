@@ -37,7 +37,7 @@ export class BidlistComponent implements OnInit {
       this.bidarray = bids;
     },
     error: err => {
-      console.error('خطأ أثناء تحميل العروض:', err);
+      console.error('error loading prop', err);
     }
   });
 }

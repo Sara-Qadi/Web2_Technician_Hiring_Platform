@@ -4,22 +4,30 @@
     <div class="container py-5">
       <div class="row justify-content-center gap-2">
 
-        <app-jobdetails [showButtons]="false" [showTitle]="false"></app-jobdetails>
+        <div class="col-12 col-md-5 col-lg-4 mt-3">
+          <app-jobdetails [showButtons]="false" [showTitle]="false"></app-jobdetails>
+        </div>
 
         <div class="col-12 col-md-6 col-lg-7 d-flex align-items-center justify-content-center">
-          <form (ngSubmit)="submitForm()" #myForm="ngForm" class="p-4 rounded shadow mb-3 w-75" style="background-color: #ffffff;;">
+          <form (ngSubmit)="submitForm()" #myForm="ngForm" class="p-4 rounded shadow w-75 d-flex flex-column justify-content-around" style="background-color: #ffffff;;">
             <div class="mb-3">
               <label for="price" class="form-label text-dark">Wanted Price</label>
-              <input type="number" id="price" class="form-control mb-5  custom-search-wrapper "
+              <input type="number" id="price" class="form-control mb-2  custom-search-wrapper "
               [(ngModel)]="Price"  (ngModelChange)="checkAmount($event)" name="price" required>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-2">
               <label for="comment" class="form-label text-dark">Comment</label>
-              <textarea id="comment" rows="4" class="form-control  custom-search-wrapper" [(ngModel)]="comment" name="comment"></textarea>
+              <textarea id="comment" rows="5" class="form-control  custom-search-wrapper" [(ngModel)]="comment" name="comment"></textarea>
             </div>
 
-            <button type="submit" class="btn w-100" style="  background: linear-gradient(135deg, #7b00ff, #17031b);color: white;">Submit</button>
+            <div class="neon-button-wrapper">
+              <button 
+                type="submit" 
+                class="neon-button w-100">
+                Submit
+              </button>
+            </div>
           </form>
         </div>
       </div>

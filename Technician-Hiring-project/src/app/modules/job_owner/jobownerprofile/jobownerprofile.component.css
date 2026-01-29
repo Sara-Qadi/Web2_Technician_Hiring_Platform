@@ -10,14 +10,14 @@
 }
 */
 h2 {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--headings);
   font-size: 25px;
   margin: 0;
   padding: 0;
 }
 
 small, p {
-  font-family: "Manrope", sans-serif;
+  font-family: var(--body);
 }
 .add{
   display: flex;
@@ -27,7 +27,7 @@ small, p {
   border-radius: 50px;
   cursor: pointer;
   border: 0;
-  background-color: rgb(7, 15, 101);
+  background-color: var(--primaryColor);
   letter-spacing: 1.5px;
   font-size: 15px;
   transition: all 0.5s ease;
@@ -36,15 +36,16 @@ small, p {
 }
 .add:hover{
   letter-spacing: 3px;
-  background-color: #6293c8;/*#6293c8*/
+  background-color: var(--primaryColor);
   color:white;
-  box-shadow:  #6293c8 0px 7px 29px 0px;/*#6293c8*/
+  box-shadow:  #6293c8 0px 7px 29px 0px;
+  box-shadow:  var(--primaryColor) 0px 7px 29px 0px;
 }
 .add:active {
   letter-spacing: 3px;
-  background-color: #6293c8;/*#6293c8*/
+  background-color: var(--primaryColor);
   color: white;
-  box-shadow: #6293c8  0px 0px 0px 0px;/*#7b00ff*/
+  box-shadow: var(--primaryColor) 0px 0px 0px 0px;
   transform: translateY(10px);
   transition: 100ms;
 }
@@ -58,6 +59,6 @@ small, p {
 }
 
 .custom-tabs .nav-link.active {
-  color: #7b00ff !important; /* بنفسجي */
-  border-bottom: 2px solid #7b00ff; /* بنفسجي */
+  color: var(--primaryColor) !important;
+  border-bottom: 2px solid var(--primaryColor);
 }

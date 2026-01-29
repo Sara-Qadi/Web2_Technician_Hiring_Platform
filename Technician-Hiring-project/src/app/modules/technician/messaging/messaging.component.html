@@ -3,23 +3,15 @@
 
   <div class="sidebar shadow-sm bg-light p-3">
     <div class="mb-3">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Search to message user..."
+      <input type="text" class="form-control search-input" placeholder="Search to message user..."
         [formControl]="searchControl">
     </div>
 
     <div class="user-list">
-      <div
-        *ngFor="let user of filteredUsers()"
-        class="user-item border-bottom py-2 px-2 hover-bg"
+      <div *ngFor="let user of filteredUsers()" class="user-item border-bottom py-2 px-2 hover-bg"
         (click)="selectUser(user)">
-        <img
-        src="assets/person1.jpg"
-        alt="User Image"
-        class="rounded-circle me-3"
-        style="width: 30px; height: 30px; object-fit: cover;" />
+        <img src="assets/person1.jpg" alt="User Image" class="rounded-circle me-3"
+          style="width: 30px; height: 30px; object-fit: cover;" />
         <strong>{{ user.user_name }}</strong>
       </div>
     </div>
@@ -27,10 +19,7 @@
 
   <div class="chat-box shadow-sm bg-white" *ngIf="selectedUser">
     <div class="chat-header d-flex align-items-center gap-3 p-3 border-bottom" style="background-color: #f8f9fa;">
-      <img
-        src="assets/person1.jpg"
-        alt="User Image"
-        class="rounded-circle"
+      <img src="assets/person1.jpg" alt="User Image" class="rounded-circle"
         style="width: 40px; height: 40px; object-fit: cover;" />
       <div>
         <h5 class="mb-0" style="font-size:large; font-weight: 1000;">{{ selectedUser.user_name }}</h5>
@@ -39,13 +28,10 @@
     </div>
 
     <div class="chat-messages p-2" #chatMessages>
-      <div *ngFor="let msg of messages"
-           class="mb-2 text-white p-3"
-           [ngClass]="{
+      <div *ngFor="let msg of messages" class="mb-2 text-white p-3" [ngClass]="{
              'bg-primary ms-auto text-end': msg.senderId == currentUserId,
              'bg-secondary me-auto text-start': msg.senderId != currentUserId
-           }"
-           style="
+           }" style="
              border-radius: 20px;
              max-width: 25%;
              width: fit-content;
@@ -55,16 +41,12 @@
         {{ msg.messageText }}
       </div>
     </div>
-    
+
 
     <div class="chat-input d-flex border-top p-3 align-items-center">
-      <input
-        type="text"
-        class="form-control me-2"
-        placeholder="Type a message..."
-        [(ngModel)]="newMessage"
+      <input type="text" class="form-control me-2 search-input" placeholder="Type a message..." [(ngModel)]="newMessage"
         (keyup.enter)="sendMessage()">
-      <button class="btn btn-primary" (click)="sendMessage()">
+      <button class="btn" style="color: #f8f9fa; background-color: var(--primaryColor);" (click)="sendMessage()">
         <i class="bi bi-send"></i>
       </button>
     </div>

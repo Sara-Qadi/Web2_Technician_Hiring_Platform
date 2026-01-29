@@ -5,6 +5,7 @@ import { AdminService } from '../../../../services/admin/admin.service';
 import { NavbarAdminComponent } from '../navbar-admin/navbar-admin.component';
 import { FooterAdminComponent } from '../footer-admin/footer-admin.component';
 import {RouterLink} from '@angular/router';
+import { ToastService } from '../../../../services/toast.service';
 
 @Component({
   selector: 'app-delete-craftsman',
@@ -27,7 +28,7 @@ export class DeleteCraftsmanComponent implements OnInit {
   loading: boolean = false;
   errorMessage: string = '';
 
-  constructor(private adminService: AdminService) {}
+  constructor(private adminService: AdminService, public toast: ToastService) {}
 
   ngOnInit(): void {
     this.fetchUsers();
@@ -38,6 +39,7 @@ export class DeleteCraftsmanComponent implements OnInit {
     this.adminService.getAllUsers(this.searchQuery).subscribe({
       next: (users) => {
         this.users = users;
+        console.log('Fetched users:', users);
         this.loading = false;
       },
       error: () => {
@@ -53,20 +55,31 @@ export class DeleteCraftsmanComponent implements OnInit {
 
   deleteUser(user_id: number): void {
     if (!user_id) {
-      alert('Invalid user ID');
+      this.toast.show('Invalid user ID', 'danger');
       return;
     }
     if (confirm('Are you sure you want to delete this user?')) {
       this.adminService.deleteUser(user_id).subscribe({
         next: () => {
           this.users = this.users.filter(user => user.user_id !== user_id);
-          alert('User deleted successfully');
+          this.toast.show('User deleted successfully', 'success');
         },
         error: () => {
-          alert('Failed to delete user.');
+          this.toast.show('Failed to delete user.', 'danger');
         }
       });
     }
+  }
+
+  getAvatar(name: string): string {
+    if (!name) return '';
+    const parts = name.split(' ');
+    const first = parts[0].charAt(0);
+    let second = '';
+    if (parts[1] && isNaN(+parts[1])) {
+      second = parts[1].charAt(0);
+    }
+    return first + second;
   }
 
 }

@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { JobDataService } from '../../../services/jobdata.service';
 import { NavbarAdminComponent } from '../../admin/admin/navbar-admin/navbar-admin.component';
 import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admin.component';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-addjob',
@@ -16,7 +17,7 @@ import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admi
 export class AddjobComponent implements OnInit {
   jobId?: number;
   userId: number = 0;
-  selectedFiles: File[] = [];
+  selectedFile: File | null = null;
 
   addJobForm = new FormGroup({
     title: new FormControl('', Validators.required),
@@ -32,7 +33,8 @@ export class AddjobComponent implements OnInit {
   constructor(
     private router: Router,
     private jobService: JobDataService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public toast: ToastService
   ) {
     const state = this.router.getCurrentNavigation()?.extras.state;
     this.userId = state?.['userId'] || 0;
@@ -65,7 +67,7 @@ export class AddjobComponent implements OnInit {
             deadline: job.deadline
           });
         },
-        error: () => alert('❌ فشل تحميل بيانات الوظيفة')
+        error: () => alert('error loading job data')
       });
     }
   }
@@ -81,13 +83,19 @@ export class AddjobComponent implements OnInit {
   const today = new Date();
   today.setHours(0, 0, 0, 0); 
     if (minBudget > maxBudget) {
-    alert('⚠️ الحد الأدنى للميزانية يجب أن يكون أقل من أو يساوي الحد الأقصى.');
-    return;
+    this.toast.show(
+        'Minimum budget cannot be greater than maximum budget',
+        'danger'
+      );    
+      return;
   }
 
   // التحقق من التاريخ
-  if (deadline < today) {
-    alert('⚠️ يجب أن يكون تاريخ التسليم بعد تاريخ اليوم.');
+  if (deadline <= today) {
+    this.toast.show(
+    'Deadline must be later',
+    'danger'
+    );
     return;
   }
 
@@ -107,28 +115,42 @@ export class AddjobComponent implements OnInit {
           });
           console.log('Job data loaded:', job);
         },
-        error: () => alert('❌ فشل تحميل بيانات الوظيفة')
+        error: () => alert('error loading job data')
       });
       this.jobService.updatethisjobpost(this.jobId, formData).subscribe({
         next: () => {
           console.log(formData);
-          alert("✅ تم تعديل الوظيفة بنجاح");
+          this.toast.show(
+          'JOBPOST UPDATED SUCCESSFULLY!!',
+          'success'
+        );
           this.router.navigate(['/jobowner', this.userId]);
         },
         error: (err) => {
-          console.error(err);
-          alert("❌ فشل تعديل الوظيفة");
+          if (err.status === 403 && err.error?.message === 'Unauthorized') {
+            console.error('Unauthorized: Only jobowners and admins can update jobposts.');
+            alert('Only jobowners and admins are allowed to update jobposts.');
+          } else {
+            console.error('Error adding jobpost:', err);
+          }
         }
       });
     } else {
       this.jobService.addjobpost(formData).subscribe({
         next: () => {
-          alert("✅ تمت إضافة الوظيفة بنجاح");
+          this.toast.show('JOBPOST ADDED SUCCESSFULLY!!', 'success');
           this.router.navigate(['/jobowner', this.userId]);
         },
         error: (err) => {
-          console.error(err);
-          alert("❌ فشل إضافة الوظيفة");
+          if (err.status === 403 && err.error?.message === 'Unauthorized') {
+            console.error('Unauthorized: Only jobowners can add jobposts.');
+            this.toast.show(
+            'You are not authorized to perform this action',
+            'danger'
+          );
+          } else {
+            console.error('Error adding jobpost:', err);
+          }
         }
       });
     }
@@ -147,17 +169,17 @@ export class AddjobComponent implements OnInit {
     formData.append('deadline', form.deadline ?? '');
     formData.append('user_id', String(this.userId));
 
-    for (let i = 0; i < this.selectedFiles.length; i++) {
-    formData.append('attachments[]', this.selectedFiles[i]);
-  }
+   if (this.selectedFile) {
+  formData.append('attachments', this.selectedFile);
+}
 
     return formData;
   }
 
   onFileChange(event: any) {
   if (event.target.files && event.target.files.length > 0) {
-    this.selectedFiles = Array.from(event.target.files);
-    console.log('Selected files:', this.selectedFiles);
+    this.selectedFile = event.target.files[0];
+    console.log('Selected files:', this.selectedFile);
   }
 }
 

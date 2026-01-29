@@ -62,9 +62,7 @@
         <span class="value" style="width: 200px;">no file was attached</span>
       }
       @else{
-        <nav *ngFor="let file of attachments">
-          <a [href]="'http://localhost/BackEnd-Technician-Hiring-Platform/public/api/attachments/download/' + file" class="value">{{file}}</a>
-        </nav>
+          <a [href]="'http://localhost/BackEnd-Technician-Hiring-Platform/public/api/attachments/download/' + job.attachments" class="value">{{job.attachments}}</a>
       }
     </div>
     <div class="sec description">

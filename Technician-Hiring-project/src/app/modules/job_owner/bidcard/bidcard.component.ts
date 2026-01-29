@@ -1,19 +1,22 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Proposal } from '../../../models/proposal.model';
 import { SubmissionService } from '../../../services/submission.service';
 import { ProposalService } from '../../../services/proposal.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../../services/notification.service';
 import { CommonModule } from '@angular/common';
-import { ProfileModalService } from '../../../services/profile-modal.service';
+import { JobDataService } from '../../../services/jobdata.service';
+import { MessagingService } from '../../../services/messaging.service';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-bidcard',
-  templateUrl: './bidcard.component.html',
   imports: [CommonModule],
+  standalone: true,
+  templateUrl: './bidcard.component.html',
   styleUrls: ['./bidcard.component.css']
 })
-export class BidcardComponent {
+export class BidcardComponent implements OnInit {
   @Input() bid!: Proposal;
   jobid!: number;
 
@@ -22,15 +25,28 @@ export class BidcardComponent {
     private proposalService: ProposalService,
     private route: ActivatedRoute,
     private notificationService: NotificationService,
-    private profilemodalservice:ProfileModalService
+    private jobdataService: JobDataService,
+    private mesagingService: MessagingService,
+    public router: Router,
+    public toast: ToastService
   ) {}
-  openProfileModal(techId: number) {
-  this.profilemodalservice.openOUTModal(techId);
-}
+
+  ngOnInit(): void {
+    this.route.url.subscribe(segments => {
+      const lastSegment = segments[segments.length - 1];
+      this.jobid = +lastSegment.path;
+      console.log('Job Post ID:', this.jobid);
+    });
+  }
+
+  openProfileModal(userId: number) {
+    this.router.navigate(['/jobowner', userId]);
+  }
+
   acceptProposal(id: number): void {
     this.subservice.acceptproposal(id).subscribe({
       next: () => {
-        alert('تم قبول العرض بنجاح ✅');
+        this.toast.show('PROPOSAL ACCEPTED SUCCESSFULLY!!', 'success');
 
         this.proposalService.getProposalById(id).subscribe({
           next: (proposal) => {
@@ -49,14 +65,14 @@ export class BidcardComponent {
           error: (err) => console.error('❌ Failed to fetch proposal:', err)
         });
       },
-      error: (err) => console.error('خطأ أثناء قبول العرض:', err)
+      error: (err) => console.error('ERROR IN ACCEPTING THE PROPOSAL', err)
     });
   }
 
   rejectProposal(id: number): void {
     this.subservice.rejectproposal(id).subscribe({
       next: (response) => {
-        alert('تم رفض العرض ❌');
+        this.toast.show('PROPOSAL REJECTED SUCCESSFULLY!!', 'success');
 
         this.proposalService.getProposalById(id).subscribe({
           next: (proposal) => {
@@ -82,7 +98,32 @@ export class BidcardComponent {
           });
         }
       },
-      error: (err) => console.error('خطأ أثناء رفض العرض:', err)
+      error: (err) => console.error('error in rejecting the proposal', err)
+    });
+  }
+
+  messageTheTech(): void {
+    if (!this.jobid) {
+      console.error('❌ jobpost_id not found in URL');
+      return;
+    }
+
+    this.jobdataService.getJobownerIdBytheJobpostId(this.jobid).subscribe({
+      next: (res: any) => {
+        const jobownerId = res.jobowner_id;
+
+        this.mesagingService.getSelectedUserToMessage(jobownerId, this.bid.tech_id).subscribe({
+          next: () => {
+            this.router.navigate(['/messages']);
+          },
+          error: (err) => {
+            console.error('❌ Failed to send message:', err);
+          }
+        });
+      },
+      error: (err) => {
+        console.error('❌ Failed to get jobowner ID:', err);
+      }
     });
   }
 }

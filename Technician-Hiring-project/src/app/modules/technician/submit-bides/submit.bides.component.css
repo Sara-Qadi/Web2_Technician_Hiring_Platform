@@ -1,6 +1,67 @@
+label {
+  font-family: var(--headings);
+  font-size: large;
+}
 
+form{
+  height: 450px;
+}
 
+input, textarea {
+  font-family: var(--body);
+}
 .custom-search-wrapper:focus-within {
-  box-shadow:
-    0 0 12px #9e43ff; /* Your custom purple glow only */
+  box-shadow: 0 0 5px var(--primaryColor); 
+}
+.neon-button-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.neon-button {
+  background: linear-gradient(135deg, var(--primaryColor), #17031b);
+  color: white;
+  font-size: medium;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.4s ease;
+  z-index: 1;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+button {
+  font-family: var(--body);
+}
+
+.neon-button:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 5px var(--secondaryColor);
+}
+
+.neon-button:focus {
+  outline: none;
+  box-shadow: 0 0 8px var(--secondaryColor);
+}
+
+.neon-button::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--primaryColor), transparent);
+  opacity: 0;
+  filter: blur(8px);
+  transition: opacity 0.4s ease;
+  z-index: -1;
+}
+
+.neon-button:hover::before,
+.neon-button:focus::before {
+  opacity: 1;
 }

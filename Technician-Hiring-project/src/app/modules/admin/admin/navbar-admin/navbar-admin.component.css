@@ -26,7 +26,7 @@
   z-index: 1000;
 
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .bottom-navbar {
@@ -59,7 +59,12 @@
   cursor: pointer;
 }
 
+.btn{
+  font-family: var(--body);
+}
+
 .top-navbar .nav-link {
+  font-family: var(--body);
   text-decoration: none;
   color: white;
   font-size: small;
@@ -96,4 +101,196 @@
 
 .d-inline-block{
   cursor: pointer;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-weight: bold;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* -----------------------------
+   Right-side icon buttons (Messenger + Bell)
+   ----------------------------- */
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #e5e7eb; /* soft white */
+  cursor: pointer;
+  transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+  backdrop-filter: blur(10px);
+}
+
+.icon-btn i {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.icon-btn:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.10);
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
+}
+
+.icon-btn:active {
+  transform: translateY(0px) scale(0.98);
+}
+
+
+
+/* -----------------------------
+   User avatar (the <img>)
+   ----------------------------- */
+.small-text img.rounded-circle {
+  width: 34px !important;
+  height: 34px !important;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.small-text img.rounded-circle:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.30);
+  box-shadow: 0 14px 26px rgba(0, 0, 0, 0.32);
+}
+
+/* Optional: make Login button match the icon style a bit (NO layout changes) */
+.btn.btn-outline-primary.btn-sm {
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #e5e7eb;
+}
+
+.btn.btn-outline-primary.btn-sm:hover {
+  background: rgba(255, 255, 255, 0.10);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+}
+
+
+.user-info {
+  cursor: pointer;
+  color: #cbd5e1;
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+.user-info:hover {
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.user-icon {
+  font-size: 18px;
+  color: #cbd5e1;
+}
+
+.user-info:hover .user-icon {
+  color: #ffffff;
+}
+
+.user-name {
+  letter-spacing: 0.2px;
+}
+/* ---------- User icon + name ---------- */
+.user-info {
+  cursor: pointer;
+  color: #cbd5e1;
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.2s ease;
+  user-select: none;
+}
+
+.user-info:hover {
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.user-icon {
+  font-size: 18px;
+  color: #cbd5e1;
+}
+
+.user-info:hover .user-icon {
+  color: #ffffff;
+}
+
+.user-name {
+  letter-spacing: 0.2px;
+}
+
+/* ---------- Admin dropdown ---------- */
+.admin-user-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.admin-arrow {
+  font-size: 12px;
+  opacity: 0.75;
+  margin-left: 2px;
+}
+
+/* dropdown box */
+.admin-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);   /* ✅ closer (under the name) */
+  right: 0;
+  min-width: 180px;
+  background: rgb(61 29 37 / 95%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 8px;
+  z-index: 9999;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+}
+
+
+.admin-dropdown .dropdown-item {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: #e5e7eb;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.admin-dropdown .dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.logout-item {
+  color: #fecaca;
+}
+
+.logout-item:hover {
+  color: #fff;
+  background: rgba(239, 68, 68, 0.15);
+}
+.bottom-navbar {
+  z-index: 900;  /* ✅ less than top navbar */
 }

@@ -11,7 +11,7 @@
 
 <nav id="sidebarCollapse" class="mb-2 collapse d-md-block col-md-3 col-lg-2 bg-white sidebar shadow vh-100 position-sticky ">
   <div class="p-4">
-    <h2 class="h4 text-primary mb-4">reports</h2>
+    <h2 class="mb-4 " style="color: var(--primaryColor);">Reports</h2>
     <!-- Sidebar content -->
 <div class="d-flex flex-column gap-2 position-relative md-2" >
   
@@ -29,7 +29,7 @@
 <button id="export-btn"
         class="btn d-flex align-items-center gap-2"
         (click)="exportAll()"
-        style="background-color: #4B0082; color: white; border-color: #4B0082;">
+        style="background-color: var(--primaryColor); color: white; border-color: var(--secondaryColor);">
   <i class="fas fa-download"></i>
   <span>Export</span>
 </button>
@@ -109,7 +109,7 @@
     </div>
 
     <div class="card-footer d-flex flex-column flex-sm-row justify-content-between align-items-center">
-      <div class="text-muted mb-2 mb-sm-0">
+      <div class="text-muted mb-2 mb-sm-0" style="font-family: var(--body);">
         Showing <span id="start-record">{{ currentPage }}</span> to <span id="end-record">10</span> of <span id="total-records">{{ totalPages }}</span> entries
 
       </div>

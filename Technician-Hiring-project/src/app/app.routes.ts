@@ -51,7 +51,7 @@ export const routes: Routes = [
   { path: 'jobowner/:id', component: JobownerprofileComponent },
   //{path:'updatejob/:id',component:AddjobComponent},
 
-  {path:'allproposals/:id',component:ProposalspageComponent},
+  {path:'allproposals',component:ProposalspageComponent},
   {path: 'mybids',component: MybidsComponent},
 
   {path:'updatejob',component:AddjobComponent},

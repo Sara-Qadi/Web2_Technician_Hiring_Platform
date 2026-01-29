@@ -6,6 +6,7 @@ import { JobListComponent } from '../joblist/joblist.component';
 import { UserdetailsComponent } from '../userdetails/userdetails.component';
 import { NavbarAdminComponent } from '../../admin/admin/navbar-admin/navbar-admin.component';
 import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admin.component';
+import { ProfileService } from '../../../services/profile.service';
 
 @Component({
   selector: 'app-jobownerprofile',
@@ -15,39 +16,60 @@ import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admi
     JobListComponent,
     UserdetailsComponent,
     NavbarAdminComponent,
-    FooterAdminComponent
+    FooterAdminComponent,
   ],
   templateUrl: './jobownerprofile.component.html',
-  styleUrl: './jobownerprofile.component.css'
+  styleUrl: './jobownerprofile.component.css',
 })
 export class JobownerprofileComponent implements OnInit {
-  userId!: number;
-  //userId: number = 0;
+  userId!: number;               
+  currentUserId: number = 0;
   selectedStatus: string = 'all';
+  isCurrentUserProfile: boolean = false;
 
-setStatus(status: string) {
-  this.selectedStatus = status;
-}
+  roleId: number = 0;
+  isTechnicianProfile: boolean = false;
 
-  jobs: any[] = []; // Array to hold job posts for the user
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private jobpostservice: JobDataService
+    private jobpostservice: JobDataService,
+    private profileser: ProfileService
   ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.userId = Number(params.get('id')) || 0;
+
+      this.profileser.getUser().subscribe({
+        next: (user) => {
+          this.currentUserId = user.user_id;
+          this.isCurrentUserProfile = this.currentUserId === this.userId;
+
+          this.profileser.getroleid(this.userId).subscribe({
+            next: (roleId: number) => {
+              this.roleId = roleId;
+
+              this.isTechnicianProfile = (roleId === 3);
+
+              if (this.isTechnicianProfile) {
+                this.selectedStatus = 'completed';
+              } else {
+                this.selectedStatus = 'all';
+              }
+            },
+            error: (err) => console.error('Error getting role id', err),
+          });
+        },
+        error: (err) => console.error('error in loading user', err),
+      });
     });
-    this.loadUserJobs(this.userId);
   }
 
-  loadUserJobs(userId: number) {
-  this.jobpostservice.getjobownerjobposts(userId).subscribe((jobs) => {
-    this.jobs = jobs;
-  });
-}
+  setStatus(status: string) {
+    this.selectedStatus = status;
+  }
+
   addJob() {
     this.router.navigate(['/postjob'], { state: { userId: this.userId } });
   }

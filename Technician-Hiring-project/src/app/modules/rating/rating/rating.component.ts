@@ -5,6 +5,7 @@ import { NavbarAdminComponent } from '../../admin/admin/navbar-admin/navbar-admi
 import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admin.component';
 import { ReviewService } from '../../../services/review.service';
 import { ActivatedRoute } from '@angular/router';
+import { ToastService } from '../../../services/toast.service';
 interface Review {
  id?: number;
   stars: number;
@@ -51,7 +52,8 @@ export class RatingComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private reviewService: ReviewService
+    private reviewService: ReviewService,
+    public toast: ToastService
   ) {}
 
   ngOnInit() {
@@ -131,14 +133,14 @@ loadAverageRating(): void {
       this.newReviewStars = 0;
       this.newReviewText = '';
       this.closeModal();
-      alert('The review was sent successfully');
+      this.toast.show('Review submitted successfully!', 'success');
     },
     error: (err) => {
       console.error('fail', err);
       this.submitting = false;
 
       const msg = err?.error?.message || 'error!';
-      alert('❌ ' + msg);
+      this.toast.show( msg, 'danger');
     }
   });
 }

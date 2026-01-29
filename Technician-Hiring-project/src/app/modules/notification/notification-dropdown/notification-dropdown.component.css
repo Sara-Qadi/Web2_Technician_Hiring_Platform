@@ -1,9 +1,14 @@
 .dropdown-menu {
+  font-family: var(--body);
   z-index: 1050;
   background-color: white;
   top: -60%;
   outline: none;
 
+}
+
+h2{
+  font-family: var(--headings);
 }
 
 .notification-item {
@@ -12,30 +17,30 @@
 }
 
 .notification-item:hover {
-  background-color: rgba(150, 15, 180, 0.1);
+  background-color: rgba(11, 75, 43, 0.1);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 .mark-read-btn {
-  color: #642eda;
-  border: 1px solid #642eda;
+  color: var(--primaryColor);
+  border: 1px solid var(--primaryColor);
   background-color: white;
   transition: all 0.3s ease;
   font-weight: 500;
 }
 
 .mark-read-btn:hover {
-  background-color: #642eda;
+  background-color: var(--primaryColor);
   color: white;
 }
 
 .nav-tabs .nav-link {
-  color: #642eda;
+  color: var(--primaryColor);
   cursor: pointer;
 font-size: 15px;
 }
 .nav-tabs .nav-link.active {
   color: white;
-  background-color: #642eda;
+  background-color: var(--primaryColor);
   border: none;
 }
 .dropdown-wrapper {

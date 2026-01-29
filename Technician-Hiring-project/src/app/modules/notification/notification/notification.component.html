@@ -1,70 +1,111 @@
 <div class="page-wrapper">
-<app-navbar-admin></app-navbar-admin>
-<div class="container mt-4" style="max-width: 60%;">
-  <div class="contain p-4 rounded shadow">
-    <h3 class="fw-bold mb-3">Notifications</h3>
-    <div class="d-flex justify-content-between align-items-center mb-3">
+  <app-navbar-admin></app-navbar-admin>
 
-    <ul class="nav nav-tabs mb-3">
-      <li class="nav-item">
-        <a class="nav-link"
-        [class.active]="filter === 'all'"
-        href="#"
-        (click)="setFilter($event, 'all')">All</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link"
-        [class.active]="filter === 'unread'"
-        href="#"
-        (click)="setFilter($event, 'unread')">Unread</a>
-      </li>
-    </ul>
-    <button class="btn btn-sm mark-read-btn rounded-pill px-3"
-        (click)="markAllAsRead()">
-  <i class="bi bi-check2-circle me-1"></i> Mark all as read
-</button>
+  <main class="page-content">
+    <div class="container mt-4" style="max-width: 60%;">
+
+      <!-- ✅ LOADER (same style you showed) -->
+      <div *ngIf="loading" class="logo-section d-flex justify-content-center align-items-center" style="min-height: 300px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="#000000" viewBox="0 0 16 16">
+          <path d="M7.068.727c.243-.97 1.62-.97 1.864 0l.071.286a.96.96 0 0 0 1.622.434l.205-.211c.695-.719 1.888-.03 1.613.931l-.08.284a.96.96 0 0 0 1.187 1.187l.283-.081c.96-.275 1.65.918.931 1.613l-.211.205a.96.96 0 0 0 .434 1.622l.286.071c.97.243.97 1.62 0 1.864l-.286.071a.96.96 0 0 0-.434 1.622l.211.205c.719.695.03 1.888-.931 1.613l-.284-.08a.96.96 0 0 0-1.187 1.187l.081.283c.275.96-.918 1.65-1.613.931l-.205-.211a.96.96 0 0 0-1.622.434l-.071.286c-.243.97-1.62.97-1.864 0l-.071-.286a.96.96 0 0 0-1.622-.434l-.205.211c-.695.719-1.888.03-1.613-.931l.08-.284a.96.96 0 0 0-1.186-1.187l-.284.081c-.96.275-1.65-.918-.931-1.613l.211-.205a.96.96 0 0 0-.434-1.622l-.286-.071c-.97-.243-.97-1.62 0-1.864l.286-.071a.96.96 0 0 0 .434-1.622l-.211-.205c-.719-.695-.03-1.888.931-1.613l.284.08a.96.96 0 0 0 1.187-1.186l-.081-.284c-.275-.96.918-1.65 1.613-.931l.205.211a.96.96 0 0 0 1.622-.434zM12.973 8.5H8.25l-2.834 3.779A4.998 4.998 0 0 0 12.973 8.5m0-1a4.998 4.998 0 0 0-7.557-3.779l2.834 3.78zM5.048 3.967l-.087.065zm-.431.355A4.98 4.98 0 0 0 3.002 8c0 1.455.622 2.765 1.615 3.678L7.375 8zm.344 7.646.087.065z"/>
+        </svg>
+      </div>
+
+      <!-- ✅ CONTENT -->
+      <div *ngIf="!loading" class="contain p-4 rounded shadow">
+
+        <h3 class="fw-bold mb-3">Notifications</h3>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+
+          <ul class="nav nav-tabs mb-3">
+            <li class="nav-item">
+              <a class="nav-link"
+                 [class.active]="filter === 'all'"
+                 href="#"
+                 (click)="setFilter($event, 'all')">
+                All
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link"
+                 [class.active]="filter === 'unread'"
+                 href="#"
+                 (click)="setFilter($event, 'unread')">
+                Unread
+              </a>
+            </li>
+          </ul>
+
+          <button class="btn btn-sm mark-read-btn rounded-pill px-3"
+                  (click)="markAllAsRead()">
+            <i class="bi bi-check2-circle me-1"></i> Mark all as read
+          </button>
+        </div>
+
+        <span class="earlier">Earlier</span>
+        <br />
+        <br />
+
+        <!-- ✅ EMPTY STATE -->
+        <div *ngIf="filteredNotifications().length === 0" class="text-center my-4">
+          <p class="text-muted">No notifications yet.</p>
+        </div>
+
+        <!-- ✅ LIST -->
+        <div *ngFor="let notification of filteredNotifications(); let last = last">
+
+          <div class="notification-item d-flex align-items-center mb-3"
+               (click)="handleNotificationClick(notification)">
+
+            <div class="me-3">
+              <img
+              *ngIf="userDetails[notification.user_id]?.imageUrl"
+                [src]="userDetails[notification.user_id]?.imageUrl"
+                class="rounded-circle"
+                width="45"
+                height="45"
+                alt="User"
+                style="cursor:pointer;"
+                (click)="goToUserProfile($event, notification.user_id)"
+              />
+            </div>
+
+            <div class="flex-grow-1">
+              <p class="mb-1">
+                <span [ngClass]="{ 'fw-bold': notification.read_status === 'unread' }">
+                  {{ userNames[notification.user_id] || ('User #' + notification.user_id) }}
+                </span>
+                <span> {{ notification.message }} </span>
+              </p>
+              <small>Just now</small>
+            </div>
+
+            <div class="ms-2 d-flex align-items-center">
+              <span *ngIf="notification.read_status === 'unread'"
+                    class="rounded-circle ms-2"
+                    style="width: 10px; height: 10px; background-color: var(--primaryColor); display: inline-block;">
+              </span>
+
+              <svg xmlns="http://www.w3.org/2000/svg"
+                   width="16"
+                   height="16"
+                   fill="black"
+                   class="bi bi-trash3-fill ms-2"
+                   viewBox="0 0 16 16"
+                   (click)="confirmDelete(notification.notification_id)">
+                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5zM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06zM11.03 4.5a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528zM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5z"/>
+              </svg>
+            </div>
+          </div>
+
+          <hr *ngIf="!last" class="notification-divider my-2" />
+        </div>
+
+      </div>
     </div>
-    <span class="earlier">Earlier</span>
-    <br>
-    <br>
-    <div *ngIf="filteredNotifications().length === 0" class="text-center my-4">
-  <p class="text-muted">No notifications yet.</p>
-</div>
- <div *ngFor="let notification of filteredNotifications(); let last = last">
-<div class="notification-item d-flex align-items-center mb-3"
-     (click)="handleNotificationClick(notification)">
-    <div class="me-3">
-   <img [src]="userDetails[notification.user_id]?.imageUrl || 'assets/person1.jpg'"
-     class="rounded-circle" width="45" height="45" alt="User"
-  (click)="openModalIfAllowed()"
- />
+  </main>
 
-    </div>
-    <div class="flex-grow-1">
-      <p class="mb-1">
-   <span [ngClass]="{'fw-bold': notification.read_status === 'unread'}">
-{{ userNames[notification.user_id] || ('User #' + notification.user_id) }}
-
-</span>
-
-        <span>{{ notification.message }}</span>
-      </p>
-      <small>Just now</small> <!-- Ideally use a date formatter -->
-    </div>
-    <div class="ms-2 d-flex align-items-center">
-      <span *ngIf="notification.read_status === 'unread'" class="rounded-circle ms-2" style="width: 10px; height: 10px; background-color: #642eda; display: inline-block;"></span>
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-trash3-fill ms-2" viewBox="0 0 16 16" (click)="confirmDelete(notification.notification_id)">
-        <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5zM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06zM11.03 4.5a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528zM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5z"/>
-      </svg>
-    </div>
-  </div>
-  <hr *ngIf="!last" class="notification-divider my-2" />
-</div>
-
-
-  </div>
-</div>
-<br>
-<br>
-<app-footer-admin></app-footer-admin>
+  <app-footer-admin></app-footer-admin>
 </div>
