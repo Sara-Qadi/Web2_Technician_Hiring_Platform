@@ -1,0 +1,27 @@
+.text-color-primary {
+  color: #642eda;
+}
+
+.custom-thead th {
+  background-color: #642eda !important;
+  color: white;
+}
+
+.search-input {
+  border-radius: 50rem;
+  border-width: 3px;
+  padding-left: 1.5rem;
+  padding-right: 3rem;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+}
+
+.btn-reject {
+  background-color: #E93445;
+  color: white;
+}

@@ -1,0 +1,66 @@
+<app-navbar-admin></app-navbar-admin>
+
+<div class="container my-5">
+  <h1 class="text-center mb-4 text-color-primary fw-bold">Manage Reports</h1>
+
+  <!-- Search -->
+  <div class="d-flex justify-content-center mb-4">
+    <div class="position-relative w-50">
+      <input
+        type="text"
+        class="form-control search-input"
+        placeholder="Search by reported user or reason"
+        [(ngModel)]="searchQuery"
+        (ngModelChange)="onSearchChange()"
+      />
+      <i class="bi bi-search search-icon"></i>
+    </div>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="errorMessage" class="alert alert-danger text-center">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Table -->
+  <div class="table-responsive" *ngIf="!loading && !errorMessage && reports.length > 0">
+    <table class="table table-bordered bg-white custom-table">
+      <thead class="custom-thead">
+      <tr class="text-white text-center">
+        <th>#</th>
+        <th>Reported User</th>
+        <th>Reported By</th>
+        <th>Reason</th>
+        <th>Description</th>
+        <th>Date</th>
+        <th>Delete</th>
+      </tr>
+      </thead>
+
+      <tbody class="text-center">
+      <tr *ngFor="let report of reports; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ report.reported_user_name }}</td>
+        <td>{{ report.reporter_name }}</td>
+        <td>{{ report.reason }}</td>
+        <td>{{ report.description || '-' }}</td>
+        <td>{{ report.created_at | date: 'dd/MM/yyyy' }}</td>
+
+        <td>
+          <button class="btn btn-sm btn-reject" (click)="deleteReport(report.report_id)">
+            <i class="bi bi-trash3-fill"></i>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Empty -->
+  <div *ngIf="!loading && !errorMessage && reports.length === 0"
+       class="text-center text-muted">
+    No reports found.
+  </div>
+</div>
+
+<app-footer-admin></app-footer-admin>
