@@ -27,7 +27,7 @@
     <app-jobblock
       [job]="job"
       [role]="role"
-      (deleteRequest)="onDelete($event)">
+      (deleteRequest)="requestDelete($event)">
     </app-jobblock>
   </div>
 </div>
@@ -37,3 +37,20 @@
 </div>
 </main>
 <app-footer-admin></app-footer-admin>
+
+<!-- Confirmation Popup -->
+<div class="popup-backdrop" *ngIf="showPopup">
+  <div class="popup-card">
+    <h3 class="mb-3">Confirm Deletion</h3>
+    <p>Are you sure you want to delete this job post?</p>
+
+    <div class="d-flex justify-content-end gap-2 mt-4">
+      <button class="btn btn-outline-secondary" (click)="cancelDelete()">
+        Cancel
+      </button>
+      <button class="btn btn-danger" (click)="confirmDelete()">
+        Delete
+      </button>
+    </div>
+  </div>
+</div>

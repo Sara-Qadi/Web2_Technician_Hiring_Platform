@@ -1,5 +1,8 @@
-
+h3{
+  font-family: var(--headings);
+}
 .contain{
+  font-family: var(--body);
   background-color:white;
   color:black;
 }

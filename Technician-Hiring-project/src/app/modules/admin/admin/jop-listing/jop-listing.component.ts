@@ -6,6 +6,7 @@ import { JobblockComponent } from '../../../job_owner/jobblock/jobblock.componen
 import { AdminService } from '../../../../services/admin/admin.service';
 import { Jobpost } from '../../../../models/jobpost.model';
 import {FormsModule} from '@angular/forms';
+import { ToastService } from '../../../../services/toast.service';
 
 @Component({
   selector: 'app-jop-listing',
@@ -23,17 +24,22 @@ import {FormsModule} from '@angular/forms';
 })
 export class JopListingComponent implements OnInit {
   jobs: Jobpost[] = [];
-  loading: boolean = false;
-  errorMessage: string = '';
-  searchTerm: string = '';
-  role: number = 1; 
-  
-  constructor(private adminService: AdminService) {}
+  loading = false;
+  errorMessage = '';
+  searchTerm = '';
+  role = 1;
+
+  showPopup = false;
+  selectedJobIdToDelete: number | null = null;
+
+  constructor(
+    private adminService: AdminService,
+    public toast: ToastService
+  ) {}
 
   ngOnInit(): void {
-    this.loadJobs(); 
+    this.loadJobs();
   }
-
 
   loadJobs() {
     this.loading = true;
@@ -53,28 +59,35 @@ export class JopListingComponent implements OnInit {
     });
   }
 
-  onDelete(jobId: number) {
-    if (confirm('Are you sure you want to delete this job posting?')) {
-      this.adminService.deleteJobPost(jobId).subscribe({
-        next: (res) => {
-          if (res.success) {
-            this.jobs = this.jobs.filter(job => job.jobpost_id !== jobId);
-            alert('Job post deleted successfully.');
-          } else {
-            alert('Failed to delete job post.');
-          }
-        },
-        error: () => {
-          alert('An error occurred while deleting the job post.');
-        }
-      });
-    }
+  requestDelete(jobId: number) {
+    this.selectedJobIdToDelete = jobId;
+    this.showPopup = true;
+  }
+
+  cancelDelete() {
+    this.showPopup = false;
+    this.selectedJobIdToDelete = null;
+  }
+
+  confirmDelete() {
+    if (!this.selectedJobIdToDelete) return;
+
+    this.adminService.deleteJobPost(this.selectedJobIdToDelete).subscribe({
+      next: () => {
+        this.toast.show('Job deleted successfully', 'success');
+        this.jobs = this.jobs.filter(
+          job => job.jobpost_id !== this.selectedJobIdToDelete
+        );
+        this.cancelDelete();
+      },
+      error: () => {
+        this.toast.show('Failed to delete job', 'danger');
+        this.cancelDelete();
+      }
+    });
   }
 
   onSearchChange() {
     this.loadJobs();
   }
-
- 
-
 }

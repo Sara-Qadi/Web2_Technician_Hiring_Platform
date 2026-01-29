@@ -21,6 +21,7 @@ export class MybidsComponent implements OnInit {
 
   technicianID: number | null = null;
   proposals: any[] | null = null;
+  selectedTab: 'all' | 'pending' | 'accepted' | 'rejected' = 'all';
 
   loading = false;
 
@@ -54,4 +55,17 @@ export class MybidsComponent implements OnInit {
       console.log('koko', res);
     });
   }
+
+  get rejectedBids() {
+  return this.proposals?.filter(b => b.status_agreed === 'rejected');
+}
+
+get pendingBids() {
+  return this.proposals?.filter(b => b.status_agreed === 'pending');
+}
+
+get acceptedBids() {
+  return this.proposals?.filter(b => b.status_agreed === 'accepted');
+}
+
 }

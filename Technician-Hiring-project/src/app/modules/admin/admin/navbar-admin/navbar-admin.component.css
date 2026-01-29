@@ -59,7 +59,12 @@
   cursor: pointer;
 }
 
+.btn{
+  font-family: var(--body);
+}
+
 .top-navbar .nav-link {
+  font-family: var(--body);
   text-decoration: none;
   color: white;
   font-size: small;
@@ -287,13 +292,5 @@
   background: rgba(239, 68, 68, 0.15);
 }
 .bottom-navbar {
-  z-index: 900;
-}
-.bottom-navbar {
-  min-height: 44px;
-  align-items: center;
-}
-.nav-placeholder {
-  opacity: 0.75;
-  font-size: 0.9rem;
+  z-index: 900;  /* ✅ less than top navbar */
 }

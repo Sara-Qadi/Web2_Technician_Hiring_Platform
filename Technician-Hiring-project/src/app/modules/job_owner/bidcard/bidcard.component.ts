@@ -7,6 +7,7 @@ import { NotificationService } from '../../../services/notification.service';
 import { CommonModule } from '@angular/common';
 import { JobDataService } from '../../../services/jobdata.service';
 import { MessagingService } from '../../../services/messaging.service';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-bidcard',
@@ -26,7 +27,8 @@ export class BidcardComponent implements OnInit {
     private notificationService: NotificationService,
     private jobdataService: JobDataService,
     private mesagingService: MessagingService,
-    public router: Router
+    public router: Router,
+    public toast: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -44,7 +46,7 @@ export class BidcardComponent implements OnInit {
   acceptProposal(id: number): void {
     this.subservice.acceptproposal(id).subscribe({
       next: () => {
-        alert('PROPOSAL ACCEPTED SUCCESSFULLY!!');
+        this.toast.show('PROPOSAL ACCEPTED SUCCESSFULLY!!', 'success');
 
         this.proposalService.getProposalById(id).subscribe({
           next: (proposal) => {
@@ -70,7 +72,7 @@ export class BidcardComponent implements OnInit {
   rejectProposal(id: number): void {
     this.subservice.rejectproposal(id).subscribe({
       next: (response) => {
-        alert('PROPOSAL REJECTED SUCCESSFULLY');
+        this.toast.show('PROPOSAL REJECTED SUCCESSFULLY!!', 'success');
 
         this.proposalService.getProposalById(id).subscribe({
           next: (proposal) => {

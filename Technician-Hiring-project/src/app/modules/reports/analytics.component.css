@@ -2,6 +2,13 @@
   transition: transform 0.3s ease-in-out;
 }
 
+h2,th{
+  font-family: var(--headings);
+}
+span, label, p, a, button, td, small,select,option, input {
+  font-family: var(--body);
+}
+
 @media (max-width: 767px) {
   .sidebar {
     position: fixed !important;

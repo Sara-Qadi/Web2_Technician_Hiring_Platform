@@ -9,6 +9,7 @@ import { ProposalService } from '../../../services/proposal.service';
 import { Proposal } from '../../../models/proposal.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../../services/notification.service';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-submit-bides',
@@ -31,7 +32,8 @@ export class SubmitBidesComponent implements OnInit {
     private proposalService: ProposalService,
     private route: ActivatedRoute,
     private router: Router,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    public toast: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -97,7 +99,7 @@ export class SubmitBidesComponent implements OnInit {
       error: (err) => console.error('❌ Failed to send notification', err)
     });
 
-    alert('Proposal submitted successfully!');
+    this.toast.show('Proposal submitted successfully!', 'success');
     this.Price = null;
     this.comment = '';
     this.showForm = false;
@@ -107,7 +109,7 @@ export class SubmitBidesComponent implements OnInit {
   error: (err) => {
     if (err.status === 403 && err.error?.message === 'Unauthorized') {
       console.error('❌ Unauthorized: Only technicians can submit proposals.');
-      alert(' ❌ Only technicians are allowed to submit proposals.');
+      this.toast.show('Only technicians are allowed to submit proposals.', 'danger');
     } else {
       console.error('❌ Error submitting proposal:', err);
     }
