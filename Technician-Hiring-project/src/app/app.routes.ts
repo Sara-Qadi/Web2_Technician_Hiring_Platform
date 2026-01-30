@@ -30,6 +30,7 @@ import {EditUserComponent} from './modules/admin/admin/edit-user/edit-user.compo
 import { ResetPasswordComponent } from './modules/auth/reset-password/reset-password.component';
 
 import { ProposalspageComponent } from './modules/job_owner/proposalspage/proposalspage.component';
+import { ManageReportsComponent } from './modules/admin/admin/manage-reports/manage-reports.component';
 
 
 export const routes: Routes = [
@@ -65,6 +66,7 @@ export const routes: Routes = [
     component: CraftsmenRegistrationsComponent,
   },
   { path: 'admin/delete-craftsman', component: DeleteCraftsmanComponent },
+  { path: 'admin/manage-reports', component: ManageReportsComponent },
   { path: 'admin/jop-listing', component: JopListingComponent },
   { path: 'navbar-admin', component: NavbarAdminComponent },
   { path: 'footer-admin', component: FooterAdminComponent },
