@@ -27,12 +27,8 @@ export class ReportsService {
   return this.http.delete(`${this.baseUrl}/reports/${id}`);
 }
 
+storeReport(payload: any) {
+  return this.http.post('http://localhost:8000/api/reports', payload); // ✅ full backend URL
+}
 
-  storeReport(data: any) {
-    return this.http.post(
-      `${this.baseUrl}/reports`,
-      data,
-      { headers: this.getAuth() }
-    );
-  }
 }

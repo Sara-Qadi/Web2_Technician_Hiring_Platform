@@ -93,25 +93,27 @@ export class JobdetailsComponent implements OnInit {
     });
   }
 
-  // ✅ report store
-  confirmReport() {
-    const payload = {
-      reportable_type: 'App\\Models\\User',
-      reportable_id: this.job.user_id,
-      reason: this.reportReason,
-      description: this.reportDescription
-    };
-   console.log('Report payload:', payload);
-    this.reportsService.storeReport(payload).subscribe({
-      next: () => {
-        this.reportReason = '';
-        this.reportDescription = '';
-        this.toast.show('Report submitted successfully', 'success');
-      },
-      error: () => {
-       this.toast.show('Failed to submit report', 'danger');
+confirmReport() {
+  const payload = {
+    jobpost_id: this.job?.jobpost_id || null,
+    reported_user_id: this.job?.user_id || null,
+    reason: this.reportReason,
+    report_type: 'user',
+  };
 
-      }
-    });
-  }
+  console.log('Report payload:', payload);
+
+  this.reportsService.storeReport(payload).subscribe({
+    next: () => {
+      this.reportReason = '';
+      this.reportDescription = '';
+      this.toast.show('Report submitted successfully', 'success');
+    },
+    error: (err) => {
+      console.error('Error submitting report:', err);
+      this.toast.show('Failed to submit report', 'danger');
+    }
+  });
+}
+
 }
