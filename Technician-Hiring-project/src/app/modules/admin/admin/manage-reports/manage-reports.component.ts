@@ -65,12 +65,19 @@ getReports() {
     );
   }
 
-  deleteReport(reportId: number) {
+   deleteReport(id: number) {
     if (!confirm('Are you sure you want to delete this report?')) return;
 
-    this.ReportsService.deleteReport(reportId).subscribe(() => {
-      this.reports = this.reports.filter(r => r.report_id !== reportId);
-      this.filteredReports = this.filteredReports.filter(r => r.report_id !== reportId);
+    this.ReportsService.deleteReport(id).subscribe({
+      next: () => {
+        this.reports = this.reports.filter(r => r.id !== id);
+        this.filteredReports = this.filteredReports.filter(r => r.id !== id);
+        alert('Report deleted successfully');
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Failed to delete report');
+      }
     });
   }
 }

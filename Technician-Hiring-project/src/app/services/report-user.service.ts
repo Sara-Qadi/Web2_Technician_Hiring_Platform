@@ -23,9 +23,16 @@ export class ReportsService {
     });
   }
 
-  deleteReport(id: number) {
-    return this.http.delete(`${this.baseUrl}/reports/${id}`, {
-      headers: this.getAuth()
-    });
+ deleteReport(id: number) {
+  return this.http.delete(`${this.baseUrl}/reports/${id}`);
+}
+
+
+  storeReport(data: any) {
+    return this.http.post(
+      `${this.baseUrl}/reports`,
+      data,
+      { headers: this.getAuth() }
+    );
   }
 }

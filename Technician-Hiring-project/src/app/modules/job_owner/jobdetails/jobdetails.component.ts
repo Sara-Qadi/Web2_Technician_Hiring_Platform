@@ -1,34 +1,53 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router,RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { JobDataService } from '../../../services/jobdata.service';
 import { FooterAdminComponent } from '../../admin/admin/footer-admin/footer-admin.component';
 import { NavbarAdminComponent } from '../../admin/admin/navbar-admin/navbar-admin.component';
 import { ProfileService } from '../../../services/profile.service';
 import { ProposalService } from '../../../services/proposal.service';
 import { ToastService } from '../../../services/toast.service';
+import { ReportsService } from '../../../services/report-user.service';
+
 @Component({
   selector: 'app-jobdetails',
   standalone: true,
-  imports: [CommonModule, NavbarAdminComponent, FooterAdminComponent,RouterLink],
+  imports: [
+    CommonModule,
+    NavbarAdminComponent,
+    FooterAdminComponent,
+    RouterLink,
+    FormsModule
+  ],
   templateUrl: './jobdetails.component.html',
   styleUrl: './jobdetails.component.css'
 })
 export class JobdetailsComponent implements OnInit {
+
   job: any;
   attachments: string[] = [];
+
+  reportReason: string = '';
+  reportDescription: string = '';
+
+  loading = false;
+
+  @Input() showButtons = true;
+  @Input() showTitle = true;
+
   private route = inject(ActivatedRoute);
-  private router=inject(Router);
+  private router = inject(Router);
   private dataService = inject(JobDataService);
   private profileService = inject(ProfileService);
   private proposalService = inject(ProposalService);
-  public toast=inject(ToastService);
-  @Input() showButtons = true;
-  @Input() showTitle = true;
-  loading= false;
+  private toast = inject(ToastService);
+  private reportsService = inject(ReportsService); // ✅ الحل هون
+
   ngOnInit() {
-    this.loading = true; 
+    this.loading = true;
     const id = Number(this.route.snapshot.paramMap.get('id'));
+
     if (id) {
       this.dataService.getthisjobpost(id).subscribe({
         next: (res) => {
@@ -39,36 +58,60 @@ export class JobdetailsComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error loading job:', err);
+          this.loading = false;
         }
       });
-    } else {
-      console.error('Invalid job ID in URL');
     }
   }
 
   gotosubmitbid() {
-  const id = Number(this.route.snapshot.paramMap.get('id'));
-  this.profileService.getUser().subscribe({
-    next: (res) => {
-      this.proposalService.checkIfUserValidateToSubmitBids(res.user_id, id).subscribe({
-      next: (response: any) => {
-        if (response.canSubmit) {
-          console.log('User validated to submit bid:', response);
-          this.router.navigate(['/submit-bid', this.job.jobpost_id]);
-        }
-        else {
-          this.toast.show('You have already submitted a proposal for this job.', 'warning');
-        }
-      },
-    error: (err) => {
-      console.error('Error validating user for bid:', err);
-    }
-  });
-  },
-  error: (err) => {
-    console.error('Error loading user:', err);
-  }
-  });
-}
+    const id = Number(this.route.snapshot.paramMap.get('id'));
 
+    this.profileService.getUser().subscribe({
+      next: (res) => {
+        this.proposalService
+          .checkIfUserValidateToSubmitBids(res.user_id, id)
+          .subscribe({
+            next: (response: any) => {
+              if (response.canSubmit) {
+                this.router.navigate(['/submit-bid', this.job.jobpost_id]);
+              } else {
+                this.toast.show(
+                  'You have already submitted a proposal for this job.',
+                  'warning'
+                );
+              }
+            },
+            error: (err) => {
+              console.error('Error validating user for bid:', err);
+            }
+          });
+      },
+      error: (err) => {
+        console.error('Error loading user:', err);
+      }
+    });
+  }
+
+  // ✅ report store
+  confirmReport() {
+    const payload = {
+      reportable_type: 'App\\Models\\User',
+      reportable_id: this.job.user_id,
+      reason: this.reportReason,
+      description: this.reportDescription
+    };
+   console.log('Report payload:', payload);
+    this.reportsService.storeReport(payload).subscribe({
+      next: () => {
+        this.reportReason = '';
+        this.reportDescription = '';
+        this.toast.show('Report submitted successfully', 'success');
+      },
+      error: () => {
+       this.toast.show('Failed to submit report', 'danger');
+
+      }
+    });
+  }
 }
